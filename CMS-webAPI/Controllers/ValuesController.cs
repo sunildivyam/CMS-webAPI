@@ -9,31 +9,39 @@ namespace CMS_webAPI.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        private string[] data = new string[] { "value1", "value2" };
 
+        // GET api/values
+        
+        public string[] Get()
+        {
+            return data;
+        }
+        
+        [Authorize]
         // GET api/values/5
         public string Get(int id)
         {
-            return "value";
+            return data[id];
         }
 
         // POST api/values
-        public void Post([FromBody]string value)
+        public string[] Post([FromBody]string[] value)
         {
+            data = value;
+            return data;
         }
 
         // PUT api/values/5
         public void Put(int id, [FromBody]string value)
         {
+            data[id] = value;
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public string Delete(int id)
         {
+            return data[id];
         }
     }
 }
