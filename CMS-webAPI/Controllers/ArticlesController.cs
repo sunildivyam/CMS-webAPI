@@ -17,16 +17,16 @@ namespace CMS_webAPI.Controllers
         private CmsDbContext db = new CmsDbContext();
 
         // GET: api/Articles
-        public IQueryable<Articles> GetArticles()
+        public IQueryable<Article> GetArticles()
         {
             return db.Articles;
         }
 
         // GET: api/Articles/5
-        [ResponseType(typeof(Articles))]
+        [ResponseType(typeof(Article))]
         public IHttpActionResult GetArticles(int id)
         {
-            Articles articles = db.Articles.Find(id);
+            Article articles = db.Articles.Find(id);
             if (articles == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace CMS_webAPI.Controllers
 
         // PUT: api/Articles/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutArticles(int id, Articles articles)
+        public IHttpActionResult PutArticles(int id, Article articles)
         {
             if (!ModelState.IsValid)
             {
@@ -71,8 +71,8 @@ namespace CMS_webAPI.Controllers
         }
 
         // POST: api/Articles
-        [ResponseType(typeof(Articles))]
-        public IHttpActionResult PostArticles(Articles articles)
+        [ResponseType(typeof(Article))]
+        public IHttpActionResult PostArticles(Article articles)
         {
             if (!ModelState.IsValid)
             {
@@ -86,10 +86,10 @@ namespace CMS_webAPI.Controllers
         }
 
         // DELETE: api/Articles/5
-        [ResponseType(typeof(Articles))]
+        [ResponseType(typeof(Article))]
         public IHttpActionResult DeleteArticles(int id)
         {
-            Articles articles = db.Articles.Find(id);
+            Article articles = db.Articles.Find(id);
             if (articles == null)
             {
                 return NotFound();

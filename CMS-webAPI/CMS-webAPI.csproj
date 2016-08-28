@@ -222,6 +222,7 @@
     </Compile>
     <Compile Include="CmsDbMigrations\Configuration.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\TechnologiesController.cs" />
     <Compile Include="IdentityMigrations\201608280406225_InitialCreate.cs" />
     <Compile Include="IdentityMigrations\201608280406225_InitialCreate.Designer.cs">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>
