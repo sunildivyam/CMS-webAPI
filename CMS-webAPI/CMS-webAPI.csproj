@@ -216,9 +216,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="CmsDbMigrations\201608280406556_InitialCreate.cs" />
-    <Compile Include="CmsDbMigrations\201608280406556_InitialCreate.Designer.cs">
-      <DependentUpon>201608280406556_InitialCreate.cs</DependentUpon>
+    <Compile Include="CmsDbMigrations\201608281122069_InitialCreate.cs" />
+    <Compile Include="CmsDbMigrations\201608281122069_InitialCreate.Designer.cs">
+      <DependentUpon>201608281122069_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="CmsDbMigrations\Configuration.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
@@ -227,9 +227,8 @@
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="IdentityMigrations\Configuration.cs" />
-    <Compile Include="Models\Articles.cs" />
-    <Compile Include="Models\ArticleUpdates.cs" />
-    <Compile Include="Models\AuthorActions.cs" />
+    <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleTag.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -238,9 +237,14 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ArticleTechnology.cs" />
+    <Compile Include="Models\Author_Article.cs" />
+    <Compile Include="Models\Author_ArticleTags.cs" />
+    <Compile Include="Models\Author_ArticleTechnology.cs" />
     <Compile Include="Models\CmsDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Tags.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\Technology.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -327,8 +331,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CmsDbMigrations\201608280406556_InitialCreate.resx">
-      <DependentUpon>201608280406556_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="CmsDbMigrations\201608281122069_InitialCreate.resx">
+      <DependentUpon>201608281122069_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityMigrations\201608280406225_InitialCreate.resx">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>

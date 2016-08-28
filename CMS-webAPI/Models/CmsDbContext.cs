@@ -12,9 +12,15 @@ namespace CMS_webAPI.Models
             : base("DefaultConnection")
         {
         }
-        public virtual DbSet<Articles> Articles { get; set; }
-        public virtual DbSet<ArticleUpdates> ArticleUpdates { get; set; }
-        public virtual DbSet<AuthorActions> AuthorActions { get; set; }
-        public virtual DbSet<Tags> Tags { get; set; }
+
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Technology> Technologies { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<ArticleTag> ArticleTags { get; set; }
+        public virtual DbSet<ArticleTechnology> ArticleTechnologies { get; set; }
+
+        public virtual DbSet<Author_Article> Author_Articles { get; set; }
+        public virtual DbSet<Author_ArticleTag> Author_ArticleTags { get; set; }
+        public virtual DbSet<Author_ArticleTechnology> Author_ArticleTechnologies { get; set; }
     }
 }
