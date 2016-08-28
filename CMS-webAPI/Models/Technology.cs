@@ -5,15 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CMS_webAPI.Models
 {
-    public class Tags
+    public class Technology
     {
         [Key]
-        [StringLength(500)]
-        public string Id { get; set; }  // dash (-) separated Tag Name
+        public int Id { get; set; }
 
         [Required]
         [StringLength(500)]
         [Index(IsUnique = true)]
-        public string Name { get; set; }   // Tag Name with no Special characters
+        public string Title { get; set; }   // Tag Name with no Special characters
+
+        public string Description { get; set; }   // Tag Name with no Special characters
     }
 }
