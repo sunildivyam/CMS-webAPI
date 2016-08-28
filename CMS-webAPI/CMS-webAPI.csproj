@@ -111,6 +111,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -215,20 +216,31 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="CmsDbMigrations\201608280406556_InitialCreate.cs" />
+    <Compile Include="CmsDbMigrations\201608280406556_InitialCreate.Designer.cs">
+      <DependentUpon>201608280406556_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CmsDbMigrations\Configuration.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="IdentityMigrations\201608280406225_InitialCreate.cs" />
+    <Compile Include="IdentityMigrations\201608280406225_InitialCreate.Designer.cs">
+      <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IdentityMigrations\Configuration.cs" />
+    <Compile Include="Models\Articles.cs" />
+    <Compile Include="Models\ArticleUpdates.cs" />
+    <Compile Include="Models\AuthorActions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608151250500_Init.cs" />
-    <Compile Include="Migrations\201608151250500_Init.Designer.cs">
-      <DependentUpon>201608151250500_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CmsDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Tags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -289,7 +301,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -313,8 +327,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608151250500_Init.resx">
-      <DependentUpon>201608151250500_Init.cs</DependentUpon>
+    <EmbeddedResource Include="CmsDbMigrations\201608280406556_InitialCreate.resx">
+      <DependentUpon>201608280406556_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IdentityMigrations\201608280406225_InitialCreate.resx">
+      <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,4 @@
-namespace CMS_webAPI.Migrations
+namespace CMS_webAPI.IdentityMigrations
 {
     using System;
     using System.Data.Entity;
@@ -10,6 +10,7 @@ namespace CMS_webAPI.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"IdentityMigrations";
         }
 
         protected override void Seed(CMS_webAPI.Models.ApplicationDbContext context)

@@ -1,9 +1,9 @@
-namespace CMS_webAPI.Migrations
+namespace CMS_webAPI.IdentityMigrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
