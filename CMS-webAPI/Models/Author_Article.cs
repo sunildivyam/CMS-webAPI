@@ -7,6 +7,11 @@ namespace CMS_webAPI.Models
 {
     public class Author_Article
     {
+        public Author_Article()
+        {
+
+        }
+
         [Key]
         public int Id { get; set; }
 

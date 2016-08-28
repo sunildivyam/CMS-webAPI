@@ -7,6 +7,11 @@ namespace CMS_webAPI.Models
 {
     public class Tag
     {
+        public Tag()
+        {
+
+        }
+
         [Key]        
         public int Id { get; set; }
 

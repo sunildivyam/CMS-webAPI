@@ -8,6 +8,11 @@ namespace CMS_webAPI.Models
 {
     public class ArticleTechnology
     {
+        public ArticleTechnology()
+        {
+
+        }
+
         [Key]
         public int Id { get; set; }
 

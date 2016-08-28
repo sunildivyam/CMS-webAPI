@@ -8,6 +8,11 @@ namespace CMS_webAPI.Models
 {
     public class Author_ArticleTag
     {
+        public Author_ArticleTag()
+        {
+
+        }
+
         [Key]
         public int Id { get; set; }
 

@@ -7,6 +7,11 @@ namespace CMS_webAPI.Models
 {
     public class Technology
     {
+        public Technology()
+        {
+
+        }
+
         [Key]
         public int Id { get; set; }
 
