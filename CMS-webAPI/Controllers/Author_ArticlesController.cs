@@ -13,44 +13,44 @@ using CMS_webAPI.Models;
 
 namespace CMS_webAPI.Controllers
 {
-    public class ArticlesController : ApiController
+    public class Author_ArticlesController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
 
-        // GET: api/Articles
-        public IQueryable<Article> GetArticles()
+        // GET: api/Author_Articles
+        public IQueryable<Author_Article> GetAuthor_Articles()
         {
-            return db.Articles;
+            return db.Author_Articles;
         }
 
-        // GET: api/Articles/5
-        [ResponseType(typeof(Article))]
-        public async Task<IHttpActionResult> GetArticle(int id)
+        // GET: api/Author_Articles/5
+        [ResponseType(typeof(Author_Article))]
+        public async Task<IHttpActionResult> GetAuthor_Article(int id)
         {
-            Article article = await db.Articles.FindAsync(id);
-            if (article == null)
+            Author_Article author_Article = await db.Author_Articles.FindAsync(id);
+            if (author_Article == null)
             {
                 return NotFound();
             }
 
-            return Ok(article);
+            return Ok(author_Article);
         }
 
-        // PUT: api/Articles/5
+        // PUT: api/Author_Articles/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutArticle(int id, Article article)
+        public async Task<IHttpActionResult> PutAuthor_Article(int id, Author_Article author_Article)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != article.Id)
+            if (id != author_Article.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(article).State = EntityState.Modified;
+            db.Entry(author_Article).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace CMS_webAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ArticleExists(id))
+                if (!Author_ArticleExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +71,35 @@ namespace CMS_webAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Articles
-        [ResponseType(typeof(Article))]
-        public async Task<IHttpActionResult> PostArticle(Article article)
+        // POST: api/Author_Articles
+        [ResponseType(typeof(Author_Article))]
+        public async Task<IHttpActionResult> PostAuthor_Article(Author_Article author_Article)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Articles.Add(article);
+            db.Author_Articles.Add(author_Article);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = article.Id }, article);
+            return CreatedAtRoute("DefaultApi", new { id = author_Article.Id }, author_Article);
         }
 
-        // DELETE: api/Articles/5
-        [ResponseType(typeof(Article))]
-        public async Task<IHttpActionResult> DeleteArticle(int id)
+        // DELETE: api/Author_Articles/5
+        [ResponseType(typeof(Author_Article))]
+        public async Task<IHttpActionResult> DeleteAuthor_Article(int id)
         {
-            Article article = await db.Articles.FindAsync(id);
-            if (article == null)
+            Author_Article author_Article = await db.Author_Articles.FindAsync(id);
+            if (author_Article == null)
             {
                 return NotFound();
             }
 
-            db.Articles.Remove(article);
+            db.Author_Articles.Remove(author_Article);
             await db.SaveChangesAsync();
 
-            return Ok(article);
+            return Ok(author_Article);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +111,9 @@ namespace CMS_webAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ArticleExists(int id)
+        private bool Author_ArticleExists(int id)
         {
-            return db.Articles.Count(e => e.Id == id) > 0;
+            return db.Author_Articles.Count(e => e.Id == id) > 0;
         }
     }
 }

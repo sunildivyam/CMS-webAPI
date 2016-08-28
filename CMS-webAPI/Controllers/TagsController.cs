@@ -13,44 +13,44 @@ using CMS_webAPI.Models;
 
 namespace CMS_webAPI.Controllers
 {
-    public class ArticlesController : ApiController
+    public class TagsController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
 
-        // GET: api/Articles
-        public IQueryable<Article> GetArticles()
+        // GET: api/Tags
+        public IQueryable<Tag> GetTags()
         {
-            return db.Articles;
+            return db.Tags;
         }
 
-        // GET: api/Articles/5
-        [ResponseType(typeof(Article))]
-        public async Task<IHttpActionResult> GetArticle(int id)
+        // GET: api/Tags/5
+        [ResponseType(typeof(Tag))]
+        public async Task<IHttpActionResult> GetTag(int id)
         {
-            Article article = await db.Articles.FindAsync(id);
-            if (article == null)
+            Tag tag = await db.Tags.FindAsync(id);
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            return Ok(article);
+            return Ok(tag);
         }
 
-        // PUT: api/Articles/5
+        // PUT: api/Tags/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutArticle(int id, Article article)
+        public async Task<IHttpActionResult> PutTag(int id, Tag tag)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != article.Id)
+            if (id != tag.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(article).State = EntityState.Modified;
+            db.Entry(tag).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace CMS_webAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ArticleExists(id))
+                if (!TagExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +71,35 @@ namespace CMS_webAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Articles
-        [ResponseType(typeof(Article))]
-        public async Task<IHttpActionResult> PostArticle(Article article)
+        // POST: api/Tags
+        [ResponseType(typeof(Tag))]
+        public async Task<IHttpActionResult> PostTag(Tag tag)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Articles.Add(article);
+            db.Tags.Add(tag);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = article.Id }, article);
+            return CreatedAtRoute("DefaultApi", new { id = tag.Id }, tag);
         }
 
-        // DELETE: api/Articles/5
-        [ResponseType(typeof(Article))]
-        public async Task<IHttpActionResult> DeleteArticle(int id)
+        // DELETE: api/Tags/5
+        [ResponseType(typeof(Tag))]
+        public async Task<IHttpActionResult> DeleteTag(int id)
         {
-            Article article = await db.Articles.FindAsync(id);
-            if (article == null)
+            Tag tag = await db.Tags.FindAsync(id);
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            db.Articles.Remove(article);
+            db.Tags.Remove(tag);
             await db.SaveChangesAsync();
 
-            return Ok(article);
+            return Ok(tag);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +111,9 @@ namespace CMS_webAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ArticleExists(int id)
+        private bool TagExists(int id)
         {
-            return db.Articles.Count(e => e.Id == id) > 0;
+            return db.Tags.Count(e => e.Id == id) > 0;
         }
     }
 }
