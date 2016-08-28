@@ -1,0 +1,1 @@
+CREATE TRIGGER TRG_AFTER_INSERT_Articles ON  Articles AFTER INSERT AS BEGIN SET NOCOUNT ON; declare @ArticleId int; declare @AuthorAction varchar(5); select @ArticleId=i.Id from inserted i; set @AuthorAction='Create'; insert into ArticleUpdates(ArticleId, ActionTimeStamp, AuthorAction) values (@ArticleId,getdate(),@AuthorAction); END
