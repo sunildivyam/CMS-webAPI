@@ -13,45 +13,45 @@ using CMS_webAPI.Models;
 
 namespace CMS_webAPI.Controllers
 {
-    public class TechnologiesController : ApiController
+    public class CategoriesController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
 
-        // GET: api/Technologies
-        public IQueryable<Technology> GetTechnologies()
+        // GET: api/Categories
+        public IQueryable<Category> GetCategories()
         {
-            return db.Technologies;
+            return db.Categories;
         }
 
-        // GET: api/Technologies/5
-        [ResponseType(typeof(Technology))]
-        public async Task<IHttpActionResult> GetTechnology(int id)
+        // GET: api/Categories/5
+        [ResponseType(typeof(Category))]
+        public async Task<IHttpActionResult> GetCategory(int id)
         {
-            Technology technology = await db.Technologies.FindAsync(id);
-            if (technology == null)
+            Category Category = await db.Categories.FindAsync(id);
+            if (Category == null)
             {
                 return NotFound();
             }
 
-            return Ok(technology);
+            return Ok(Category);
         }
 
-        // PUT: api/Technologies/5
+        // PUT: api/Categories/5
         [Authorize]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutTechnology(int id, Technology technology)
+        public async Task<IHttpActionResult> PutCategory(int id, Category Category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != technology.Id)
+            if (id != Category.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(technology).State = EntityState.Modified;
+            db.Entry(Category).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace CMS_webAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TechnologyExists(id))
+                if (!CategoryExists(id))
                 {
                     return NotFound();
                 }
@@ -72,37 +72,37 @@ namespace CMS_webAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Technologies
+        // POST: api/Categories
         [Authorize]
-        [ResponseType(typeof(Technology))]
-        public async Task<IHttpActionResult> PostTechnology(Technology technology)
+        [ResponseType(typeof(Category))]
+        public async Task<IHttpActionResult> PostCategory(Category Category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Technologies.Add(technology);
+            db.Categories.Add(Category);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = technology.Id }, technology);
+            return CreatedAtRoute("DefaultApi", new { id = Category.Id }, Category);
         }
 
-        // DELETE: api/Technologies/5
+        // DELETE: api/Categories/5
         [Authorize(Roles="Administrator")]
-        [ResponseType(typeof(Technology))]
-        public async Task<IHttpActionResult> DeleteTechnology(int id)
+        [ResponseType(typeof(Category))]
+        public async Task<IHttpActionResult> DeleteCategory(int id)
         {
-            Technology technology = await db.Technologies.FindAsync(id);
-            if (technology == null)
+            Category Category = await db.Categories.FindAsync(id);
+            if (Category == null)
             {
                 return NotFound();
             }
 
-            db.Technologies.Remove(technology);
+            db.Categories.Remove(Category);
             await db.SaveChangesAsync();
 
-            return Ok(technology);
+            return Ok(Category);
         }
 
         protected override void Dispose(bool disposing)
@@ -114,9 +114,9 @@ namespace CMS_webAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool TechnologyExists(int id)
+        private bool CategoryExists(int id)
         {
-            return db.Technologies.Count(e => e.Id == id) > 0;
+            return db.Categories.Count(e => e.Id == id) > 0;
         }
     }
 }

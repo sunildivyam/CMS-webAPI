@@ -13,21 +13,21 @@ using CMS_webAPI.Models;
 
 namespace CMS_webAPI.Controllers
 {
-    public class Author_ArticlesController : ApiController
+    public class Author_ContentsController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
 
-        // GET: api/Author_Articles
-        public IQueryable<Author_Article> GetAuthor_Articles()
+        // GET: api/Author_Contents
+        public IQueryable<Author_Content> GetAuthor_Contents()
         {
-            return db.Author_Articles;
+            return db.Author_Contents;
         }
 
-        // GET: api/Author_Articles/5
-        [ResponseType(typeof(Author_Article))]
+        // GET: api/Author_Contents/5
+        [ResponseType(typeof(Author_Content))]
         public async Task<IHttpActionResult> GetAuthor_Article(int id)
         {
-            Author_Article author_Article = await db.Author_Articles.FindAsync(id);
+            Author_Content author_Article = await db.Author_Contents.FindAsync(id);
             if (author_Article == null)
             {
                 return NotFound();
@@ -36,9 +36,9 @@ namespace CMS_webAPI.Controllers
             return Ok(author_Article);
         }
 
-        // PUT: api/Author_Articles/5
+        // PUT: api/Author_Contents/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAuthor_Article(int id, Author_Article author_Article)
+        public async Task<IHttpActionResult> PutAuthor_Article(int id, Author_Content author_Article)
         {
             if (!ModelState.IsValid)
             {
@@ -71,32 +71,32 @@ namespace CMS_webAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Author_Articles
-        [ResponseType(typeof(Author_Article))]
-        public async Task<IHttpActionResult> PostAuthor_Article(Author_Article author_Article)
+        // POST: api/Author_Contents
+        [ResponseType(typeof(Author_Content))]
+        public async Task<IHttpActionResult> PostAuthor_Article(Author_Content author_Article)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Author_Articles.Add(author_Article);
+            db.Author_Contents.Add(author_Article);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = author_Article.Id }, author_Article);
         }
 
-        // DELETE: api/Author_Articles/5
-        [ResponseType(typeof(Author_Article))]
+        // DELETE: api/Author_Contents/5
+        [ResponseType(typeof(Author_Content))]
         public async Task<IHttpActionResult> DeleteAuthor_Article(int id)
         {
-            Author_Article author_Article = await db.Author_Articles.FindAsync(id);
+            Author_Content author_Article = await db.Author_Contents.FindAsync(id);
             if (author_Article == null)
             {
                 return NotFound();
             }
 
-            db.Author_Articles.Remove(author_Article);
+            db.Author_Contents.Remove(author_Article);
             await db.SaveChangesAsync();
 
             return Ok(author_Article);
@@ -113,7 +113,7 @@ namespace CMS_webAPI.Controllers
 
         private bool Author_ArticleExists(int id)
         {
-            return db.Author_Articles.Count(e => e.Id == id) > 0;
+            return db.Author_Contents.Count(e => e.Id == id) > 0;
         }
     }
 }

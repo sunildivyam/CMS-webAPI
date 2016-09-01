@@ -14,13 +14,12 @@ namespace CMS_webAPI.Models
         }
 
         public virtual DbSet<Tag> Tags { get; set; }
-        public virtual DbSet<Technology> Technologies { get; set; }
-        public virtual DbSet<Article> Articles { get; set; }
-        public virtual DbSet<ArticleTag> ArticleTags { get; set; }
-        public virtual DbSet<ArticleTechnology> ArticleTechnologies { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
 
-        public virtual DbSet<Author_Article> Author_Articles { get; set; }
-        public virtual DbSet<Author_ArticleTag> Author_ArticleTags { get; set; }
-        public virtual DbSet<Author_ArticleTechnology> Author_ArticleTechnologies { get; set; }
+        public virtual DbSet<Content> Contents { get; set; }
+        public virtual DbSet<ContentTag> ContentTags { get; set; }
+
+        public virtual DbSet<Author_Content> Author_Contents { get; set; }
+        public virtual DbSet<Author_ContentTag> Author_ContentTags { get; set; }
     }
 }

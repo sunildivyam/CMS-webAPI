@@ -4,18 +4,21 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CMS_webAPI.Models
-{
-    public class Article
+{    
+    public class Content
     {
-        public Article()
+        public Content()
         {
 
         }
 
         [Key]
-        public int Id { get; set; }        
+        public int Id { get; set; }
 
         [Required]
+        [StringLength(500)]
+        public string Name { get; set; }
+        
         [StringLength(500)]
         public string Title { get; set; }
 
@@ -24,20 +27,23 @@ namespace CMS_webAPI.Models
 
         [Required]
         public string Description { get; set; }
-        
+
+        [Required]
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+
         [Required]
         public bool IsLive { get; set; }
 
         [Required]
-        public string Author { get; set; }
+        public int OwnerId { get; set; }
 
         [Required]
         public DateTime PublishedDate { get; set; }
+        
+        public int VisitCount { get; set; }
 
-        public int Visits { get; set; }
-
-        public virtual ICollection<Author_Article> Author_Articles { get; set; }
-        public virtual ICollection<ArticleTag> ArticleTags { get; set; }
-        public virtual ICollection<ArticleTechnology> ArticleTechnologies { get; set; }
+        // RelationShips
+        public virtual Category Category { get; set; }    
     }
 }

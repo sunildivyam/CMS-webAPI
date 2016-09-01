@@ -13,21 +13,21 @@ using CMS_webAPI.Models;
 
 namespace CMS_webAPI.Controllers
 {
-    public class ArticlesController : ApiController
+    public class ContentsController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
 
-        // GET: api/Articles
-        public IQueryable<Article> GetArticles()
+        // GET: api/Contents
+        public IQueryable<Content> GetContents()
         {
-            return db.Articles;
+            return db.Contents;
         }
 
-        // GET: api/Articles/5
-        [ResponseType(typeof(Article))]
+        // GET: api/Contents/5
+        [ResponseType(typeof(Content))]
         public async Task<IHttpActionResult> GetArticle(int id)
         {
-            Article article = await db.Articles.FindAsync(id);
+            Content article = await db.Contents.FindAsync(id);
             if (article == null)
             {
                 return NotFound();
@@ -36,9 +36,9 @@ namespace CMS_webAPI.Controllers
             return Ok(article);
         }
 
-        // PUT: api/Articles/5
+        // PUT: api/Contents/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutArticle(int id, Article article)
+        public async Task<IHttpActionResult> PutArticle(int id, Content article)
         {
             if (!ModelState.IsValid)
             {
@@ -71,32 +71,32 @@ namespace CMS_webAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Articles
-        [ResponseType(typeof(Article))]
-        public async Task<IHttpActionResult> PostArticle(Article article)
+        // POST: api/Contents
+        [ResponseType(typeof(Content))]
+        public async Task<IHttpActionResult> PostArticle(Content article)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Articles.Add(article);
+            db.Contents.Add(article);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = article.Id }, article);
         }
 
-        // DELETE: api/Articles/5
-        [ResponseType(typeof(Article))]
+        // DELETE: api/Contents/5
+        [ResponseType(typeof(Content))]
         public async Task<IHttpActionResult> DeleteArticle(int id)
         {
-            Article article = await db.Articles.FindAsync(id);
+            Content article = await db.Contents.FindAsync(id);
             if (article == null)
             {
                 return NotFound();
             }
 
-            db.Articles.Remove(article);
+            db.Contents.Remove(article);
             await db.SaveChangesAsync();
 
             return Ok(article);
@@ -113,7 +113,7 @@ namespace CMS_webAPI.Controllers
 
         private bool ArticleExists(int id)
         {
-            return db.Articles.Count(e => e.Id == id) > 0;
+            return db.Contents.Count(e => e.Id == id) > 0;
         }
     }
 }

@@ -13,44 +13,44 @@ using CMS_webAPI.Models;
 
 namespace CMS_webAPI.Controllers
 {
-    public class ArticleTagsController : ApiController
+    public class ContentTagsController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
 
-        // GET: api/ArticleTags
-        public IQueryable<ArticleTag> GetArticleTags()
+        // GET: api/ContentTags
+        public IQueryable<ContentTag> GetContentTags()
         {
-            return db.ArticleTags;
+            return db.ContentTags;
         }
 
-        // GET: api/ArticleTags/5
-        [ResponseType(typeof(ArticleTag))]
-        public async Task<IHttpActionResult> GetArticleTag(int id)
+        // GET: api/ContentTags/5
+        [ResponseType(typeof(ContentTag))]
+        public async Task<IHttpActionResult> GetContentTag(int id)
         {
-            ArticleTag articleTag = await db.ArticleTags.FindAsync(id);
-            if (articleTag == null)
+            ContentTag ContentTag = await db.ContentTags.FindAsync(id);
+            if (ContentTag == null)
             {
                 return NotFound();
             }
 
-            return Ok(articleTag);
+            return Ok(ContentTag);
         }
 
-        // PUT: api/ArticleTags/5
+        // PUT: api/ContentTags/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutArticleTag(int id, ArticleTag articleTag)
+        public async Task<IHttpActionResult> PutContentTag(int id, ContentTag ContentTag)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != articleTag.Id)
+            if (id != ContentTag.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(articleTag).State = EntityState.Modified;
+            db.Entry(ContentTag).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace CMS_webAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ArticleTagExists(id))
+                if (!ContentTagExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +71,35 @@ namespace CMS_webAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/ArticleTags
-        [ResponseType(typeof(ArticleTag))]
-        public async Task<IHttpActionResult> PostArticleTag(ArticleTag articleTag)
+        // POST: api/ContentTags
+        [ResponseType(typeof(ContentTag))]
+        public async Task<IHttpActionResult> PostContentTag(ContentTag ContentTag)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.ArticleTags.Add(articleTag);
+            db.ContentTags.Add(ContentTag);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = articleTag.Id }, articleTag);
+            return CreatedAtRoute("DefaultApi", new { id = ContentTag.Id }, ContentTag);
         }
 
-        // DELETE: api/ArticleTags/5
-        [ResponseType(typeof(ArticleTag))]
-        public async Task<IHttpActionResult> DeleteArticleTag(int id)
+        // DELETE: api/ContentTags/5
+        [ResponseType(typeof(ContentTag))]
+        public async Task<IHttpActionResult> DeleteContentTag(int id)
         {
-            ArticleTag articleTag = await db.ArticleTags.FindAsync(id);
-            if (articleTag == null)
+            ContentTag ContentTag = await db.ContentTags.FindAsync(id);
+            if (ContentTag == null)
             {
                 return NotFound();
             }
 
-            db.ArticleTags.Remove(articleTag);
+            db.ContentTags.Remove(ContentTag);
             await db.SaveChangesAsync();
 
-            return Ok(articleTag);
+            return Ok(ContentTag);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +111,9 @@ namespace CMS_webAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ArticleTagExists(int id)
+        private bool ContentTagExists(int id)
         {
-            return db.ArticleTags.Count(e => e.Id == id) > 0;
+            return db.ContentTags.Count(e => e.Id == id) > 0;
         }
     }
 }

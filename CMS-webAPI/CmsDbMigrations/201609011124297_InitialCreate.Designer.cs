@@ -13,7 +13,7 @@ namespace CMS_webAPI.CmsDbMigrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608281122069_InitialCreate"; }
+            get { return "201609011124297_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
