@@ -1,0 +1,23 @@
+<div class="app-footer container-fluid">
+  <div class="row">
+    <section class="app-info-section col-sm-4 col-sm-push-4">
+      <brand-logo class="raiweb-logo xs" logo="logo" ui-sref="home">
+      </brand-logo>
+      <h2 class="title">Popular Technologies</h2>
+      <feature-list features="technologies" mode="link-mode" class="technologies"></feature-list>
+      <span ng-bind="copyrightsText" title="{{copyrightsText}}" class="copyrights"></span>
+      <span ng-bind-html="credits" class="credits"></span>
+    </section>
+    <section class="services-section col-sm-4  col-sm-pull-4">
+      <h2 class="title">Our Services</h2>
+      <feature-list features="services" mode="link-mode" class="services"></feature-list>
+    </section>
+    <section class="media-section col-sm-4">
+      <h2 class="title">Useful Articles</h2>
+      <feature-list features="articles" mode="link-mode" class="articles"></feature-list>
+
+      <h2 class="title">Social Media Connect</h2>
+      <feature-list features="socialMediaLinks" mode="link-mode" class="social-media-links"></feature-list>
+    </section>
+  </div>
+</div>

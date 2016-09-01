@@ -1,0 +1,236 @@
+@mainnav_bg_color: #E8E6E6;
+@mainnav_text_color: #FFF;
+
+@mainnav_item_bg_color: #DADADA;
+@mainnav_item_text_color: #000000;
+@mainnav_item_border_color1: #CECECE;
+@mainnav_item_border_color2: #E6E0E0;
+
+@mainnav_item_hover_bg_color: #DE0000;
+@mainnav_item_hover_text_color: @mainnav_text_color;
+
+@mainnav_dropdown_bg_color: @mainnav_item_hover_bg_color;
+
+@mainnav_dropdown_item_bg_color: #D20000;
+@mainnav_dropdown_item_text_color: @mainnav_text_color;
+@mainnav_dropdown_item_border_color:#BB0000;
+
+@mainnav_dropdown_item_hover_bg_color: #fff;
+@mainnav_dropdown_item_hover_text_color: #000000;
+
+.raiweb-mainnav {
+	&.navbar-default {
+		margin-bottom: 0px;
+		background: @mainnav_bg_color;
+		border: none;
+
+		.navbar-nav {
+			& > li {
+				border-left: 1px solid @mainnav_item_border_color1;
+    			border-right: 2px solid @mainnav_item_border_color2;
+			}
+
+			li {
+				& > a {
+					padding: 20px;
+
+					background: @mainnav_item_bg_color;
+					color: @mainnav_item_text_color;
+
+					font-size: 16px;
+					&.active {
+						background: @mainnav_item_hover_bg_color;
+						color: @mainnav_item_hover_text_color;
+					}
+				}
+
+				&:hover, &.open {
+					& > a, & > a:focus {
+						background: @mainnav_item_hover_bg_color;
+						color: @mainnav_item_hover_text_color;
+					}
+				}
+			}
+			.open {
+
+			}
+			.dropdown-menu {
+				background: @mainnav_dropdown_bg_color;
+				border: none;
+
+				li {
+					border-bottom: 1px solid @mainnav_dropdown_item_border_color;
+
+					&:first-child {
+						border-top: 1px solid @mainnav_dropdown_item_border_color;
+					}
+
+					& > a {
+						padding: 8px 20px;
+
+						background: @mainnav_dropdown_item_bg_color;
+						color: @mainnav_dropdown_item_text_color;
+
+						font-size: 14px;
+
+						&:focus, &:hover, &.active {
+							background: @mainnav_dropdown_item_hover_bg_color;
+							color: @mainnav_dropdown_item_hover_text_color;
+						}
+					}
+				}
+			}
+		}
+
+		.navbar-header {
+			.raiweb-logo {
+				.title {
+					font-family: @font-black-ops-one;
+					font-size: 16px;
+				}
+
+				.tagline {
+					font-family: @font-cinzel-decorative-regular;
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
+
+// Default and lg mode variables
+@brand-logo-bg-color: transparent;
+@brand-logo-max-width: 360px;
+@brand-logo-max-height: 60px;
+
+@brand-logo-primary-title-size: 34px;
+@brand-logo-primary-title-color: @mainnav_item_hover_bg_color;
+
+@brand-logo-secondary-title-size: 18px;
+@brand-logo-secondary-title-color: #1e9a00;
+@brand-logo-secondary-title-top: -9px;
+
+@brand-logo-tagline-title-size: 10px;
+
+@brand-logo-highchar-size: 37px;
+@brand-logo-highchar-bg-color: @brand-logo-primary-title-color;
+@brand-logo-highchar-color: #fff;
+
+
+// xs mode variables
+@brand-logo-bg-color-xs: transparent;
+@brand-logo-max-width-xs: 205px;
+@brand-logo-max-height-xs: 60px;
+
+@brand-logo-primary-title-size-xs: 18px;
+@brand-logo-primary-title-color-xs: @mainnav_item_hover_bg_color;
+
+@brand-logo-secondary-title-size-xs: 10px;
+@brand-logo-secondary-title-color-xs: #1e9a00;
+@brand-logo-secondary-title-top-xs: -6px;
+
+@brand-logo-tagline-title-size-xs: 10px;
+
+@brand-logo-highchar-size-xs: 24px;
+@brand-logo-highchar-bg-color-xs: @brand-logo-primary-title-color;
+@brand-logo-highchar-color-xs: #fff;
+
+
+// Mixin for logo
+.brand-logo(@brand-logo-bg-color,
+	@brand-logo-max-width,
+	@brand-logo-max-height,
+	@brand-logo-primary-title-size,
+	@brand-logo-secondary-title-size,
+	@brand-logo-secondary-title-color,
+	@brand-logo-secondary-title-top,
+	@brand-logo-tagline-title-size,
+	@brand-logo-highchar-size,
+	@brand-logo-highchar-bg-color,
+	@brand-logo-highchar-color) {
+	position: relative;
+	display: block;
+	margin-right: 15px;
+    padding: 4px;
+    max-height: @brand-logo-max-height;
+    max-width: @brand-logo-max-width;
+    text-align: center;
+    background: @brand-logo-bg-color;
+    overflow: hidden;
+
+	a& {
+		&:hover, &.hover, &.focus, &:focus {
+			text-decoration: none;
+			cursor: pointer;
+		}
+	}
+
+	h1, h2 {
+		margin: 0px;
+		padding: 0px;
+	}
+
+	.primary-title {
+		margin-top: 5px;
+
+		font-family: @font-cinzel-decorative-black;
+		font-size: @brand-logo-primary-title-size;
+	    color: @brand-logo-primary-title-color;
+	    text-align: right;
+
+		.high-char {
+			padding: 3px;
+			padding-right: 5px;
+			margin: 0px 1px;
+
+		    background: @brand-logo-highchar-bg-color;
+			font-size: @brand-logo-highchar-size;
+			text-align: right;
+			color: @brand-logo-highchar-color
+		}
+	}
+
+	.secondary-title {
+		margin-top: @brand-logo-secondary-title-top;
+
+		font-family: @font-arial;
+		font-size: @brand-logo-secondary-title-size;
+		color: @brand-logo-secondary-title-color;
+		text-align: right;
+	}
+
+	.tagline {
+		font-family: @font-cinzel-decorative-regular;
+		font-size: @brand-logo-tagline-title-size;
+	}
+}
+
+//styling using above mixin for all sizes : xs, sm, md, lg(default)
+.brand-logo {
+	.brand-logo(@brand-logo-bg-color,
+	@brand-logo-max-width,
+	@brand-logo-max-height,
+	@brand-logo-primary-title-size,
+	@brand-logo-secondary-title-size,
+	@brand-logo-secondary-title-color,
+	@brand-logo-secondary-title-top,
+	@brand-logo-tagline-title-size,
+	@brand-logo-highchar-size,
+	@brand-logo-highchar-bg-color,
+	@brand-logo-highchar-color);
+
+	&.xs {
+	.brand-logo(@brand-logo-bg-color-xs,
+	@brand-logo-max-width-xs,
+	@brand-logo-max-height-xs,
+	@brand-logo-primary-title-size-xs,
+	@brand-logo-secondary-title-size-xs,
+	@brand-logo-secondary-title-color-xs,
+	@brand-logo-secondary-title-top-xs,
+	@brand-logo-tagline-title-size-xs,
+	@brand-logo-highchar-size-xs,
+	@brand-logo-highchar-bg-color-xs,
+	@brand-logo-highchar-color-xs);
+	}
+}
+

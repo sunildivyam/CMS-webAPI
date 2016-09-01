@@ -1,0 +1,55 @@
+{
+  "name": "raiweb",
+  "version": "1.0.0",
+  "description": "raiweb is a web application using browserify, Gulp, angular and Bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunildivyam/raiweb-browserify-gulp-angular.git"
+  },
+  "keywords": [
+    "raiweb",
+    "browserify",
+    "angular",
+    "gulp",
+    "Bootstrap",
+    "jquery"
+  ],
+  "author": "Sunil kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sunildivyam/raiweb-browserify-gulp-angular/issues"
+  },
+  "homepage": "https://github.com/sunildivyam/raiweb-browserify-gulp-angular",
+  "dependencies": {
+    "angular": "^1.5.6",
+    "angular-animate": "^1.5.7",
+    "angular-mock": "^1.0.0",
+    "angular-sanitize": "^1.5.6",
+    "angular-ui-router": "^0.3.0",
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.4"
+  },
+  "config": {
+    "targetDir": "target",
+    "sourceDir": "app",
+    "fontsDir": "fonts",
+    "bootstrapFontsDir": "node_modules/bootstrap/fonts",
+    "imagesDir": "images",
+    "pagesSourceDir": "app/pages",
+    "dataDir": "data",
+    "stylesDir": "styles",
+    "less": {
+      "paths": [
+        "styles/includes",
+        "node_modules/bootstrap/less"
+      ],
+      "sourceFiles": [
+        "styles/main.less"
+      ]
+    }
+  }
+}

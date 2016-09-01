@@ -1,0 +1,132 @@
+body {
+    font-size: @font-size-normal;
+}
+
+.raiweb {
+    .container-fluid {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h1, h1 {
+        margin: 0px;
+        padding: 10px;
+        font-size: @font-size-h1;
+        border: none;
+    }
+
+    .page-header {
+        position: absolute;
+        display: block;
+        z-index: 1;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        border: none;
+
+        .header-title {
+            line-height: 20px;
+            color: @body-text-white-color;
+            background: @mainnav_item_hover_bg_color;
+            font-size: @font-size-h3;
+
+            .text-ellipsis();
+        }
+
+        .header-float {
+            display: block;
+            height: 37px;
+
+            //background-image: @header-float-bg;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .app-footer {
+        margin-top: 30px;
+        padding: 15px;
+        min-height: 100px;
+        background-color: @body-text-black-color;
+        color: @body-text-white-color;
+
+        .title {
+            font-size: @font-size-2xs;
+            font-weight: bold;
+            margin: 5px 10px;
+        }
+
+        .app-info-section {
+            text-align: center;
+        }
+
+        .copyrights, .credits {
+            display: block;
+            font-size: @font-size-2xs;
+        }
+
+        .copyrights {
+            margin-top: 15px;
+        }
+
+        .services {
+            ul.feature-list.link-mode {
+                li.feature {
+                    a.name {
+                        font-size: @font-size-2xs;
+                        .icon {
+                            background-position: -111px -364px;
+                        }
+                    }
+                }
+            }
+        }
+        .articles {
+            ul.feature-list.link-mode {
+                li.feature {
+                    a.name {
+                        font-size: @font-size-2xs;
+                        .icon {
+                            background-position: -67px -364px;
+                        }
+                    }
+                }
+            }
+        }
+        .technologies {
+            ul.feature-list.link-mode {
+                li.feature {
+                    a.name {
+                        font-size: @font-size-2xs;
+                        .icon {
+                            background-position: -132px -364px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .social-media-links {
+            ul.feature-list.link-mode {
+                li.feature {
+                    a.name {
+                        font-size: @font-size-2xs;
+                        .icon {
+                            background-position: -24px -364px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    ui-view {
+        position: relative;
+        display: block;
+    }
+
+    &.home, &.services, &.articles {
+        .global-search {
+            display: block;
+        }
+    }
+}

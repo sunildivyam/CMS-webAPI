@@ -1,0 +1,140 @@
+{
+	"application": {
+		"name": "raiweb",
+		"title": "raiweb Application title",
+		"shortTitle": "RAIWEB",
+		"description": "Application Description",
+		"keywords": ["raiweb", "keyword1", "keyword2", "keyword3", "keyword4"],
+		"copyrightsText": "copyrights@allrights reserved",
+		"credits": "developed & maintained by xyz India Ltd."
+	},
+	"logo": {
+		"primaryTitle": "Sapient",
+		"secondaryTitle": "India",
+		"tagLine": "Software and Website development Brand",
+		"highCharIndex": 5
+	},
+	"items": [
+		{
+			"id": "home",
+			"name": "Home",
+			"templateUrl": "home/landing.html",
+			"title": "Home Page",
+			"controllerName": "homeController",
+			"hidden": false,
+			"description": "Home Page Description",
+			"keywords": ["raiweb-home", "keyword1", "keyword2", "keyword3", "keyword4"]
+		},
+		{
+			"id": "services",
+			"name": "Our Services",
+			"templateUrl": "services/landing.html",
+			"title": "Services Page",
+			"controllerName": "servicesController",
+			"hidden": false,
+			"items": ["service1", "service2", "service4"]
+		},
+		{
+			"id": "portfolio",
+			"name": "Our Portfolio",
+			"templateUrl": "portfolio/landing.html",
+			"title": "Portfolio Page",
+			"controllerName": "portfolioController",
+			"hidden": false,
+			"description": "Portfolio Page Description",
+			"keywords": ["raiweb-Portfolio", "keyword1", "keyword2", "keyword3", "keyword4"]
+		},
+		{
+			"id": "aboutus",
+			"name": "How we work",
+			"templateUrl": "aboutus/landing.html",
+			"title": "About us Page",
+			"controllerName": "aboutusController",
+			"hidden": false,
+			"description": "About us Page Description",
+			"keywords": ["raiweb-aboutus", "keyword1", "keyword2", "keyword3", "keyword4"]
+		},
+		{
+			"id": "contactus",
+			"name": "Reach us",
+			"templateUrl": "contactus/landing.html",
+			"title": "Reach us Page",
+			"controllerName": "contactusController",
+			"hidden": false,
+			"description": "Reach us Page Description",
+			"keywords": ["raiweb-contactus", "keyword1", "keyword2", "keyword3", "keyword4"]
+		},
+		{
+			"id": "articles",
+			"name": "Articles",
+			"templateUrl": "articles/landing.html",
+			"title": "Articles Page",
+			"controllerName": "articlesController",
+			"hidden": false,
+			"description": "Articles Page Description",
+			"keywords": ["raiweb-articles", "keyword1", "keyword2", "keyword3", "keyword4"],
+			"items": ["article1", "article2", "article4", "article5", "article6", "article7"]
+		},
+		{
+			"id": "technologies",
+			"name": "Technologies",
+			"templateUrl": "technologies/landing.html",
+			"title": "Technologies Page",
+			"controllerName": "technologiesController",
+			"hidden": false,
+			"description": "Technologies Page Description",
+			"keywords": ["raiweb-technologies", "keyword1", "keyword2", "keyword3", "keyword4"],
+			"items": ["technology1", "technology2", "technology4", "technology5", "technology6", "technology7"]
+		},
+		{
+			"id": "search",
+			"name": "Search",
+			"templateUrl": "search/landing.html",
+			"title": "Search Page",
+			"controllerName": "searchController",
+			"queryParams": ["keywords"],
+			"hidden": true,
+			"description": "Search Page allows the user to search across site, the services, articles, technologies, tags by using keyword or keywords",
+			"keywords": ["raiweb-search", "keyword1", "keyword2", "keyword3", "keyword4"]
+		}
+	],
+	"mainCarousel": {
+		"slides": ["service1", "service2", "service4"],
+		"options": {
+			"ride": "carousel",
+			"pause": "hover",
+			"wrap": false,
+			"interval": 4000,
+			"theme": "default"
+		}
+	},
+	"footerServices": ["service1", "service2", "service4"],
+	"footerArticles": ["article1", "article2", "article4"],
+	"footerTechnologies": ["technology1", "technology2", "technology4"],
+	"socialMediaLinks": [
+		{
+			"id":"gmail",
+			"name":"Gmail",
+			"title":"gmail",
+			"url": "http://gmail.com"
+		},
+		{
+			"id":"facebook",
+			"name":"Facebook",
+			"title":"facebook",
+			"url": "http://facebook.com"
+		},
+		{
+			"id":"twitter",
+			"name":"Twitter",
+			"title":"twitter",
+			"url": "http://twitter.com"
+		},
+		{
+			"id":"linkedin",
+			"name":"LinkedIn",
+			"title":"linkedin",
+			"url": "http://linkedin.com"
+		}
+	]
+}
