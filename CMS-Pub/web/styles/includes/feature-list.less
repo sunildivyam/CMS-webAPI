@@ -1,0 +1,148 @@
+@feature-list-readmore: #007eff;
+
+@feature-list-sm-icon-width: 40px;
+@feature-list-sm-icon-height: 40px;
+
+@feature-list-sm-color: #000;
+@feature-list-sm-bg-color: rgba(245, 245, 245, 0.5);
+
+@feature-list-sm-hover-color: #f1f1f1;
+@feature-list-sm-bg-hover-color: rgba(10, 10, 10, 0.5);
+
+//link-mode vars
+@feature-list-lk-color: #c1c1c1;
+@feature-list-lk-hover-color: #72baf9;
+
+// Related Contents vars
+@related-articles-feature-bg-color: #7aff00;
+@related-services-feature-bg-color: #00ffad;
+@related-technologies-feature-bg-color: #fff700;
+
+ul.feature-list, ul.feature-list.small-thumb-mode {
+	display: block;
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	width: 100%;
+
+	* {
+		margin: 0px;
+		padding: 0px;
+	}
+
+	li.feature {
+		display: block;
+		width: 100%;
+		margin: 20px 0px 10px 0px;
+		border-left: 5px solid rgba(0,0,0,0.5);
+		.border-radius(15px);
+
+		a {
+			display: block;
+			width: 100%;
+			height: auto;
+			padding: 5px;
+
+			color: @feature-list-sm-color;
+			background: @feature-list-sm-bg-color;
+
+			.border-radius(15px);
+
+			&:hover, &.hover, &:active, &.active {
+				color: @feature-list-sm-hover-color;
+				background: @feature-list-sm-bg-hover-color;
+			}
+
+			.icon {
+				display: block;
+				width: @feature-list-sm-icon-width;
+				height: @feature-list-sm-icon-height;
+				margin-top: -20px;
+
+				background-image: @site-sprite;
+				background-position: -222px 0px;
+			}
+
+			.name {
+				padding-left: 4px;
+
+				font-size: @font-size-h4;
+				font-weight: bold;
+				overflow: hidden;
+			}
+
+			.author, .postedon {
+				.label {
+
+				}
+
+				.value {
+
+				}
+			}
+
+			.short-description {
+				font-size: @font-size-xs;
+				line-height: 1.8;
+				max-height: 100px;
+				overflow: hidden;
+			}
+
+			.more {
+				font-size: 12px;
+				font-weight: normal;
+				color: @feature-list-readmore;
+			}
+		}
+
+		.related-articles & {
+			background: @related-articles-feature-bg-color;
+		}
+
+		.related-services & {
+			background: @related-services-feature-bg-color;
+		}
+
+		.related-technologies & {
+			background: @related-technologies-feature-bg-color;
+		}
+	}
+}
+
+ul.feature-list.link-mode {
+	li.feature {
+		display: inline-block;
+		width: auto;
+		margin: 0px;
+		padding: 0px;
+
+		a, a:visited, a:focus {
+			color: @feature-list-lk-color;
+			background: transparent;
+			text-decoration: none;
+
+			&:hover, &.hover, &:active, &.active {
+				color: @feature-list-lk-hover-color;
+				background: transparent;
+				text-decoration: none;
+			}
+
+			&.name {
+				display: inline;
+				font-size: @font-size-h3;
+				font-weight: normal;
+				text-overflow: initial;
+				white-space: normal;
+				overflow: visible;
+			}
+			.icon {
+				display: inline-block;
+			    margin-right: 5px;
+			    width: 20px;
+			    height: 20px;
+			    vertical-align: bottom;
+			    background-position: -24px -364px;
+			}
+		}
+	}
+}

@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <!-- Bar Button Start-->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#raiweb-navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- Bar Button End-->
+      <!-- Logo Start-->
+      <brand-logo ng-class="logoSize" class="raiweb-logo" logo="logo" ui-sref="home">
+      </brand-logo>
+      <!-- Logo End-->
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="raiweb-navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li
+          ng-class="{'dropdown': nav.items}"
+          ng-repeat="nav in navs | filter: {hidden: '!true'}"
+          ng-include="'core/nav-tree.html'">
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

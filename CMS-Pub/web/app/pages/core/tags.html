@@ -1,0 +1,6 @@
+<ul class="tags-list">
+	<li ng-repeat="keyword in keywords" class="tag">
+		<a ui-sref="search({keywords: keyword})" ng-bind="keyword" title="{{keyword}}">
+		</a>
+	</li>
+</ul>
