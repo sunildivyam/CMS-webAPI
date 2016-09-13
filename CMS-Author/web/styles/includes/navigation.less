@@ -18,6 +18,8 @@
 @mainnav_dropdown_item_hover_bg_color: #fff;
 @mainnav_dropdown_item_hover_text_color: #000000;
 
+@highlight-bg-color: #ffc800;
+
 .raiweb-mainnav {
 	&.navbar-default {
 		margin-bottom: 0px;
@@ -41,6 +43,15 @@
 					&.active {
 						background: @mainnav_item_hover_bg_color;
 						color: @mainnav_item_hover_text_color;
+					}
+
+					&.register-btn, &.login-btn {
+						background: @highlight-bg-color;
+
+						&.glyphicon:before {
+							margin-right: 5px;
+						}
+
 					}
 				}
 

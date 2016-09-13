@@ -31,13 +31,18 @@
     "angular-sanitize": "^1.5.6",
     "angular-ui-router": "^0.3.0",
     "bootstrap": "^3.3.6",
+    "bootstrap-social": "^5.0.0",
+    "font-awesome": "^4.6.3",
     "jquery": "^2.2.4"
   },
   "config": {
     "targetDir": "target",
     "sourceDir": "app",
-    "fontsDir": "fonts",
-    "bootstrapFontsDir": "node_modules/bootstrap/fonts",
+    "fonts": {
+      "app": "fonts",
+      "bootstrap": "node_modules/bootstrap/fonts",
+      "awesome": "node_modules/font-awesome/fonts"
+    },
     "imagesDir": "images",
     "pagesSourceDir": "app/pages",
     "dataDir": "data",
@@ -45,7 +50,9 @@
     "less": {
       "paths": [
         "styles/includes",
-        "node_modules/bootstrap/less"
+        "node_modules/bootstrap/less",
+        "node_modules/bootstrap-social",
+        "node_modules/font-awesome/less"
       ],
       "sourceFiles": [
         "styles/main.less"

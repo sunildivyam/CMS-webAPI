@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var appController = function($rootScope, $scope, $window, pageTitleService, metaInformationService, appHeaderService, responsiveDetectionService) {
+    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService) {
         $rootScope.bodyClass = '';
         // sets the currentBreakpoint on page Load.
         setCurrentBreakpoint();
@@ -30,34 +30,26 @@
             setCurrentBreakpoint();
         });
 
-        /*
-        *   returns the Nav Item Info By stateName from the curently created first Level States
-        */
-
-        $scope.getFirstLevelNavItemByStateName = function(stateName) {
-            var navItems = $rootScope && $rootScope.appHeader && $rootScope.appHeader.navs;
-            if (navItems instanceof Array) {
-                var foundItems = navItems.filter(function(item) {
-                    if(item.stateName === stateName) {
-                        return item;
-                    }
-                });
-
-                if (foundItems && foundItems.length) {
-                    return foundItems[0];
-                }
-                return false;
-            }
-        };
-
         $rootScope.$on('$stateChangeSuccess', function(event, toState) {
             if (toState && toState.name) {
                 //Adds Body Class as per currentState
                 $rootScope.bodyClass = toState.name.split('.')[0];
             }
         });
+
+        $rootScope.$on('$stateChangeStart', function(event, toState) {
+            if (toState && toState.name) {
+                //Adds Body Class as per currentState
+                $rootScope.bodyClass = toState.name.split('.')[0];
+                if (toState.isAnonymous !== true && accountService.isAnonymous === true) {
+                    event.preventDefault();
+                    location.pathname = '/account/login';
+                    console.log(location.pathname);
+                }
+            }
+        });
     };
 
-    appController.$inject = ['$rootScope', '$scope', '$window' ,'pageTitleService', 'metaInformationService', 'appHeaderService', 'responsiveDetectionService'];
+    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService'];
     module.exports = appController;
 })();

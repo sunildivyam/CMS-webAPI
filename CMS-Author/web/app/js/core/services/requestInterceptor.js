@@ -7,11 +7,15 @@
 */
 
 (function() {
-    var requestInterceptor = function($rootScope) {
+    var requestInterceptor = function($rootScope, $q, $injector) {
         var ERRORS = [404, 400, 500, 403, 401];
 
         function request(config) {
-            // do something on success
+            var accountService = $injector.get('accountService');
+
+            if (!accountService.isAnonymous) {
+                config.headers['Authorization'] = 'Bearer ' + accountService.token;
+            }
             return config;
         }
 
@@ -20,13 +24,12 @@
         }
 
         function response(response) {
-            redirectOnError(response);
             return response;
         }
 
         function responseError(rejection) {
             redirectOnError(rejection);
-            return rejection;
+            return $q.reject(rejection);
         }
 
         function redirectOnError(res) {
@@ -61,6 +64,6 @@
         };
     };
 
-    requestInterceptor.$inject = ['$rootScope'];
+    requestInterceptor.$inject = ['$rootScope', '$q', '$injector'];
     module.exports = requestInterceptor;
 })();
