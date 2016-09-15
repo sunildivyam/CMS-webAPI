@@ -2,6 +2,7 @@
 var angular = require('angular');
 require('angular-sanitize');
 require('angular-animate');
+require('angular-cookies');
 
 window.$ = require('jquery');
 window.jQuery = window.$;
@@ -16,6 +17,7 @@ angular.module('raiweb', [
 	'templates',
 	'ngSanitize',
 	'ngAnimate',
+	'ngCookies',
 	require('./js/core/core').name,
 	require('./js/dashboard/dashboard').name,
 	require('./js/content/content').name,

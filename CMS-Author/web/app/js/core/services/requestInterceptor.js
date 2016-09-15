@@ -13,7 +13,7 @@
         function request(config) {
             var accountService = $injector.get('accountService');
 
-            if (!accountService.isAnonymous) {
+            if (!accountService.isAnonymous()) {
                 config.headers['Authorization'] = 'Bearer ' + accountService.token;
             }
             return config;

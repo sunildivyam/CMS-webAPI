@@ -41,10 +41,9 @@
             if (toState && toState.name) {
                 //Adds Body Class as per currentState
                 $rootScope.bodyClass = toState.name.split('.')[0];
-                if (toState.isAnonymous !== true && accountService.isAnonymous === true) {
+                if (toState.isAnonymous !== true && accountService.isAnonymous() === true) {
                     event.preventDefault();
-                    location.pathname = '/account/login';
-                    console.log(location.pathname);
+                    $rootScope.$state.go('login');
                 }
             }
         });
