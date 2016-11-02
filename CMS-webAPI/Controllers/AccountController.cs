@@ -57,10 +57,13 @@ namespace CMS_webAPI.Controllers
         public UserInfoViewModel GetUserInfo()
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
+            ApplicationUser appuser = UserManager.FindById(User.Identity.GetUserId());
             return new UserInfoViewModel
             {
                 Email = User.Identity.GetUserName(),
+                FirstName = appuser.FirstName,
+                LastName = appuser.LastName,
+                Phone = appuser.Phone,
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
@@ -79,7 +82,7 @@ namespace CMS_webAPI.Controllers
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-
+            
             if (user == null)
             {
                 return null;
@@ -328,10 +331,10 @@ namespace CMS_webAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Phone = model.Phone };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
+            
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
