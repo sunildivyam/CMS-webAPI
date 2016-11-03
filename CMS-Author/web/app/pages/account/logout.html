@@ -1,16 +1,15 @@
-<div class="well logout-page" ng-show="currentUser">
-	<h4>Logging off..</h4>
-	<h4>Please wait</h4>
-</div>
+<loader data-at-body="true" data-is-loading="currentUser ? true : false" data-message="Logging out"></loader>
+
 <div class="well logout-page" ng-show="!currentUser">
 	<h4>You have been logged out.</h4>
+	<hr>
 	<div class="bottom text-center">
-		To Continue <a ui-sref="login" class="btn btn-primary btn-block">Sign in</a>
+		To continue, Please<a ui-sref="login" class="btn btn-primary">Sign in</a>
 	</div>
 	<div class="bottom text-center">
-		New here ? <a ui-sref="register"><b>Join Us</b></a>
+		New here ? Please <a ui-sref="register"><b>Join Us</b></a>
 	</div>
 	<div class="bottom text-center">
-		or click here to ? <a ui-sref="dashboard"><b>Go Home Page</b></a>
+		or <a ui-sref="dashboard"><b>Go to Home Page</b></a>
 	</div>
 </div>

@@ -133,6 +133,7 @@
     .controller('appController', require('./controllers/appController'))
 
     .directive('brandLogo', require('./directives/brandLogo'))
+    .directive('loader', require('./directives/loader'))
     .directive('tags', require('./directives/tags'));
 
     module.exports = angular.module('raiweb.core');

@@ -33,11 +33,14 @@
 		};
 
 		$scope.loginSubmit = function() {
+			$scope.isSigningIn = true;
 			accountService.login($scope.loginInfo).then(function() {
 				$rootScope.currentUser = accountService.getLoggedInUser();
+				$scope.isSigningIn = false;
 				$state.go('dashboard');
 			}, function(){
 				$rootScope.currentUser = accountService.getLoggedInUser();
+				$scope.isSigningIn = false;
 			});
 		};
 	};
