@@ -37,10 +37,9 @@
 				$rootScope.currentUser = accountService.getLoggedInUser();
 				$state.go('dashboard');
 			}, function(){
-				$rootScope.currentUser = accountService.loggedInUser;
+				$rootScope.currentUser = accountService.getLoggedInUser();
 			});
 		};
-
 	};
 
 	accountController.$inject = ['$rootScope', '$scope', '$state', 'accountService', 'User'];

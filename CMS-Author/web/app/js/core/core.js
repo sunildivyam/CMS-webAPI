@@ -44,6 +44,7 @@
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('account/logout.html');
             }],
+            controller: 'accountController',
             isAnonymous: false
         })
         .state({

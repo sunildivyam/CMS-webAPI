@@ -14,7 +14,7 @@
             var accountService = $injector.get('accountService');
 
             if (!accountService.isAnonymous()) {
-                config.headers['Authorization'] = 'Bearer ' + accountService.token;
+                config.headers['Authorization'] = 'Bearer ' + accountService.getToken();
             }
             return config;
         }

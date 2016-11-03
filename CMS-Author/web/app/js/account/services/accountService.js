@@ -13,13 +13,11 @@
 			login: 'https://localhost:44302/token',
 			logout: baseApiUrl + 'logout'
 		};
-		var loggedInUser;
 
 		init();
 
 		function init() {
-			loggedInUser = $cookies.getObject('loggedInUser');
-			$rootScope.currentUser = loggedInUser;
+			$rootScope.currentUser = $cookies.getObject('loggedInUser');
 		}
 
 
@@ -27,9 +25,9 @@
 			$cookies.remove('loggedInUser');
 		}
 
-		function setUser() {
+		function setUser(loggedInUser) {
 			$cookies.putObject('loggedInUser', loggedInUser, {
-				expires: loggedInUser && loggedInUser.expiryDate;
+				expires: loggedInUser && loggedInUser.expiryDate
 			});
 		}
 
@@ -61,10 +59,12 @@
 				url: urls.login,
 				data: $.param(userInfo), // data needs to be in url encoded format
 				headers: {
-					'content-type': 'application/x-www-form-urlencoded'
-				}
+					'content-type': 'application/x-www-form-urlencoded',
+					'charset': 'UTF-8'
+				},
+				withCredentials: true
 			}).then(function(response) {
-				loggedInUser = new User(response.data);
+				var loggedInUser = new User(response.data);
 				// save userInfo to Cookies
 				setUser(loggedInUser);
 				defferedObj.resolve(response && response.data);
@@ -81,8 +81,8 @@
 
 			$http({
 				method: 'post',
-				url: urls.logoutUrl,
-				data: loggedInUser,
+				url: urls.logout,
+				data: $cookies.getObject('loggedInUser'),
 				headers: {
 					'content-type': 'application/json'
 				}
@@ -90,6 +90,7 @@
 				resetUser();
 				defferedObj.resolve(response.data);
 			}, function(rejection) {
+				resetUser();
 				defferedObj.reject(rejection);
 			});
 
@@ -97,11 +98,17 @@
 		}
 
 		function getLoggedInUser() {
-			return loggedInUser;
+			return $cookies.getObject('loggedInUser');
 		}
 
 		function isAnonymous() {
+			var loggedInUser = $cookies.getObject('loggedInUser');
 			return loggedInUser && loggedInUser.token ? false : true;
+		}
+
+		function getToken() {
+			var loggedInUser = $cookies.getObject('loggedInUser');
+			return loggedInUser && loggedInUser.token;
 		}
 
 		return {
@@ -110,7 +117,7 @@
 			logout: logout,
 			getLoggedInUser: getLoggedInUser,
 			isAnonymous: isAnonymous,
-			token: loggedInUser && loggedInUser.token
+			getToken: getToken
 		};
 	};
 

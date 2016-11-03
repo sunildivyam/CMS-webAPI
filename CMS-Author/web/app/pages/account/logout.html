@@ -1,1 +1,16 @@
-<h1>You have been logged out. Please Login to continue..</h1>
+<div class="well logout-page" ng-show="currentUser">
+	<h4>Logging off..</h4>
+	<h4>Please wait</h4>
+</div>
+<div class="well logout-page" ng-show="!currentUser">
+	<h4>You have been logged out.</h4>
+	<div class="bottom text-center">
+		To Continue <a ui-sref="login" class="btn btn-primary btn-block">Sign in</a>
+	</div>
+	<div class="bottom text-center">
+		New here ? <a ui-sref="register"><b>Join Us</b></a>
+	</div>
+	<div class="bottom text-center">
+		or click here to ? <a ui-sref="dashboard"><b>Go Home Page</b></a>
+	</div>
+</div>

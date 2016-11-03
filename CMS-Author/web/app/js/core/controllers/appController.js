@@ -30,6 +30,14 @@
             setCurrentBreakpoint();
         });
 
+        $scope.logout = function() {
+            accountService.logout().then(function() {
+                $rootScope.currentUser = accountService.getLoggedInUser();
+            }, function(){
+                $rootScope.currentUser = accountService.getLoggedInUser();
+            });
+        };
+
         $rootScope.$on('$stateChangeSuccess', function(event, toState) {
             if (toState && toState.name) {
                 //Adds Body Class as per currentState
@@ -41,9 +49,13 @@
             if (toState && toState.name) {
                 //Adds Body Class as per currentState
                 $rootScope.bodyClass = toState.name.split('.')[0];
-                if (toState.isAnonymous !== true && accountService.isAnonymous() === true) {
+                if (toState.isAnonymous() !== true && accountService.isAnonymous() === true) {
                     event.preventDefault();
                     $rootScope.$state.go('login');
+                }
+
+                if (toState.name === 'logout') {
+                    $scope.logout();
                 }
             }
         });
