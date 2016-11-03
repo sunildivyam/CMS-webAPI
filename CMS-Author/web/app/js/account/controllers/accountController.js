@@ -6,7 +6,7 @@
 */
 
 (function() {
-	var accountController = function($rootScope, $scope, $state, accountService, User) {
+	var accountController = function($rootScope, $scope, $state, accountService, User, modalService) {
 		$scope.newUser = new User();
 		$scope.loginInfo = {};
 
@@ -37,14 +37,16 @@
 			accountService.login($scope.loginInfo).then(function() {
 				$rootScope.currentUser = accountService.getLoggedInUser();
 				$scope.isSigningIn = false;
+				modalService.alert('sm', 'Login Successful', 'You are successfully logged in.', 'View Dashboard');
 				$state.go('dashboard');
-			}, function(){
+			}, function(rejection){
 				$rootScope.currentUser = accountService.getLoggedInUser();
 				$scope.isSigningIn = false;
+				modalService.alert('sm', 'Login Failed', 'Reason: ' + rejection.message || 'Unknown' , 'Try again');
 			});
 		};
 	};
 
-	accountController.$inject = ['$rootScope', '$scope', '$state', 'accountService', 'User'];
+	accountController.$inject = ['$rootScope', '$scope', '$state', 'accountService', 'User', 'modalService'];
 	module.exports = accountController;
 })();
