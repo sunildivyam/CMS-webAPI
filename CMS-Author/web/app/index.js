@@ -7,6 +7,7 @@ require('angular-cookies');
 window.$ = require('jquery');
 window.jQuery = window.$;
 require('bootstrap');
+require('angular-ui-bootstrap');
 require('angular-ui-router');
 
 angular.module("templates", []);
@@ -18,6 +19,7 @@ angular.module('raiweb', [
 	'ngSanitize',
 	'ngAnimate',
 	'ngCookies',
+	'ui.bootstrap',
 	require('./js/core/core').name,
 	require('./js/dashboard/dashboard').name,
 	require('./js/content/content').name,
