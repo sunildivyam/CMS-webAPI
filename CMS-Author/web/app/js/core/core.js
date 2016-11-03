@@ -127,6 +127,7 @@
     .factory('appService', require('./services/appService'))
     .factory('pageTitleService', require('./services/pageTitleService'))
     .factory('metaInformationService', require('./services/metaInformationService'))
+    .factory('modalService', require('./services/modalService'))
 
     .factory('User', require('./domain/User'))
 
