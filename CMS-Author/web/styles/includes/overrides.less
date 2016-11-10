@@ -8,6 +8,10 @@ body {
 }
 
 .raiweb {
+    ui-view {
+        position: relative;
+        display: block;
+    }
     .container-fluid {
         padding-left: 0px;
         padding-right: 0px;
@@ -133,5 +137,10 @@ body {
         .global-search {
             display: block;
         }
+    }
+
+    .modal-header {
+        background: @modal-header-bg-color;
+        .border-radiuses (5px, 0px, 0px, 5px);
     }
 }

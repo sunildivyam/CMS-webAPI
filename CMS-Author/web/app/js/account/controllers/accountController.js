@@ -6,29 +6,29 @@
 */
 
 (function() {
-	var accountController = function($rootScope, $scope, $state, accountService, User, modalService) {
+	var accountController = function($rootScope, $scope, $state, appService, accountService, User, modalService) {
 		$scope.newUser = new User();
 		$scope.loginInfo = {};
 
 		$scope.retry = function() {
-			$scope.sucess = false;
+			$scope.success = false;
 		};
 
 		$scope.registerSubmit = function() {
-			accountService.register($scope.newUser).then(function(response) {
-				if (response && response.status === 409) {
-					$scope.resultMessage = "User Already Exist";
-					$scope.isExist = true;
-					$scope.sucess = true;
-				} else {
-					$scope.resultMessage = "you are successfully registered. Please login";
-					$scope.isExist = false;
-					$scope.sucess = true;
-					$scope.newUser = new User();
-				}
+			accountService.register($scope.newUser).then(function() {
+				$scope.newUser = new User();
+				var successModal = modalService.alert('md',
+					'Thanks for joining us.',
+					'You have been successfully registered with us. Please click "Sign in" to login with your credentials.',
+					'Sign In');
+				successModal.result.then(function() {
+					$state.go('login');
+				});
 			}, function(rejection){
-				$scope.isRegisterationSuccessfull = false;
-				$scope.registerationMessage = rejection && rejection.message;
+				modalService.alert('md',
+					'Registeration Failed',
+					'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+					'Try again');
 			});
 		};
 
@@ -42,11 +42,14 @@
 			}, function(rejection){
 				$rootScope.currentUser = accountService.getLoggedInUser();
 				$scope.isSigningIn = false;
-				modalService.alert('sm', 'Login Failed', 'Reason: ' + rejection.message || 'Unknown' , 'Try again');
+				modalService.alert('sm',
+					'Login Failed',
+					rejection && rejection.data && rejection.data.error_description,
+					'Try again');
 			});
 		};
 	};
 
-	accountController.$inject = ['$rootScope', '$scope', '$state', 'accountService', 'User', 'modalService'];
+	accountController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'modalService'];
 	module.exports = accountController;
 })();

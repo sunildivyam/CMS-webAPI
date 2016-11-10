@@ -19,8 +19,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
-    <nav class="navbar navbar-inverse visible-xs">
+  <body class="raiweb">
+    <nav class="navbar navbar-inverse visible-xs ng-hide" ng-show="currentUser">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -28,7 +28,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Logo</a>
+          <brand-logo class="navbar-brand" data-logo="appLogo"></brand-logo>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
@@ -42,8 +42,8 @@
 
     <div class="container-fluid">
       <div class="row content">
-        <div class="col-sm-2 sidenav hidden-xs">
-          <h2>Logo</h2>
+        <div class="col-sm-3 sidenav hidden-xs ng-hide" ng-show="currentUser">
+          <brand-logo data-logo="appLogo"></brand-logo>
           <ul class="nav nav-pills nav-stacked">
             <li class="active"><a ui-sref="dashboard">Dashboard</a></li>
             <li><a ui-sref="profile">Profile</a></li>
@@ -52,7 +52,7 @@
         </div>
         <br>
 
-        <div class="col-sm-10" ui-view="">
+        <div class="{{currentUser ? 'col-sm-9' : 'col-sm-12'}}" ui-view="">
 
         </div>
       </div>

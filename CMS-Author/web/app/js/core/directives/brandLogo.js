@@ -22,8 +22,8 @@
 				/*
 				*	watches logo.primaryTitle to creates three spans from primary title, middle represents High Char span
 				*/
-				$scope.$watch('logo.primaryTitle', function(newValue, oldValue) {
-					if (typeof newValue === 'string' && newValue !== '' && newValue !== oldValue) {
+				$scope.$watch('logo.primaryTitle', function(newValue) {
+					if (typeof newValue === 'string' && newValue !== '') {
 						$scope.primaryTitleHtml = generateTitleWithHighChar(newValue,$scope.logo.highCharIndex);
 					}
 				});

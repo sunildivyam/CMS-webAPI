@@ -8,7 +8,7 @@
 
 (function() {
     var requestInterceptor = function($rootScope, $q, $injector) {
-        var ERRORS = [404, 400, 500, 403, 401];
+        var IGNORED_ERRORS = [400, 403, 401];
 
         function request(config) {
             var accountService = $injector.get('accountService');
@@ -33,20 +33,19 @@
         }
 
         function redirectOnError(res) {
-            var isError = false;
-            ERRORS.filter(function(error) {
+            var isByPassError = false;
+            IGNORED_ERRORS.filter(function(error) {
                 if (error === res.status) {
-                    isError = true;
+                    isByPassError = true;
                     return;
                 }
             });
 
-            if(isError === true) {
+            if(isByPassError === false) {
                 $rootScope.errorState = {
                     'status': res.status,
                     'statusText': res.statusText
                 };
-                //window.location.pathname = '/error';
                 $rootScope.$state.go('error');
             } else {
                 $rootScope.errorState = {

@@ -37,8 +37,26 @@
 			return defferedObj.promise;
 		}
 
+		function getErrorMessage(modelState, listHtmlElement) {
+			var errorMessage = [];
+			var listHtmlElem = listHtmlElement;
+			if (!listHtmlElement) {
+				listHtmlElem = 'li';
+			}
+
+			if (modelState instanceof Object) {
+				for (var key in modelState) {
+					modelState[key].filter(function(msg) {
+						errorMessage.push('<' + listHtmlElem + '>' + msg + '</' + listHtmlElem + '>');
+					});
+				}
+			}
+			return errorMessage.join('');
+		}
+
 		return {
-			requestData: executeDataRequest
+			requestData: executeDataRequest,
+			getErrorMessage: getErrorMessage
 		};
 	};
 

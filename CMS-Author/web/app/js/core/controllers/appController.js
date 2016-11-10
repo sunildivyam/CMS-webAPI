@@ -8,6 +8,11 @@
 (function() {
     var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService) {
         $rootScope.bodyClass = '';
+        $rootScope.appLogo = {
+            primaryTitle: 'SAPIENT',
+            highCharIndex: 2,
+            secondaryTitle: 'India'
+        };
         // sets the currentBreakpoint on page Load.
         setCurrentBreakpoint();
 
