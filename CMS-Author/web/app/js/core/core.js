@@ -130,6 +130,7 @@
     .factory('modalService', require('./services/modalService'))
 
     .factory('User', require('./domain/User'))
+    .factory('Category', require('./domain/Category'))
 
     .controller('appController', require('./controllers/appController'))
 
