@@ -1,34 +1,30 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <!-- Bar Button Start-->
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#raiweb-navbar-collapse" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <!-- Bar Button End-->
-      <!-- Logo Start-->
-      <brand-logo ng-class="logoSize" class="raiweb-logo" logo="logo" ui-sref="home">
-      </brand-logo>
-      <!-- Logo End-->
+<div class="app-container">
+  <nav class="navbar navbar-inverse visible-xs" ng-hide="!currentUser">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <brand-logo class="navbar-brand" data-logo="appLogo"></brand-logo>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a ui-sref="dashboard">Dashboard</a></li>
+          <li><a ui-sref="profile">Profile</a></li>
+          <li><a ui-sref="logout">Logout</a></li>
+        </ul>
+      </div>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="raiweb-navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li
-          ng-class="{'dropdown': nav.items}"
-          ng-repeat="nav in navs | filter: {hidden: '!true'}"
-          ng-include="'core/nav-tree.html'">
-        </li>
-        <li><a ui-sref="register" class="register-btn glyphicon glyphicon-user">Register</a></li>
-        <li><a ui-sref="login" class="login-btn glyphicon glyphicon-log-in">Login</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-
-
-  </div><!-- /.container-fluid -->
-</nav>
+  </nav>
+  <div class="col-sm-3 sidenav hidden-xs" ng-hide="!currentUser">
+    <brand-logo data-logo="appLogo"></brand-logo>
+    <ul class="nav nav-pills nav-stacked">
+      <li class="active"><a ui-sref="dashboard">Dashboard</a></li>
+      <li><a ui-sref="profile">Profile</a></li>
+      <li><a ui-sref="logout">Logout</a></li>
+    </ul><br>
+  </div>
+  <div class="{{currentUser ? 'col-sm-9' : 'col-sm-12'}}" ui-view=""></div>
+</div>
