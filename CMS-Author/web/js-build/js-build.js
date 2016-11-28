@@ -32,8 +32,10 @@ gulp.task('compile', function() {
 });
 
 gulp.task('package', function() {
-	return runSequence('clean', 'lint', 'ngTemplateCache', 'browserify', 'cleanNgTemplateCache', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig'], ['uglify', 'cleanCss']);
+	return runSequence('clean', 'lint', 'ngTemplateCache', 'browserify', 'cleanNgTemplateCache', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig'], ['uglify', 'cleanCss'], 'ngdocs');
 });
+
+gulp.task('default', ['package']);
 
 gulp.task('watch', function() {
 	gulp.watch([config.sourceDir + '/**/*.js', config.sourceDir + '/pages/**/*.html'], function() {
