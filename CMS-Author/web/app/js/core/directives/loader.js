@@ -1,9 +1,21 @@
 'use strict';
-/*
-*	loader
-*	Description
-*	loader directive is responsible to display spinning loader for page or component
+/**
+* @ngdoc directive
+* @name raiweb.core.directive:loader
+* @scope
+* @restrict E
+
+* @description
+* Displays a progress loader modal to parent or body
+
+* @param {boolean} atBody defaults to "false".
+* A "false" value specifies that loader should be modal to immidiate relative parent.
+* A "true" value specifies that loader should be modal to body.
+
+* @param {boolean} isLoading toggles the loader
+* @param {string=} message loading message string
 */
+
 (function() {
 	var loader = function() {
 		return {

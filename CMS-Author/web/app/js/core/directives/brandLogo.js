@@ -1,10 +1,16 @@
 'use strict';
-/*
-*	brandLogo
-*	Description
+/**
+* @ngdoc directive
+* @name raiweb.core.directive:loader
+* @scope
+* @restrict E
+
+* @description
 *	brandLogo directive is responsible for loading Brand Logo in Application Header Section
 *	OR Brand Logo can be anywhere included using this directive
 *	based on various breakpoints (lg, md, sm and xs) Logos of different size can be painted
+* @param {object} logo Logo information Object
+* @param {string} size size value 'xs', 'md', 'lg' etc.
 */
 (function() {
 	var brandLogo = function() {
