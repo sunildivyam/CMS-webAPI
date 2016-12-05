@@ -225,17 +225,18 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="CmsDbMigrations\201609011124297_InitialCreate.cs" />
-    <Compile Include="CmsDbMigrations\201609011124297_InitialCreate.Designer.cs">
-      <DependentUpon>201609011124297_InitialCreate.cs</DependentUpon>
+    <Compile Include="CmsDbMigrations\201612030518596_InitialCreate.cs" />
+    <Compile Include="CmsDbMigrations\201612030518596_InitialCreate.Designer.cs">
+      <DependentUpon>201612030518596_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="CmsDbMigrations\Configuration.cs" />
+    <Compile Include="Controllers\AuthorContentsController.cs" />
+    <Compile Include="Controllers\AuthorContentTagsController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ContentsController.cs" />
     <Compile Include="Controllers\ContentTagsController.cs" />
-    <Compile Include="Controllers\Author_ContentsController.cs" />
-    <Compile Include="Controllers\Author_ContentTagsController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
-    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="IdentityMigrations\201608280406225_InitialCreate.cs" />
     <Compile Include="IdentityMigrations\201608280406225_InitialCreate.Designer.cs">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>
@@ -245,6 +246,7 @@
       <DependentUpon>201609031051261_UserProfile_3Props.cs</DependentUpon>
     </Compile>
     <Compile Include="IdentityMigrations\Configuration.cs" />
+    <Compile Include="Models\AuthorContentViewModel.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\ContentTag.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -255,8 +257,8 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Author_Content.cs" />
-    <Compile Include="Models\Author_ContentTag.cs" />
+    <Compile Include="Models\AuthorContent.cs" />
+    <Compile Include="Models\AuthorContentTag.cs" />
     <Compile Include="Models\CmsDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -303,6 +305,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Properties\PublishProfiles\FileFolder.pubxml" />
+    <None Include="Properties\PublishProfiles\Publish to Local Folder.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -348,8 +351,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CmsDbMigrations\201609011124297_InitialCreate.resx">
-      <DependentUpon>201609011124297_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="CmsDbMigrations\201612030518596_InitialCreate.resx">
+      <DependentUpon>201612030518596_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityMigrations\201608280406225_InitialCreate.resx">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>

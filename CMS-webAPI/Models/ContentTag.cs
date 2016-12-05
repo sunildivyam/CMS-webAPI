@@ -14,7 +14,7 @@ namespace CMS_webAPI.Models
         }
 
         [Key]
-        public int Id { get; set; }
+        public int ContentTagId { get; set; }
         
         [ForeignKey("Content")]
         public int ContentId { get; set; }

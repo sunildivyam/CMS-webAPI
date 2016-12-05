@@ -13,11 +13,15 @@ namespace CMS_webAPI.Models
         }
 
         [Key]
-        public int Id { get; set; }
+        public int CategoryId { get; set; }
 
         [Required]
         [StringLength(500)]
         [Index(IsUnique = true)]
+        public string Name { get; set; }    // name, - separated string generated from Title
+        
+        [Required]
+        [StringLength(500)]        
         public string Title { get; set; }   //Categories may be like Article, Technology, Service
 
         public string Description { get; set; }   

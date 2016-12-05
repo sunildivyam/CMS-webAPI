@@ -25,32 +25,32 @@ namespace CMS_webAPI.Controllers
 
         // GET: api/Contents/5
         [ResponseType(typeof(Content))]
-        public async Task<IHttpActionResult> GetArticle(int id)
+        public async Task<IHttpActionResult> GetContent(int id)
         {
-            Content article = await db.Contents.FindAsync(id);
-            if (article == null)
+            Content content = await db.Contents.FindAsync(id);
+            if (content == null)
             {
                 return NotFound();
             }
 
-            return Ok(article);
+            return Ok(content);
         }
 
         // PUT: api/Contents/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutArticle(int id, Content article)
+        public async Task<IHttpActionResult> PutContent(int id, Content content)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != article.Id)
+            if (id != content.ContentId)
             {
                 return BadRequest();
             }
 
-            db.Entry(article).State = EntityState.Modified;
+            db.Entry(content).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace CMS_webAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ArticleExists(id))
+                if (!ContentExists(id))
                 {
                     return NotFound();
                 }
@@ -73,33 +73,33 @@ namespace CMS_webAPI.Controllers
 
         // POST: api/Contents
         [ResponseType(typeof(Content))]
-        public async Task<IHttpActionResult> PostArticle(Content article)
+        public async Task<IHttpActionResult> PostContent(Content content)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Contents.Add(article);
+            db.Contents.Add(content);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = article.Id }, article);
+            return CreatedAtRoute("DefaultApi", new { id = content.ContentId }, content);
         }
 
         // DELETE: api/Contents/5
         [ResponseType(typeof(Content))]
-        public async Task<IHttpActionResult> DeleteArticle(int id)
+        public async Task<IHttpActionResult> DeleteContent(int id)
         {
-            Content article = await db.Contents.FindAsync(id);
-            if (article == null)
+            Content content = await db.Contents.FindAsync(id);
+            if (content == null)
             {
                 return NotFound();
             }
 
-            db.Contents.Remove(article);
+            db.Contents.Remove(content);
             await db.SaveChangesAsync();
 
-            return Ok(article);
+            return Ok(content);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +111,9 @@ namespace CMS_webAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ArticleExists(int id)
+        private bool ContentExists(int id)
         {
-            return db.Contents.Count(e => e.Id == id) > 0;
+            return db.Contents.Count(e => e.ContentId == id) > 0;
         }
     }
 }

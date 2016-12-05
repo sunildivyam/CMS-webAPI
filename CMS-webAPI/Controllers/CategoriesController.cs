@@ -16,7 +16,7 @@ namespace CMS_webAPI.Controllers
     public class CategoriesController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
-
+        
         // GET: api/Categories
         public IQueryable<Category> GetCategories()
         {
@@ -27,31 +27,30 @@ namespace CMS_webAPI.Controllers
         [ResponseType(typeof(Category))]
         public async Task<IHttpActionResult> GetCategory(int id)
         {
-            Category Category = await db.Categories.FindAsync(id);
-            if (Category == null)
+            Category category = await db.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return Ok(Category);
+            return Ok(category);
         }
 
         // PUT: api/Categories/5
-        [Authorize]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutCategory(int id, Category Category)
+        public async Task<IHttpActionResult> PutCategory(int id, Category category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != Category.Id)
+            if (id != category.CategoryId)
             {
                 return BadRequest();
             }
 
-            db.Entry(Category).State = EntityState.Modified;
+            db.Entry(category).State = EntityState.Modified;
 
             try
             {
@@ -69,40 +68,39 @@ namespace CMS_webAPI.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            // return StatusCode(HttpStatusCode.NoContent);
+            return Ok(category);
         }
 
         // POST: api/Categories
-        [Authorize]
         [ResponseType(typeof(Category))]
-        public async Task<IHttpActionResult> PostCategory(Category Category)
+        public async Task<IHttpActionResult> PostCategory(Category category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Categories.Add(Category);
+            db.Categories.Add(category);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = Category.Id }, Category);
+            return CreatedAtRoute("DefaultApi", new { id = category.CategoryId }, category);
         }
 
         // DELETE: api/Categories/5
-        [Authorize(Roles="Administrator")]
         [ResponseType(typeof(Category))]
         public async Task<IHttpActionResult> DeleteCategory(int id)
         {
-            Category Category = await db.Categories.FindAsync(id);
-            if (Category == null)
+            Category category = await db.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            db.Categories.Remove(Category);
+            db.Categories.Remove(category);
             await db.SaveChangesAsync();
 
-            return Ok(Category);
+            return Ok(category);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,7 +114,7 @@ namespace CMS_webAPI.Controllers
 
         private bool CategoryExists(int id)
         {
-            return db.Categories.Count(e => e.Id == id) > 0;
+            return db.Categories.Count(e => e.CategoryId == id) > 0;
         }
     }
 }

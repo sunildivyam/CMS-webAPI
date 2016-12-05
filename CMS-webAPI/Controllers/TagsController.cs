@@ -45,7 +45,7 @@ namespace CMS_webAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != tag.Id)
+            if (id != tag.TagId)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace CMS_webAPI.Controllers
             db.Tags.Add(tag);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = tag.Id }, tag);
+            return CreatedAtRoute("DefaultApi", new { id = tag.TagId }, tag);
         }
 
         // DELETE: api/Tags/5
@@ -113,7 +113,7 @@ namespace CMS_webAPI.Controllers
 
         private bool TagExists(int id)
         {
-            return db.Tags.Count(e => e.Id == id) > 0;
+            return db.Tags.Count(e => e.TagId == id) > 0;
         }
     }
 }

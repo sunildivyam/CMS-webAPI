@@ -13,12 +13,14 @@ namespace CMS_webAPI.Models
         }
 
         [Key]
-        public int Id { get; set; }
+        public int ContentId { get; set; }
 
         [Required]
         [StringLength(500)]
-        public string Name { get; set; }
+        [Index(IsUnique = true)]
+        public string Name { get; set; }    // name, - separated string generated from Title
         
+        [Required]
         [StringLength(500)]
         public string Title { get; set; }
 
@@ -36,11 +38,13 @@ namespace CMS_webAPI.Models
         public bool IsLive { get; set; }
 
         [Required]
-        public int OwnerId { get; set; }
+        [StringLength(500)]
+        public string OwnerId { get; set; }
 
         [Required]
-        public DateTime PublishedDate { get; set; }
+        public DateTime PublishDate { get; set; }
         
+        [Required]
         public int VisitCount { get; set; }
 
         // RelationShips

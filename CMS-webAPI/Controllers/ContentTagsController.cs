@@ -27,30 +27,30 @@ namespace CMS_webAPI.Controllers
         [ResponseType(typeof(ContentTag))]
         public async Task<IHttpActionResult> GetContentTag(int id)
         {
-            ContentTag ContentTag = await db.ContentTags.FindAsync(id);
-            if (ContentTag == null)
+            ContentTag contentTag = await db.ContentTags.FindAsync(id);
+            if (contentTag == null)
             {
                 return NotFound();
             }
 
-            return Ok(ContentTag);
+            return Ok(contentTag);
         }
 
         // PUT: api/ContentTags/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutContentTag(int id, ContentTag ContentTag)
+        public async Task<IHttpActionResult> PutContentTag(int id, ContentTag contentTag)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != ContentTag.Id)
+            if (id != contentTag.ContentTagId)
             {
                 return BadRequest();
             }
 
-            db.Entry(ContentTag).State = EntityState.Modified;
+            db.Entry(contentTag).State = EntityState.Modified;
 
             try
             {
@@ -73,33 +73,33 @@ namespace CMS_webAPI.Controllers
 
         // POST: api/ContentTags
         [ResponseType(typeof(ContentTag))]
-        public async Task<IHttpActionResult> PostContentTag(ContentTag ContentTag)
+        public async Task<IHttpActionResult> PostContentTag(ContentTag contentTag)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.ContentTags.Add(ContentTag);
+            db.ContentTags.Add(contentTag);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = ContentTag.Id }, ContentTag);
+            return CreatedAtRoute("DefaultApi", new { id = contentTag.ContentTagId }, contentTag);
         }
 
         // DELETE: api/ContentTags/5
         [ResponseType(typeof(ContentTag))]
         public async Task<IHttpActionResult> DeleteContentTag(int id)
         {
-            ContentTag ContentTag = await db.ContentTags.FindAsync(id);
-            if (ContentTag == null)
+            ContentTag contentTag = await db.ContentTags.FindAsync(id);
+            if (contentTag == null)
             {
                 return NotFound();
             }
 
-            db.ContentTags.Remove(ContentTag);
+            db.ContentTags.Remove(contentTag);
             await db.SaveChangesAsync();
 
-            return Ok(ContentTag);
+            return Ok(contentTag);
         }
 
         protected override void Dispose(bool disposing)
@@ -113,7 +113,7 @@ namespace CMS_webAPI.Controllers
 
         private bool ContentTagExists(int id)
         {
-            return db.ContentTags.Count(e => e.Id == id) > 0;
+            return db.ContentTags.Count(e => e.ContentTagId == id) > 0;
         }
     }
 }
