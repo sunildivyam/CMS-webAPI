@@ -9,6 +9,7 @@ window.jQuery = window.$;
 require('bootstrap');
 require('angular-ui-bootstrap');
 require('angular-ui-router');
+require('ui-select');
 
 angular.module("templates", []);
 require('./templates/templates');
@@ -20,6 +21,7 @@ angular.module('raiweb', [
 	'ngAnimate',
 	'ngCookies',
 	'ui.bootstrap',
+	'ui.select',
 	require('./js/core/core').name,
 	require('./js/dashboard/dashboard').name,
 	require('./js/content/content').name,

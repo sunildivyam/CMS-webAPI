@@ -13,8 +13,6 @@
 (function() {
 	var appService = function($http) {
 		var baseApiUrl = 'https://localhost:44302/api';
-		var cachedReqs = {};
-
 
 		function getFullUrl(url) {
 			return [baseApiUrl, url].join('/');
@@ -27,7 +25,7 @@
 		function nonGetRequest(requestType, url, data, headers) {
 			var reqHeaders = headers || {};
 			if (!reqHeaders['Content-Type']) {
-				headers['Content-Type'] = 'application/json';
+				reqHeaders['Content-Type'] = 'application/json';
 			}
 
 			var config = {

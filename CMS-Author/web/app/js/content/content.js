@@ -20,7 +20,15 @@
 	*/
 
 	angular.module('raiweb.content')
-	.controller('contentController', require('./controllers/contentController'));
+	.service('contentService', require('./services/contentService'))
+
+	.controller('contentController', require('./controllers/contentController'))
+	.controller('tagController', require('./controllers/tagController'))
+	.controller('categoryController', require('./controllers/categoryController'))
+
+	.directive('categoryForm', require('./directives/categoryForm'))
+	.directive('tagForm', require('./directives/tagForm'))
+	.directive('contentForm', require('./directives/contentForm'));
 
 	module.exports = angular.module('raiweb.content');
 })();

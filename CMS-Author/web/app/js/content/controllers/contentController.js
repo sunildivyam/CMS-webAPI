@@ -6,12 +6,17 @@
 */
 
 (function() {
-	var contentController = function($rootScope, $scope, $state, servicesService, contentService, technologiesService, metaInformationService, pageTitleService) {
-		function setMetaInfo(article) {
-			if (article instanceof Object) {
-				metaInformationService.setMetaDescription(article.shortDescription);
-				metaInformationService.setMetaKeywords(article.tags);
-				pageTitleService.setPageTitle(article.name);
+	var contentController = function($rootScope, $scope, $state, appService, contentService, modalService, Content, Tag, Category, EntityMapper, metaInformationService, pageTitleService) {
+		$scope.currentContent = new Content();
+
+		getTags();
+		getCategories();
+
+		function setMetaInfo(content) {
+			if (content instanceof Object) {
+				metaInformationService.setMetaDescription(content.description);
+				metaInformationService.setMetaKeywords(content.name);
+				pageTitleService.setPageTitle(content.title);
 			} else {
 				metaInformationService.resetMetaDescription();
 				metaInformationService.resetMetaKeywords();
@@ -19,70 +24,154 @@
 			}
 		}
 
-		function loadArticleForCurrentState(currentStateName) {
-			$scope.currentArticle = {};
-			$scope.relatedcontent = {};
-			$scope.relatedServices = {};
-			$scope.relatedTechnologies = {};
+		function getTags() {
+			contentService.getTags().then(function(response) {
+				var tags = new EntityMapper(Tag).toEntities(response.data);
 
-			if (currentStateName) {
-				contentService.getArticleByStateName(currentStateName).then(function(article) {
-					if (article instanceof Object) {
-						$scope.currentArticle = article;
+				if (tags instanceof Array && tags.length > 0) {
+					$scope.tags = tags;
+				} else {
+					modalService.alert('md',
+					'No Content Tags',
+					'No content Tags Available <br> Please add One or more tags',
+					'Add Tags').result.then(function() {
+						$state.go('tag');
+					});
+				}
+			}, function(rejection) {
+				modalService.alert('md',
+				'Content Tags Load Failed',
+				'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Unknown') ,
+				'Go to Dashboard').result.then(function() {
+					$state.go('dashboard');
+				});
+			});
+		}
+
+		function getCategories() {
+			contentService.getCategories().then(function(response) {
+				var categories = new EntityMapper(Category).toEntities(response.data);
+
+				if (categories instanceof Array && categories.length > 0) {
+					$scope.categories = categories;
+				} else {
+					modalService.alert('md',
+					'No Content Categories',
+					'No content Categories Available <br> Please add One or more categories',
+					'Add Categories').result.then(function() {
+						$state.go('category');
+					});
+				}
+			}, function(rejection) {
+				modalService.alert('md',
+				'Content Categories Load Failed',
+				'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Unknown') ,
+				'Go to Dashboard').result.then(function() {
+					$state.go('dashboard');
+				});
+			});
+		}
+
+		function getContent(id) {
+			if (id) {
+				var contentId = parseInt(id);
+				contentService.getContentById(contentId).then(function(response) {
+					var content = new Content(response && response.data);
+					if (content instanceof Object) {
+						$scope.currentContent = content;
+						setMetaInfo($scope.currentContent);
 					} else {
-						$scope.currentArticle = undefined;
+						modalService.alert('md',
+						'Content Not Found',
+						'Content with Id: ' + id + ' not found',
+						'Go to Dashboard').result.then(function() {
+							$state.go('dashboard');
+						});
 					}
-					setMetaInfo(article);
-					loadRelatedcontent(article && article.relatedcontent);
-					loadRelatedServices(article && article.relatedServices);
-					loadRelatedTechnologies(article && article.relatedTechnologies);
+				}, function(rejection) {
+					modalService.alert('md',
+					'Content loading Failed',
+					'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Content Not Found.') ,
+					'Go to Dashboard').result.then(function() {
+						$state.go('dashboard');
+					});
+				});
+			}
+		}
+
+		$scope.saveContent = function(event, content) {
+			contentService.addNewContent(content).then(function(response) {
+				var addedContent = new Content(response && response.data);
+
+				modalService.alert('md',
+				'Content Saved',
+				'Content saved successfully',
+				'Go to Dashboard',
+				'Continue..').result.then(function() {
+					$state.go('dashboard');
 				}, function() {
-					setMetaInfo();
-					$scope.currentArticle = undefined;
-					loadRelatedcontent(null);
-					loadRelatedServices(null);
-					loadRelatedTechnologies(null);
+					$state.go('content', {id: addedContent.authorContentId});
 				});
-			}
-		}
+			}, function(rejection) {
+				modalService.alert('md',
+				'Content Saving Failed',
+				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'try Again');
+			});
+		};
 
-		function loadRelatedcontent(articleIds) {
-			if(articleIds instanceof Array && articleIds.length > 0) {
-				contentService.getcontentByIds(articleIds).then(function(content) {
-					$scope.relatedcontent = content;
+		$scope.updateContent = function(event, content) {
+			contentService.updateContent(content).then(function(response) {
+				var updatedContent = new Content(response && response.data);
+
+				modalService.alert('md',
+				'Content Update',
+				'Content Updated successfully',
+				'Go to Dashboard',
+				'Continue..').result.then(function() {
+					$state.go('dashboard');
+				}, function() {
+					$state.go('content', {id: updatedContent.authorContentId});
 				});
+			}, function(rejection) {
+				modalService.alert('md',
+				'Content Update Failed',
+				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'try Again');
+			});
+		};
+
+		$scope.deleteContent = function(event, content) {
+			contentService.deleteContent(content && content.authorContentId).then(function(response) {
+				var updatedContent = new Content(response && response.data);
+
+				modalService.alert('md',
+				'Content Delete',
+				'Following Content Deleted successfully: <br/>' + updatedContent.title + '(' + updatedContent.authorContentId + ')',
+				'Go to Dashboard').result.then(function() {
+					$state.go('dashboard');
+				});
+			}, function(rejection) {
+				modalService.alert('md',
+				'Content Delete Failed',
+				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'try Again');
+			});
+		};
+
+		$scope.cancelContent = function(event, content) {
+			$state.go('.', {id: content && content.authorContentId}, {reload: true});
+		};
+
+		$scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
+			if (toState && toState.name && toParams && toParams.id) {
+				getContent(toParams.id);
 			} else {
-				$scope.relatedcontent = undefined;
-			}
-		}
-
-		function loadRelatedServices(serviceIds) {
-			if(serviceIds instanceof Array && serviceIds.length > 0) {
-				servicesService.getServicesByIds(serviceIds).then(function(services) {
-					$scope.relatedServices = services;
-				});
-			} else {
-				$scope.relatedServices = undefined;
-			}
-		}
-
-		function loadRelatedTechnologies(technologyIds) {
-			if(technologyIds instanceof Array && technologyIds.length > 0) {
-				technologiesService.getTechnologiesByIds(technologyIds).then(function(technologies) {
-					$scope.relatedTechnologies = technologies;
-				});
-			} else {
-				$scope.relatedTechnologies = undefined;
-			}
-		}
-
-		$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState /*, fromParams*/) {
-			if (toState && toState.name && (fromState && fromState.name !== toState.name)) {
-				loadArticleForCurrentState(toState.name);
+				$scope.currentContent = new Content();
 			}
 		});
 	};
 
-	contentController.$inject = ['$rootScope', '$scope', '$state', 'servicesService', 'contentService', 'technologiesService', 'metaInformationService', 'pageTitleService'];
+	contentController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'metaInformationService', 'pageTitleService'];
 	module.exports = contentController;
 })();

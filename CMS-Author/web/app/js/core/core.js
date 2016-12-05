@@ -56,6 +56,33 @@
             isAnonymous: false
         })
         .state({
+            name: 'content',
+            url: '/content?id',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('content/landing.html');
+            }],
+            controller: 'contentController',
+            isAnonymous: false
+        })
+        .state({
+            name: 'tag',
+            url: '/tag?id',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('content/landing.html');
+            }],
+            controller: 'tagController',
+            isAnonymous: false
+        })
+        .state({
+            name: 'category',
+            url: '/category?id',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('content/landing.html');
+            }],
+            controller: 'categoryController',
+            isAnonymous: false
+        })
+        .state({
             name: 'dashboard',
             url: '/dashboard',
             templateProvider: ['$templateCache', function($templateCache) {
@@ -128,9 +155,13 @@
     .factory('pageTitleService', require('./services/pageTitleService'))
     .factory('metaInformationService', require('./services/metaInformationService'))
     .factory('modalService', require('./services/modalService'))
+    .factory('Utils', require('./services/Utils'))
 
+    .factory('EntityMapper', require('./domain/EntityMapper'))
     .factory('User', require('./domain/User'))
     .factory('Category', require('./domain/Category'))
+    .factory('Tag', require('./domain/Tag'))
+    .factory('Content', require('./domain/Content'))
 
     .controller('appController', require('./controllers/appController'))
 

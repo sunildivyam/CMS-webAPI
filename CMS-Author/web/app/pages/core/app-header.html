@@ -11,9 +11,13 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a ui-sref="dashboard">Dashboard</a></li>
-          <li><a ui-sref="profile">Profile</a></li>
-          <li><a ui-sref="logout">Logout</a></li>
+          <li ui-sref-active="active"><a ui-sref="dashboard">Dashboard</a></li>
+          <li ui-sref-active="active"><a ui-sref="content">Content</a></li>
+          <li ui-sref-active="active"><a ui-sref="category">Category</a></li>
+          <li ui-sref-active="active"><a ui-sref="tag">Tag</a></li>
+          <li><hr></li>
+          <li ui-sref-active="active"><a ui-sref="profile">Profile</a></li>
+          <li ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
         </ul>
       </div>
     </div>
@@ -21,10 +25,14 @@
   <div class="col-sm-3 sidenav hidden-xs" ng-hide="!currentUser">
     <brand-logo data-logo="appLogo"></brand-logo>
     <ul class="nav nav-pills nav-stacked">
-      <li class="active"><a ui-sref="dashboard">Dashboard</a></li>
-      <li><a ui-sref="profile">Profile</a></li>
-      <li><a ui-sref="logout">Logout</a></li>
+      <li ui-sref-active="active"><a ui-sref="dashboard">Dashboard</a></li>
+      <li ui-sref-active="active"><a ui-sref="content">Content</a></li>
+      <li ui-sref-active="active"><a ui-sref="category">Category</a></li>
+      <li ui-sref-active="active"><a ui-sref="tag">Tag</a></li>
+      <li><hr></li>
+      <li ui-sref-active="active"><a ui-sref="profile">Profile</a></li>
+      <li ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
     </ul><br>
   </div>
-  <div class="{{currentUser ? 'col-sm-9' : 'col-sm-12'}}" ui-view=""></div>
+  <div class="ui-view-contents {{currentUser ? 'col-sm-9' : 'col-sm-12'}}" ui-view=""></div>
 </div>

@@ -128,9 +128,10 @@ body {
         }
     }
 
-    ui-view {
+    .ui-view-contents {
         position: relative;
         display: block;
+        padding-top: 15px;
     }
 
     &.home, &.services, &.articles {
@@ -142,5 +143,27 @@ body {
     .modal-header {
         background: @modal-header-bg-color;
         .border-radiuses (5px, 0px, 0px, 5px);
+    }
+
+    .panel {
+        &.panel-blue {
+            border-color: #3498db;
+
+            &>.panel-heading {
+                padding: 5px 15px;
+                background: #3498db;
+                color: #fff;
+
+                .panel-title {
+                    .fa {
+                        padding: 5px;
+                    }
+                }
+            }
+        }
+
+        .panel-body {
+            padding: 15px;
+        }
     }
 }

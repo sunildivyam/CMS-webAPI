@@ -8,7 +8,7 @@
 
 (function() {
     var requestInterceptor = function($rootScope, $q, $injector) {
-        var IGNORED_ERRORS = [400, 403, 401];
+        //var IGNORED_ERRORS = [400, 403, 401];
 
         function request(config) {
             var accountService = $injector.get('accountService');
@@ -28,32 +28,32 @@
         }
 
         function responseError(rejection) {
-            redirectOnError(rejection);
+            //redirectOnError(rejection);
             return $q.reject(rejection);
         }
 
-        function redirectOnError(res) {
-            var isByPassError = false;
-            IGNORED_ERRORS.filter(function(error) {
-                if (error === res.status) {
-                    isByPassError = true;
-                    return;
-                }
-            });
+        // function redirectOnError(res) {
+        //     var isByPassError = false;
+        //     IGNORED_ERRORS.filter(function(error) {
+        //         if (error === res.status) {
+        //             isByPassError = true;
+        //             return;
+        //         }
+        //     });
 
-            if(isByPassError === false) {
-                $rootScope.errorState = {
-                    'status': res.status,
-                    'statusText': res.statusText
-                };
-                $rootScope.$state.go('error');
-            } else {
-                $rootScope.errorState = {
-                    'status': null,
-                    'statusText': null
-                };
-            }
-        }
+        //     if(isByPassError === false) {
+        //         $rootScope.errorState = {
+        //             'status': res.status,
+        //             'statusText': res.statusText
+        //         };
+        //         $rootScope.$state.go('error');
+        //     } else {
+        //         $rootScope.errorState = {
+        //             'status': null,
+        //             'statusText': null
+        //         };
+        //     }
+        // }
 
         return {
             request: request,

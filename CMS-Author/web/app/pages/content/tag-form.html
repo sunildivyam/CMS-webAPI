@@ -1,0 +1,40 @@
+<div class="panel panel-blue">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-tasks"></i>Content Tag Form</h3>
+  </div>
+  <div class="panel-body">
+
+    <form name="tagForm" class="" role="form">
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="control-label" for="tag-name">Name</label>
+        <span id="tag-name" name="tagName" class="form-control" ng-bind="tag.name"> </span>
+        <span class="text-info">This will autogenerate while you type Title</span>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="control-label" for="tag-title">Title</label>
+        <input id="tag-title" name="tagTitle" type="text" placeholder="" class="form-control" required="" ng-model="tag.title">
+        <span class="help-block" ng-if="tagForm.tagTitle.$invalid">should not be empty and should not contain special characters</span>
+      </div>
+
+      <!-- Textarea -->
+      <div class="form-group">
+        <label class="control-label" for="tag-description">Description</label>
+        <textarea class="form-control" id="tag-description" name="tagdescription" ng-model="tag.description"></textarea>
+      </div>
+
+      <!-- Button (Double) -->
+      <div class="form-group">
+        <label class="control-label" for="tag-save"></label>
+        <div class="">
+          <button id="tag-save" name="tagSave" class="btn btn-primary" ng-click="save($event)" ng-hide="tag.tagId">Save</button>
+          <button id="tag-update" name="tagUpdate" class="btn btn-primary" ng-click="update($event)" ng-hide="!tag.tagId">Update</button>
+          <button id="tag-delete" name="tagDelete" class="btn btn-primary" ng-click="delete($event)" ng-hide="!tag.tagId">Delete</button>
+          <button id="tag-cancel" name="tagCancel" class="btn btn-danger" ng-click="cancel($event)">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

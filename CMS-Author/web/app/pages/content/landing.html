@@ -1,11 +1,28 @@
-<header class="page-header">
-	<h1 class="header-title">Articles: {{currentArticle.name}} </h1>
-	<div class="header-float"></div>
-</header>
+<category-form
+	ng-if="currentCategory"
+	data-category="currentCategory"
+	data-on-save="saveCategory"
+	data-on-update="updateCategory"
+	data-on-delete="deleteCategory"
+	data-on-cancel="cancelCategory">
+</category-form>
 
-<article-document
-	article = "currentArticle"
-	related-articles = "relatedArticles"
-	related-services = "relatedServices"
-	related-technologies = "relatedTechnologies">
-</article-document>
+<tag-form
+	ng-if="currentTag"
+	data-tag="currentTag"
+	data-on-save="saveTag"
+	data-on-update="updateTag"
+	data-on-delete="deleteTag"
+	data-on-cancel="cancelTag">
+</tag-form>
+
+<content-form
+	ng-if="currentContent"
+	data-content="currentContent"
+	data-tags = "tags"
+	data-categories= "categories"
+	data-on-save="saveContent"
+	data-on-update="updateContent"
+	data-on-delete="deleteContent"
+	data-on-cancel="cancelContent">
+</content-form>

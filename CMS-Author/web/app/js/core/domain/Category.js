@@ -9,9 +9,10 @@
 	var Category = function() {
 		function Category(raw) {
 			if (raw instanceof Object) {
-				this.id = raw.id;
-				this.title = raw.title;
-				this.description = raw.description;
+				this.categoryId = raw.CategoryId;
+				this.name = raw.Name;
+				this.title = raw.Title;
+				this.description = raw.Description;
 			}
 		}
 
