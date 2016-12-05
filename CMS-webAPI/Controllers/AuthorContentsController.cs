@@ -19,9 +19,22 @@ namespace CMS_webAPI.Controllers
         private CmsDbContext db = new CmsDbContext();
        
         // GET: api/AuthorContents
-        public IQueryable<AuthorContent> GetAuthorContents()
+        public IHttpActionResult GetAuthorContents()
         {
-            return db.AuthorContents;
+            var applicationDbContext = new ApplicationDbContext();
+            ApplicationUser currentUser = applicationDbContext.Users.Where(u => u.UserName == User.Identity.Name).Single();
+
+            List<AuthorContent> authorContents = db.AuthorContents.Where(c => c.AuthorId == currentUser.Id).ToList<AuthorContent>();
+
+            List<AuthorContentViewModel> authorContentViews = new List<AuthorContentViewModel>();
+
+            foreach (AuthorContent authorContent in authorContents)
+            {                
+                authorContentViews.Add(new AuthorContentViewModel(authorContent));
+            }
+
+
+            return Ok(authorContentViews);          
         }
 
         // GET: api/AuthorContents/5

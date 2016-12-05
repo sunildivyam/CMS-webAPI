@@ -47,7 +47,8 @@ namespace CMS_webAPI.Models
                 this.Author.FirstName = author.FirstName;
                 this.Author.LastName = author.LastName;
                 this.Author.Email = author.Email;
-                this.Author.HasRegistered = true;                
+                this.Author.HasRegistered = true;
+                this.Author.Phone = author.Phone;
             }
         }
 
