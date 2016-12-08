@@ -54,37 +54,39 @@ namespace CMS_webAPI.Controllers
 
         // PUT: api/AuthorContents/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAuthorContent(int id, AuthorContent authorContent)
+        public async Task<IHttpActionResult> PutAuthorContent(int id, AuthorContentViewModel authorContentView)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != authorContent.AuthorContentId)
+            if (id != authorContentView.AuthorContentId)
             {
                 return BadRequest();
             }
 
+            ApplicationUser user = await BaseApiController.UserManager.FindByNameAsync(User.Identity.Name);
+            AuthorContent authorContent = authorContentView.ToDbModel();
+            var authorContentTags = authorContentView.getAuthorContentTags();
+          
+            authorContent.AuthorId = user.Id;
+            authorContent.UpdatedDate = DateTime.Today;
+
+            db.AuthorContents.Add(authorContent);
+
+            // Updating AuthorContent Tags is deleteing all first then adding all selected.
+            db.AuthorContentTags.RemoveRange(db.AuthorContentTags.Where(act => act.AuthorContentId == authorContent.AuthorContentId));
+            db.AuthorContentTags.AddRange(authorContentTags);
+            
+            // Update the AuthorContent's Content only.
             db.Entry(authorContent).State = EntityState.Modified;
+            
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AuthorContentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
-            return StatusCode(HttpStatusCode.NoContent);
+            //return StatusCode(HttpStatusCode.NoContent);
+            return Ok(authorContentView);
         }
 
         // POST: api/AuthorContents
@@ -97,7 +99,7 @@ namespace CMS_webAPI.Controllers
             }
 
             ApplicationUser user = await BaseApiController.UserManager.FindByNameAsync(User.Identity.Name);
-            AuthorContent authorContent = authorContentView.ToAPIModel();
+            AuthorContent authorContent = authorContentView.ToDbModel();
             var authorContentTags = new List<AuthorContentTag>();            
 
             for (var i = 0; i < authorContentView.Tags.Count; i++ ) 
