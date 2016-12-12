@@ -15,7 +15,8 @@
     "globals": {
         "angular": "angular",
         "$": "jQuery",
-        "$stateProviderRef": "$stateProviderRef"
+        "$stateProviderRef": "$stateProviderRef",
+        "CKEDITOR": "CKEDITOR"
     },
     "extends": "defaults"
 }

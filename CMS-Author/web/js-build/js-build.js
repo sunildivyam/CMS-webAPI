@@ -22,17 +22,18 @@ require('./tasks/cleanCss')(gulp, config);
 require('./tasks/clean')(gulp, config);
 require('./tasks/ngdocs')(gulp, config);
 require('./tasks/webconfig')(gulp, config);
+require('./tasks/ckeditor')(gulp, config);
 
 gulp.task('buildjs', function() {
 	return runSequence('ngTemplateCache', 'browserify', 'cleanNgTemplateCache');
 });
 
 gulp.task('compile', function() {
-	return runSequence('lint', 'buildjs', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig']);
+	return runSequence('lint', 'buildjs', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig', 'ckeditor']);
 });
 
 gulp.task('package', function() {
-	return runSequence('clean', 'lint', 'ngTemplateCache', 'browserify', 'cleanNgTemplateCache', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig'], ['uglify', 'cleanCss'], 'ngdocs');
+	return runSequence('clean', 'lint', 'ngTemplateCache', 'browserify', 'cleanNgTemplateCache', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig', 'ckeditor', 'ngdocs'], ['uglify', 'cleanCss']);
 });
 
 gulp.task('default', ['package']);

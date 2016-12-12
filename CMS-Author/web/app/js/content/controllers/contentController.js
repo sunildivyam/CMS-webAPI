@@ -163,6 +163,14 @@
 			$state.go('.', {id: content && content.authorContentId}, {reload: true});
 		};
 
+		$scope.addnewContent = function() {
+			$state.go('.', {id: ''}, {reload: true});
+		};
+
+		$scope.previewContent = function(event, content) {
+			modalService.showContentPreviewModal(content);
+		};
+
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
 			if (toState && toState.name && toParams && toParams.id) {
 				getContent(toParams.id);

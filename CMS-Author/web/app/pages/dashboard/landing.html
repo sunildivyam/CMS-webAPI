@@ -3,62 +3,66 @@
   <p>Some text..</p>
 </div>
 <div class="row">
-  <div class="col-sm-3">
-    <div class="well">
-      <tag-form></tag-form>
+  <!-- Available Categories -->
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <h3 class="panel-title">Available Content Categories
+        <span class="label label-{{ availableCategories && availableCategories.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="availableCategories && availableCategories.length || 'no results'"></span>
+          </h3>
+      </div>
+      <div class="panel-body">
+        <category-list
+          data-category-items="availableCategories"
+          data-on-select="onCategoriesSelect">
+        </category-list>
+      </div>
     </div>
   </div>
-  <div class="col-sm-3">
-    <div class="well">
-      <h4>Pages</h4>
-      <p>100 Million</p>
+<!-- Available Tags -->
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <h3 class="panel-title">Available Content Tags
+            <span class="label label-{{ availableTags && availableTags.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="availableTags && availableTags.length || 'no results'"></span>
+          </h3>
+      </div>
+      <div class="panel-body">
+        <tag-list
+          data-tag-items="availableTags"
+          data-on-select="onTagsSelect">
+        </tag-list>
+      </div>
     </div>
   </div>
-  <div class="col-sm-3">
-    <div class="well">
-      <h4>Sessions</h4>
-      <p>10 Million</p>
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <h3 class="panel-title">Drafted Contents
+            <span class="label label-{{ draftedContents && draftedContents.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="draftedContents && draftedContents.length || 'no results'"></span>
+          </h3>
+      </div>
+      <div class="panel-body">
+        <content-list
+          data-key-name="authorContentId"
+          data-content-items="draftedContents"
+          data-on-select="onDraftedContentSelect">
+        </content-list>
+      </div>
     </div>
   </div>
-  <div class="col-sm-3">
-    <div class="well">
-      <h4>Bounce</h4>
-      <p>30%</p>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-4">
-    <div class="well">
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-    </div>
-  </div>
-  <div class="col-sm-4">
-    <div class="well">
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-    </div>
-  </div>
-  <div class="col-sm-4">
-    <div class="well">
-      <p>Text</p>
-      <p>Text</p>
-      <p>Text</p>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-8">
-    <div class="well">
-      <p>Text</p>
-    </div>
-  </div>
-  <div class="col-sm-4">
-    <div class="well">
-      <p>Text</p>
+
+  <div class="col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <h3 class="panel-title">Published Contents
+            <span class="label label-{{ publishedContents && publishedContents.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="publishedContents && publishedContents.length || 'no results'"></span>
+          </h3>
+      </div>
+      <div class="panel-body">
+        <content-list content-items="publishedContents">
+        </content-list>
+      </div>
     </div>
   </div>
 </div>

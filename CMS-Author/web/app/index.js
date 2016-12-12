@@ -1,4 +1,6 @@
 'use strict';
+window.CKEDITOR_BASEPATH = './ckeditor/';
+
 var angular = require('angular');
 require('angular-sanitize');
 require('angular-animate');
@@ -10,6 +12,9 @@ require('bootstrap');
 require('angular-ui-bootstrap');
 require('angular-ui-router');
 require('ui-select');
+
+require('ckeditor');
+require('ckeditor/adapters/jquery.js');
 
 angular.module("templates", []);
 require('./templates/templates');

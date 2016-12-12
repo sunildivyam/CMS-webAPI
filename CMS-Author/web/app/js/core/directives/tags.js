@@ -4,7 +4,7 @@
 		return {
 			restrict: 'E',
 			scope: {
-				keywords: "="
+				tagItems: "="
 			},
 			templateUrl: 'core/tags.html',
 			link: function() {

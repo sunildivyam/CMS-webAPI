@@ -59,6 +59,10 @@
 
 
 		//Content
+		function getDraftedContents() {
+			return appService.get([urls.authorContents].join('/'));
+		}
+
 		function getContentById(id) {
 			return appService.get([urls.authorContents, id].join('/'));
 		}
@@ -86,6 +90,7 @@
 			addNewCategory: addNewCategory,
 			updateCategory: updateCategory,
 			deleteCategory: deleteCategory,
+			getDraftedContents: getDraftedContents,
 			getContentById: getContentById,
 			addNewContent: addNewContent,
 			updateContent: updateContent,

@@ -33,6 +33,9 @@
           <button id="category-update" name="categoryUpdate" class="btn btn-primary" ng-click="update($event)" ng-hide="!category.categoryId">Update</button>
           <button id="category-delete" name="categoryDelete" class="btn btn-primary" ng-click="delete($event)" ng-hide="!category.categoryId">Delete</button>
           <button id="category-cancel" name="categoryCancel" class="btn btn-danger" ng-click="cancel($event)">Cancel</button>
+          <span class="pull-right">
+            <button id="category-addnew" name="categoryAddnew" class="btn btn-primary" ng-click="addnew($event)" ng-hide="!category.categoryId">Add Another</button>
+          </span>
         </div>
       </div>
     </form>

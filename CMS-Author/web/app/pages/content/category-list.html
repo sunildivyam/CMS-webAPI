@@ -1,0 +1,18 @@
+<div>
+	<inline-search></inline-search>
+	<ul class="media-list">
+		<li class="media" ng-repeat="category in categoryItems | filter: categoryFilter">
+			<div class="media-left">
+				<a href="#" ng-click="onClick($event, category)">
+					<span class="media-object label label-info" ng-bind="category.categoryId"></span>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ng-click="onClick($event, category)">
+					<h5 class="media-heading text-primary" ng-bind="category.title"></h5>
+				</a>
+				<p ng-bind-html="category.description" class="small"></p>
+			</div>
+		</li>
+	</ul>
+</div>

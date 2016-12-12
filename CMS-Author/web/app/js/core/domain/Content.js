@@ -18,8 +18,8 @@
 				this.author = new User(raw.Author);
 				this.tags = new EntityMapper(Tag).toEntities(raw.Tags);
 				this.category = new Category(raw.Category);
-				this.publishDate = raw.PublishDate;
-				this.updateDate = raw.UpdateDate;
+				this.publishedDate = new Date(raw.PublishedDate);
+				this.updatedDate = new Date(raw.UpdatedDate);
 				this.updateCount = raw.UpdateCount;
 				this.isLive = raw.IsLive;
 				this.owner = new User(raw.Owner);

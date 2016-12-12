@@ -88,6 +88,7 @@
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('dashboard/landing.html');
             }],
+            controller: 'dashboardController',
             isAnonymous: false
         });
 
@@ -168,7 +169,8 @@
     .directive('brandLogo', require('./directives/brandLogo'))
     .directive('loader', require('./directives/loader'))
     .directive('tags', require('./directives/tags'))
-    .directive('appHeader', require('./directives/appHeader'));
+    .directive('appHeader', require('./directives/appHeader'))
+    .directive('ck', require('./directives/ck'));
 
     module.exports = angular.module('raiweb.core');
 })();

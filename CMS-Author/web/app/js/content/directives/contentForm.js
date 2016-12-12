@@ -10,7 +10,9 @@
 				onSave: '=',
 				onDelete: '=',
 				onUpdate: '=',
-				onCancel: '='
+				onCancel: '=',
+				onAddnew: '=',
+				onPreview: '='
 			},
 			templateUrl: 'content/content-form.html',
 			link: function($scope) {
@@ -47,6 +49,8 @@
 						if (typeof $scope.onDelete === 'function') {
 							$scope.onDelete(event, $scope.content);
 						}
+					}, function() {
+						//
 					});
 				};
 
@@ -61,7 +65,33 @@
 						} else {
 							$scope.content = {};
 						}
+					}, function() {
+						//
 					});
+				};
+
+				$scope.addnew = function(event) {
+					modalService.alert('md',
+					'Add New Content',
+					'Any unsaved data will be lost. <br/> Do you want to proceed?',
+					'Yes',
+					'No').result.then(function() {
+						if (typeof $scope.onAddnew === 'function') {
+							$scope.onAddnew(event, $scope.content);
+						} else {
+							$scope.content = {};
+						}
+					}, function() {
+						//
+					});
+				};
+
+				$scope.preview = function(event) {
+					if (typeof $scope.onPreview === 'function') {
+						$scope.onPreview(event, $scope.content);
+					} else {
+						//
+					}
 				};
 			}
 		};

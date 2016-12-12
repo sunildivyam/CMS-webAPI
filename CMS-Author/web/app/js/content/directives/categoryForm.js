@@ -1,14 +1,27 @@
 'use strict';
+/**
+* @ngdoc directive
+* @name raiweb.content.directive:categoryForm
+* @scope
+* @restrict EAC
+
+* @description
+*
+* @param {object} logo Logo information Object
+* @param {string} size size value 'xs', 'md', 'lg' etc.
+*/
+
 (function() {
 	var categoryForm = function(modalService, Utils) {
 		return {
-			restrict: 'E',
+			restrict: 'EAC',
 			scope: {
 				category: '=',
 				onSave: '=',
 				onDelete: '=',
 				onUpdate: '=',
-				onCancel: '='
+				onCancel: '=',
+				onAddnew: '='
 			},
 			templateUrl: 'content/category-form.html',
 			link: function($scope) {
@@ -45,6 +58,8 @@
 						if (typeof $scope.onDelete === 'function') {
 							$scope.onDelete(event, $scope.category);
 						}
+					}, function() {
+						//
 					});
 				};
 
@@ -59,6 +74,24 @@
 						} else {
 							$scope.category = {};
 						}
+					}, function() {
+						//
+					});
+				};
+
+				$scope.addnew = function(event) {
+					modalService.alert('md',
+					'Add New Category',
+					'Any unsaved data will be lost. <br/> Do you want to proceed?',
+					'Yes',
+					'No').result.then(function() {
+						if (typeof $scope.onAddnew === 'function') {
+							$scope.onAddnew(event, $scope.category);
+						} else {
+							$scope.category = {};
+						}
+					}, function() {
+						//
 					});
 				};
 			}

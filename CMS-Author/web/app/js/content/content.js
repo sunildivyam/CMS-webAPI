@@ -28,7 +28,12 @@
 
 	.directive('categoryForm', require('./directives/categoryForm'))
 	.directive('tagForm', require('./directives/tagForm'))
-	.directive('contentForm', require('./directives/contentForm'));
+	.directive('contentForm', require('./directives/contentForm'))
+	.directive('contentList', require('./directives/contentList'))
+	.directive('tagList', require('./directives/tagList'))
+	.directive('categoryList', require('./directives/categoryList'))
+	.directive('inlineSearch', require('./directives/inlineSearch'))
+	.directive('contentPreview', require('./directives/contentPreview'));
 
 	module.exports = angular.module('raiweb.content');
 })();

@@ -33,6 +33,9 @@
           <button id="tag-update" name="tagUpdate" class="btn btn-primary" ng-click="update($event)" ng-hide="!tag.tagId">Update</button>
           <button id="tag-delete" name="tagDelete" class="btn btn-primary" ng-click="delete($event)" ng-hide="!tag.tagId">Delete</button>
           <button id="tag-cancel" name="tagCancel" class="btn btn-danger" ng-click="cancel($event)">Cancel</button>
+          <span class="pull-right">
+            <button id="tag-addnew" name="tagAddnew" class="btn btn-primary" ng-click="addnew($event)" ng-hide="!tag.tagId">Add Another</button>
+          </span>
         </div>
       </div>
     </form>

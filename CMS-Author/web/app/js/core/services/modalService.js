@@ -31,8 +31,33 @@
             return $uibModal.open(options);
         }
 
+        function showContentPreviewModal(content, size) {
+            var options = {
+                animation: true,
+                templateUrl: 'core/content-preview-modal.html',
+                size: size || 'lg',
+                controllerAs: '$ctrl',
+                resolve: {
+                    modalData: function() {
+                        return {
+                            title: 'Content Preview',
+                            content: content || {},
+                            okLabel: 'Close Preview',
+                            cancelLabel: ''
+                        };
+                    }
+                },
+                controller: ['$scope', 'modalData', function($scope, modalData) {
+                    $scope.modalData = modalData;
+                }]
+            };
+
+            return $uibModal.open(options);
+        }
+
         return {
-            alert: alert
+            alert: alert,
+            showContentPreviewModal: showContentPreviewModal
         };
     };
 

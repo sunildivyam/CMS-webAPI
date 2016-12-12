@@ -112,6 +112,10 @@
 			$state.go('.', {id: tag && tag.tagId}, {reload: true});
 		};
 
+		$scope.addnewTag = function() {
+			$state.go('.', {id: ''}, {reload: true});
+		};
+
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
 			if (toState && toState.name && toParams && toParams.id) {
 				getTag(toParams.id);

@@ -112,6 +112,10 @@
 			$state.go('.', {id: category && category.categoryId}, {reload: true});
 		};
 
+		$scope.addnewCategory = function() {
+			$state.go('.', {id: ''}, {reload: true});
+		};
+
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
 			if (toState && toState.name && toParams && toParams.id) {
 				getCategory(toParams.id);

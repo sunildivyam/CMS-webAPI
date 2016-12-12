@@ -8,7 +8,8 @@
 				onSave: '=',
 				onDelete: '=',
 				onUpdate: '=',
-				onCancel: '='
+				onCancel: '=',
+				onAddnew: '='
 			},
 			templateUrl: 'content/tag-form.html',
 			link: function($scope) {
@@ -45,6 +46,8 @@
 						if (typeof $scope.onDelete === 'function') {
 							$scope.onDelete(event, $scope.tag);
 						}
+					}, function() {
+						//
 					});
 				};
 
@@ -59,6 +62,24 @@
 						} else {
 							$scope.tag = {};
 						}
+					}, function() {
+						//
+					});
+				};
+
+				$scope.addnew = function(event) {
+					modalService.alert('md',
+					'Add New Tag',
+					'Any unsaved data will be lost. <br/> Do you want to proceed?',
+					'Yes',
+					'No').result.then(function() {
+						if (typeof $scope.onAddnew === 'function') {
+							$scope.onAddnew(event, $scope.tag);
+						} else {
+							$scope.tag = {};
+						}
+					}, function() {
+						//
 					});
 				};
 			}

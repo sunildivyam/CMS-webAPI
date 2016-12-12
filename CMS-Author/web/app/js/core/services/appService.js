@@ -54,7 +54,7 @@
 			var config = {
 				method: 'GET',
 				url: getFullUrl(url),
-				cache: true,
+				cache: false,
 				params: params,
 				headers: headers
 			};

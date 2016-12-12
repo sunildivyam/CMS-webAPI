@@ -34,8 +34,23 @@
 			return str;
 		}
 
+		/* 	Filter Objects of content, tag or category, for title to contain searchKeywords
+		*	and returns tru or false if found/notfound.
+		*	This should be used in filtering Array of above Objects
+		*/
+		function filterByKeywords(content, searchKeywords) {
+			if (!searchKeywords) return true;
+
+			if (content && content.title && content.title.toLowerCase().search(searchKeywords.toLowerCase()) >= 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 		return {
-			parseStringExt: parseStringExt
+			parseStringExt: parseStringExt,
+			filterByKeywords: filterByKeywords
 		};
 	};
 

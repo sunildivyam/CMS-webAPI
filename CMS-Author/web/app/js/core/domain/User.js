@@ -10,7 +10,7 @@
 		function User(userInfo) {
 			if (userInfo instanceof Object) {
 				var raw = userInfo;
-				this.userName = raw.Email || raw.userName;
+				this.userName = raw.Email || raw.UserName;
 				this.email = raw.Email;
 				this.password = raw.password;
 				this.confirmPassword = raw.ConfirmPassword;

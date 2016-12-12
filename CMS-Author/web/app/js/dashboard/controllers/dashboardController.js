@@ -6,83 +6,73 @@
 */
 
 (function() {
-	var dashboardController = function($rootScope, $scope, $state, servicesService, dashboardService, technologiesService, metaInformationService, pageTitleService) {
-		function setMetaInfo(article) {
-			if (article instanceof Object) {
-				metaInformationService.setMetaDescription(article.shortDescription);
-				metaInformationService.setMetaKeywords(article.tags);
-				pageTitleService.setPageTitle(article.name);
-			} else {
-				metaInformationService.resetMetaDescription();
-				metaInformationService.resetMetaKeywords();
-				pageTitleService.setPageTitle();
-			}
-		}
+	var dashboardController = function($rootScope, $scope, $state, metaInformationService, pageTitleService, contentService, EntityMapper, Content, Category, Tag) {
+		// function setMetaInfo(article) {
+		// 	if (article instanceof Object) {
+		// 		metaInformationService.setMetaDescription(article.shortDescription);
+		// 		metaInformationService.setMetaKeywords(article.tags);
+		// 		pageTitleService.setPageTitle(article.name);
+		// 	} else {
+		// 		metaInformationService.resetMetaDescription();
+		// 		metaInformationService.resetMetaKeywords();
+		// 		pageTitleService.setPageTitle();
+		// 	}
+		// }
 
-		function loadArticleForCurrentState(currentStateName) {
-			$scope.currentArticle = {};
-			$scope.relateddashboard = {};
-			$scope.relatedServices = {};
-			$scope.relatedTechnologies = {};
+		$scope.getDraftedContents = function() {
+			contentService.getDraftedContents().then(function(response) {
+				var contents = new EntityMapper(Content).toEntities(response.data);
+				$scope.draftedContents = contents;
+			}, function() {
+				$scope.draftedContents = new EntityMapper(Content).toEntities([]);
+			});
+		};
 
-			if (currentStateName) {
-				dashboardService.getArticleByStateName(currentStateName).then(function(article) {
-					if (article instanceof Object) {
-						$scope.currentArticle = article;
-					} else {
-						$scope.currentArticle = undefined;
-					}
-					setMetaInfo(article);
-					loadRelateddashboard(article && article.relateddashboard);
-					loadRelatedServices(article && article.relatedServices);
-					loadRelatedTechnologies(article && article.relatedTechnologies);
-				}, function() {
-					setMetaInfo();
-					$scope.currentArticle = undefined;
-					loadRelateddashboard(null);
-					loadRelatedServices(null);
-					loadRelatedTechnologies(null);
-				});
-			}
-		}
+		$scope.getAvailableCategories = function() {
+			contentService.getCategories().then(function(response) {
+				var categories = new EntityMapper(Category).toEntities(response.data);
+				$scope.availableCategories = categories;
+			}, function() {
+				$scope.availableCategories = new EntityMapper(Category).toEntities([]);
+			});
+		};
 
-		function loadRelateddashboard(articleIds) {
-			if(articleIds instanceof Array && articleIds.length > 0) {
-				dashboardService.getdashboardByIds(articleIds).then(function(dashboard) {
-					$scope.relateddashboard = dashboard;
-				});
-			} else {
-				$scope.relateddashboard = undefined;
-			}
-		}
+		$scope.getAvailableTags = function() {
+			contentService.getTags().then(function(response) {
+				var tags = new EntityMapper(Tag).toEntities(response.data);
+				$scope.availableTags = tags;
+			}, function() {
+				$scope.availableTags = new EntityMapper(Tag).toEntities([]);
+			});
+		};
 
-		function loadRelatedServices(serviceIds) {
-			if(serviceIds instanceof Array && serviceIds.length > 0) {
-				servicesService.getServicesByIds(serviceIds).then(function(services) {
-					$scope.relatedServices = services;
-				});
-			} else {
-				$scope.relatedServices = undefined;
+		$scope.onDraftedContentSelect = function(event, content) {
+			if(content instanceof Object) {
+				$state.go('content', {id: content.authorContentId});
 			}
-		}
+		};
 
-		function loadRelatedTechnologies(technologyIds) {
-			if(technologyIds instanceof Array && technologyIds.length > 0) {
-				technologiesService.getTechnologiesByIds(technologyIds).then(function(technologies) {
-					$scope.relatedTechnologies = technologies;
-				});
-			} else {
-				$scope.relatedTechnologies = undefined;
+		$scope.onCategoriesSelect = function(event, category) {
+			if(category instanceof Object) {
+				$state.go('category', {id: category.categoryId});
 			}
-		}
+		};
+
+		$scope.onTagsSelect = function(event, tag) {
+			if(tag instanceof Object) {
+				$state.go('tag', {id: tag.tagId});
+			}
+		};
 
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState /*, fromParams*/) {
 			if (toState && toState.name && (fromState && fromState.name !== toState.name)) {
-				loadArticleForCurrentState(toState.name);
+				$scope.getDraftedContents();
+				$scope.getAvailableCategories();
+				$scope.getAvailableTags();
 			}
 		});
 	};
 
-	dashboardController.$inject = ['$rootScope', '$scope', '$state', 'servicesService', 'dashboardService', 'technologiesService', 'metaInformationService', 'pageTitleService'];
+	dashboardController.$inject = ['$rootScope', '$scope', '$state', 'metaInformationService', 'pageTitleService', 'contentService', 'EntityMapper', 'Content', 'Category', 'Tag'];
 	module.exports = dashboardController;
 })();

@@ -58,13 +58,13 @@
 				<!-- Textarea -->
 				<div class="form-group">
 				  <label class="control-label" for="content-short-description">Short Description</label>
-				    <textarea class="form-control" id="content-short-description" name="contentShortDescription" ng-model="content.shortDescription"></textarea>
+				    <textarea ck class="form-control" id="content-short-description" name="contentShortDescription" ng-model="content.shortDescription"></textarea>
 				</div>
 
 				<!-- Textarea -->
 				<div class="form-group">
-				  <label class="control-label" for="conentDescription">Full write up goes here</label>
-				    <textarea class="form-control" id="conent-description" name="conentDescription" ng-model="content.description"></textarea>
+				  <label class="control-label" for="contentDescription">Full write up goes here</label>
+				    <textarea ck class="form-control" id="content-description" name="contentDescription" ng-model="content.description"></textarea>
 				</div>
 
 				<!-- Button (Double) -->
@@ -75,6 +75,10 @@
 					  <button id="content-update" name="contentUpdate" class="btn btn-primary" ng-click="update($event)" ng-hide="!content.authorContentId">Update</button>
 					  <button id="content-delete" name="contentDelete" class="btn btn-primary" ng-click="delete($event)" ng-hide="!content.authorContentId">Delete</button>
 					  <button id="content-cancel" name="contentCancel" class="btn btn-danger" ng-click="cancel($event)">Cancel</button>
+					  <span class="pull-right">
+						  <button id="content-addnew" name="contentAddnew" class="btn btn-primary" ng-click="addnew($event)" ng-hide="!content.authorContentId">Add Another</button>
+						  <button id="content-preview" name="contentPreview" class="btn btn-success" ng-click="preview($event)">Preview</button>
+						</span>
 					</div>
 				</div>
 			</form>
