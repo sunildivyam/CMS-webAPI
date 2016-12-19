@@ -17,90 +17,52 @@ namespace CMS_webAPI.Controllers
     {
         private CmsDbContext db = new CmsDbContext();
 
+        public IHttpActionResult Get()
+        {
+            return BadRequest();
+        }
+
         // GET: api/Contents
         public IQueryable<Content> GetContents()
         {
             return db.Contents;
         }
 
-        // GET: api/Contents/5
+        // Gets all Published And Live Contents for a Category Id and a Name
+        // GET: api/Contents/GetContentById/5/content-name
         [ResponseType(typeof(Content))]
-        public async Task<IHttpActionResult> GetContent(int id)
+        public async Task<IHttpActionResult> GetContentById(int param1, string param2)
         {
-            Content content = await db.Contents.FindAsync(id);
-            if (content == null)
+            var Id = param1;
+            var name = param2;
+
+            Content content = await db.Contents.FindAsync(Id);
+            if (content == null || !content.IsLive || content.Name != name)
             {
                 return NotFound();
             }
 
+            // Update and increment the VisitCount By 1
+                // Code goes here
+
             return Ok(content);
         }
 
-        // PUT: api/Contents/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutContent(int id, Content content)
+        // Gets all Published And Live Contents for a Category Name
+        // GET: api/Contents/GetContentsByCategoryName/category-name
+        [ResponseType(typeof(List<AuthorContent>))]
+        public async Task<IHttpActionResult> GetContentsByCategoryName(string param1)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != content.ContentId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(content).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ContentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Contents
-        [ResponseType(typeof(Content))]
-        public async Task<IHttpActionResult> PostContent(Content content)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Contents.Add(content);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = content.ContentId }, content);
-        }
-
-        // DELETE: api/Contents/5
-        [ResponseType(typeof(Content))]
-        public async Task<IHttpActionResult> DeleteContent(int id)
-        {
-            Content content = await db.Contents.FindAsync(id);
-            if (content == null)
+            var name = param1;
+            List<AuthorContent> contents = await db.AuthorContents.Where(c => c.Category.Name == name).ToListAsync();
+            if (contents == null)
             {
                 return NotFound();
             }
 
-            db.Contents.Remove(content);
-            await db.SaveChangesAsync();
-
-            return Ok(content);
+            return Ok(contents);
         }
+
 
         protected override void Dispose(bool disposing)
         {

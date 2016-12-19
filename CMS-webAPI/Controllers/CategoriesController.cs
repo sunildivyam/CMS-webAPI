@@ -16,7 +16,11 @@ namespace CMS_webAPI.Controllers
     public class CategoriesController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
-        
+
+        public IHttpActionResult Get()
+        {
+            return BadRequest();
+        }
         // GET: api/Categories
         public IQueryable<Category> GetCategories()
         {
@@ -25,8 +29,9 @@ namespace CMS_webAPI.Controllers
 
         // GET: api/Categories/5
         [ResponseType(typeof(Category))]
-        public async Task<IHttpActionResult> GetCategory(int id)
+        public async Task<IHttpActionResult> GetCategory(int param1)
         {
+            var id = param1;
             Category category = await db.Categories.FindAsync(id);
             if (category == null)
             {
@@ -38,8 +43,10 @@ namespace CMS_webAPI.Controllers
 
         // PUT: api/Categories/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutCategory(int id, Category category)
+        public async Task<IHttpActionResult> PutCategory(int param1, Category category)
         {
+            var id = param1;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -89,8 +96,9 @@ namespace CMS_webAPI.Controllers
 
         // DELETE: api/Categories/5
         [ResponseType(typeof(Category))]
-        public async Task<IHttpActionResult> DeleteCategory(int id)
+        public async Task<IHttpActionResult> DeleteCategory(int param1)
         {
+            var id = param1;
             Category category = await db.Categories.FindAsync(id);
             if (category == null)
             {

@@ -16,6 +16,10 @@ namespace CMS_webAPI.Controllers
     public class AuthorContentTagsController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
+        public IHttpActionResult Get()
+        {
+            return BadRequest();
+        }
 
         // GET: api/AuthorContentTags
         public IQueryable<AuthorContentTag> GetAuthorContentTags()
@@ -25,8 +29,10 @@ namespace CMS_webAPI.Controllers
 
         // GET: api/AuthorContentTags/5
         [ResponseType(typeof(AuthorContentTag))]
-        public async Task<IHttpActionResult> GetAuthorContentTag(int id)
+        public async Task<IHttpActionResult> GetAuthorContentTag(int param1)
         {
+            var id = param1;
+
             AuthorContentTag authorContentTag = await db.AuthorContentTags.FindAsync(id);
             if (authorContentTag == null)
             {
@@ -38,8 +44,9 @@ namespace CMS_webAPI.Controllers
 
         // PUT: api/AuthorContentTags/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAuthorContentTag(int id, AuthorContentTag authorContentTag)
+        public async Task<IHttpActionResult> PutAuthorContentTag(int param1, AuthorContentTag authorContentTag)
         {
+            var id = param1;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -88,8 +95,9 @@ namespace CMS_webAPI.Controllers
 
         // DELETE: api/AuthorContentTags/5
         [ResponseType(typeof(AuthorContentTag))]
-        public async Task<IHttpActionResult> DeleteAuthorContentTag(int id)
+        public async Task<IHttpActionResult> DeleteAuthorContentTag(int param1)
         {
+            var id = param1;
             AuthorContentTag authorContentTag = await db.AuthorContentTags.FindAsync(id);
             if (authorContentTag == null)
             {

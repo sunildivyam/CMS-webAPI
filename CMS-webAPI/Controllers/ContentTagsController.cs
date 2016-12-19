@@ -17,6 +17,11 @@ namespace CMS_webAPI.Controllers
     {
         private CmsDbContext db = new CmsDbContext();
 
+        public IHttpActionResult Get()
+        {
+            return BadRequest();
+        }
+
         // GET: api/ContentTags
         public IQueryable<ContentTag> GetContentTags()
         {
@@ -25,8 +30,10 @@ namespace CMS_webAPI.Controllers
 
         // GET: api/ContentTags/5
         [ResponseType(typeof(ContentTag))]
-        public async Task<IHttpActionResult> GetContentTag(int id)
+        public async Task<IHttpActionResult> GetContentTag(int param1)
         {
+            var id = param1;
+
             ContentTag contentTag = await db.ContentTags.FindAsync(id);
             if (contentTag == null)
             {
@@ -38,8 +45,10 @@ namespace CMS_webAPI.Controllers
 
         // PUT: api/ContentTags/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutContentTag(int id, ContentTag contentTag)
+        public async Task<IHttpActionResult> PutContentTag(int param1, ContentTag contentTag)
         {
+            var id = param1;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -88,8 +97,9 @@ namespace CMS_webAPI.Controllers
 
         // DELETE: api/ContentTags/5
         [ResponseType(typeof(ContentTag))]
-        public async Task<IHttpActionResult> DeleteContentTag(int id)
+        public async Task<IHttpActionResult> DeleteContentTag(int param1)
         {
+            var id = param1;
             ContentTag contentTag = await db.ContentTags.FindAsync(id);
             if (contentTag == null)
             {

@@ -17,6 +17,11 @@ namespace CMS_webAPI.Controllers
     {
         private CmsDbContext db = new CmsDbContext();
 
+        public IHttpActionResult Get()
+        {
+            return BadRequest();
+        }
+
         // GET: api/Tags
         public IQueryable<Tag> GetTags()
         {
@@ -25,8 +30,10 @@ namespace CMS_webAPI.Controllers
 
         // GET: api/Tags/5
         [ResponseType(typeof(Tag))]
-        public async Task<IHttpActionResult> GetTag(int id)
+        public async Task<IHttpActionResult> GetTag(int param1)
         {
+            var id = param1;
+
             Tag tag = await db.Tags.FindAsync(id);
             if (tag == null)
             {
@@ -37,9 +44,11 @@ namespace CMS_webAPI.Controllers
         }
 
         // PUT: api/Tags/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutTag(int id, Tag tag)
+        [ResponseType(typeof(Tag))]
+        public async Task<IHttpActionResult> PutTag(int param1, Tag tag)
         {
+            var id = param1;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -67,8 +76,8 @@ namespace CMS_webAPI.Controllers
                     throw;
                 }
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(tag);
+            //return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Tags
@@ -82,14 +91,16 @@ namespace CMS_webAPI.Controllers
 
             db.Tags.Add(tag);
             await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = tag.TagId }, tag);
+            return Ok(tag);
+            //return CreatedAtRoute("DefaultApi", new { id = tag.TagId }, tag);
         }
 
         // DELETE: api/Tags/5
         [ResponseType(typeof(Tag))]
-        public async Task<IHttpActionResult> DeleteTag(int id)
+        public async Task<IHttpActionResult> DeleteTag(int param1)
         {
+            var id = param1;
+
             Tag tag = await db.Tags.FindAsync(id);
             if (tag == null)
             {

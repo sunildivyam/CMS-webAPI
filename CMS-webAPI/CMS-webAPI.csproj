@@ -229,6 +229,10 @@
     <Compile Include="CmsDbMigrations\201612030518596_InitialCreate.Designer.cs">
       <DependentUpon>201612030518596_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="CmsDbMigrations\201612191118419_Upgrade1.cs" />
+    <Compile Include="CmsDbMigrations\201612191118419_Upgrade1.Designer.cs">
+      <DependentUpon>201612191118419_Upgrade1.cs</DependentUpon>
+    </Compile>
     <Compile Include="CmsDbMigrations\Configuration.cs" />
     <Compile Include="Controllers\AuthorContentsController.cs" />
     <Compile Include="Controllers\AuthorContentTagsController.cs" />
@@ -260,9 +264,11 @@
     <Compile Include="Models\AuthorContent.cs" />
     <Compile Include="Models\AuthorContentTag.cs" />
     <Compile Include="Models\CmsDbContext.cs" />
+    <Compile Include="Models\ContentViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -353,6 +359,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CmsDbMigrations\201612030518596_InitialCreate.resx">
       <DependentUpon>201612030518596_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CmsDbMigrations\201612191118419_Upgrade1.resx">
+      <DependentUpon>201612191118419_Upgrade1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityMigrations\201608280406225_InitialCreate.resx">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>

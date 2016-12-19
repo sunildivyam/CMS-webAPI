@@ -53,7 +53,7 @@ namespace CMS_webAPI.Models
             {
                 this.AuthorContentId = authorContent.AuthorContentId;
                 this.ContentId = authorContent.ContentId;
-                this.Category = authorContent.Category;
+                this.Category = _db.Categories.Find(authorContent.CategoryId);
                 this.Name = authorContent.Name;
                 this.Title = authorContent.Title;
                 this.ShortDescription = authorContent.ShortDescription;
@@ -72,14 +72,8 @@ namespace CMS_webAPI.Models
                     this.Tags.Add(_db.Tags.Find(authorContentTags[i].TagId));
                 }
 
-                // Author                
-                var author = _appDB.Users.Find(authorContent.AuthorId);
-                this.Author = new UserInfoViewModel();
-                this.Author.FirstName = author.FirstName;
-                this.Author.LastName = author.LastName;
-                this.Author.Email = author.Email;
-                this.Author.HasRegistered = true;
-                this.Author.Phone = author.Phone;
+                // Author  
+                this.Author = UserService.GetUserViewModelById(authorContent.AuthorId);                
             }
         }
 
@@ -90,7 +84,7 @@ namespace CMS_webAPI.Models
         {
             AuthorContent content = new AuthorContent();
             content.AuthorContentId = this.AuthorContentId;
-            content.ContentId = this.ContentId;
+            content.ContentId = this.ContentId;            
             content.CategoryId = this.Category.CategoryId;
             content.Name = this.Name;
             content.Title = this.Title;
@@ -100,9 +94,18 @@ namespace CMS_webAPI.Models
             content.UpdatedDate = this.UpdatedDate;
             content.UpdateCount = this.UpdateCount;
 
-            
-            var author = _appDB.Users.FirstOrDefault(u => u.Email == this.Author.Email);
-            content.AuthorId = author.Id;
+
+            ApplicationUser author = UserService.getUserFromUserViewModel(this.Author);
+            if (author != null)
+            {
+                content.AuthorId = author.Id;
+            }
+            else
+            {
+                content.AuthorId = null;
+
+            }
+
             return content;
         } 
         // Generates List of AuthorContentTag from view models Tags property.
