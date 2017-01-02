@@ -233,6 +233,10 @@
     <Compile Include="CmsDbMigrations\201612191118419_Upgrade1.Designer.cs">
       <DependentUpon>201612191118419_Upgrade1.cs</DependentUpon>
     </Compile>
+    <Compile Include="CmsDbMigrations\201701021200301_Upgrade2.cs" />
+    <Compile Include="CmsDbMigrations\201701021200301_Upgrade2.Designer.cs">
+      <DependentUpon>201701021200301_Upgrade2.cs</DependentUpon>
+    </Compile>
     <Compile Include="CmsDbMigrations\Configuration.cs" />
     <Compile Include="Controllers\AuthorContentsController.cs" />
     <Compile Include="Controllers\AuthorContentTagsController.cs" />
@@ -363,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CmsDbMigrations\201612191118419_Upgrade1.resx">
       <DependentUpon>201612191118419_Upgrade1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CmsDbMigrations\201701021200301_Upgrade2.resx">
+      <DependentUpon>201701021200301_Upgrade2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityMigrations\201608280406225_InitialCreate.resx">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>

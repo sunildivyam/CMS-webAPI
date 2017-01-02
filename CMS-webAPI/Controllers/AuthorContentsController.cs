@@ -105,7 +105,9 @@ namespace CMS_webAPI.Controllers
                 return BadRequest();
             }
 
-            AuthorContentViewModel updatedAuthorContentView = await UpdateAuthorContent(param1, authorContentView);
+            AuthorContentViewModel updatedAuthorContentView = new AuthorContentViewModel(UpdateAuthorContent(param1, authorContentView));
+            await db.SaveChangesAsync();
+            updatedAuthorContentView.UpdateCount = updatedAuthorContentView.UpdateCount + 1;
             //return StatusCode(HttpStatusCode.NoContent);
             return Ok(updatedAuthorContentView);
         }
@@ -121,7 +123,8 @@ namespace CMS_webAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            AuthorContentViewModel addedAuthorContentView = await AddAuthorContent(authorContentView);
+            AuthorContentViewModel addedAuthorContentView = new AuthorContentViewModel( AddAuthorContent(authorContentView));
+            await db.SaveChangesAsync();
 
             return Ok(addedAuthorContentView);
         }
@@ -146,7 +149,7 @@ namespace CMS_webAPI.Controllers
             if (authorContentView.ContentId != null && authorContentView.ContentId > 0)
             {
                 // Content in Pub Should be Updated
-                contentView = await UpdateContent(contentToPub.ContentId, contentView);
+                contentView = new ContentViewModel( UpdateContent(contentToPub.ContentId, contentView));
                 // Updates the AuthorContent with the Published content's ContentId
                 authorContentView.ContentId = contentView.ContentId;
                 authorContentView.PublishedDate = contentView.PublishedDate;
@@ -172,8 +175,7 @@ namespace CMS_webAPI.Controllers
                 contentToPub.IsLive = true;
 
                 db.Contents.Add(contentToPub);
-                db.ContentTags.AddRange(contentTags);
-                await db.SaveChangesAsync();
+                db.ContentTags.AddRange(contentTags);                
                 // Updates the AuthorContent with the Published content's ContentId
                 authorContentView.ContentId = contentToPub.ContentId;
                 authorContentView.PublishedDate = contentToPub.PublishedDate;
@@ -183,13 +185,14 @@ namespace CMS_webAPI.Controllers
             // Updates or Adds AuthorContent before Publishing it.
             if (authorContentView.AuthorContentId > 0)
             {
-                await UpdateAuthorContent(authorContentView.AuthorContentId, authorContentView);
+                new AuthorContentViewModel(UpdateAuthorContent(authorContentView.AuthorContentId, authorContentView));
             }
             else
             {
-                await AddAuthorContent(authorContentView);
+                new AuthorContentViewModel( AddAuthorContent(authorContentView));
             }
 
+            await db.SaveChangesAsync();
             ContentViewModel publishedContentView = new ContentViewModel(contentToPub);
 
             return Ok(publishedContentView);
@@ -225,7 +228,7 @@ namespace CMS_webAPI.Controllers
             return db.AuthorContents.Count(e => e.AuthorContentId == id) > 0;
         }
 
-        private async Task<AuthorContentViewModel> AddAuthorContent(AuthorContentViewModel authorContentView)
+        private  AuthorContent AddAuthorContent(AuthorContentViewModel authorContentView)
         {
             AuthorContent authorContent = authorContentView.ToDbModel();
 
@@ -245,12 +248,11 @@ namespace CMS_webAPI.Controllers
             db.AuthorContents.Add(authorContent);
             db.AuthorContentTags.AddRange(authorContentTags);
 
-            await db.SaveChangesAsync();
-
-            return new AuthorContentViewModel(authorContent);
+            return authorContent;
+            
         }
 
-        private async Task<AuthorContentViewModel> UpdateAuthorContent(int Id, AuthorContentViewModel authorContentView)
+        private  AuthorContent UpdateAuthorContent(int Id, AuthorContentViewModel authorContentView)
         {
             AuthorContent authorContent = authorContentView.ToDbModel();
             var authorContentTags = authorContentView.getAuthorContentTags();
@@ -267,12 +269,10 @@ namespace CMS_webAPI.Controllers
             // Update the AuthorContent's Content only.
             db.Entry(authorContent).State = EntityState.Modified;
 
-            await db.SaveChangesAsync();
-
-            return new AuthorContentViewModel(authorContent);
+            return authorContent;
         }
 
-        private async Task<ContentViewModel> UpdateContent(int Id, ContentViewModel contentView)
+        private Content UpdateContent(int Id, ContentViewModel contentView)
         {
             Content content = contentView.ToDbModel();
             var contentTags = contentView.getContentTags();
@@ -280,7 +280,7 @@ namespace CMS_webAPI.Controllers
             content.OwnerId = UserService.getUserByUserName(User.Identity.Name).Id;
             content.PublishedDate = DateTime.Today;
             content.IsLive = true;
-            Content originalContent = await db.Contents.FindAsync(content.ContentId);
+            Content originalContent = db.Contents.Find(content.ContentId);
             content.VisitCount = originalContent.VisitCount;
 
             db.Contents.Add(content);
@@ -292,9 +292,7 @@ namespace CMS_webAPI.Controllers
             // Update the Content's Content only.
             db.Entry(content).State = EntityState.Modified;
 
-            await db.SaveChangesAsync();
-
-            return new ContentViewModel(content);
+            return content;            
         }
 
     }

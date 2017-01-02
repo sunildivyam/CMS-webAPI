@@ -38,7 +38,7 @@ namespace CMS_webAPI.Controllers
             }
 
             ContentViewModel contentView = new ContentViewModel(content);
-
+            db.Database.ExecuteSqlCommand("exec proc_UpdateVisitCountOnContents " + content.ContentId);
             // Update and increment the VisitCount By 1
                 // Code goes here
 
