@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <brand-logo class="navbar-brand xs" data-logo="appLogo"></brand-logo>
+        <brand-logo class="navbar-brand" data-logo="appLogo"></brand-logo>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
@@ -17,13 +17,13 @@
           <li ui-sref-active="active"><a ui-sref="author.tag">Tag</a></li>
           <li><hr></li>
           <li ui-sref-active="active"><a ui-sref="author.profile">Profile</a></li>
-          <li ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
         </ul>
       </div>
+      <login-status-bar data-user="currentUser"></login-status-bar>
     </div>
   </nav>
   <div class="col-sm-3 sidenav hidden-xs" ng-hide="!currentUser">
-    <brand-logo data-logo="appLogo" class="xs"></brand-logo>
+    <brand-logo data-logo="appLogo"></brand-logo>
     <ul class="nav nav-pills nav-stacked">
       <li ui-sref-active="active"><a ui-sref="author.dashboard">Dashboard</a></li>
       <li ui-sref-active="active"><a ui-sref="author.content">Content</a></li>
@@ -31,8 +31,8 @@
       <li ui-sref-active="active"><a ui-sref="author.tag">Tag</a></li>
       <li><hr></li>
       <li ui-sref-active="active"><a ui-sref="author.profile">Profile</a></li>
-      <li ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
     </ul><br>
+    <login-status-bar data-user="currentUser"></login-status-bar>
   </div>
   <div class="ui-view-contents {{currentUser ? 'col-sm-9' : 'col-sm-12'}}" ui-view=""></div>
 </div>

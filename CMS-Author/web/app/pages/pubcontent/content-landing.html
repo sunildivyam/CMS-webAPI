@@ -1,0 +1,37 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-8">
+			<pubcontent-view
+				content="currentContent">
+			</pubcontent-view>
+		</div>
+		<div class="col-sm-4">
+			<pubcontent-list
+		    	data-list-title="Most Popular in {{popular.category.title}}"
+		    	data-list-label="more than {{popular.totalCount}} Articles"
+				data-content-items="popular.contents"
+				data-footer-title="Read more on {{currentCategory.title}} ..."
+				data-footer-link="/search?c={{currentCategory.name}}"
+				data-unique-tags="popular.uniqueTags">
+		    </pubcontent-list>
+		    <pubcontent-list
+				data-list-title="Latest in {{latest.category.title}}"
+				data-list-label="more than {{latest.totalCount}} Articles"
+				data-content-items="latest.contents"
+				data-unique-tags="latest.uniqueTags">
+		    </pubcontent-list>
+		    <pubcontent-list
+				data-list-title="Most Relavent in {{relevant.category.title}}"
+				data-list-label="more than {{relevant.totalCount}} Articles"
+				data-content-items="relevant.contents"
+				data-unique-tags="relevant.uniqueTags">
+			</pubcontent-list>
+			<pubcontent-list
+				data-list-title="{{related.category.title}} Related"
+				data-list-label="more than {{related.totalCount}} Articles"
+				data-content-items="related.contents"
+				data-unique-tags="related.uniqueTags">
+			</pubcontent-list>
+		</div>
+	</div>
+</div>

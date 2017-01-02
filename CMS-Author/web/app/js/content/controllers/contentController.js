@@ -35,7 +35,7 @@
 					'No Content Tags',
 					'No content Tags Available <br> Please add One or more tags',
 					'Add Tags').result.then(function() {
-						$state.go('tag');
+						$state.go('author.tag');
 					});
 				}
 			}, function(rejection) {
@@ -43,7 +43,7 @@
 				'Content Tags Load Failed',
 				'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Unknown') ,
 				'Go to Dashboard').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				});
 			});
 		}
@@ -59,7 +59,7 @@
 					'No Content Categories',
 					'No content Categories Available <br> Please add One or more categories',
 					'Add Categories').result.then(function() {
-						$state.go('category');
+						$state.go('author.category');
 					});
 				}
 			}, function(rejection) {
@@ -67,7 +67,7 @@
 				'Content Categories Load Failed',
 				'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Unknown') ,
 				'Go to Dashboard').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				});
 			});
 		}
@@ -85,7 +85,7 @@
 						'Content Not Found',
 						'Content with Id: ' + id + ' not found',
 						'Go to Dashboard').result.then(function() {
-							$state.go('dashboard');
+							$state.go('author.dashboard');
 						});
 					}
 				}, function(rejection) {
@@ -93,13 +93,17 @@
 					'Content loading Failed',
 					'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Content Not Found.') ,
 					'Go to Dashboard').result.then(function() {
-						$state.go('dashboard');
+						$state.go('author.dashboard');
 					});
 				});
 			}
 		}
 
 		$scope.saveContent = function(event, content) {
+			if (content && content.contentId > 0) {
+				content.publishedDate = undefined;
+			}
+
 			contentService.addNewContent(content).then(function(response) {
 				var addedContent = new Content(response && response.data);
 
@@ -108,9 +112,9 @@
 				'Content saved successfully',
 				'Go to Dashboard',
 				'Continue..').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				}, function() {
-					$state.go('content', {id: addedContent.authorContentId});
+					$state.go('author.content', {id: addedContent.authorContentId});
 				});
 			}, function(rejection) {
 				modalService.alert('md',
@@ -129,9 +133,9 @@
 				'Content Updated successfully',
 				'Go to Dashboard',
 				'Continue..').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				}, function() {
-					$state.go('content', {id: updatedContent.authorContentId});
+					$state.go('author.content', {id: updatedContent.authorContentId});
 				});
 			}, function(rejection) {
 				modalService.alert('md',
@@ -143,13 +147,13 @@
 
 		$scope.deleteContent = function(event, content) {
 			contentService.deleteContent(content && content.authorContentId).then(function(response) {
-				var updatedContent = new Content(response && response.data);
+				var deletedContent = new Content(response && response.data);
 
 				modalService.alert('md',
 				'Content Delete',
-				'Following Content Deleted successfully: <br/>' + updatedContent.title + '(' + updatedContent.authorContentId + ')',
+				'Following Content Deleted successfully: <br/>' + deletedContent.title + '(' + deletedContent.authorContentId + ')',
 				'Go to Dashboard').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				});
 			}, function(rejection) {
 				modalService.alert('md',
@@ -169,6 +173,24 @@
 
 		$scope.previewContent = function(event, content) {
 			modalService.showContentPreviewModal(content);
+		};
+
+		$scope.publishContent = function(event, content) {
+			contentService.publishContent(content).then(function(response) {
+				var publishedContent = new Content(response && response.data);
+
+				modalService.alert('md',
+				'Content Published',
+				'Following Content Published successfully: <br/>' + publishedContent.title + '(' + publishedContent.contentId + ')',
+				'Go to Dashboard').result.then(function() {
+					$state.go('author.dashboard');
+				});
+			}, function(rejection) {
+				modalService.alert('md',
+				'Content Publish Failed',
+				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'try Again');
+			});
 		};
 
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {

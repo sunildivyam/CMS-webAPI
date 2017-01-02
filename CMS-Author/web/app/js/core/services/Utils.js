@@ -34,7 +34,12 @@
 			return str;
 		}
 
-		/* 	Filter Objects of content, tag or category, for title to contain searchKeywords
+		/*
+		* @ngdoc method
+		* @name filterByKeywords
+		* @description
+
+		Filter Objects of content, tag or category, for title to contain searchKeywords
 		*	and returns tru or false if found/notfound.
 		*	This should be used in filtering Array of above Objects
 		*/

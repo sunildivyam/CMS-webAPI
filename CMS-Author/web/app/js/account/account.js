@@ -22,7 +22,8 @@
 	angular.module('raiweb.account')
 	.factory('accountService', require('./services/accountService'))
 	.controller('accountController', require('./controllers/accountController'))
-	.directive('passwordCompare', require('./directives/passwordCompare'));
+	.directive('passwordCompare', require('./directives/passwordCompare'))
+	.directive('loginStatusBar', require('./directives/loginStatusBar'));
 
 	module.exports = angular.module('raiweb.account');
 })();

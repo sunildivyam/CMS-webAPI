@@ -6,10 +6,9 @@
 */
 
 (function() {
-    var searchController = function($rootScope, $scope, searchService, metaInformationService, pageTitleService) {
-        var featureName = 'All';
-        $scope.searchKeywords;
-        $scope.foundFeatures;
+    var searchController = function($rootScope, $scope, searchService, metaInformationService, pageTitleService, EntityMapper, Content) {
+        $scope.itemsPerPage = 20;
+        $scope.maxPageSize = 5;
 
         function setMetaInfo(searchNav) {
             if (searchNav instanceof Object) {
@@ -23,29 +22,29 @@
             }
         }
 
+        function getSearchResults(categoryName, keywords) {
+            searchService.searchContents(categoryName, keywords).then(function(response) {
+                if (response && response.data) {
+                    $scope.searchResults = {
+                        contents: new EntityMapper(Content).toEntities(response.data.Contents),
+                        totalCount: response.data.TotalCount
+                    };
+                } else {
+                    $scope.searchResults = {};
+                }
+
+            }, function() {
+                $scope.searchResults = {};
+            });
+        }
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
             if (toState && toState.name && toParams) {
-
-                // Ensures keywords Param decoding and disallow double encoding of space and % characters in Params
-                $rootScope.$state.go('.', {
-                    keywords: decodeURI(toParams.keywords)
-                },
-                {
-                    reload: false,
-                    notify: false
-                });
-
-                $scope.searchKeywords = decodeURI(toParams.keywords);
-                searchService.searchFeatures($scope.searchKeywords, featureName).then(function(features) {
-                    $scope.foundFeatures = features;
-                });
-
-                var searchNav = $scope.getFirstLevelNavItemByStateName(toState.name);
-                setMetaInfo(searchNav);
+                getSearchResults(toParams.n, toParams.kw);
             }
         });
     };
 
-    searchController.$inject = ['$rootScope', '$scope', 'searchService', 'metaInformationService', 'pageTitleService'];
+    searchController.$inject = ['$rootScope', '$scope', 'searchService', 'metaInformationService', 'pageTitleService', 'EntityMapper', 'Content'];
     module.exports = searchController;
 })();

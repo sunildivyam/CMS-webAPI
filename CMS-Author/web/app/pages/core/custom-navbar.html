@@ -1,0 +1,25 @@
+<nav class="navbar {{className}}">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-{{name}}">
+			<span class="sr-only">Toggle Navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<div class="navbar-brand">
+			<span ng-bind="title"></span>
+			<span class="{{headerIconClassName}}"></span>
+		</div>
+	</div>
+	<div class="navbar-collapse" id="navbar-collapse-{{name}}">
+		<ul class="nav navbar-nav">
+			<li class="" ng-repeat="item in items" ui-sref-active="active">
+				<a href="#" title="item.description" ui-sref="{{stateName}}({n: '{{item.name}}'})">
+					<span class="{{itemIconClassNamePre}}"></span>
+					<span ng-bind="item.title" ></span>
+					<span class="{{itemIconClassNamePost}}"></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>

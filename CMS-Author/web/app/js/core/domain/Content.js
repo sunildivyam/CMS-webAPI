@@ -18,12 +18,12 @@
 				this.author = new User(raw.Author);
 				this.tags = new EntityMapper(Tag).toEntities(raw.Tags);
 				this.category = new Category(raw.Category);
-				this.publishedDate = new Date(raw.PublishedDate);
-				this.updatedDate = new Date(raw.UpdatedDate);
+				this.publishedDate = raw.PublishedDate ? new Date(raw.PublishedDate) : undefined;
+				this.updatedDate = raw.UpdatedDate ? new Date(raw.UpdatedDate) : undefined;
 				this.updateCount = raw.UpdateCount;
 				this.isLive = raw.IsLive;
 				this.owner = new User(raw.Owner);
-				this.vistCount = raw.VisitCount;
+				this.visitCount = raw.VisitCount;
 			}
 		}
 

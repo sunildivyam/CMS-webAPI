@@ -50,11 +50,11 @@
 		*
 		* @returns {object} returns a promise object.
 		*/
-		function get(url, params, headers) {
+		function get(url, params, headers, cache) {
 			var config = {
 				method: 'GET',
 				url: getFullUrl(url),
-				cache: false,
+				cache: cache || false,
 				params: params,
 				headers: headers
 			};

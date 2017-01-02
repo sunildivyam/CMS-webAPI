@@ -12,7 +12,8 @@
 				onUpdate: '=',
 				onCancel: '=',
 				onAddnew: '=',
-				onPreview: '='
+				onPreview: '=',
+				onPublish: '='
 			},
 			templateUrl: 'content/content-form.html',
 			link: function($scope) {
@@ -93,6 +94,55 @@
 						//
 					}
 				};
+
+				$scope.publish = function(event) {
+					if ($scope.isReadyToPublish() === true ) {
+						modalService.alert('md',
+						'Publish Content',
+						'This will publish content to Live Site. Do you want to continue?',
+						'Yes',
+						'No').result.then(function() {
+							if (typeof $scope.onPublish === 'function') {
+								$scope.onPublish(event, $scope.content);
+							} else {
+								//
+							}
+						}, function() {
+							//
+						});
+					} else {
+						modalService.alert('md',
+						'Warning: Publish Content',
+						'This Content is not ready for Publishing yet. Please complete all the fileds and verify all contents again?',
+						'Ok');
+					}
+				};
+
+				$scope.isReadyToPublish = function() {
+					var content = $scope.content;
+
+					if(content instanceof Object) {
+						if (!content.title ||
+							!content.shortDescription ||
+							(!content.category || !content.category.categoryId) ||
+							(!content.tags || !content.tags.length) ||
+							!content.description) {
+							return false;
+						} else {
+							return true;
+						}
+					} else {
+						return false;
+					}
+				};
+
+				$scope.$watch('content', function(newContent) {
+					if (newContent) {
+						if (newContent.contentId > 0) {
+							newContent.authorContentId = undefined;
+						}
+					}
+				});
 			}
 		};
 	};

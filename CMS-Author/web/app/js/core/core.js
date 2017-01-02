@@ -8,10 +8,11 @@
     */
 
     angular.module('raiweb.core', [])
-    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
-        function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider','$qProvider',
+        function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $qProvider) {
         // Error Page State Definition. All other states are created in Run section of this module
-        $urlRouterProvider.otherwise('/dashboard');
+        $qProvider.errorOnUnhandledRejections(false);
+        $urlRouterProvider.otherwise('/');
         $stateProvider.state({
             name: 'error',
             url: '/error',
@@ -48,7 +49,17 @@
             isAnonymous: false
         })
         .state({
-            name: 'profile',
+            name: 'author',
+            // url: '/author',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('core/author-home.html');
+            }],
+            controller: 'authorController',
+            isAnonymous: false,
+            resolve: {}
+        })
+        .state({
+            name: 'author.profile',
             url: '/account/profile',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('account/profile.html');
@@ -56,7 +67,7 @@
             isAnonymous: false
         })
         .state({
-            name: 'content',
+            name: 'author.content',
             url: '/content?id',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('content/landing.html');
@@ -65,7 +76,7 @@
             isAnonymous: false
         })
         .state({
-            name: 'tag',
+            name: 'author.tag',
             url: '/tag?id',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('content/landing.html');
@@ -74,7 +85,7 @@
             isAnonymous: false
         })
         .state({
-            name: 'category',
+            name: 'author.category',
             url: '/category?id',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('content/landing.html');
@@ -83,13 +94,51 @@
             isAnonymous: false
         })
         .state({
-            name: 'dashboard',
+            name: 'author.dashboard',
             url: '/dashboard',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('dashboard/landing.html');
             }],
             controller: 'dashboardController',
             isAnonymous: false
+        })
+
+        // Published Contents
+        .state({
+            name: 'pub',
+            url: '/',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('core/pub-landing.html');
+            }],
+            controller: 'pubhomeController',
+            isAnonymous: true
+        })
+        .state({
+            name: 'pub.articles',
+            url: 'articles/:n',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('pubcontent/category-landing.html');
+            }],
+            controller: 'pubcontentController',
+            isAnonymous: true
+        })
+        .state({
+            name: 'pub.articles.content',
+            url: '/:ci/:cn',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('pubcontent/content-landing.html');
+            }],
+            controller: 'pubcontentController',
+            isAnonymous: true
+        })
+        .state({
+            name: 'pub.search',
+            url: 'search/:n/:kw',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('search/landing.html');
+            }],
+            controller: 'searchController',
+            isAnonymous: true
         });
 
         // Enables html5Mode Urls
@@ -170,7 +219,8 @@
     .directive('loader', require('./directives/loader'))
     .directive('tags', require('./directives/tags'))
     .directive('appHeader', require('./directives/appHeader'))
-    .directive('ck', require('./directives/ck'));
+    .directive('ck', require('./directives/ck'))
+    .directive('customNavbar', require('./directives/customNavbar'));
 
     module.exports = angular.module('raiweb.core');
 })();

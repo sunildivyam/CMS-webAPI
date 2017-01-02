@@ -5,6 +5,23 @@
 		</div>
 		<div class="panel-body">
 			<form class="" role="form" name="contentForm">
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="control-label" for="content-name">Last Published on: </label>
+				  <label id="content-name" name="content-name" type="text" placeholder="" class="badge">{{content.publishedDate? content.publishedDate.toUTCString() : 'Never'}}</label>
+				  <span class="text-info" ng-if="content.publishedDate">This Content, with Id- <span ng-bind="content.contentId" class="badge"></span> was previously published and is available for update again.</span>
+				</div>
+				<div class="form-group">
+				  <label class="control-label" for="content-name">Last Updated on: </label>
+				  <label id="content-name" name="content-name" type="text" placeholder="" class="badge">{{content.updatedDate? content.updatedDate.toUTCString() : 'Never'}}</label>
+				</div>
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="control-label" for="content-name">Content Name</label>
+				  <label id="content-name" name="content-name" type="text" placeholder="" class="badge" ng-bind="content.name"> </label>
+				  <span class="text-info">This is dash ( - ) separated name auto-generated from Title </span>
+				</div>
+
 				<!-- Select Content Type -->
 				<div class="form-group">
 				  	<label class="control-label" for="contentCategory">Content Type</label>
@@ -19,19 +36,6 @@
 					<span class="help-block" ng-if="contentForm.contentCategory.$invalid">* required. select a content category.</span>
 				</div>
 				<br/>
-				<!-- Text input-->
-				<div class="form-group" ng-if="content.contentId">
-				  <label class="control-label" for="published-content-Id">Published Content Id</label>
-				  <label id="published-content-Id" name="contentPublishedId" type="text" placeholder="" class="form-control" ng-bind="content.contentId"></label>
-				  <span class="text-info">Id of published content</span>
-				</div>
-
-				<!-- Text input-->
-				<div class="form-group">
-				  <label class="control-label" for="content-name">Content Name</label>
-				  <label id="content-name" name="content-name" type="text" placeholder="" class="form-control" ng-bind="content.name"> </label>
-				  <span class="infp-text">This is dash ( - ) separated name auto-generated from Title </span>
-				</div>
 
 				<!-- Text input-->
 				<div class="form-group">
@@ -80,6 +84,13 @@
 						  <button id="content-preview" name="contentPreview" class="btn btn-success" ng-click="preview($event)">Preview</button>
 						</span>
 					</div>
+				</div>
+				<!-- Button (Double) -->
+				<div class="form-group" ng-if="!content.contentId">
+					<hr>
+					<button id="content-publish" name="contentPublish" class="btn btn-primary center-block" ng-click="publish($event)">Publish</button>
+					<hr>
+					<div class="well">Publishing a content, will post this Content to the Live Web Application. Please Check all the fields are correctly filled up. Please recheck your content before publishing.</div >
 				</div>
 			</form>
 		</div>

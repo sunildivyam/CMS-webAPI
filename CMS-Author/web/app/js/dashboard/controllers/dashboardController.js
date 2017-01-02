@@ -46,21 +46,36 @@
 			});
 		};
 
+		$scope.getAvailablePublishedContents = function() {
+			contentService.getPublishedContents().then(function(response) {
+				var contents = new EntityMapper(Content).toEntities(response.data);
+				$scope.publishedContents = contents;
+			}, function() {
+				$scope.publishedContents = new EntityMapper(TaContentg).toEntities([]);
+			});
+		};
+
 		$scope.onDraftedContentSelect = function(event, content) {
 			if(content instanceof Object) {
-				$state.go('content', {id: content.authorContentId});
+				$state.go('author.content', {id: content.authorContentId});
 			}
 		};
 
 		$scope.onCategoriesSelect = function(event, category) {
 			if(category instanceof Object) {
-				$state.go('category', {id: category.categoryId});
+				$state.go('author.category', {id: category.categoryId});
 			}
 		};
 
 		$scope.onTagsSelect = function(event, tag) {
 			if(tag instanceof Object) {
-				$state.go('tag', {id: tag.tagId});
+				$state.go('author.tag', {id: tag.tagId});
+			}
+		};
+
+		$scope.onPublishedContentSelect = function(event, content) {
+			if(content instanceof Object) {
+				$state.go('author.content', {id: content.authorContentId});
 			}
 		};
 
@@ -69,6 +84,7 @@
 				$scope.getDraftedContents();
 				$scope.getAvailableCategories();
 				$scope.getAvailableTags();
+				$scope.getAvailablePublishedContents();
 			}
 		});
 	};

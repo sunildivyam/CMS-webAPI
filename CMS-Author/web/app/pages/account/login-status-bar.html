@@ -1,0 +1,28 @@
+<ul class="nav navbar-nav navbar-right" ng-if="!user.userName">
+	<li>
+		<a ui-sref="login">
+			<span class="glyphicon glyphicon-log-in"></span> 
+		 	<span class="">Login</span>
+		</a>
+	</li>
+	<li>
+		<a ui-sref="register">
+			<span class="glyphicon glyphicon-new-window"></span> 
+		 	<span class="">Register</span>
+		</a>
+	</li>
+</ul>
+<ul class="nav navbar-nav navbar-right" ng-if="user.userName">
+    <li class="">
+        <a ui-sref="author.profile" class="label label-info">
+            <span class="glyphicon glyphicon-user"></span> 
+            <strong> {{user.userName}}</strong>
+        </a>
+    </li>
+    <li>
+		<a ui-sref="logout">
+			<span class="glyphicon glyphicon-user"></span> 
+		 	<span class="">Logout</span>
+		</a>
+	</li>
+</ul>

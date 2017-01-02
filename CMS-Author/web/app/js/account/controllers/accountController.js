@@ -1,8 +1,16 @@
 'use strict';
 /*
-*	accountController
-*	Description
-*	accountController controls the account page Level Scope Data.
+* @ngdoc controller
+* @name raiweb.account.controller:accountController
+* @description
+*	The account controller provides the scope methods for following:
+*	1) Registering User
+*	2) Loging User
+*	3) For other user account specific operations, methods will be added.
+* @requires $rootScope
+* @requires $scope
+* @requires $state
+* @requires appService
 */
 
 (function() {
@@ -38,7 +46,7 @@
 				$rootScope.currentUser = accountService.getLoggedInUser();
 				$scope.isSigningIn = false;
 				modalService.alert('sm', 'Login Successful', 'You are successfully logged in.', 'View Dashboard');
-				$state.go('dashboard');
+				$state.go('author.dashboard');
 			}, function(rejection){
 				$rootScope.currentUser = accountService.getLoggedInUser();
 				$scope.isSigningIn = false;

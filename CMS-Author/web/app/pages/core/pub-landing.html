@@ -1,0 +1,63 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-3">
+						<brand-logo class="xs" data-logo="appLogo"></brand-logo>
+					</div>
+					<div class="col-sm-6 well">
+						Advertisement Area
+					</div>
+					<div class="col-sm-3">
+						<login-status-bar user="currentUser">
+						</login-status-bar>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-sm-push-2">
+			<pubcontent-search
+				data-categories="categories"
+				data-on-search="onGlobalSearch"
+				data-search-string="{{globalSearch.searchString}}"
+				data-init-selected-item="globalSearch.initSelectedItem">
+			</pubcontent-search>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<custom-navbar
+				items="categories"
+				title="Explore Articles by "
+				class-name="navbar-default"
+				name="category"
+				state-name="pub.articles"
+				item-icon-class-name-pre="glyphicon glyphicon-list"
+				item-icon-class-name-post="glyphicon glyphicon-triangle-bottom"
+				header-icon-class-name="glyphicon glyphicon-arrow-right">
+			</custom-navbar>
+		</div>
+	</div>
+	<div class="row" ng-if="$state.$current.name === 'pub'">
+		<div class="col-sm-4" ng-repeat="categoryContent in listOfContentsOfAllcategories">
+			<pubcontent-list
+		    	data-list-title="{{categoryContent.category.title}}"
+		    	data-list-label="more than {{categoryContent.totalCount}} Articles"
+				data-content-items="categoryContent.contents"
+				data-footer-title="Read more on {{currentCategory.title}} ..."
+				data-footer-link="/search?c={{currentCategory.name}}"
+				data-unique-tags="categoryContent.uniqueTags">
+		    </pubcontent-list>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<ui-view></ui-view>
+		</div>
+	</div>
+</div>
+
+

@@ -8,7 +8,7 @@
 	var appHeader = function() {
 		return {
 			restrict: 'E',
-			replace: true,
+			replace: false,
 			templateUrl: 'core/app-header.html',
 			link: function() {
 			}

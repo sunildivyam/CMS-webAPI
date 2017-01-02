@@ -1,0 +1,28 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h1 class="panel-title" ng-bind="content.title"></h1>
+		<div class="small">
+			<span class="" title="Author">
+				<span class="glyphicon glyphicon-user"></span>
+				<span class="label label-default" ng-bind="content.owner.userName"></span>
+			</span>
+			<span class="" title="Last Updated">
+				<span class="glyphicon glyphicon-pencil"></span>
+				<span class="label label-default" ng-bind="content.publishedDate.toDateString()"></span>
+			</span>
+			<span class="" title="Total Views">
+				<span class="glyphicon glyphicon-eye-open"></span>
+				<span class="label label-default" ng-bind="content.visitCount"></span>
+			</span>
+			<p> &nbsp;</p>
+			<p class="" ng-bind-html="content.shortDescription"></p>
+			<tags tag-items="content.tags"></tags>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div class="content-description" ng-bind-html="content.description"></div>
+	</div>
+	<div class="panel-footer">
+		<tags tag-items="content.tags"></tags>
+	</div>
+</div>

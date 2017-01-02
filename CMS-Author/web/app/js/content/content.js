@@ -25,6 +25,7 @@
 	.controller('contentController', require('./controllers/contentController'))
 	.controller('tagController', require('./controllers/tagController'))
 	.controller('categoryController', require('./controllers/categoryController'))
+	.controller('authorController', require('./controllers/authorController'))
 
 	.directive('categoryForm', require('./directives/categoryForm'))
 	.directive('tagForm', require('./directives/tagForm'))

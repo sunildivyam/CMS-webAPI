@@ -34,7 +34,7 @@
 						'Category Not Found',
 						'Category with Id: ' + id + ' not found',
 						'Go to Dashboard').result.then(function() {
-							$state.go('dashboard');
+							$state.go('author.dashboard');
 						});
 					}
 				}, function(rejection) {
@@ -42,7 +42,7 @@
 					'Category loading Failed',
 					'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Category Not Found.') ,
 					'Go to Dashboard').result.then(function() {
-						$state.go('dashboard');
+						$state.go('author.dashboard');
 					});
 				});
 			}
@@ -57,9 +57,9 @@
 				'Category saved successfully',
 				'Go to Dashboard',
 				'Continue..').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				}, function() {
-					$state.go('category', {id: addedCategory.categoryId});
+					$state.go('author.category', {id: addedCategory.categoryId});
 				});
 			}, function(rejection) {
 				modalService.alert('md',
@@ -78,9 +78,9 @@
 				'Category Updated successfully',
 				'Go to Dashboard',
 				'Continue..').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				}, function() {
-					$state.go('category', {id: updatedCategory.categoryId});
+					$state.go('author.category', {id: updatedCategory.categoryId});
 				});
 			}, function(rejection) {
 				modalService.alert('md',
@@ -98,7 +98,7 @@
 				'Category Delete',
 				'Following Category Deleted successfully: <br/>' + updatedCategory.title + '(' + updatedCategory.categoryId + ')',
 				'Go to Dashboard').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				});
 			}, function(rejection) {
 				modalService.alert('md',

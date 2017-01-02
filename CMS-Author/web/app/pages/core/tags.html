@@ -1,6 +1,6 @@
 <ul class="tags-list">
 	<li ng-repeat="tag in tagItems" class="tag">
-		<a ui-sref="search({tags: tag.name})" ng-bind="tag.title" title="{{tag.description}}">
+		<a ui-sref="search({n: 'tags', kw: tag.name})" ng-bind="tag.title" title="{{tag.description}}">
 		</a>
 	</li>
 </ul>

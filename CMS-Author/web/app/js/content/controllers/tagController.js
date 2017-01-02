@@ -34,7 +34,7 @@
 						'Tag Not Found',
 						'Tag with Id: ' + id + ' not found',
 						'Go to Dashboard').result.then(function() {
-							$state.go('dashboard');
+							$state.go('author.dashboard');
 						});
 					}
 				}, function(rejection) {
@@ -42,7 +42,7 @@
 					'Tag loading Failed',
 					'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Tag Not Found.') ,
 					'Go to Dashboard').result.then(function() {
-						$state.go('dashboard');
+						$state.go('author.dashboard');
 					});
 				});
 			}
@@ -57,9 +57,9 @@
 				'Tag saved successfully',
 				'Go to Dashboard',
 				'Continue..').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				}, function() {
-					$state.go('tag', {id: addedTag.tagId});
+					$state.go('author.tag', {id: addedTag.tagId});
 				});
 			}, function(rejection) {
 				modalService.alert('md',
@@ -78,9 +78,9 @@
 				'Tag Updated successfully',
 				'Go to Dashboard',
 				'Continue..').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				}, function() {
-					$state.go('tag', {id: updatedTag.tagId});
+					$state.go('author.tag', {id: updatedTag.tagId});
 				});
 			}, function(rejection) {
 				modalService.alert('md',
@@ -98,7 +98,7 @@
 				'Tag Delete',
 				'Following Tag Deleted successfully: <br/>' + updatedTag.title + '(' + updatedTag.tagId + ')',
 				'Go to Dashboard').result.then(function() {
-					$state.go('dashboard');
+					$state.go('author.dashboard');
 				});
 			}, function(rejection) {
 				modalService.alert('md',

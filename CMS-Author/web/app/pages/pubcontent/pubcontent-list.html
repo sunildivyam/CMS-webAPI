@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<span class="label label-success pull-right" ng-bind="listLabel || (contentItems && contentItems.length) || '0 Articles'"></span>
+	  	<h3 class="panel-title"> {{listTitle}}</h3>
+	</div>
+	<div class="panel-body">
+		<span class="label label-danger" ng-hide="contentItems && contentItems.length">No results found.</span>
+		<div>
+			<ul class="media-list">
+				<li class="media" ng-repeat="content in contentItems">
+					<div class="media-left">
+						<a href="#" ng-click="onClick($event, content)" class="small">
+							<div style="width: 50px; height: 50px; background: grey;">
+							</div>
+						</a>
+						<span class="label label-info" title="Total Views">
+							<span class="" ng-bind="content.visitCount"></span>
+							<span class="glyphicon glyphicon-eye-open"></span>
+						</span>
+					</div>
+					<div class="media-body">
+						<a href="#" ui-sref="pub.articles.content({n: content.category.name, ci: content.contentId, cn: content.name})">
+							<h4 class="media-heading text-primary" ng-bind="content.title"></h4>
+						</a>
+						<p ng-bind-html="content.shortDescription" class="small"></p>
+						<span title="Author">
+							<span class="glyphicon glyphicon-user"></span>
+							<span class="label label-info" ng-bind="content.owner.email"></span>
+						</span>
+						<span title="Publish Date">
+							<span class="glyphicon glyphicon-pencil"></span>
+							<span class="label label-info" ng-bind="content.publishedDate.toDateString()"></span>
+						</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<a href="{{footerLink}}" class="btn btn-link pull-right" ng-show="footerTitle">
+			<span class="" ng-bind="footerTitle"></span>
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+		<tags tag-items="uniqueTags"></tags>
+		<ul uib-pagination class="pagination-sm" ng-if="enablePagination"
+			boundary-link-numbers="true"
+			rotate="true"
+			total-items="totalPageItems"
+			max-size="maxPageSize"
+			items-per-page="itemsPerPage"
+			ng-model="currentPage"
+			ng-change="pageChanged()">
+		</ul>
+
+	</div>
+</div>

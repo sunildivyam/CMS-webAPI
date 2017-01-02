@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService) {
+    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService, pubcontentService, EntityMapper, Category) {
         $rootScope.bodyClass = '';
         $rootScope.appLogo = {
             primaryTitle: 'SAPIENT',
@@ -66,6 +66,6 @@
         });
     };
 
-    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService'];
+    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService', 'pubcontentService', 'EntityMapper', 'Category'];
     module.exports = appController;
 })();
