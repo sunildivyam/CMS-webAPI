@@ -268,7 +268,7 @@ namespace CMS_webAPI.Controllers
 
             // Update the AuthorContent's Content only.
             db.Entry(authorContent).State = EntityState.Modified;
-
+            db.Entry(authorContent).Property(x => x.UpdateCount).IsModified = false;
             return authorContent;
         }
 
