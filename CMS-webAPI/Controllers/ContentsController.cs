@@ -20,50 +20,62 @@ namespace CMS_webAPI.Controllers
         public IHttpActionResult Get()
         {
             return BadRequest();
-        }
+        }        
 
-        // GET: api/Contents
-        public IQueryable<Content> GetContents()
+        // Gets all Published And Live Contents for a Category, contnetId and a contentName
+        // GET: api/Contents/GetContent/category-name/5/content-name
+        [ResponseType(typeof(ContentViewModel))]
+        public async Task<IHttpActionResult> GetContent(string param1, int param2, string param3)
         {
-            return db.Contents;
-        }
+            var categoryName = param1;
+            var contentId = param2;
+            var contentName = param3;
 
-        // Gets all Published And Live Contents for a Category Id and a Name
-        // GET: api/Contents/GetContentById/5/content-name
-        [ResponseType(typeof(Content))]
-        public async Task<IHttpActionResult> GetContentById(int param1, string param2)
-        {
-            var Id = param1;
-            var name = param2;
-
-            Content content = await db.Contents.FindAsync(Id);
-            if (content == null || !content.IsLive || content.Name != name)
+            Content content = await db.Contents.FindAsync(contentId);
+            if (content == null || !content.IsLive || content.Name != contentName || content.Category.Name != categoryName)
             {
                 return NotFound();
             }
 
+            ContentViewModel contentView = new ContentViewModel(content);
+
             // Update and increment the VisitCount By 1
                 // Code goes here
 
-            return Ok(content);
+            return Ok(contentView);
         }
 
         // Gets all Published And Live Contents for a Category Name
         // GET: api/Contents/GetContentsByCategoryName/category-name
-        [ResponseType(typeof(List<AuthorContent>))]
-        public async Task<IHttpActionResult> GetContentsByCategoryName(string param1)
+        [ResponseType(typeof(CategoryViewModel))]
+        public async Task<IHttpActionResult> GetContentsByCategoryName(string param1,int param2, int param3, string param4, bool param5)
         {
-            var name = param1;
-            List<AuthorContent> contents = await db.AuthorContents.Where(c => c.Category.Name == name).ToListAsync();
+            string categoryName = param1;
+            int pageNo = param2;
+            int pageSize = param3;
+            string sortField = param4;
+            bool sortDirAsc = param5;
+
+            if (pageNo < 1 || pageSize < 1)
+            {
+                return BadRequest();
+            }  
+            
+            Category category = await db.Categories.FirstOrDefaultAsync(c => c.Name == categoryName);
+            IEnumerable<Content> contentsEnums = db.Contents.Where(c => c.Category.Name == categoryName)
+                .AsEnumerable();
+            List<Content> contents = getPagedData(contentsEnums, pageNo, pageSize, sortField, sortDirAsc);                        
+
             if (contents == null)
             {
                 return NotFound();
             }
 
-            return Ok(contents);
+            CategoryViewModel categoryView = new CategoryViewModel(category, contents, contentsEnums.Count());
+
+            return Ok(categoryView);
         }
-
-
+                
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -76,6 +88,28 @@ namespace CMS_webAPI.Controllers
         private bool ContentExists(int id)
         {
             return db.Contents.Count(e => e.ContentId == id) > 0;
+        }
+
+        private List<Content> getPagedData(IEnumerable<Content> contentsEnums, int pageNo, int pageSize, string sortField, bool sortDirAsc)
+        {
+            List<Content> contents = new List<Content>();
+            int skipSize = ((pageNo - 1) * pageSize);
+
+            if (sortDirAsc == true)
+            {
+                contents = contentsEnums.OrderBy(c => c.GetType().GetProperty(sortField).GetValue(c, null))
+                .Skip(skipSize)
+                .Take(pageSize)
+                .ToList();
+            }
+            else
+            {
+                contents = contentsEnums.OrderByDescending(c => c.GetType().GetProperty(sortField).GetValue(c, null))
+                .Skip(skipSize)
+                .Take(pageSize)
+                .ToList();
+            }
+            return contents;
         }
     }
 }

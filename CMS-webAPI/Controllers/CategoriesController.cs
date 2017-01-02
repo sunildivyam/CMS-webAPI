@@ -41,6 +41,21 @@ namespace CMS_webAPI.Controllers
             return Ok(category);
         }
 
+        // GET: api/categories/GetCategoryByName/category-name
+        [ResponseType(typeof(Category))]
+        public async Task<IHttpActionResult> GetCategoryByName(string param1)
+        {
+            string categoryName = param1;
+            Category category = await db.Categories.SingleOrDefaultAsync(c => c.Name == categoryName);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(category);
+        }
+
         // PUT: api/Categories/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutCategory(int param1, Category category)

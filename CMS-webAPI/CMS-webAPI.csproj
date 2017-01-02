@@ -251,6 +251,7 @@
     </Compile>
     <Compile Include="IdentityMigrations\Configuration.cs" />
     <Compile Include="Models\AuthorContentViewModel.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\ContentTag.cs" />
     <Compile Include="Controllers\AccountController.cs" />
