@@ -135,7 +135,9 @@
 				'Continue..').result.then(function() {
 					$state.go('author.dashboard');
 				}, function() {
-					$state.go('author.content', {id: updatedContent.authorContentId});
+					$state.go('author.content', {id: updatedContent.authorContentId}, {
+						reload: true
+					});
 				});
 			}, function(rejection) {
 				modalService.alert('md',
