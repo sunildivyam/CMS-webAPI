@@ -83,6 +83,16 @@ namespace CMS_webAPI.Controllers
                 return NotFound();
             }
 
+            if (authorContent.ContentId > 0 && authorContent.PublishedDate != null)
+            {
+                // if Content is already Published but want to edit again. So need to be checked if it is not already taken for edit.
+                AuthorContent duplicateContent = await db.AuthorContents.FirstOrDefaultAsync(c => c.ContentId == authorContent.ContentId && c.PublishedDate == null);
+                if (duplicateContent != null)
+                {
+                    // This will ensure that AuthorContents can never have more than one unpublished record for any Published Content
+                    authorContent = duplicateContent;   
+                }
+            }
             var authorContentView = new AuthorContentViewModel(authorContent);
 
             return Ok(authorContentView);
@@ -122,9 +132,9 @@ namespace CMS_webAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            AuthorContentViewModel addedAuthorContentView = new AuthorContentViewModel( AddAuthorContent(authorContentView));
+            AuthorContent authorContnet = AddAuthorContent(authorContentView);            
             await db.SaveChangesAsync();
+            AuthorContentViewModel addedAuthorContentView = new AuthorContentViewModel(authorContnet);
 
             return Ok(addedAuthorContentView);
         }
@@ -144,57 +154,74 @@ namespace CMS_webAPI.Controllers
 
             Content contentToPub = new Content();
             ContentViewModel contentView = new ContentViewModel(authorContentView);
-            
-
-            if (authorContentView.ContentId != null && authorContentView.ContentId > 0)
+            ContentViewModel publishedContentView;
+            using (db)
             {
-                // Content in Pub Should be Updated
-                contentView = new ContentViewModel( UpdateContent(contentToPub.ContentId, contentView));
-                // Updates the AuthorContent with the Published content's ContentId
-                authorContentView.ContentId = contentView.ContentId;
-                authorContentView.PublishedDate = contentView.PublishedDate;
-            }
-            else
-            {
-                // Content in Pub Should be Added.
-                contentToPub = contentView.ToDbModel();
-
-                var contentTags = new List<ContentTag>();
-
-                for (var i = 0; i < contentView.Tags.Count; i++ )
+                using (var dbTransaction = db.Database.BeginTransaction())
                 {
-                    var contentTag = new ContentTag();
-                    contentTag.ContentId = contentView.ContentId;
-                    contentTag.TagId = contentView.Tags[i].TagId;
-                    contentTags.Add(contentTag);
+                    try
+                    {
+                        if (authorContentView.ContentId != null && authorContentView.ContentId > 0)
+                        {
+                            // Content in Pub Should be Updated
+                            contentView = new ContentViewModel( UpdateContent(contentToPub.ContentId, contentView));
+                            // Updates the AuthorContent with the Published content's ContentId
+                            authorContentView.ContentId = contentView.ContentId;
+                            authorContentView.PublishedDate = contentView.PublishedDate;
+                            contentToPub = contentView.ToDbModel();
+                        }
+                        else
+                        {
+                            // Content in Pub Should be Added.
+                            contentToPub = contentView.ToDbModel();
+
+                            var contentTags = new List<ContentTag>();
+
+                            for (var i = 0; i < contentView.Tags.Count; i++ )
+                            {
+                                var contentTag = new ContentTag();
+                                contentTag.ContentId = contentView.ContentId;
+                                contentTag.TagId = contentView.Tags[i].TagId;
+                                contentTags.Add(contentTag);
+                            }
+
+                            contentToPub.OwnerId = UserService.getUserByUserName(User.Identity.Name).Id;
+                            contentToPub.PublishedDate = DateTime.Today;
+                            contentToPub.VisitCount = 0;
+                            contentToPub.IsLive = true;
+
+                            db.Contents.Add(contentToPub);
+                            db.ContentTags.AddRange(contentTags);                
+                            // Updates the AuthorContent with the Published content's ContentId
+                            await db.SaveChangesAsync();
+                            authorContentView.ContentId = contentToPub.ContentId;
+                            authorContentView.PublishedDate = contentToPub.PublishedDate;
+                            publishedContentView = new ContentViewModel(contentToPub);
+                        }            
+
+                        // Updates or Adds AuthorContent before Publishing it.
+                        if (authorContentView.AuthorContentId > 0)
+                        {
+                            new AuthorContentViewModel(UpdateAuthorContent(authorContentView.AuthorContentId, authorContentView));
+                        }
+                        else
+                        {
+                            new AuthorContentViewModel( AddAuthorContent(authorContentView));
+                        }
+            
+                        await db.SaveChangesAsync();
+                        publishedContentView = new ContentViewModel(contentToPub);
+                        dbTransaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbTransaction.Rollback();
+                        return InternalServerError(ex);
+                    }
                 }
-
-                contentToPub.OwnerId = UserService.getUserByUserName(User.Identity.Name).Id;
-                contentToPub.PublishedDate = DateTime.Today;
-                contentToPub.VisitCount = 0;
-                contentToPub.IsLive = true;
-
-                db.Contents.Add(contentToPub);
-                db.ContentTags.AddRange(contentTags);                
-                // Updates the AuthorContent with the Published content's ContentId
-                authorContentView.ContentId = contentToPub.ContentId;
-                authorContentView.PublishedDate = contentToPub.PublishedDate;
-
-            }            
-
-            // Updates or Adds AuthorContent before Publishing it.
-            if (authorContentView.AuthorContentId > 0)
-            {
-                new AuthorContentViewModel(UpdateAuthorContent(authorContentView.AuthorContentId, authorContentView));
-            }
-            else
-            {
-                new AuthorContentViewModel( AddAuthorContent(authorContentView));
             }
 
-            await db.SaveChangesAsync();
-            ContentViewModel publishedContentView = new ContentViewModel(contentToPub);
-
+            //ContentViewModel publishedContentView = new ContentViewModel(contentToPub);
             return Ok(publishedContentView);
         }
 
@@ -244,6 +271,7 @@ namespace CMS_webAPI.Controllers
 
             authorContent.AuthorId = UserService.getUserByUserName(User.Identity.Name).Id;
             authorContent.UpdatedDate = DateTime.Today;
+            authorContent.UpdateCount = 0;
 
             db.AuthorContents.Add(authorContent);
             db.AuthorContentTags.AddRange(authorContentTags);
@@ -282,15 +310,11 @@ namespace CMS_webAPI.Controllers
             content.IsLive = true;
             Content originalContent = db.Contents.Find(content.ContentId);
             content.VisitCount = originalContent.VisitCount;
-
-            db.Contents.Add(content);
-
+            
+            db.Entry(originalContent).CurrentValues.SetValues(content);
             // Updating Content Tags is deleteing all first then adding all selected.
             db.ContentTags.RemoveRange(db.ContentTags.Where(act => act.ContentId == content.ContentId));
             db.ContentTags.AddRange(contentTags);
-
-            // Update the Content's Content only.
-            db.Entry(content).State = EntityState.Modified;
 
             return content;            
         }
