@@ -102,11 +102,17 @@ namespace CMS_webAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+            try
+            {
+                db.Categories.Add(category);
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex); 
+            }
 
-            db.Categories.Add(category);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = category.CategoryId }, category);
+            return Ok(category);
         }
 
         // DELETE: api/Categories/5
