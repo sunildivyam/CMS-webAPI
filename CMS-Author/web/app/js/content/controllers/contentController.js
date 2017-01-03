@@ -77,7 +77,18 @@
 				var contentId = parseInt(id);
 				contentService.getContentById(contentId).then(function(response) {
 					var content = new Content(response && response.data);
+
 					if (content instanceof Object) {
+						if (content.authorContentId !== contentId) {
+							modalService.alert('md',
+							'Already Exist for Authoring',
+							'You have already taken this for Authoring.',
+							'Open Drafted Content', 'Go to Dashboard').result.then(function() {
+								$state.go('.', {id: content.authorContentId}, {notify: false});
+							}, function() {
+								$state.go('author.dashboard');
+							});
+						}
 						$scope.currentContent = content;
 						setMetaInfo($scope.currentContent);
 					} else {

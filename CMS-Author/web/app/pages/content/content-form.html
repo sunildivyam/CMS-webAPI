@@ -8,8 +8,8 @@
 				<!-- Text input-->
 				<div class="form-group">
 				  <label class="control-label" for="content-name">Last Published on: </label>
-				  <label id="content-name" name="content-name" type="text" placeholder="" class="badge">{{content.publishedDate? content.publishedDate.toUTCString() : 'Never'}}</label>
-				  <span class="text-info" ng-if="content.publishedDate">This Content, with Id- <span ng-bind="content.contentId" class="badge"></span> was previously published and is available for update again.</span>
+				  <label id="content-name" name="content-name" type="text" placeholder="" class="badge">{{previousPublishedDate? previousPublishedDate.toUTCString() : (content.contentId ? 'This is Draft of Previously Published Content with Id: ' + content.contentId + ' and not re-published yet.' : 'Never')}}</label>
+				  <span class="text-info" ng-if="previousPublishedDate">This Content, with Id- <span ng-bind="content.contentId" class="badge"></span> was previously published and is available for <strong>update again.</strong></span>
 				</div>
 				<div class="form-group">
 				  <label class="control-label" for="content-name">Last Updated on: </label>
@@ -86,7 +86,7 @@
 					</div>
 				</div>
 				<!-- Button (Double) -->
-				<div class="form-group" ng-if="!content.contentId">
+				<div class="form-group" ng-if="!previousPublishedDate && !content.publishedDate">
 					<hr>
 					<button id="content-publish" name="contentPublish" class="btn btn-primary center-block" ng-click="publish($event)">Publish</button>
 					<hr>

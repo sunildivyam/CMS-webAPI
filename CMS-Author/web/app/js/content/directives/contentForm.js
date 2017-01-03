@@ -138,8 +138,12 @@
 
 				$scope.$watch('content', function(newContent) {
 					if (newContent) {
-						if (newContent.contentId > 0) {
+						if (newContent.contentId > 0 && typeof newContent.publishedDate !== 'undefined') {
+							$scope.previousPublishedDate = newContent.publishedDate;
+							newContent.publishedDate = undefined;
 							newContent.authorContentId = undefined;
+						} else {
+							$scope.previousPublishedDate = undefined;
 						}
 					}
 				});
