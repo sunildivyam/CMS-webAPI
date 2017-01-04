@@ -25,10 +25,17 @@
 		function parseStringExt(str, separator, keepMultipleSpaces) {
 			if (!separator) separator = ' ';
 			if (str) {
-				return str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ' ')
+				str =  str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ' ')
 				.replace(keepMultipleSpaces === true ? ' ' : /\s\s+/g, ' ')
 				.replace(/\s/g, separator)
+				.replace(/--+/g, separator)
 				.toLowerCase();
+				if (str.startsWith(separator)) {
+					str = str.slice(1);
+				}
+				if (str.endsWith(separator)) {
+					str = str.slice(0, str.length-1);
+				}
 			}
 
 			return str;

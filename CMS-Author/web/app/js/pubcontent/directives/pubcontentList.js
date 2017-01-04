@@ -18,7 +18,7 @@
 			templateUrl: 'pubcontent/pubcontent-list.html',
 			link: function($scope) {
 				//$scope.itemsPerPage = $scope.itemsPerPage || 10;
-				$scope.maxPageSize = $scope.maxPageSize || 5;
+				//$scope.maxPageSize = $scope.maxPageSize || 5;
 			}
 		};
 	};

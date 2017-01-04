@@ -9,14 +9,14 @@
 		var urls = {
 			'search': {
 				base: 'contents',
-				getSearchResults: 'GetContentsByCategoryName'
+				getSearchResults: 'GetSearchResults'
 			}
 		};
 
 		// Default Values
 		var CACHE = false;
-		var PAGE_SIZE = 10;
-		var PAGE_NO = 1;
+		var PAGE_SIZE = 1;
+		var PAGE_NO = 0;
 		var SORT_DIR_ASC = true;
 		var SORT_FIELD = 'Title';
 
@@ -24,6 +24,7 @@
 			return appService.get([urls.search.base,
 				urls.search.getSearchResults,
 				categoryName,
+				keywords,
 				pageNo || PAGE_NO, pageSize || PAGE_SIZE, SORT_FIELD, SORT_DIR_ASC].join('/'),
 				undefined , undefined, CACHE);
 		}

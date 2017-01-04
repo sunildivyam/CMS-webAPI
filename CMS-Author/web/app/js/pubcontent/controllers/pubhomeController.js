@@ -6,7 +6,7 @@
 */
 
 (function() {
-	var pubhomeController = function($scope, $state, pubcontentService, EntityMapper, Category, Tag, Content) {
+	var pubhomeController = function($scope, $state, pubcontentService, EntityMapper, Category, Tag, Content, Utils) {
 		$scope.globalSearch = {
 			searchString: '',
 			initSelectedItem: undefined
@@ -17,7 +17,7 @@
 				getCategories(toState.name);
 
 				if (toState.name === 'pub.search' && toParams && toParams.n && toParams.kw) {
-					$scope.globalSearch.searchString = toParams.kw;
+					$scope.globalSearch.searchString = toParams.kw.replace(/-/g, ' ');
 					$scope.globalSearch.initSelectedItem = new Category({Name: toParams.n});
 				}
 			}
@@ -79,13 +79,19 @@
         	if (category && category.name) {
         		categoryName = category.name;
         	}
+
+        	keywords = Utils.parseStringExt(keywords, '-', false);
+
         	$state.go('pub.search', {
         		n: categoryName,
         		kw: keywords
+        	}, {
+        		notify: true,
+        		reload: true
         	});
         };
 	};
 
-	pubhomeController.$inject = ['$scope', '$state', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content'];
+	pubhomeController.$inject = ['$scope', '$state', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils'];
 	module.exports = pubhomeController;
 })();
