@@ -25,13 +25,14 @@ namespace CMS_webAPI
             // All Routes Author and pub
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{param1}/{param2}/{param3}/{param4}/{param5}",
+                routeTemplate: "api/{controller}/{action}/{param1}/{param2}/{param3}/{param4}/{param5}/{param6}",
                 defaults: new { 
                     param1 = RouteParameter.Optional, 
                     param2 = RouteParameter.Optional, 
                     param3 = RouteParameter.Optional,
                     param4 = RouteParameter.Optional,
                     param5 = RouteParameter.Optional,
+                    param6 = RouteParameter.Optional,
                     action = "Get"
                 }
             );            

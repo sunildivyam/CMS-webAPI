@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CMS_webAPI.Models;
+using System.Data.SqlClient;
 
 namespace CMS_webAPI.Controllers
 {
@@ -62,7 +63,7 @@ namespace CMS_webAPI.Controllers
             }  
             
             Category category = await db.Categories.FirstOrDefaultAsync(c => c.Name == categoryName);
-            IEnumerable<Content> contentsEnums = db.Contents.Where(c => c.Category.Name == categoryName)
+            IEnumerable<Content> contentsEnums = db.Contents.Where(c => c.Category.Name == categoryName && c.IsLive == true)
                 .AsEnumerable();
             List<Content> contents = getPagedData(contentsEnums, pageNo, pageSize, sortField, sortDirAsc);                        
 
@@ -75,7 +76,94 @@ namespace CMS_webAPI.Controllers
 
             return Ok(categoryView);
         }
-                
+
+        // Gets all Published And Live Contents for a Category Name
+        // GET: api/Contents/GetContentsByCategoryName/category-name
+        [ResponseType(typeof(CategoryViewModel))]
+        public async Task<IHttpActionResult> GetSearchResults(string param1, string param2, int param3, int param4, string param5, bool param6)
+        {
+            string categoryName = param1.ToLower();
+            string searchWordsCriteria = param2;
+            int pageNo = param3;
+            int pageSize = param4;
+            string sortField = "c." + param5;
+            bool sortDirAsc = param6;
+            string sortDir = "ASC";
+            
+            List<Content> contents = new List<Content>();
+            Category category = new Category();
+            int categoryId = 0;
+            int totalCount = 0;
+
+            if (categoryName != "all") {
+                category = await db.Categories.FirstOrDefaultAsync(c => c.Name == categoryName);
+                categoryId = category != null ? category.CategoryId : 0;
+            }
+            
+            if (pageNo < 0 || pageSize < 1)
+            {
+                return BadRequest();
+            }
+
+            searchWordsCriteria = searchWordsCriteria.Replace("-", " or ");
+            
+            //string SearchWordsCriteria = "Respiratory or digestive";
+            string searchQuery = @"select distinct c.* from Contents as c 
+                inner join ContentTags as ct on c.ContentId = ct.ContentId 
+                inner join Tags as tg on ct.TagId=tg.TagId 
+                WHERE " + (categoryName != "all" ? "c.CategoryId = @CategoryId AND (" : "") +
+                @"contains(c.Title, @SearchWordsCriteria) OR                
+                contains (c.ShortDescription, @SearchWordsCriteria) OR
+                contains (c.Description, @SearchWordsCriteria) OR
+                contains (tg.Title, @SearchWordsCriteria)" + (categoryName != "all" ? ")" : "");
+
+            string searchQueryForPagedData = searchQuery + " order by " + sortField + " " + sortDir + " OFFSET @PageStart ROWS FETCH NEXT @PageSize ROWS ONLY";
+            string searchQueryForTotalCount = "Select Count(cc.ContentId) as TotalCount from (" + searchQuery + ") as cc";
+
+            var ParamsPagedData = new [] 
+            {
+                new SqlParameter("SearchWordsCriteria", searchWordsCriteria),
+                new SqlParameter("CategoryId", categoryId),
+                new SqlParameter("SortField", sortField),
+                new SqlParameter("SortDir", sortDir),
+                new SqlParameter("PageStart", pageNo * pageSize),
+                new SqlParameter("PageSize", pageSize)
+            };
+
+            var ParamsTotalCount = new[] 
+            {
+                new SqlParameter("SearchWordsCriteria", searchWordsCriteria),
+                new SqlParameter("CategoryId", categoryId),
+                new SqlParameter("SortField", sortField),
+                new SqlParameter("SortDir", sortDir)
+            };
+
+            try
+            {
+                var TotalCountResult = db.Database.SqlQuery<int>(searchQueryForTotalCount, ParamsTotalCount).ToList();
+
+                totalCount = TotalCountResult[0];
+                if (totalCount > 0)
+                {
+                    contents = db.Database.SqlQuery<Content>(searchQueryForPagedData, ParamsPagedData)
+                    .ToList<Content>();
+                }                
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }              
+
+            if (contents == null)
+            {
+                return NotFound();
+            }
+
+            CategoryViewModel categoryView = new CategoryViewModel(category, contents, totalCount);
+
+            return Ok(categoryView);
+        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
