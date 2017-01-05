@@ -6,7 +6,7 @@
 */
 
 (function() {
-	var pubhomeController = function($scope, $state, pubcontentService, EntityMapper, Category, Tag, Content, Utils) {
+	var pubhomeController = function($scope, $state, $timeout, pubcontentService, EntityMapper, Category, Tag, Content, Utils) {
 		$scope.globalSearch = {
 			searchString: '',
 			initSelectedItem: undefined
@@ -14,6 +14,7 @@
 
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
 			if (toState && toState.name) {
+				$scope.iso = undefined;
 				getCategories(toState.name);
 
 				if (toState.name === 'pub.search' && toParams && toParams.n && toParams.kw) {
@@ -90,8 +91,36 @@
         		reload: true
         	});
         };
+
+        $scope.onListsRefresh = function(event) {
+			$scope.refreshIsotopeLayout();
+		};
+
+		$scope.refreshIsotopeLayout =  function(elm) {
+			if (!$scope.iso) {
+				if (elm) {
+					$scope.iso = new Isotope(elm, {
+		                "itemSelector": ".grid-item"
+		            });
+				}
+			} else {
+				$timeout(function() {
+					$scope.iso.layout();
+				});
+			}
+		};
+
+		$scope.$on('onLoadCategoryContentList', function() {
+			var elm;
+			if ($scope.iso && $scope.iso.element) {
+				elm = $scope.iso.element;
+				$scope.iso = undefined;
+				$scope.refreshIsotopeLayout(elm);
+			}
+
+		});
 	};
 
-	pubhomeController.$inject = ['$scope', '$state', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils'];
+	pubhomeController.$inject = ['$scope', '$state', '$timeout', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils'];
 	module.exports = pubhomeController;
 })();

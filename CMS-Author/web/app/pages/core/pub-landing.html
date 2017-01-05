@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid pub-landing-page">
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="container-fluid">
@@ -41,15 +41,16 @@
 			</custom-navbar>
 		</div>
 	</div>
-	<div class="row" ng-if="$state.$current.name === 'pub'">
-		<div class="col-sm-4" ng-repeat="categoryContent in listOfContentsOfAllcategories">
+	<div class="row grid" ng-if="$state.$current.name === 'pub'" isotope-layout="">
+		<div class="col-sm-4 col-xs-12 grid-item" ng-repeat="categoryContent in listOfContentsOfAllcategories" on-ng-repeat-item="onLoadCategoryContentList">
 			<pubcontent-list
 		    	data-list-title="{{categoryContent.category.title}}"
 		    	data-list-label="more than {{categoryContent.totalCount}} Articles"
 				data-content-items="categoryContent.contents"
 				data-footer-title="Read more on {{currentCategory.title}} ..."
 				data-footer-link="/search?c={{currentCategory.name}}"
-				data-unique-tags="categoryContent.uniqueTags">
+				data-unique-tags="categoryContent.uniqueTags"
+				data-on-refresh="onListsRefresh">
 		    </pubcontent-list>
 		</div>
 	</div>

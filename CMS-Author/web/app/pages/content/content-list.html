@@ -1,7 +1,7 @@
 <div>
 	<inline-search></inline-search>
 	<ul class="media-list">
-		<li class="media" ng-repeat="content in contentItems | filter: contentFilter">
+		<li class="media" ng-repeat="content in contentItems | filter: contentFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
 				<a href="#" ng-click="onClick($event, content)">
 					<span class="media-object label label-info" ng-bind="content.authorContentId"></span>

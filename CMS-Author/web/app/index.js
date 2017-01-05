@@ -12,6 +12,7 @@ require('bootstrap');
 require('angular-ui-bootstrap');
 require('angular-ui-router');
 require('ui-select');
+window.Isotope = require('isotope-layout/js/isotope');
 
 require('ckeditor');
 require('ckeditor/adapters/jquery.js');

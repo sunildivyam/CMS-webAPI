@@ -2,9 +2,9 @@
   <h4>Welcome: {{currentUser.userName}}</h4>
   <p>Some text..</p>
 </div>
-<div class="row">
+<div class="row grid" isotope-layout="">
   <!-- Available Categories -->
-  <div class="col-sm-6">
+  <div class="col-sm-6 grid-item">
     <div class="panel panel-default">
       <div class="panel-heading">
           <h3 class="panel-title">Available Content Categories
@@ -14,13 +14,14 @@
       <div class="panel-body">
         <category-list
           data-category-items="availableCategories"
-          data-on-select="onCategoriesSelect">
+          data-on-select="onCategoriesSelect"
+          data-on-refresh="onListsRefresh">
         </category-list>
       </div>
     </div>
   </div>
 <!-- Available Tags -->
-  <div class="col-sm-6">
+  <div class="col-sm-6 grid-item">
     <div class="panel panel-default">
       <div class="panel-heading">
           <h3 class="panel-title">Available Content Tags
@@ -30,13 +31,14 @@
       <div class="panel-body">
         <tag-list
           data-tag-items="availableTags"
-          data-on-select="onTagsSelect">
+          data-on-select="onTagsSelect"
+          data-on-refresh="onListsRefresh">
         </tag-list>
       </div>
     </div>
   </div>
   <!-- Drafted Contents -->
-  <div class="col-sm-6">
+  <div class="col-sm-6 grid-item">
     <div class="panel panel-default">
       <div class="panel-heading">
           <h3 class="panel-title">Drafted Contents
@@ -47,13 +49,14 @@
         <content-list
           data-key-name="authorContentId"
           data-content-items="draftedContents"
-          data-on-select="onDraftedContentSelect">
+          data-on-select="onDraftedContentSelect"
+          data-on-refresh="onListsRefresh">
         </content-list>
       </div>
     </div>
   </div>
 <!-- Published Contents -->
-  <div class="col-sm-6">
+  <div class="col-sm-6 grid-item">
     <div class="panel panel-default">
       <div class="panel-heading">
           <h3 class="panel-title">Published Contents
@@ -64,7 +67,8 @@
         <content-list
           data-key-name="authorContentId"
           data-content-items="publishedContents"
-          data-on-select="onPublishedContentSelect">
+          data-on-select="onPublishedContentSelect"
+          data-on-refresh="onListsRefresh">
         </content-list>
       </div>
     </div>

@@ -3,6 +3,7 @@
 	var pubcontentList = function(Utils, pubcontentService) {
 		return {
 			restrict: 'E',
+			replace: true,
 			scope: {
 				contentItems: '=',
 				listTitle: '@',
@@ -13,12 +14,16 @@
 				enablePagination: '=',
 				totalPageItems: '=',
 				itemsPerPage: '=',
-				maxPageSize: '='
+				maxPageSize: '=',
+				onRefresh: '='
 			},
 			templateUrl: 'pubcontent/pubcontent-list.html',
 			link: function($scope) {
-				//$scope.itemsPerPage = $scope.itemsPerPage || 10;
-				//$scope.maxPageSize = $scope.maxPageSize || 5;
+				$scope.$on("onRepeatItemsLoaded", function(event) {
+					if (typeof $scope.onRefresh === 'function') {
+						$scope.onRefresh(event);
+					}
+				});
 			}
 		};
 	};

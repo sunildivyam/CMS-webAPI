@@ -5,7 +5,8 @@
 			restrict: 'E',
 			scope: {
 				tagItems: '=',
-				onSelect: '='
+				onSelect: '=',
+				onRefresh: '='
 			},
 			templateUrl: 'content/tag-list.html',
 			link: function($scope) {
@@ -20,6 +21,12 @@
 						$scope.onSelect(event, tag);
 					}
 				};
+
+				$scope.$on("onRepeatItemsLoaded", function(event) {
+					if (typeof $scope.onRefresh === 'function') {
+						$scope.onRefresh(event);
+					}
+				});
 			}
 		};
 	};

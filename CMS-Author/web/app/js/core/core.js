@@ -220,7 +220,9 @@
     .directive('tags', require('./directives/tags'))
     .directive('appHeader', require('./directives/appHeader'))
     .directive('ck', require('./directives/ck'))
-    .directive('customNavbar', require('./directives/customNavbar'));
+    .directive('customNavbar', require('./directives/customNavbar'))
+    .directive('isotopeLayout', require('./directives/isotopeLayout'))
+    .directive('onNgRepeatItem', require('./directives/onNgRepeatItem'));
 
     module.exports = angular.module('raiweb.core');
 })();

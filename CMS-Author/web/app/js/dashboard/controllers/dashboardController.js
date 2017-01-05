@@ -6,7 +6,7 @@
 */
 
 (function() {
-	var dashboardController = function($rootScope, $scope, $state, metaInformationService, pageTitleService, contentService, EntityMapper, Content, Category, Tag) {
+	var dashboardController = function($rootScope, $scope, $state, $timeout, metaInformationService, pageTitleService, contentService, EntityMapper, Content, Category, Tag) {
 		// function setMetaInfo(article) {
 		// 	if (article instanceof Object) {
 		// 		metaInformationService.setMetaDescription(article.shortDescription);
@@ -79,8 +79,27 @@
 			}
 		};
 
+		$scope.onListsRefresh = function(event) {
+			$scope.refreshIsotopeLayout();
+		};
+
+		$scope.refreshIsotopeLayout =  function(elm) {
+			if (!$scope.iso) {
+				if (elm) {
+					$scope.iso = new Isotope(elm, {
+		                "itemSelector": ".grid-item"
+		            });
+				}
+			} else {
+				$timeout(function() {
+					$scope.iso.layout();
+				});
+			}
+		};
+
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState /*, fromParams*/) {
 			if (toState && toState.name && (fromState && fromState.name !== toState.name)) {
+				$scope.iso = undefined;
 				$scope.getDraftedContents();
 				$scope.getAvailableCategories();
 				$scope.getAvailableTags();
@@ -89,6 +108,6 @@
 		});
 	};
 
-	dashboardController.$inject = ['$rootScope', '$scope', '$state', 'metaInformationService', 'pageTitleService', 'contentService', 'EntityMapper', 'Content', 'Category', 'Tag'];
+	dashboardController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'metaInformationService', 'pageTitleService', 'contentService', 'EntityMapper', 'Content', 'Category', 'Tag'];
 	module.exports = dashboardController;
 })();

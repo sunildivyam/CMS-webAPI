@@ -5,7 +5,8 @@
 			restrict: 'E',
 			scope: {
 				categoryItems: '=',
-				onSelect: '='
+				onSelect: '=',
+				onRefresh: '='
 			},
 			templateUrl: 'content/category-list.html',
 			link: function($scope) {
@@ -20,6 +21,12 @@
 						$scope.onSelect(event, category);
 					}
 				};
+
+				$scope.$on("onRepeatItemsLoaded", function(event) {
+					if (typeof $scope.onRefresh === 'function') {
+						$scope.onRefresh(event);
+					}
+				});
 			}
 		};
 	};
