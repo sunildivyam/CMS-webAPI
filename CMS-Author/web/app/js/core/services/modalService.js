@@ -55,9 +55,35 @@
             return $uibModal.open(options);
         }
 
+        function showContentHistoryModal(contents, size, onHistoryContentSelectCallback) {
+            var options = {
+                animation: true,
+                templateUrl: 'core/content-history-modal.html',
+                size: size || 'lg',
+                controllerAs: '$ctrl',
+                resolve: {
+                    modalData: function() {
+                        return {
+                            title: 'Content Authoring History',
+                            contents: contents || [],
+                            onHistoryContentSelect: onHistoryContentSelectCallback,
+                            okLabel: 'Close History',
+                            cancelLabel: ''
+                        };
+                    }
+                },
+                controller: ['$scope', 'modalData', function($scope, modalData) {
+                    $scope.modalData = modalData;
+                }]
+            };
+
+            return $uibModal.open(options);
+        }
+
         return {
             alert: alert,
-            showContentPreviewModal: showContentPreviewModal
+            showContentPreviewModal: showContentPreviewModal,
+            showContentHistoryModal: showContentHistoryModal
         };
     };
 

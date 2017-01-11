@@ -6,7 +6,7 @@
 */
 
 (function() {
-	var dashboardController = function($rootScope, $scope, $state, $timeout, metaInformationService, pageTitleService, contentService, EntityMapper, Content, Category, Tag) {
+	var dashboardController = function($rootScope, $scope, $state, $timeout, metaInformationService, pageTitleService, contentService, EntityMapper, Content, Category, Tag, modalService) {
 		// function setMetaInfo(article) {
 		// 	if (article instanceof Object) {
 		// 		metaInformationService.setMetaDescription(article.shortDescription);
@@ -74,11 +74,24 @@
 		};
 
 		$scope.onPublishedContentSelect = function(event, content) {
-			if(content instanceof Object) {
-				$state.go('author.content', {id: content.authorContentId});
+			var contentHistory = new EntityMapper(Content).toEntities();
+			if (content && content.authorContentId) {
+				contentService.getContentAuthoringHistory(content.contentId).then(function(response) {
+					contentHistory = new EntityMapper(Content).toEntities(response.data);
+					$scope.contentHistoryModal = modalService.showContentHistoryModal(contentHistory, 'lg', $scope.onHistoryContentSelect);
+				}, function() {
+					contentHistory = new EntityMapper(Content).toEntities();
+					$scope.contentHistoryModal = modalService.showContentHistoryModal(contentHistory, 'lg', $scope.onHistoryContentSelect);
+				});
 			}
 		};
 
+		$scope.onHistoryContentSelect = function(event, content) {
+			if(content instanceof Object && $scope.contentHistoryModal && $scope.contentHistoryModal.close) {
+				$scope.contentHistoryModal.close();
+				$state.go('author.content', {id: content.authorContentId});
+			}
+		};
 		$scope.onListsRefresh = function(event) {
 			$scope.refreshIsotopeLayout();
 		};
@@ -108,6 +121,6 @@
 		});
 	};
 
-	dashboardController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'metaInformationService', 'pageTitleService', 'contentService', 'EntityMapper', 'Content', 'Category', 'Tag'];
+	dashboardController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'metaInformationService', 'pageTitleService', 'contentService', 'EntityMapper', 'Content', 'Category', 'Tag', 'modalService'];
 	module.exports = dashboardController;
 })();

@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="modalData.title"></h3>
+</div>
+
+<div class="modal-body">
+<!-- Published Contents -->
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <h3 class="panel-title">Authoring History
+            <span class="label label-{{ modalData.contents && modalData.contents.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="modalData.contents && modalData.contents.length || 'no results'"></span>
+          </h3>
+      </div>
+      <div class="panel-body">
+        <content-list
+          data-key-name="authorContentId"
+          data-content-items="modalData.contents"
+          data-on-select="modalData.onHistoryContentSelect">
+        </content-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$close()" ng-bind="modalData.okLabel" ng-show="modalData.okLabel"></button>
+    <button class="btn btn-warning" type="button" ng-click="$dismiss()" ng-bind="modalData.cancelLabel" ng-show="modalData.cancelLabel"></button>
+</div>

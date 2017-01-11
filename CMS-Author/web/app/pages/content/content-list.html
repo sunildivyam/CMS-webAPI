@@ -12,6 +12,14 @@
 					<h5 class="media-heading text-primary" ng-bind="content.title"></h5>
 				</a>
 				<p ng-bind-html="content.shortDescription" class="small"></p>
+				<span ng-if = "content.updatedDate" title="Last Updated">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span class="label label-default" ng-bind="content.updatedDate.toLocaleString()"></span>
+				</span>
+				<span ng-if = "content.publishedDate" title="Last Published">
+					<span class="glyphicon glyphicon-save"></span>
+					<span class="label label-default" ng-bind="content.publishedDate.toLocaleString()"></span>
+				</span>
 			</div>
 		</li>
 	</ul>

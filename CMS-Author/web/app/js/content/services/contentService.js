@@ -22,6 +22,7 @@
 				base: 'authorContents',
 				getAuthorContents: 'GetAuthorContents',
 				getPublishedContents: 'GetPublishedAuthorContents',
+				getContentAuthoringHistory: 'getContentAuthoringHistory',
 				getAuthorContent: 'GetAuthorContent',
 				addAuthorContent: 'PostAuthorContent',
 				updateAuthorContent: 'PutAuthorContent',
@@ -90,6 +91,10 @@
 			return appService.get([urls.authorContents.base, urls.authorContents.getPublishedContents].join('/'));
 		}
 
+		function getContentAuthoringHistory(contentId) {
+			return appService.get([urls.authorContents.base, urls.authorContents.getContentAuthoringHistory, contentId].join('/'));
+		}
+
 		function getContentById(id) {
 			return appService.get([urls.authorContents.base, urls.authorContents.getAuthorContent, id].join('/'));
 		}
@@ -123,6 +128,7 @@
 			deleteCategory: deleteCategory,
 			getDraftedContents: getDraftedContents,
 			getPublishedContents: getPublishedContents,
+			getContentAuthoringHistory: getContentAuthoringHistory,
 			getContentById: getContentById,
 			addNewContent: addNewContent,
 			updateContent: updateContent,
