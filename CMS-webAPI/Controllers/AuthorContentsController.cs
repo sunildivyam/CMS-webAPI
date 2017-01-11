@@ -53,14 +53,40 @@ namespace CMS_webAPI.Controllers
         // gets all Unpublished AuthorContents for the current User Only.
         // means where PublishedDate is not null
         // GET: api/AuthorContents/GetPublishedAuthorContents
-        public IHttpActionResult GetPublishedAuthorContents()
+        [ResponseType(typeof(List<AuthorContentViewModel>))]
+        public async Task<IHttpActionResult> GetPublishedAuthorContents()
         {
             var applicationDbContext = new ApplicationDbContext();
             ApplicationUser currentUser = applicationDbContext.Users.Where(u => u.UserName == User.Identity.Name).Single();
+            
+            IQueryable<AuthorContent> authorContentsQuery = db.AuthorContents.Join(db.Contents, ac => ac.AuthorContentId, c => c.AuthorContentId, (ac, c) => ac)
+                .Where(ac => ac.AuthorId == currentUser.Id && ac.PublishedDate != null && ac.ContentId > 0)
+                .OrderByDescending(ac=> ac.PublishedDate)
+                .Select(acc => acc);
+            List<AuthorContent> authorContents = await authorContentsQuery.ToListAsync<AuthorContent>();            
+           
+            List<AuthorContentViewModel> authorContentViews = new List<AuthorContentViewModel>();
 
-            List<AuthorContent> authorContents = db.AuthorContents
-                .Where(c => c.AuthorId == currentUser.Id && c.PublishedDate != null)
-                .ToList<AuthorContent>();
+            foreach (AuthorContent authorContent in authorContents)
+            {
+                authorContentViews.Add(new AuthorContentViewModel(authorContent));
+            }
+
+            return Ok(authorContentViews);
+        }
+
+        [ResponseType(typeof(List<AuthorContentViewModel>))]
+        public async Task<IHttpActionResult> getContentAuthoringHistory(int param1)
+        {
+            int contentId = param1;
+
+            var applicationDbContext = new ApplicationDbContext();
+            ApplicationUser currentUser = applicationDbContext.Users.Where(u => u.UserName == User.Identity.Name).Single();
+
+            IQueryable<AuthorContent> authorContentsQuery = db.AuthorContents
+                .Where(ac => ac.AuthorId == currentUser.Id && ac.ContentId == contentId)
+                .OrderByDescending(ac => ac.AuthorContentId);
+            List<AuthorContent> authorContents = await authorContentsQuery.ToListAsync<AuthorContent>();
 
             List<AuthorContentViewModel> authorContentViews = new List<AuthorContentViewModel>();
 
@@ -163,7 +189,7 @@ namespace CMS_webAPI.Controllers
                     {
                         if (authorContentView.ContentId != null && authorContentView.ContentId > 0)
                         {
-                            // Content in Pub Should be Updated
+                            // Content in Pub Should be Updated                            
                             contentView = new ContentViewModel( UpdateContent(contentToPub.ContentId, contentView));
                             // Updates the AuthorContent with the Published content's ContentId
                             authorContentView.ContentId = contentView.ContentId;
@@ -186,7 +212,7 @@ namespace CMS_webAPI.Controllers
                             }
 
                             contentToPub.OwnerId = UserService.getUserByUserName(User.Identity.Name).Id;
-                            contentToPub.PublishedDate = DateTime.Today;
+                            contentToPub.PublishedDate = DateTime.Now;
                             contentToPub.VisitCount = 0;
                             contentToPub.IsLive = true;
 
@@ -199,7 +225,7 @@ namespace CMS_webAPI.Controllers
                             publishedContentView = new ContentViewModel(contentToPub);
                         }            
 
-                        // Updates or Adds AuthorContent before Publishing it.
+                        // Updates or Adds AuthorContent After Publishing it.
                         if (authorContentView.AuthorContentId > 0)
                         {
                             new AuthorContentViewModel(UpdateAuthorContent(authorContentView.AuthorContentId, authorContentView));
@@ -207,9 +233,16 @@ namespace CMS_webAPI.Controllers
                         else
                         {
                             new AuthorContentViewModel( AddAuthorContent(authorContentView));
-                        }
-            
+                        }                
+
                         await db.SaveChangesAsync();
+
+                        // Updates AuthorContentId to Published Content.
+                        Content originalContent = db.Contents.Find(contentToPub.ContentId);
+                        contentToPub.AuthorContentId = authorContentView.AuthorContentId;
+                        db.Entry(originalContent).CurrentValues.SetValues(contentToPub);
+                        await db.SaveChangesAsync();
+
                         publishedContentView = new ContentViewModel(contentToPub);
                         dbTransaction.Commit();
                     }
@@ -270,7 +303,7 @@ namespace CMS_webAPI.Controllers
             }
 
             authorContent.AuthorId = UserService.getUserByUserName(User.Identity.Name).Id;
-            authorContent.UpdatedDate = DateTime.Today;
+            authorContent.UpdatedDate = DateTime.Now;
             authorContent.UpdateCount = 0;
 
             db.AuthorContents.Add(authorContent);
@@ -286,7 +319,7 @@ namespace CMS_webAPI.Controllers
             var authorContentTags = authorContentView.getAuthorContentTags();
 
             authorContent.AuthorId = UserService.getUserByUserName(User.Identity.Name).Id;
-            authorContent.UpdatedDate = DateTime.Today;
+            authorContent.UpdatedDate = DateTime.Now;
 
             db.AuthorContents.Add(authorContent);
 
@@ -306,7 +339,7 @@ namespace CMS_webAPI.Controllers
             var contentTags = contentView.getContentTags();
 
             content.OwnerId = UserService.getUserByUserName(User.Identity.Name).Id;
-            content.PublishedDate = DateTime.Today;
+            content.PublishedDate = DateTime.Now;
             content.IsLive = true;
             Content originalContent = db.Contents.Find(content.ContentId);
             content.VisitCount = originalContent.VisitCount;
@@ -315,8 +348,9 @@ namespace CMS_webAPI.Controllers
             // Updating Content Tags is deleteing all first then adding all selected.
             db.ContentTags.RemoveRange(db.ContentTags.Where(act => act.ContentId == content.ContentId));
             db.ContentTags.AddRange(contentTags);
-
-            return content;            
+            
+            return content;
+            
         }
 
     }

@@ -45,8 +45,10 @@ namespace CMS_webAPI.Models
         
         [Required]
         public int VisitCount { get; set; }
+                
+        public int? AuthorContentId { get; set; }
 
         // RelationShips
-        public virtual Category Category { get; set; }    
+        public virtual Category Category { get; set; }        
     }
 }

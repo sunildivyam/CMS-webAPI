@@ -28,6 +28,8 @@ namespace CMS_webAPI.Models
 
         public Boolean IsLive { get; set; }
 
+        public int AuthorContentId { get; set; }
+
         // RelationShips
         public Category Category { get; set; }
         public List<Tag> Tags { get; set; }
@@ -55,7 +57,7 @@ namespace CMS_webAPI.Models
                 this.PublishedDate = (DateTime)content.PublishedDate;
                 this.VisitCount = content.VisitCount;
                 this.IsLive = content.IsLive;
-
+                this.AuthorContentId =(int) content.AuthorContentId;
                 // Tags
                 List<ContentTag> contentTags = _db.ContentTags.Where(t => t.ContentId == content.ContentId).ToList<ContentTag>();
 
@@ -142,7 +144,8 @@ namespace CMS_webAPI.Models
             content.Description = this.Description;
             content.PublishedDate = this.PublishedDate;
             content.IsLive = this.IsLive;
-            content.VisitCount = this.VisitCount;            
+            content.VisitCount = this.VisitCount;
+            content.AuthorContentId = this.AuthorContentId;
             var owner = UserService.getUserFromUserViewModel(this.Owner);
             if (owner != null) {
                 content.OwnerId = owner.Id;

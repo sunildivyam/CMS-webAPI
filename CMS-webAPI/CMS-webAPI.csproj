@@ -241,6 +241,10 @@
     <Compile Include="CmsDbMigrations\201701031115518_Upgrade3FullTextSearch.Designer.cs">
       <DependentUpon>201701031115518_Upgrade3FullTextSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="CmsDbMigrations\201701090559549_Upgrade4RevPubAuth.cs" />
+    <Compile Include="CmsDbMigrations\201701090559549_Upgrade4RevPubAuth.Designer.cs">
+      <DependentUpon>201701090559549_Upgrade4RevPubAuth.cs</DependentUpon>
+    </Compile>
     <Compile Include="CmsDbMigrations\Configuration.cs" />
     <Compile Include="Controllers\AuthorContentsController.cs" />
     <Compile Include="Controllers\AuthorContentTagsController.cs" />
@@ -377,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CmsDbMigrations\201701031115518_Upgrade3FullTextSearch.resx">
       <DependentUpon>201701031115518_Upgrade3FullTextSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CmsDbMigrations\201701090559549_Upgrade4RevPubAuth.resx">
+      <DependentUpon>201701090559549_Upgrade4RevPubAuth.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityMigrations\201608280406225_InitialCreate.resx">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>
