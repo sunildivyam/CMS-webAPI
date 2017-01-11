@@ -9,7 +9,7 @@
 				onRefresh: '='
 			},
 			templateUrl: 'content/category-list.html',
-			link: function($scope) {
+			link: function($scope, element) {
 				$scope.searchKeywords = '';
 				$scope.categoryFilter = function(category) {
 					return Utils.filterByKeywords(category, $scope.searchKeywords);
@@ -23,6 +23,12 @@
 				};
 
 				$scope.$on("onRepeatItemsLoaded", function(event) {
+					$(element).find('.description').dotdotdot({
+						wrap: 'letters',
+						watch: 'window',
+						height: (17 * 4)
+					});
+
 					if (typeof $scope.onRefresh === 'function') {
 						$scope.onRefresh(event);
 					}

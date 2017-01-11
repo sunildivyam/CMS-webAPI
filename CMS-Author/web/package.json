@@ -35,6 +35,7 @@
     "bootstrap": "^3.3.6",
     "bootstrap-social": "^5.0.0",
     "ckeditor": "^4.6.1",
+    "dotdotdot": "^1.7.0",
     "font-awesome": "^4.6.3",
     "isotope-layout": "^3.0.1",
     "jquery": "^2.2.4",

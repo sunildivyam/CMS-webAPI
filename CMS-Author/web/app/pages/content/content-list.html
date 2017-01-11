@@ -11,7 +11,7 @@
 				<a href="#" ng-click="onClick($event, content)">
 					<h5 class="media-heading text-primary" ng-bind="content.title"></h5>
 				</a>
-				<p ng-bind-html="content.shortDescription" class="small"></p>
+				<p ng-bind-html="content.shortDescription" class="small short-description"></p>
 				<span ng-if = "content.updatedDate" title="Last Updated">
 					<span class="glyphicon glyphicon-pencil"></span>
 					<span class="label label-default" ng-bind="content.updatedDate.toLocaleString()"></span>

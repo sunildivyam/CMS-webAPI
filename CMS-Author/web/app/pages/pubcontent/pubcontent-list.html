@@ -22,7 +22,8 @@
 						<a href="#" ui-sref="pub.articles.content({n: content.category.name, ci: content.contentId, cn: content.name})">
 							<h4 class="media-heading text-primary" ng-bind="content.title"></h4>
 						</a>
-						<p ng-bind-html="content.shortDescription" class="small"></p>
+						<p ng-bind-html="content.shortDescription" class="small short-description"></p>
+						<p ng-bind-html="content.shortDescription" class="small short-description-hovered"></p>
 						<span title="Author">
 							<span class="glyphicon glyphicon-user"></span>
 							<span class="label label-info" ng-bind="content.owner.email"></span>

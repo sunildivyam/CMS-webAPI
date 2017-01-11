@@ -9,7 +9,7 @@
 				onRefresh: '='
 			},
 			templateUrl: 'content/tag-list.html',
-			link: function($scope) {
+			link: function($scope, element) {
 				$scope.searchKeywords = '';
 				$scope.tagFilter = function(tag) {
 					return Utils.filterByKeywords(tag, $scope.searchKeywords);
@@ -23,6 +23,11 @@
 				};
 
 				$scope.$on("onRepeatItemsLoaded", function(event) {
+					$(element).find('.description').dotdotdot({
+						wrap: 'letters',
+						watch: 'window',
+						height: (17 * 4)
+					});
 					if (typeof $scope.onRefresh === 'function') {
 						$scope.onRefresh(event);
 					}
