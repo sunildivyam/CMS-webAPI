@@ -26,6 +26,7 @@
 						height: (17 * 4)
 					});
 
+					$(element).find('.short-description-hovered').slideUp();
 					$(element).find('.short-description').on('mouseenter', function(event) {
 						$(this).slideUp();
 						$(this).closest('.media-body').find('.short-description-hovered').slideDown();
