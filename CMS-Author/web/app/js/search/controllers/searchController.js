@@ -7,8 +7,8 @@
 
 (function() {
     var searchController = function($rootScope, $scope, searchService, metaInformationService, pageTitleService, EntityMapper, Content) {
-        $scope.itemsPerPage = 20;
-        $scope.maxPageSize = 5;
+        $scope.itemsPerPage = searchService.getPageSize();
+        $scope.maxPageSize = 10; // page numbers to be displayed on page Bar
 
         function setMetaInfo(searchNav) {
             if (searchNav instanceof Object) {
@@ -22,8 +22,11 @@
             }
         }
 
-        function getSearchResults(categoryName, keywords) {
-            searchService.searchContents(categoryName, keywords).then(function(response) {
+        function getSearchResults(categoryName, keywords, pageNo, pageSize) {
+            if (!pageSize) {
+                pageSize = $scope.itemsPerPage;
+            }
+            searchService.searchContents(categoryName, keywords, pageNo, pageSize).then(function(response) {
                 if (response && response.data) {
                     $scope.searchResults = {
                         contents: new EntityMapper(Content).toEntities(response.data.Contents),
@@ -38,9 +41,17 @@
             });
         }
 
+        $scope.onSearchPageChange = function(event, pageNo) {
+            if (pageNo && pageNo > 0 && $rootScope && $rootScope.$stateParams) {
+                var n =  $rootScope.$stateParams.n;
+                var kw = $rootScope.$stateParams.kw;
+                getSearchResults(n, kw, pageNo);
+            }
+        };
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
             if (toState && toState.name && toParams) {
-                getSearchResults(toParams.n, toParams.kw);
+                getSearchResults(toParams.n, toParams.kw, 1);
             }
         });
     };

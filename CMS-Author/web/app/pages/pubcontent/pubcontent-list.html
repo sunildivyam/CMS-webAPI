@@ -43,14 +43,17 @@
 			<span class="glyphicon glyphicon-chevron-right"></span>
 		</a>
 		<tags tag-items="uniqueTags"></tags>
-		<ul uib-pagination class="pagination-sm" ng-if="enablePagination"
+
+		<ul uib-pagination
+			class="pagination-sm"
+			ng-show="enablePagination"
 			boundary-link-numbers="true"
 			rotate="true"
 			total-items="totalPageItems"
 			max-size="maxPageSize"
 			items-per-page="itemsPerPage"
 			ng-model="currentPage"
-			ng-change="pageChanged()">
+			ng-change="pageChanged($event)">
 		</ul>
 
 	</div>

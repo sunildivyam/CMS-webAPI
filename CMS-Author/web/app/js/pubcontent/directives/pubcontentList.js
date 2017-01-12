@@ -15,7 +15,8 @@
 				totalPageItems: '=',
 				itemsPerPage: '=',
 				maxPageSize: '=',
-				onRefresh: '='
+				onRefresh: '=',
+				onPageChange: '='
 			},
 			templateUrl: 'pubcontent/pubcontent-list.html',
 			link: function($scope, element) {
@@ -41,6 +42,12 @@
 						$scope.onRefresh(event);
 					}
 				});
+
+				$scope.pageChanged = function(event) {
+					if (typeof $scope.onPageChange === 'function') {
+						$scope.onPageChange(event, $scope.currentPage);
+					}
+				};
 			}
 		};
 	};

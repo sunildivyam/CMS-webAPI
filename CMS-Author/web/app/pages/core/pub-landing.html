@@ -20,10 +20,9 @@
 	<div class="row">
 		<div class="col-sm-8 col-sm-push-2">
 			<pubcontent-search
-				data-categories="categories"
+				data-categories="searchDropdownCategories"
 				data-on-search="onGlobalSearch"
-				data-search-string="{{globalSearch.searchString}}"
-				data-init-selected-item="globalSearch.initSelectedItem">
+				data-search="globalSearch">
 			</pubcontent-search>
 		</div>
 	</div>
@@ -48,7 +47,7 @@
 		    	data-list-label="more than {{categoryContent.totalCount}} Articles"
 				data-content-items="categoryContent.contents"
 				data-footer-title="Read more on {{currentCategory.title}} ..."
-				data-footer-link="/search?c={{currentCategory.name}}"
+				data-footer-link="/articles/{{currentCategory.name}}"
 				data-unique-tags="categoryContent.uniqueTags"
 				data-on-refresh="onListsRefresh">
 		    </pubcontent-list>
