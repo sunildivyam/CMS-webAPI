@@ -206,6 +206,7 @@
     .factory('metaInformationService', require('./services/metaInformationService'))
     .factory('modalService', require('./services/modalService'))
     .factory('Utils', require('./services/Utils'))
+    .factory('CkEditorService', require('./services/CkEditorService'))
 
     .factory('EntityMapper', require('./domain/EntityMapper'))
     .factory('User', require('./domain/User'))

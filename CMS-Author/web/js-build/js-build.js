@@ -29,14 +29,18 @@ gulp.task('buildjs', function() {
 });
 
 gulp.task('compile', function() {
-	return runSequence('lint', 'buildjs', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig', 'ckeditor']);
+	return runSequence('lint', 'buildjs', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig']);
 });
 
 gulp.task('package', function() {
-	return runSequence('clean', 'lint', 'ngTemplateCache', 'browserify', 'cleanNgTemplateCache', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig', 'ckeditor', 'ngdocs'], ['uglify', 'cleanCss']);
+	return runSequence('clean', 'lint', 'ngTemplateCache', 'browserify', 'cleanNgTemplateCache', ['html', 'fonts', 'jsondata', 'images', 'less', 'webconfig', 'ngdocs'], ['uglify', 'cleanCss']);
 });
 
 gulp.task('default', ['package']);
+
+gulp.task('ckeditor', function() {
+	return runSequence('ckeditor-clean', ['ckeditor-self', 'mathjax']);
+});
 
 gulp.task('watch', function() {
 	gulp.watch([config.sourceDir + '/**/*.js', config.sourceDir + '/pages/**/*.html'], function() {

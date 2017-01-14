@@ -1,5 +1,5 @@
 'use strict';
-window.CKEDITOR_BASEPATH = './ckeditor/';
+//window.CKEDITOR_BASEPATH = '/ckeditor/';
 
 var angular = require('angular');
 require('angular-sanitize');
@@ -14,9 +14,10 @@ require('angular-ui-router');
 require('ui-select');
 window.Isotope = require('isotope-layout/js/isotope');
 require('dotdotdot/src/js/jquery.dotdotdot');
-
-require('ckeditor');
-require('ckeditor/adapters/jquery.js');
+window.hljs = require('highlight.js/lib');
+// CK Editor does not support browserify
+	//require('ckeditor');
+	//require('ckeditor/adapters/jquery.js');
 
 angular.module("templates", []);
 require('./templates/templates');

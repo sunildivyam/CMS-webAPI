@@ -4,31 +4,41 @@
         return {
             require: '?ngModel',
             link: function(scope, elm, attr, ngModel) {
-                var ck;
-                ck = CKEDITOR.replace(elm[0]);
+                var ckStatus = false;
 
-                if (!ngModel) return;
+                $timeout(function() {
+                    if (!ngModel) return;
 
-                ck.on('instanceReady', function () {
-                    ck.setData(ngModel.$viewValue);
-                    ngModel.$render();
-                    ck.on('change', updateModel);
-                    ck.on('key', updateModel);
-                    ck.on('dataReady', updateModel);
-                });
-
-                function updateModel() {
-                    scope.$apply(function () {
-                        ngModel.$setViewValue(ck.getData());
+                    var ck;
+                    ck = CKEDITOR.replace(elm[0], {
+                        extraPlugins: 'sourcedialog,mathjax,codesnippet',
+                        removePlugins:'sourcearea',
+                        //mathJaxLib: '/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML'
+                        mathJaxLib: '//cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML'
                     });
-                }
 
-                // This updates the ckeditor data when ngmodel is changed
-                ngModel.$render = function () {
                     $timeout(function() {
-                      ck.setData(ngModel.$viewValue);
+                        // This updates the ngModelwhen ck editor data changes
+                        ck.on('change', updateModel);
+
+                        // This updates the ckeditor data when ngmodel is changed
+                        ngModel.$render = function () {
+                            updateCkEditor();
+                        };
                     });
-                };
+
+                    ck.on('instanceReady', function () {
+                        updateCkEditor();
+                    });
+
+                    function updateModel() {
+                        ngModel.$setViewValue(ck.getData());
+                    }
+
+                    function updateCkEditor() {
+                        ck.setData(ngModel.$viewValue);
+                    }
+                });
             }
         };
     };

@@ -39,7 +39,7 @@
 		function getContentsByCategoryName_ByListType(name, listType) {
 			var sortField;
 			var sortDirAsc;
-			console.log('I am in bylistType');
+
 			switch (listType) {
 				case CONTENT_LIST_TYPES.POPULAR:
 					sortField = 'VisitCount';
