@@ -38,6 +38,11 @@
 				deleteCategory: 'DeleteCategory'
 			}
 		};
+
+		var requestHeaders = {
+			'Content-Type': 'application/json'
+		};
+
 		// Tags
 		function getTags() {
 			return appService.get([urls.tags.base, urls.tags.getTags].join('/'));
@@ -48,7 +53,7 @@
 		}
 
 		function addNewTag(tag) {
-			return appService.post([urls.tags.base, urls.tags.addTag].join('/'), tag);
+			return appService.post([urls.tags.base, urls.tags.addTag].join('/'), tag, requestHeaders);
 		}
 
 		function updateTag(tag) {
@@ -70,7 +75,7 @@
 		}
 
 		function addNewCategory(category) {
-			return appService.post([urls.categories.base, urls.categories.addCategory].join('/'), category);
+			return appService.post([urls.categories.base, urls.categories.addCategory].join('/'), category, requestHeaders);
 		}
 
 		function updateCategory(category) {
@@ -100,7 +105,7 @@
 		}
 
 		function addNewContent(content) {
-			return appService.post([urls.authorContents.base, urls.authorContents.addAuthorContent].join('/'), content);
+			return appService.post([urls.authorContents.base, urls.authorContents.addAuthorContent].join('/'), content, requestHeaders);
 		}
 
 		function updateContent(content) {
@@ -112,7 +117,7 @@
 		}
 
 		function publishContent(content) {
-			return appService.post([urls.authorContents.base, urls.authorContents.publishContent, content && content.authorContentId].join('/'), content);
+			return appService.post([urls.authorContents.base, urls.authorContents.publishContent, content && content.authorContentId].join('/'), content, requestHeaders);
 		}
 
 		return {

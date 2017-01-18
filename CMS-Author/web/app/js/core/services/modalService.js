@@ -80,10 +80,35 @@
             return $uibModal.open(options);
         }
 
+        function showUploadResourceModal(uploadCallback, size) {
+            var options = {
+                animation: true,
+                templateUrl: 'core/resource-upload-modal.html',
+                size: size || 'lg',
+                controllerAs: '$ctrl',
+                resolve: {
+                    modalData: function() {
+                        return {
+                            title: 'Upload File',
+                            uploadCallback: uploadCallback,
+                            okLabel: 'Close',
+                            cancelLabel: ''
+                        };
+                    }
+                },
+                controller: ['$scope', 'modalData', function($scope, modalData) {
+                    $scope.modalData = modalData;
+                }]
+            };
+
+            return $uibModal.open(options);
+        }
+
         return {
             alert: alert,
             showContentPreviewModal: showContentPreviewModal,
-            showContentHistoryModal: showContentHistoryModal
+            showContentHistoryModal: showContentHistoryModal,
+            showUploadResourceModal: showUploadResourceModal
         };
     };
 

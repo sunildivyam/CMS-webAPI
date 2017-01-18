@@ -53,16 +53,34 @@
 		function filterByKeywords(content, searchKeywords) {
 			if (!searchKeywords) return true;
 
-			if (content && content.title && content.title.toLowerCase().search(searchKeywords.toLowerCase()) >= 0) {
+			if (content && ((content.title && content.title.toLowerCase().search(searchKeywords.toLowerCase()) >= 0) || (content.name && content.name.toLowerCase().search(searchKeywords.toLowerCase()) >= 0))) {
 				return true;
 			} else {
 				return false;
 			}
 		}
 
+		function getListModes() {
+			return [
+				{
+					id: 'default',
+					iconClass: 'glyphicon-list'
+				},
+				{
+					id: 'mini',
+					iconClass: 'glyphicon-th-list'
+				},
+				{
+					id: 'grid',
+					iconClass: 'glyphicon-th'
+				}
+			 ];
+		}
+
 		return {
 			parseStringExt: parseStringExt,
-			filterByKeywords: filterByKeywords
+			filterByKeywords: filterByKeywords,
+			getListModes: getListModes
 		};
 	};
 

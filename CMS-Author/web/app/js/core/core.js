@@ -49,6 +49,15 @@
             isAnonymous: false
         })
         .state({
+            name: 'resourcebrowser',
+            url: '/resourcebrowser?CKEditor&CKEditorFuncNum&langCode',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('resourcebrowser/landing.html');
+            }],
+            controller: 'resourcebrowserController',
+            isAnonymous: false
+        })
+        .state({
             name: 'author',
             // url: '/author',
             templateProvider: ['$templateCache', function($templateCache) {
@@ -213,6 +222,7 @@
     .factory('Category', require('./domain/Category'))
     .factory('Tag', require('./domain/Tag'))
     .factory('Content', require('./domain/Content'))
+    .factory('ContentResource', require('./domain/ContentResource'))
 
     .controller('appController', require('./controllers/appController'))
 
@@ -223,7 +233,9 @@
     .directive('ck', require('./directives/ck'))
     .directive('customNavbar', require('./directives/customNavbar'))
     .directive('isotopeLayout', require('./directives/isotopeLayout'))
-    .directive('onNgRepeatItem', require('./directives/onNgRepeatItem'));
+    .directive('onNgRepeatItem', require('./directives/onNgRepeatItem'))
+    .directive('fileInput', require('./directives/fileInput'))
+    .directive('btnToolbar', require('./directives/btnToolbar'));
 
     module.exports = angular.module('raiweb.core');
 })();

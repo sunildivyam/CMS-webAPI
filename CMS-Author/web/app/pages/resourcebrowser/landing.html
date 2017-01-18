@@ -1,0 +1,31 @@
+<div class="container-fluid resource-browser">
+	<div class="row">
+		<div class="col-sm-4">
+			<brand-logo class="xs" data-logo="appLogo"></brand-logo>
+		</div>
+		<div class="col-sm-8">
+			<btn-toolbar
+				data-buttons="resourceToolbarButtons"
+				data-on-select="onToolbarButtonClick"
+				data-btn-size-class="btn-lg">
+			</btn-toolbar>
+		</div>
+	</div>
+	<div class="row page-section">
+		<div class="col-sm-3 left-section">
+			<category-list
+			data-category-items="categories"
+			data-on-select="onCategorySelect"
+			data-mode="mini">
+			</category-list>
+		</div>
+		<div class="col-sm-9 right-section">
+			<resource-list
+	          data-resource-items="currentResources"
+	          data-on-select="onResourceSelect"
+	          data-on-refresh="onListsRefresh"
+	          data-is-loading="isResourcesLoading">
+	        </resource-list>
+		</div>
+	</div>
+</div>

@@ -35,6 +35,7 @@ angular.module('raiweb', [
 	require('./js/content/content').name,
 	require('./js/pubcontent/pubcontent').name,
 	require('./js/account/account').name,
-	require('./js/search/search').name
+	require('./js/search/search').name,
+	require('./js/resourcebrowser/resourcebrowser').name
 ]);
 

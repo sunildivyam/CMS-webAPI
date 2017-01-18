@@ -1,27 +1,28 @@
 'use strict';
 (function() {
-	var categoryList = function(Utils, $timeout) {
+	var resourceList = function(Utils, $timeout) {
 		return {
 			restrict: 'E',
 			scope: {
-				categoryItems: '=',
+				resourceItems: '=',
 				onSelect: '=',
 				onRefresh: '=',
-				mode: '@'
+				mode: '@',
+				isLoading: '='
 			},
-			templateUrl: 'content/category-list.html',
+			templateUrl: 'resourcebrowser/resource-list.html',
 			link: function($scope, element) {
 				$scope.searchKeywords = '';
 				$scope.modes = Utils.getListModes();
-				$scope.categoryFilter = function(category) {
-					return Utils.filterByKeywords(category, $scope.searchKeywords);
+				$scope.resourceFilter = function(resource) {
+					return Utils.filterByKeywords(resource, $scope.searchKeywords);
 				};
 
-				$scope.onClick = function(event, category) {
+				$scope.onClick = function(event, resource) {
 					event.preventDefault();
 					if (typeof $scope.onSelect === 'function') {
-						$scope.selectedCategory = category;
-						$scope.onSelect(event, category);
+						$scope.selectedResource = resource;
+						$scope.onSelect(event, resource);
 					}
 				};
 
@@ -35,12 +36,6 @@
 				};
 
 				$scope.$on("onRepeatItemsLoaded", function(event) {
-					$(element).find('.description').dotdotdot({
-						wrap: 'letters',
-						watch: 'window',
-						height: (17 * 4)
-					});
-
 					if (typeof $scope.onRefresh === 'function') {
 						$scope.onRefresh(event);
 					}
@@ -49,6 +44,6 @@
 		};
 	};
 
-	categoryList.$inject = ['Utils', '$timeout'];
-	module.exports = categoryList;
+	resourceList.$inject = ['Utils', '$timeout'];
+	module.exports = resourceList;
 })();

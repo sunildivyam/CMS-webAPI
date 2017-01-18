@@ -34,10 +34,20 @@
 				});
 			}
 		}
+		//window.opener.CKEDITOR.tools.callFunction(CkEditorImageBrowser.ckFunctionNum, $(this).data('url'));
+		//window.close();
+
+		function getUrlFromImageBrowser(ckFunctionNumber, url) {
+			if (window && window.opener && window.opener['CKEDITOR'] && typeof ckFunctionNumber !== 'undefined') {
+				window.opener.CKEDITOR.tools.callFunction(ckFunctionNumber, url);
+				window.close();
+			}
+		}
 
 		return {
 			updateMathJax: updateMathJax,
-			updateCodeHighlight: updateCodeHighlight
+			updateCodeHighlight: updateCodeHighlight,
+			getUrlFromImageBrowser: getUrlFromImageBrowser
 		};
 	};
 

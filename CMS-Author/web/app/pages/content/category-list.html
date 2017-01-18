@@ -1,7 +1,14 @@
-<div>
+<div class="category-list">
 	<inline-search></inline-search>
-	<ul class="media-list">
-		<li class="media" ng-repeat="category in categoryItems | filter: categoryFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+
+	<btn-toolbar
+		data-buttons="modes"
+		data-on-select="onModeChange"
+		data-btn-size-class="btn-xs">
+	</btn-toolbar>
+
+	<ul class="media-list {{mode}}" ng-show="!mode || mode === 'default'">
+		<li class="media {{selectedCategory && selectedCategory.categoryId === category.categoryId ? 'active': ''}}" ng-repeat="category in categoryItems | filter: categoryFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
 				<a href="#" ng-click="onClick($event, category)">
 					<span class="media-object label label-info" ng-bind="category.categoryId"></span>
@@ -12,6 +19,36 @@
 					<h5 class="media-heading text-primary" ng-bind="category.title"></h5>
 				</a>
 				<p ng-bind-html="category.description" class="small description"></p>
+			</div>
+		</li>
+	</ul>
+<!-- mini Mode-->
+	<ul class="media-list {{mode}}" ng-show="mode === 'mini'">
+		<li class="media {{selectedCategory && selectedCategory.categoryId === category.categoryId ? 'active': ''}}" ng-repeat="category in categoryItems | filter: categoryFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ng-click="onClick($event, category)">
+					<span class="media-object label label-info"></span>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ng-click="onClick($event, category)">
+					<h5 class="media-heading text-primary" ng-bind="category.title"></h5>
+				</a>
+			</div>
+		</li>
+	</ul>
+<!-- mini Mode-->
+	<ul class="row {{mode}}" ng-show="mode === 'grid'">
+		<li class="col-sm-3 thumbnail {{selectedCategory && selectedCategory.categoryId === category.categoryId ? 'active': ''}}" ng-repeat="category in categoryItems | filter: categoryFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ng-click="onClick($event, category)">
+					<span class="media-object label label-info"></span>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ng-click="onClick($event, category)">
+					<h5 class="media-heading text-primary" ng-bind="category.title"></h5>
+				</a>
 			</div>
 		</li>
 	</ul>

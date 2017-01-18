@@ -22,11 +22,8 @@
 			return $http(config);
 		}
 
-		function nonGetRequest(requestType, url, data, headers) {
+		function nonGetRequest(requestType, url, data, headers, options) {
 			var reqHeaders = headers || {};
-			if (!reqHeaders['Content-Type']) {
-				reqHeaders['Content-Type'] = 'application/json';
-			}
 
 			var config = {
 				method: requestType,
@@ -34,6 +31,11 @@
 				data: data,
 				headers: reqHeaders
 			};
+
+			if (options instanceof Object) {
+				angular.extend(config, options);
+			}
+
 			return executeRequest(config);
 		}
 
@@ -74,8 +76,8 @@
 		*
 		* @returns {object} returns a promise object.
 		*/
-		function post(url, data, headers) {
-			return nonGetRequest('POST', url, data, headers);
+		function post(url, data, headers, options) {
+			return nonGetRequest('POST', url, data, headers, options);
 		}
 
 		/**
