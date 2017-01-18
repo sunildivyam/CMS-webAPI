@@ -245,6 +245,10 @@
     <Compile Include="CmsDbMigrations\201701090559549_Upgrade4RevPubAuth.Designer.cs">
       <DependentUpon>201701090559549_Upgrade4RevPubAuth.cs</DependentUpon>
     </Compile>
+    <Compile Include="CmsDbMigrations\201701170637127_ResourceBrowser.cs" />
+    <Compile Include="CmsDbMigrations\201701170637127_ResourceBrowser.Designer.cs">
+      <DependentUpon>201701170637127_ResourceBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="CmsDbMigrations\Configuration.cs" />
     <Compile Include="Controllers\AuthorContentsController.cs" />
     <Compile Include="Controllers\AuthorContentTagsController.cs" />
@@ -252,6 +256,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ContentsController.cs" />
     <Compile Include="Controllers\ContentTagsController.cs" />
+    <Compile Include="Controllers\ResourceBrowserController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="IdentityMigrations\201608280406225_InitialCreate.cs" />
     <Compile Include="IdentityMigrations\201608280406225_InitialCreate.Designer.cs">
@@ -265,6 +270,8 @@
     <Compile Include="Models\AuthorContentViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\Content.cs" />
+    <Compile Include="Models\ContentResource.cs" />
+    <Compile Include="Models\ContentResourceViewModel.cs" />
     <Compile Include="Models\ContentTag.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -279,6 +286,7 @@
     <Compile Include="Models\CmsDbContext.cs" />
     <Compile Include="Models\ContentViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImageHelper.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\UserService.cs" />
@@ -364,6 +372,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -384,6 +393,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CmsDbMigrations\201701090559549_Upgrade4RevPubAuth.resx">
       <DependentUpon>201701090559549_Upgrade4RevPubAuth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CmsDbMigrations\201701170637127_ResourceBrowser.resx">
+      <DependentUpon>201701170637127_ResourceBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityMigrations\201608280406225_InitialCreate.resx">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>

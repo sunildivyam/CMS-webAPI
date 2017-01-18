@@ -48,7 +48,7 @@ namespace CMS_webAPI.Models
         // and populates view model with relational and additional info objects.
 
         public AuthorContentViewModel(AuthorContent authorContent)
-        { 
+        {             
             if (authorContent != null)
             {
                 this.AuthorContentId = authorContent.AuthorContentId;

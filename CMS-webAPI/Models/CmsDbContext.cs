@@ -21,5 +21,6 @@ namespace CMS_webAPI.Models
 
         public virtual DbSet<AuthorContent> AuthorContents { get; set; }
         public virtual DbSet<AuthorContentTag> AuthorContentTags { get; set; }
+        public virtual DbSet<ContentResource> ContentResources { get; set; }
     }
 }

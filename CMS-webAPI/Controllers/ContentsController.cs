@@ -60,8 +60,9 @@ namespace CMS_webAPI.Controllers
             if (pageNo < 1 || pageSize < 1)
             {
                 return BadRequest();
-            }  
-            
+            }
+
+            pageNo = pageNo - 1;
             Category category = await db.Categories.FirstOrDefaultAsync(c => c.Name == categoryName);
             IEnumerable<Content> contentsEnums = db.Contents.Where(c => c.Category.Name == categoryName && c.IsLive == true)
                 .AsEnumerable();
@@ -100,11 +101,11 @@ namespace CMS_webAPI.Controllers
                 categoryId = category != null ? category.CategoryId : 0;
             }
             
-            if (pageNo < 0 || pageSize < 1)
+            if (pageNo < 1 || pageSize < 1)
             {
                 return BadRequest();
             }
-
+            pageNo = pageNo - 1;
             searchWordsCriteria = searchWordsCriteria.Replace("-", " or ");
             
             //string SearchWordsCriteria = "Respiratory or digestive";
@@ -181,7 +182,7 @@ namespace CMS_webAPI.Controllers
         private List<Content> getPagedData(IEnumerable<Content> contentsEnums, int pageNo, int pageSize, string sortField, bool sortDirAsc)
         {
             List<Content> contents = new List<Content>();
-            int skipSize = ((pageNo - 1) * pageSize);
+            int skipSize = ((pageNo) * pageSize);
 
             if (sortDirAsc == true)
             {
