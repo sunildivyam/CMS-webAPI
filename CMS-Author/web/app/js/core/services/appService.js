@@ -17,7 +17,7 @@
 		// or before rendering in CK Editor
 		// Use method encodeContent() to convert Keyword to real Url
 		// Use method decodeContent() to real Url to keyWord.
-		var API_SERVER_DUMMY_URL = "/CMSSERVERAPIURL/";
+		var API_SERVER_DUMMY_URL = '/CMSSERVERAPIURL/';
 		var API_SERVER_URL = 'http://localhost:62287';
 
 		var baseApiUrl = API_SERVER_URL + '/api';
