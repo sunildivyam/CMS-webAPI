@@ -64,9 +64,23 @@ namespace CMS_webAPI.Controllers
 
             pageNo = pageNo - 1;
             Category category = await db.Categories.FirstOrDefaultAsync(c => c.Name == categoryName);
-            IEnumerable<Content> contentsEnums = db.Contents.Where(c => c.Category.Name == categoryName && c.IsLive == true)
-                .AsEnumerable();
-            List<Content> contents = getPagedData(contentsEnums, pageNo, pageSize, sortField, sortDirAsc);                        
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+            List<Content> contents;
+            IEnumerable<Content> contentsEnums;
+            try
+            {
+                contentsEnums = db.Contents.Where(c => c.CategoryId == category.CategoryId && c.IsLive == true)
+                    .AsEnumerable();
+                contents = getPagedData(contentsEnums, pageNo, pageSize, sortField, sortDirAsc);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }          
 
             if (contents == null)
             {
@@ -182,6 +196,11 @@ namespace CMS_webAPI.Controllers
         private List<Content> getPagedData(IEnumerable<Content> contentsEnums, int pageNo, int pageSize, string sortField, bool sortDirAsc)
         {
             List<Content> contents = new List<Content>();
+            if (contentsEnums == null)
+            {
+                return contents;
+            }
+
             int skipSize = ((pageNo) * pageSize);
 
             if (sortDirAsc == true)
