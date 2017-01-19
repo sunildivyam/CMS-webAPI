@@ -19,7 +19,7 @@
 					<h5 class="media-heading text-primary" title="{{contentResource.name}}" ng-bind="contentResource.name"></h5>
 				</a>
 				<div>
-					<span class="label label-info"> Size: <span ng-bind="contentResource.size"></span></span>
+					<span class="label label-info"> Size: <span>{{contentResource.size}} <small>bytes</small></span></span>
 					<span class="label label-info"> Type: <span ng-bind="contentResource.extension"></span></span>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 				<a href="#" ng-click="onClick($event, contentResource)">
 					<img class="media-object" src="{{contentResource.resourceThumbnail}}" alt="{{contentResource.name}}"></img>
 					<h5 class="media-heading text-primary" title="{{contentResource.name}}" ng-bind="contentResource.name"></h5>
-					<span class="label label-info size"> Size: <span ng-bind="contentResource.size"></span></span>
+					<span class="label label-info size"> Size: <span>{{contentResource.size}} <small>bytes</small></span></span>
 					<span class="label label-info type"> Type: <span ng-bind="contentResource.extension"></span></span>
 				</a>
 			</div>
