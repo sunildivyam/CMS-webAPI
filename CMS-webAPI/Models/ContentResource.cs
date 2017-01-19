@@ -26,6 +26,9 @@ namespace CMS_webAPI.Models
         [Required]
         public byte[] ResourceThumbnail { get; set; }
 
+        [Required]
+        public int Size { get; set; }
+
         [Required, StringLength(500)]
         public string OwnerId { get; set; }
 

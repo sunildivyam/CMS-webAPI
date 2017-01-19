@@ -47,18 +47,19 @@ namespace CMS_webAPI.Models
                 this.UpdatedDate = contentResource.UpdatedDate;
                 this.Category = _db.Categories.Find(contentResource.CategoryId);
                 this.Owner = UserService.GetUserViewModelById(contentResource.OwnerId);
-                if (contentResource.ResourceData != null)
-                {
-                    this.Size = contentResource.ResourceData.Length;
-                }
-                else if (contentResource.ResourceThumbnail!= null)
-                {
-                    this.Size = contentResource.ResourceThumbnail.Length;
-                }
-                else
-                {
-                    this.Size = 0;
-                }
+                this.Size = contentResource.Size;
+                //if (contentResource.ResourceData != null)
+                //{
+                //    this.Size = contentResource.ResourceData.Length;
+                //}
+                //else if (contentResource.ResourceThumbnail!= null)
+                //{
+                //    this.Size = contentResource.ResourceThumbnail.Length;
+                //}
+                //else
+                //{
+                //    this.Size = 0;
+                //}
 
                 var idxOfExt = contentResource.Name.LastIndexOf('.');
                 string extension = "";
@@ -80,6 +81,8 @@ namespace CMS_webAPI.Models
             contentResource.ResourceThumbnail = this.ResourceThumbnail;
             contentResource.UpdatedDate = this.UpdatedDate;
             contentResource.CategoryId = this.Category.CategoryId;
+            contentResource.Size = this.Size;
+
             ApplicationUser owner = UserService.getUserFromUserViewModel(this.Owner);
             if (owner != null)
             {

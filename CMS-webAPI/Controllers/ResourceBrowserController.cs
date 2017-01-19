@@ -115,7 +115,7 @@ namespace CMS_webAPI.Controllers
             string userId = UserService.getUserByUserName(User.Identity.Name).Id;
 
             List<ContentResource> contentResources = db.Database
-                .SqlQuery<ContentResource>("SELECT ContentResourceId, Name, ResourceData = NULL, ResourceThumbnail, OwnerId, CategoryId, UpdatedDate FROM ContentResources WHERE CategoryId=" + categoryId + " AND OwnerId='" + userId + "'")                
+                .SqlQuery<ContentResource>("SELECT ContentResourceId, Name, ResourceData = NULL, ResourceThumbnail, Size, OwnerId, CategoryId, UpdatedDate FROM ContentResources WHERE CategoryId=" + categoryId + " AND OwnerId='" + userId + "'")                
                 .ToList<ContentResource>();
 
             List<ContentResourceViewModel> contentResourceViewModels = new List<ContentResourceViewModel>();
@@ -167,7 +167,7 @@ namespace CMS_webAPI.Controllers
 
                         contentResource.ResourceData = ImageHelper.ConvertToByteArray(httpPostedFile);
                         contentResource.ResourceThumbnail = ImageHelper.ConvertToByteArray(httpPostedFile, thumbnailWidth, thumbnailHeight);
-
+                        contentResource.Size = length;
                         contentResource.Name = Path.GetFileName(httpPostedFile.FileName);
                         contentResource.UpdatedDate = DateTime.Now;
                         contentResource.OwnerId = UserService.getUserByUserName(User.Identity.Name).Id;

@@ -15,6 +15,7 @@ namespace CMS_webAPI.CmsDbMigrations
                         Name = c.String(nullable: false),
                         ResourceData = c.Binary(nullable: false),
                         ResourceThumbnail = c.Binary(nullable: false),
+                        Size = c.Int(nullable: false),
                         OwnerId = c.String(nullable: false, maxLength: 500),
                         CategoryId = c.Int(nullable: false),
                         UpdatedDate = c.DateTime(nullable: false),
