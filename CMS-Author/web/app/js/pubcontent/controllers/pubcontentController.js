@@ -6,7 +6,7 @@
 */
 
 (function() {
-	var pubcontentController = function($rootScope, $scope, $state, appService, pubcontentService, modalService, Content, Tag, Category, EntityMapper, metaInformationService, pageTitleService) {
+	var pubcontentController = function($rootScope, $scope, $state, appService, pubcontentService, modalService, Content, Tag, Category, EntityMapper, metaInformationService, pageTitleService, Utils) {
 		$scope.currentContent = new Content();
 		$scope.currentCategory = new Category();
 		var CONTENT_LIST_TYPES = {
@@ -132,6 +132,7 @@
 			if (categoryName && contentId && contentName) {
 				pubcontentService.getContent(categoryName, contentId, contentName).then(function(response) {
 					var content = new Content(response && response.data);
+					content.description = Utils.decodeContent(content.description);
 					$scope.currentContent = content;
 				}, function(rejection) {
 					modalService.alert('md',
@@ -178,6 +179,6 @@
 		});
 	};
 
-	pubcontentController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'pubcontentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'metaInformationService', 'pageTitleService'];
+	pubcontentController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'pubcontentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils'];
 	module.exports = pubcontentController;
 })();

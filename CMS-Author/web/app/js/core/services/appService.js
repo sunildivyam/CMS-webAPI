@@ -12,7 +12,15 @@
 
 (function() {
 	var appService = function($http) {
-		var baseApiUrl = 'https://localhost:44302/api';
+		// This is the base URL prepended to all Image (resource) link in the content data, while saving
+		// This must be processed/replaced with Real API Server Url from appService.getApiServerUrl, before rendering on Page.
+		// or before rendering in CK Editor
+		// Use method encodeContent() to convert Keyword to real Url
+		// Use method decodeContent() to real Url to keyWord.
+		var API_SERVER_DUMMY_URL = "/CMSSERVERAPIURL/";
+		var API_SERVER_URL = 'http://localhost:62287';
+
+		var baseApiUrl = API_SERVER_URL + '/api';
 
 		function getFullUrl(url) {
 			return [baseApiUrl, url].join('/');
@@ -145,12 +153,22 @@
 			return errorMessage.join('');
 		}
 
+		function getApiServerUrl() {
+			return API_SERVER_URL;
+		}
+
+		function getApiServerDummyUrl() {
+			return API_SERVER_DUMMY_URL;
+		}
+
 		return {
 			get: get,
 			post: post,
 			put: put,
 			del: del,
-			getErrorMessage: getErrorMessage
+			getErrorMessage: getErrorMessage,
+			getApiServerUrl: getApiServerUrl,
+			getApiServerDummyUrl: getApiServerDummyUrl
 		};
 	};
 

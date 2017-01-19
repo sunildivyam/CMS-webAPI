@@ -6,12 +6,13 @@
 */
 
 (function() {
-	var accountService = function($rootScope, $q, $http, $cookies, User) {
-		var baseApiUrl = 'https://localhost:44302/api/account/';
+	var accountService = function($rootScope, $q, $http, $cookies, User, appService) {
+
+		var baseApiUrl = appService.getApiServerUrl() + '/api/account';
 		var urls = {
-			register: baseApiUrl + 'register',
-			login: 'https://localhost:44302/token',
-			logout: baseApiUrl + 'logout'
+			register: baseApiUrl + '/register',
+			login: appService.getApiServerUrl() + '/token',
+			logout: baseApiUrl + '/logout'
 		};
 
 		init();
@@ -121,6 +122,6 @@
 		};
 	};
 
-	accountService.$inject = ['$rootScope', '$q', '$http', '$cookies', 'User'];
+	accountService.$inject = ['$rootScope', '$q', '$http', '$cookies', 'User', 'appService'];
 	module.exports = accountService;
 })();

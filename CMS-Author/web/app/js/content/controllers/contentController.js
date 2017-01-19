@@ -6,7 +6,7 @@
 */
 
 (function() {
-	var contentController = function($rootScope, $scope, $state, appService, contentService, modalService, Content, Tag, Category, EntityMapper, metaInformationService, pageTitleService) {
+	var contentController = function($rootScope, $scope, $state, appService, contentService, modalService, Content, Tag, Category, EntityMapper, metaInformationService, pageTitleService, Utils) {
 		$scope.currentContent = new Content();
 
 		getTags();
@@ -89,6 +89,7 @@
 								$state.go('author.dashboard');
 							});
 						}
+						content.description = Utils.decodeContent(content.description);
 						$scope.currentContent = content;
 						setMetaInfo($scope.currentContent);
 					} else {
@@ -114,8 +115,9 @@
 			if (content && content.contentId > 0) {
 				content.publishedDate = undefined;
 			}
-
-			contentService.addNewContent(content).then(function(response) {
+			var enocdedContent = angular.copy(content);
+			enocdedContent.description = Utils.encodeContent(enocdedContent.description);
+			contentService.addNewContent(enocdedContent).then(function(response) {
 				var addedContent = new Content(response && response.data);
 
 				modalService.alert('md',
@@ -136,7 +138,10 @@
 		};
 
 		$scope.updateContent = function(event, content) {
-			contentService.updateContent(content).then(function(response) {
+			var enocdedContent = angular.copy(content);
+			enocdedContent.description = Utils.encodeContent(enocdedContent.description);
+
+			contentService.updateContent(enocdedContent).then(function(response) {
 				var updatedContent = new Content(response && response.data);
 
 				modalService.alert('md',
@@ -189,7 +194,10 @@
 		};
 
 		$scope.publishContent = function(event, content) {
-			contentService.publishContent(content).then(function(response) {
+			var enocdedContent = angular.copy(content);
+			enocdedContent.description = Utils.encodeContent(enocdedContent.description);
+
+			contentService.publishContent(enocdedContent).then(function(response) {
 				var publishedContent = new Content(response && response.data);
 
 				modalService.alert('md',
@@ -215,6 +223,6 @@
 		});
 	};
 
-	contentController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'metaInformationService', 'pageTitleService'];
+	contentController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils'];
 	module.exports = contentController;
 })();

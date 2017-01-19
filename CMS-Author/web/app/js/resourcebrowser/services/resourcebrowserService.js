@@ -66,8 +66,8 @@
 				return '';
 			}
 
-			var url = '/api/resourcebrowser/GetContentResource/' +
-				(resource.category && resource.category.categoryId || 0) + '?name=' +
+			var url = appService.getApiServerUrl() + '/api/resourcebrowser/GetContentResource/' +
+				(resource.contentResourceId || 0) + '?name=' +
 				resource.name + '&thumbnail=false';
 			return url;
 		}

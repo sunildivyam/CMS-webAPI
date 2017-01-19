@@ -57,11 +57,11 @@
 		}
 
 		function updateTag(tag) {
-			return appService.put([urls.tags.base, urls.tags.updateTag, tag.tagId].join('/'), tag);
+			return appService.put([urls.tags.base, urls.tags.updateTag, tag.tagId].join('/'), tag, requestHeaders);
 		}
 
 		function deleteTag(id) {
-			return appService.del([urls.tags.base, urls.tags.deleteTag, id].join('/'));
+			return appService.del([urls.tags.base, urls.tags.deleteTag, id].join('/'), requestHeaders);
 		}
 
 
@@ -79,11 +79,11 @@
 		}
 
 		function updateCategory(category) {
-			return appService.put([urls.categories.base, urls.categories.updateCategory, category && category.categoryId].join('/'), category);
+			return appService.put([urls.categories.base, urls.categories.updateCategory, category && category.categoryId].join('/'), category, requestHeaders);
 		}
 
 		function deleteCategory(id) {
-			return appService.del([urls.categories.base, urls.categories.deleteCategory, id].join('/'));
+			return appService.del([urls.categories.base, urls.categories.deleteCategory, id].join('/'), requestHeaders);
 		}
 
 
@@ -109,11 +109,11 @@
 		}
 
 		function updateContent(content) {
-			return appService.put([urls.authorContents.base, urls.authorContents.updateAuthorContent, content && content.authorContentId].join('/'), content);
+			return appService.put([urls.authorContents.base, urls.authorContents.updateAuthorContent, content && content.authorContentId].join('/'), content, requestHeaders);
 		}
 
 		function deleteContent(id) {
-			return appService.del([urls.authorContents.base, urls.authorContents.deleteAuthorContent, id].join('/'));
+			return appService.del([urls.authorContents.base, urls.authorContents.deleteAuthorContent, id].join('/'), requestHeaders);
 		}
 
 		function publishContent(content) {

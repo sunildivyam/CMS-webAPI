@@ -8,7 +8,7 @@
 */
 
 (function() {
-	var Utils = function() {
+	var Utils = function(appService) {
 		/**
 		* @ngdoc method
 		* @name parseStringExt
@@ -77,13 +77,35 @@
 			 ];
 		}
 
+		// Replaces Real API URL with API DUMMY URL from all Image/links in the content.
+		function encodeContent(contentString){
+			if (typeof contentString !== 'string' || !contentString) {
+				return "";
+			}
+			var rgx = new RegExp(appService.getApiServerUrl() + '/', 'gi');
+			var encodedContent = contentString.replace(rgx, appService.getApiServerDummyUrl());
+			return encodedContent;
+		}
+
+		// Replaces API DUMMY URL with Real API URL from all Image/links in the content.
+		function decodeContent(contentString) {
+			if (typeof contentString !== 'string' || !contentString) {
+				return "";
+			}
+			var rgx = new RegExp(appService.getApiServerDummyUrl(), 'gi');
+			var decodedContent = contentString.replace(rgx, appService.getApiServerUrl() + '/');
+			return decodedContent;
+		}
+
 		return {
 			parseStringExt: parseStringExt,
 			filterByKeywords: filterByKeywords,
-			getListModes: getListModes
+			getListModes: getListModes,
+			encodeContent: encodeContent,
+			decodeContent: decodeContent
 		};
 	};
 
-	Utils.$inject = [];
+	Utils.$inject = ['appService'];
 	module.exports = Utils;
 })();
