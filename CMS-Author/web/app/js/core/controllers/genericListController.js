@@ -44,6 +44,19 @@
             }
         };
 
+        $scope.onMaximizeClick = function(event) {
+            event.preventDefault();
+            $scope.isMaximized = !$scope.isMaximized;
+
+            if (!$scope.isMaximized) {
+                $timeout(function() {
+                    if (typeof $scope.onRefresh === 'function') {
+                        $scope.onRefresh(event);
+                    }
+                }, 50);
+            }
+        };
+
         $scope.$watch('itemsType', function(newValue) {
             if (newValue) {
                 var type = Utils.getItemTypeOf(newValue);

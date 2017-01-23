@@ -227,7 +227,7 @@
         "onItemSelect": "undefined",
 
         "enableHeader": true,
-        "enableMaximize": false,
+        "enableMaximize": true,
         "enableSearch": false,
         "enableViewModes": true,
         "enableScrollbar": false,

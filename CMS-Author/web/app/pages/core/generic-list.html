@@ -1,4 +1,4 @@
-<div class="panel panel-default generic-list {{itemsType}}">
+<div class="panel panel-default generic-list {{itemsType}} {{isMaximized ? 'panel-maximized': ''}}">
 	<!-- List Header -->
 	<header class="panel-heading" ng-if="enableHeader">
 		<div class="media">
@@ -13,20 +13,11 @@
 				<div class="media-object">
 					<section ng-if="enableMaximize">
 						<button
-							ng-show="!isMaximized"
 							type="button"
 							class="btn btn-default btn-xs"
 							ng-click="onMaximizeClick($event)"
-							title="Maximize">
-							<span class="glyphicon glyphicon-resize-full"></span>
-						</button>
-						<button
-							ng-show="isMaximized"
-							type="button"
-							class="btn btn-default btn-xs"
-							ng-click="onRestoreClick($event)"
-							title="Restore">
-							<span class="glyphicon glyphicon-resize-small"></span>
+							title="{{isMaximized ? 'Restore': 'Maximize'}}">
+							<span class="glyphicon glyphicon-resize-{{isMaximized ? 'small' :'full'}}"></span>
 						</button>
 					</section>
 					<section>
