@@ -1,17 +1,46 @@
-<div>
-	<inline-search></inline-search>
-	<ul class="media-list">
-		<li class="media" ng-repeat="tag in tagItems | filter: tagFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+<div class="tag-list">
+	<ul class="media-list {{viewMode}}" ng-show="!viewMode || viewMode === 'list'">
+		<li class="media {{selectedItem && selectedItem.tagId === item.tagId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
-				<a href="#" ng-click="onClick($event, tag)">
-					<span class="media-object label label-info" ng-bind="tag.tagId"></span>
+				<a href="#" ng-click="itemClick($event, item)">
+					<span class="media-object label label-info" ng-bind="item.tagId"></span>
 				</a>
 			</div>
 			<div class="media-body">
-				<a href="#" ng-click="onClick($event, tag)">
-					<h5 class="media-heading text-primary" ng-bind="tag.title"></h5>
+				<a href="#" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
 				</a>
-				<p ng-bind-html="tag.description" class="small description"></p>
+				<p ng-bind-html="item.description" class="small description"></p>
+			</div>
+		</li>
+	</ul>
+<!-- inline Mode-->
+	<ul class="media-list {{viewMode}}" ng-show="viewMode === 'inline'">
+		<li class="media {{selectedItem && selectedItem.tagId === item.tagId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ng-click="itemClick($event, item)">
+					<span class="media-object label label-info"></span>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
+				</a>
+			</div>
+		</li>
+	</ul>
+<!-- Grid Mode-->
+	<ul class="row {{viewMode}}" ng-show="viewMode === 'grid'">
+		<li class="col-sm-3 thumbnail {{selectedItem && selectedItem.tagId === item.tagId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ng-click="itemClick($event, item)">
+					<span class="media-object label label-info"></span>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
+				</a>
 			</div>
 		</li>
 	</ul>

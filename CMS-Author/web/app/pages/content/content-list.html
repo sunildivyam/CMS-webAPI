@@ -1,25 +1,60 @@
-<div>
-	<inline-search></inline-search>
-	<ul class="media-list">
-		<li class="media" ng-repeat="content in contentItems | filter: contentFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+<div class="content-list">
+	<ul class="media-list {{viewMode}}" ng-show="!viewMode || viewMode === 'list'">
+		<li class="media {{selectedItem && selectedItem.authorContentId === item.authorContentId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
-				<a href="#" ng-click="onClick($event, content)">
-					<span class="media-object label label-info" ng-bind="content.authorContentId"></span>
+				<a href="#" ng-click="itemClick($event, item)">
+					<span class="media-object label label-info" ng-bind="item.authorContentId"></span>
 				</a>
 			</div>
 			<div class="media-body">
-				<a href="#" ng-click="onClick($event, content)">
-					<h5 class="media-heading text-primary" ng-bind="content.title"></h5>
+				<a href="#" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
 				</a>
-				<p ng-bind-html="content.shortDescription" class="small short-description"></p>
-				<span ng-if = "content.updatedDate" title="Last Updated">
-					<span class="glyphicon glyphicon-pencil"></span>
-					<span class="label label-default" ng-bind="content.updatedDate.toLocaleString()"></span>
+				<p ng-bind-html="item.shortDescription" class="small short-description"></p>
+				<span ng-if = "item.updatedDate" title="Last Updated">
+					<span class="label label-default">
+						<span class="glyphicon glyphicon-pencil"></span>
+						Last Authored on:
+						<span class="label-warning" ng-bind="item.updatedDate.toLocaleString()"></span>
+					</span>
 				</span>
-				<span ng-if = "content.publishedDate" title="Last Published">
-					<span class="glyphicon glyphicon-save"></span>
-					<span class="label label-default" ng-bind="content.publishedDate.toLocaleString()"></span>
+				<span ng-if = "item.publishedDate" title="Last Published">
+					<span class="label label-default">
+						<span class="glyphicon glyphicon-save"></span>
+						Last Published on:
+						<span class="label-warning" ng-bind="item.publishedDate.toLocaleString()"></span>
+					</span>
 				</span>
+			</div>
+		</li>
+	</ul>
+<!-- inline Mode-->
+	<ul class="media-list {{viewMode}}" ng-show="viewMode === 'inline'">
+		<li class="media {{selectedItem && selectedItem.authorContentId === item.authorContentId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ng-click="itemClick($event, item)">
+					<span class="media-object label label-info"></span>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
+				</a>
+			</div>
+		</li>
+	</ul>
+<!-- Grid Mode-->
+	<ul class="row {{viewMode}}" ng-show="viewMode === 'grid'">
+		<li class="col-sm-3 thumbnail {{selectedItem && selectedItem.authorContentId === item.authorContentId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ng-click="itemClick($event, item)">
+					<span class="media-object label label-info"></span>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
+				</a>
 			</div>
 		</li>
 	</ul>

@@ -41,16 +41,43 @@
 		</div>
 	</div>
 	<div class="row grid" ng-if="$state.$current.name === 'pub'" isotope-layout="">
-		<div class="col-sm-4 col-xs-12 grid-item" ng-repeat="categoryContent in listOfContentsOfAllcategories" on-ng-repeat-item="onLoadCategoryContentList">
-			<pubcontent-list
-		    	data-list-title="{{categoryContent.category.title}}"
-		    	data-list-label="more than {{categoryContent.totalCount}} Articles"
-				data-content-items="categoryContent.contents"
-				data-footer-title="Read more on {{currentCategory.title}} ..."
-				data-footer-link="/articles/{{currentCategory.name}}"
-				data-unique-tags="categoryContent.uniqueTags"
-				data-on-refresh="onListsRefresh">
-		    </pubcontent-list>
+		<div class="col-sm-4 col-xs-12 grid-item" ng-repeat="dlCategoryContent in dlListOfContentsOfAllcategories track by $index" on-ng-repeat-item="onLoadCategoryContentList">
+			<generic-list
+			data-items="dlCategoryContent.items"
+			data-items-type="dlCategoryContent.itemsType"
+
+			data-enable-header="dlCategoryContent.enableHeader"
+			data-enable-maximize="dlCategoryContent.enableMaximize"
+			data-enable-search="dlCategoryContent.enableSearch"
+			data-enable-view-modes="dlCategoryContent.enableViewModes"
+			data-enable-scrollbar="dlCategoryContent.enableScrollbar"
+			data-enable-tags="dlCategoryContent.enableTags"
+			data-enable-footer-link="dlCategoryContent.enableFooterLink"
+			data-enable-paging="dlCategoryContent.enablePaging"
+
+			data-header-title="dlCategoryContent.headerTitle"
+			data-header-summary="dlCategoryContent.headerSummary"
+			data-header-right-label="dlCategoryContent.headerRightLabel"
+
+			data-view-mode="dlCategoryContent.viewMode"
+
+			data-scroll-height="dlCategoryContent.scrollHeight"
+
+			data-tags="dlCategoryContent.tags"
+
+			data-footer-link-text="dlCategoryContent.footerLinkText"
+			data-footer-link-url="dlCategoryContent.footerLinkUrl"
+			data-on-footer-link-click="dlCategoryContent.onFooterLinkClick"
+
+			data-paging-total-items="dlCategoryContent.pagingTotalItems"
+			data-paging-selected-page="dlCategoryContent.pagingSelectedPage"
+			data-paging-page-size="dlCategoryContent.pagingPageSize"
+			data-paging-pager-size="dlCategoryContent.pagingPagerSize"
+			data-on-paging-page-change="dlCategoryContent.onPagingPageChange"
+
+			data-on-refresh="onListsRefresh"
+			data-is-loading="dlCategoryContent.isLoading">
+			</generic-list>
 		</div>
 	</div>
 	<div class="row">

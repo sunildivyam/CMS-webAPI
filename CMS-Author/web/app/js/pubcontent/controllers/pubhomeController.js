@@ -31,71 +31,48 @@
             }
         }
 
-        $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
-            if (toState && toState.name) {
-                $scope.iso = undefined;
-                getCategories().then(function() {
-                    if (toState.name === 'pub') {
-                        getListOfContentsOfAllcategories($scope.categories);
-                    }
-
-                    if (toState.name === 'pub.search' && toParams && toParams.n && toParams.kw) {
-                        var prevKw = $scope.globalSearch.searchString && $scope.globalSearch.searchString.toLowerCase();
-                        var prevN = $scope.globalSearch.category;
-                        var newKw = toParams.kw.replace(/-/g, ' ');
-                        var newN = findCategory($scope.categories, toParams.n);
-
-                        if (prevKw !== newKw) {
-                            $scope.globalSearch.searchString = newKw;
-                        }
-
-                        if (typeof prevN === 'undefined' || (prevN && prevN.name !== newN.name)) {
-                            $scope.globalSearch.category = newN;
-                        }
-                    }
-                }, function() {
-                    //
-                });
-            }
-        });
-
         // gets all Lists of contents for all categories
         function getListOfContentsOfAllcategories(categories) {
-            var listOfContentsOfAllcategories = [];
+            $scope.dlListOfContentsOfAllcategories = [];
             var sortField = 'VisitCount';
             var sortDirAsc = false;
 
             if (categories instanceof Array) {
                 categories.filter(function(category) {
-                    pubcontentService.getContentsByCategoryName(category.name, sortField, sortDirAsc).then(function(response) {
+                    var dlCategoryContent = {};
+                    dlCategoryContent.isLoading = true;
+                    dlCategoryContent = angular.extend(Utils.getListConfigOf('pubContent'), dlCategoryContent);
+                    $scope.dlListOfContentsOfAllcategories.push(dlCategoryContent);
+
+                    pubcontentService.getContentsByCategoryName(category.name, sortField, sortDirAsc, dlCategoryContent.pagingPageSize).then(function(response) {
                         if (response && response.data) {
-                            var contentList = {
-                                contents:  new EntityMapper(Content).toEntities(response.data.Contents),
-                                category:  new Category(response.data.Category),
-                                totalCount:  response.data.TotalCount
-                            };
-                            contentList.uniqueTags = pubcontentService.getUniqueTagsOfContents(contentList.contents);
-                            listOfContentsOfAllcategories.push(contentList);
+                            var contents = new EntityMapper(Content).toEntities(response.data.Contents);
+                            var category = new Category(response.data.Category);
+                            var totalCount = response.data.TotalCount;
+
+                            dlCategoryContent.items = contents;
+                            dlCategoryContent.headerTitle = category && category.title || '';
+                            dlCategoryContent.headerRightLabel = totalCount + '+ articles';
+                            dlCategoryContent.pagingTotalItems = totalCount;
+                            dlCategoryContent.footerLinkUrl = [dlCategoryContent.footerLinkUrl, category && category.name].join('/');
+                            dlCategoryContent.tags = pubcontentService.getUniqueTagsOfContents(contents);
                         } else {
                             resetContentList();
                         }
+                        dlCategoryContent.isLoading = false;
                     }, function() {
                         resetContentList();
                     });
                 });
 
                 function resetContentList() {
-                    var contentList = {
-                        contents: undefined,
-                        category: undefined,
-                        totalCount: 0,
-                        uniqueTags: undefined
-                    };
-                    listOfContentsOfAllcategories.push(contentList);
+                    dlCategoryContent.items = new EntityMapper(Content).toEntities([]);
+                    dlCategoryContent.headerRightLabel = '0 articles';
+                    dlCategoryContent.pagingTotalItems = 0;
+                    dlCategoryContent.tags = [];
+                    dlCategoryContent.isLoading = false;
                 }
             }
-
-            $scope.listOfContentsOfAllcategories = listOfContentsOfAllcategories;
         }
 
         // gets all categories
@@ -158,7 +135,36 @@
                 $scope.iso = undefined;
                 $scope.refreshIsotopeLayout(elm);
             }
+        });
 
+        $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
+            if (toState && toState.name) {
+                Utils.getListConfigs().then(function() {
+                    $scope.iso = undefined;
+                    getCategories().then(function() {
+                        if (toState.name === 'pub') {
+                            getListOfContentsOfAllcategories($scope.categories);
+                        }
+
+                        if (toState.name === 'pub.search' && toParams && toParams.n && toParams.kw) {
+                            var prevKw = $scope.globalSearch.searchString && $scope.globalSearch.searchString.toLowerCase();
+                            var prevN = $scope.globalSearch.category;
+                            var newKw = toParams.kw.replace(/-/g, ' ');
+                            var newN = findCategory($scope.categories, toParams.n);
+
+                            if (prevKw !== newKw) {
+                                $scope.globalSearch.searchString = newKw;
+                            }
+
+                            if (typeof prevN === 'undefined' || (prevN && prevN.name !== newN.name)) {
+                                $scope.globalSearch.category = newN;
+                            }
+                        }
+                    }, function() {
+                        //
+                    });
+                });
+            }
         });
     };
 

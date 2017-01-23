@@ -8,7 +8,13 @@
 */
 
 (function() {
-	var Utils = function(appService) {
+	var Utils = function(appService, $q) {
+		var requestHeaders = {
+			'Content-Type': 'application/json'
+		};
+
+		var listConfig = undefined;
+
 		/**
 		* @ngdoc method
 		* @name parseStringExt
@@ -60,23 +66,6 @@
 			}
 		}
 
-		function getListModes() {
-			return [
-				{
-					id: 'default',
-					iconClass: 'glyphicon-list'
-				},
-				{
-					id: 'mini',
-					iconClass: 'glyphicon-th-list'
-				},
-				{
-					id: 'grid',
-					iconClass: 'glyphicon-th'
-				}
-			 ];
-		}
-
 		// Replaces Real API URL with API DUMMY URL from all Image/links in the content.
 		function encodeContent(contentString){
 			if (typeof contentString !== 'string' || !contentString) {
@@ -97,15 +86,59 @@
 			return decodedContent;
 		}
 
+		function getListConfigs() {
+			var defferedObj = $q.defer();
+			if (!listConfig) {
+				var cache = true;
+				var params = {};
+				var url = '/data/list-config.json';
+				appService.get(url, params, requestHeaders, cache).then(function(response) {
+					listConfig = response && response.data;
+					defferedObj.resolve(listConfig);
+				}, function(rejection) {
+					listConfig = undefined;
+					defferedObj.reject(rejection);
+				});
+			} else {
+				defferedObj.resolve(listConfig);
+			}
+			return defferedObj.promise;
+		}
+
+		function getListModes() {
+			return angular.copy(listConfig && listConfig.viewModes);
+		}
+
+		function getListItemsTypes() {
+			return angular.copy(listConfig && listConfig.itemsTypes);
+		}
+
+		function getListConfigOf(listName) {
+			return angular.copy(listConfig && listConfig[listName]);
+		}
+
+		function getItemTypeOf(itemType) {
+			return angular.copy(listConfig && listConfig.itemsTypes && listConfig.itemsTypes[itemType]);
+		}
+
+		function getPubContentListTypes() {
+			return angular.copy(listConfig && listConfig.pubContentListTypes);
+		}
+
 		return {
 			parseStringExt: parseStringExt,
 			filterByKeywords: filterByKeywords,
 			getListModes: getListModes,
+			getListItemsTypes: getListItemsTypes,
 			encodeContent: encodeContent,
-			decodeContent: decodeContent
+			decodeContent: decodeContent,
+			getListConfigs: getListConfigs,
+			getListConfigOf: getListConfigOf,
+			getItemTypeOf: getItemTypeOf,
+			getPubContentListTypes: getPubContentListTypes
 		};
 	};
 
-	Utils.$inject = ['appService'];
+	Utils.$inject = ['appService', '$q'];
 	module.exports = Utils;
 })();

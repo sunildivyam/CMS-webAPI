@@ -21,8 +21,7 @@
 
     angular.module('raiweb.search')
     .factory('searchService', require('./services/searchService'))
-    .controller('searchController', require('./controllers/searchController'))
-    .directive('globalSearch', require('./directives/globalSearch'));
+    .controller('searchController', require('./controllers/searchController'));
 
     module.exports = angular.module('raiweb.search');
 })();

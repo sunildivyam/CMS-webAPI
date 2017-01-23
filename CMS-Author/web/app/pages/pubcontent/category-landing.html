@@ -7,35 +7,44 @@
 	<tags
 		data-tag-items="currentTags">
 	</tags>
-	<div class="row>">
-		<div class="col-sm-8">
-			<pubcontent-list
-		    	data-list-title="Most Popular in {{popular.category.title}}"
-		    	data-list-label="more than {{popular.totalCount}} Articles"
-				data-content-items="popular.contents"
-				data-footer-title="Read more on {{currentCategory.title}} ..."
-				data-unique-tags="popular.uniqueTags">
-		    </pubcontent-list>
-		</div>
-		<div class="col-sm-4">
-			<pubcontent-list
-				data-list-title="Latest in {{latest.category.title}}"
-				data-list-label="more than {{latest.totalCount}} Articles"
-				data-content-items="latest.contents"
-				data-unique-tags="latest.uniqueTags">
-		    </pubcontent-list>
-		    <pubcontent-list
-				data-list-title="Most Relavent in {{relevant.category.title}}"
-				data-list-label="more than {{relevant.totalCount}} Articles"
-				data-content-items="relevant.contents"
-				data-unique-tags="relevant.uniqueTags">
-			</pubcontent-list>
-			<pubcontent-list
-				data-list-title="{{related.category.title}} Related"
-				data-list-label="more than {{related.totalCount}} Articles"
-				data-content-items="related.contents"
-				data-unique-tags="related.uniqueTags">
-			</pubcontent-list>
+	<div class="row grid>">
+		<div class="{{$first ? 'col-sm-8' : 'col-sm-4'}} grid-item" ng-repeat="dlContentList in dlContentLists track by $index">
+			<generic-list
+			data-items="dlContentList.items"
+			data-items-type="dlContentList.itemsType"
+
+			data-enable-header="dlContentList.enableHeader"
+			data-enable-maximize="dlContentList.enableMaximize"
+			data-enable-search="dlContentList.enableSearch"
+			data-enable-view-modes="dlContentList.enableViewModes"
+			data-enable-scrollbar="dlContentList.enableScrollbar"
+			data-enable-tags="dlContentList.enableTags"
+			data-enable-footer-link="dlContentList.enableFooterLink"
+			data-enable-paging="dlContentList.enablePaging"
+
+			data-header-title="dlContentList.headerTitle"
+			data-header-summary="dlContentList.headerSummary"
+			data-header-right-label="dlContentList.headerRightLabel"
+
+			data-view-mode="dlContentList.viewMode"
+
+			data-scroll-height="dlContentList.scrollHeight"
+
+			data-tags="dlContentList.tags"
+
+			data-footer-link-text="dlContentList.footerLinkText"
+			data-footer-link-url="dlContentList.footerLinkUrl"
+			data-on-footer-link-click="dlContentList.onFooterLinkClick"
+
+			data-paging-total-items="dlContentList.pagingTotalItems"
+			data-paging-selected-page="dlContentList.pagingSelectedPage"
+			data-paging-page-size="dlContentList.pagingPageSize"
+			data-paging-pager-size="dlContentList.pagingPagerSize"
+			data-on-paging-page-change="dlContentList.onPagingPageChange"
+
+			data-on-refresh="dlContentList.onRefresh"
+			data-is-loading="dlContentList.isLoading">
+			</generic-list>
 		</div>
 	</div>
 </div>

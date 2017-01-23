@@ -3,23 +3,43 @@
 </div>
 
 <div class="modal-body">
-<!-- Published Contents -->
-  <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-          <h3 class="panel-title">Authoring History
-            <span class="label label-{{ modalData.contents && modalData.contents.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="modalData.contents && modalData.contents.length || 'no results'"></span>
-          </h3>
-      </div>
-      <div class="panel-body">
-        <content-list
-          data-key-name="authorContentId"
-          data-content-items="modalData.contents"
-          data-on-select="modalData.onHistoryContentSelect">
-        </content-list>
-      </div>
-    </div>
-  </div>
+   <generic-list
+    data-items="modalData.dlContentHistory.items"
+    data-items-type="modalData.dlContentHistory.itemsType"
+    data-on-item-select="modalData.dlContentHistory.onItemSelect"
+
+    data-enable-header="modalData.dlContentHistory.enableHeader"
+    data-enable-maximize="modalData.dlContentHistory.enableMaximize"
+    data-enable-search="modalData.dlContentHistory.enableSearch"
+    data-enable-view-modes="modalData.dlContentHistory.enableViewModes"
+    data-enable-scrollbar="modalData.dlContentHistory.enableScrollbar"
+    data-enable-tags="modalData.dlContentHistory.enableTags"
+    data-enable-footer-link="modalData.dlContentHistory.enableFooterLink"
+    data-enable-paging="modalData.dlContentHistory.enablePaging"
+
+    data-header-title="modalData.dlContentHistory.headerTitle"
+    data-header-summary="modalData.dlContentHistory.headerSummary"
+    data-header-right-label="modalData.dlContentHistory.headerRightLabel"
+
+    data-view-mode="modalData.dlContentHistory.viewMode"
+
+    data-scroll-height="modalData.dlContentHistory.scrollHeight"
+
+    data-tags="modalData.dlContentHistory.tags"
+
+    data-footer-link-text="modalData.dlContentHistory.footerLinkText"
+    data-footer-link-url="modalData.dlContentHistory.footerLinkUrl"
+    data-on-footer-link-click="modalData.dlContentHistory.onFooterLinkClick"
+
+    data-paging-total-items="modalData.dlContentHistory.pagingTotalItems"
+    data-paging-selected-page="modalData.dlContentHistory.pagingSelectedPage"
+    data-paging-page-size="modalData.dlContentHistory.pagingPageSize"
+    data-paging-pager-size="modalData.dlContentHistory.pagingPagerSize"
+    data-on-paging-page-change="modalData.dlContentHistory.onPagingPageChange"
+
+    data-on-refresh="onListsRefresh"
+    >
+    </generic-list>
 </div>
 
 <div class="modal-footer">

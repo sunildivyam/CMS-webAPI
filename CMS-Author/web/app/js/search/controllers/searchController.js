@@ -6,9 +6,10 @@
 */
 
 (function() {
-    var searchController = function($rootScope, $scope, searchService, metaInformationService, pageTitleService, EntityMapper, Content) {
+    var searchController = function($rootScope, $scope, searchService, metaInformationService, pageTitleService, EntityMapper, Content, Utils) {
         $scope.itemsPerPage = searchService.getPageSize();
         $scope.maxPageSize = 10; // page numbers to be displayed on page Bar
+        $scope.dlSearch = {};
 
         function setMetaInfo(searchNav) {
             if (searchNav instanceof Object) {
@@ -22,26 +23,36 @@
             }
         }
 
-        function getSearchResults(categoryName, keywords, pageNo, pageSize) {
-            if (!pageSize) {
-                pageSize = $scope.itemsPerPage;
+        function  initSearchListWithResults(searchResults) {
+            if(searchResults instanceof Object) {
+                $scope.dlSearch.items = new EntityMapper(Content).toEntities(searchResults.Contents);
+                $scope.dlSearch.pagingTotalItems = searchResults.TotalCount;
+                $scope.dlSearch.headerRightLabel = searchResults.TotalCount + " results";
+            } else {
+                $scope.dlSearch.items = undefined;
+                $scope.dlSearch.pagingTotalItems = 0;
+                $scope.dlSearch.headerRightLabel = "0 results";
             }
-            searchService.searchContents(categoryName, keywords, pageNo, pageSize).then(function(response) {
-                if (response && response.data) {
-                    $scope.searchResults = {
-                        contents: new EntityMapper(Content).toEntities(response.data.Contents),
-                        totalCount: response.data.TotalCount
-                    };
-                } else {
-                    $scope.searchResults = {};
-                }
+        }
 
+        function getSearchResults(categoryName, keywords, pageNo) {
+            $scope.dlSearch.isLoading = true;
+            $scope.dlSearch = angular.extend(Utils.getListConfigOf('search'), $scope.dlSearch);
+
+            searchService.searchContents(categoryName, keywords, pageNo, $scope.dlSearch.pagingPageSize).then(function(response) {
+                if (response && response.data) {
+                    initSearchListWithResults(response.data);
+                } else {
+                    initSearchListWithResults();
+                }
+                $scope.dlSearch.isLoading = false;
             }, function() {
-                $scope.searchResults = {};
+                initSearchListWithResults();
+                $scope.dlSearch.isLoading = false;
             });
         }
 
-        $scope.onSearchPageChange = function(event, pageNo) {
+        $scope.dlSearch.onPagingPageChange = function(event, pageNo) {
             if (pageNo && pageNo > 0 && $rootScope && $rootScope.$stateParams) {
                 var n =  $rootScope.$stateParams.n;
                 var kw = $rootScope.$stateParams.kw;
@@ -51,11 +62,15 @@
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
             if (toState && toState.name && toParams) {
-                getSearchResults(toParams.n, toParams.kw, 1);
+                Utils.getListConfigs().then(function() {
+                    getSearchResults(toParams.n, toParams.kw, 1);
+                }, function(rejection) {
+                    console.log(rejection);
+                });
             }
         });
     };
 
-    searchController.$inject = ['$rootScope', '$scope', 'searchService', 'metaInformationService', 'pageTitleService', 'EntityMapper', 'Content'];
+    searchController.$inject = ['$rootScope', '$scope', 'searchService', 'metaInformationService', 'pageTitleService', 'EntityMapper', 'Content', 'Utils'];
     module.exports = searchController;
 })();

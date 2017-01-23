@@ -55,7 +55,7 @@
             return $uibModal.open(options);
         }
 
-        function showContentHistoryModal(contents, size, onHistoryContentSelectCallback) {
+        function showContentHistoryModal(dlContentHistory, size) {
             var options = {
                 animation: true,
                 templateUrl: 'core/content-history-modal.html',
@@ -65,8 +65,7 @@
                     modalData: function() {
                         return {
                             title: 'Content Authoring History',
-                            contents: contents || [],
-                            onHistoryContentSelect: onHistoryContentSelectCallback,
+                            dlContentHistory: dlContentHistory || [],
                             okLabel: 'Close History',
                             cancelLabel: ''
                         };

@@ -55,14 +55,14 @@
 		}
 
 		//Content
-		function getContentsByCategoryName(name, sortField, sortDireAsc) {
+		function getContentsByCategoryName(name, sortField, sortDireAsc, pageSize) {
 			if (typeof sortDireAsc === 'undefined') {
 				sortDireAsc = SORT_DIR_ASC;
 			}
 			return appService.get([urls.contents.base,
 				urls.contents.getContentsByCategoryName,
 				name,
-				PAGE_NO, PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'),
+				PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'),
 				undefined , undefined, CACHE);
 		}
 

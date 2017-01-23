@@ -26,7 +26,6 @@
 	.controller('pubcontentController', require('./controllers/pubcontentController'))
 
 	.directive('pubcategoryView', require('./directives/pubcategoryView'))
-	.directive('pubcontentList', require('./directives/pubcontentList'))
 	.directive('pubcontentView', require('./directives/pubcontentView'))
 	.directive('pubcontentSearch', require('./directives/pubcontentSearch'));
 

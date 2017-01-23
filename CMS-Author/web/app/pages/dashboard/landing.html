@@ -3,74 +3,167 @@
   <p>Some text..</p>
 </div>
 <div class="row grid" isotope-layout="">
-  <!-- Available Categories -->
-  <div class="col-sm-6 grid-item">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-          <h3 class="panel-title">Available Content Categories
-        <span class="label label-{{ availableCategories && availableCategories.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="availableCategories && availableCategories.length || 'no results'"></span>
-          </h3>
-      </div>
-      <div class="panel-body">
-        <category-list
-          data-category-items="availableCategories"
-          data-on-select="onCategoriesSelect"
-          data-on-refresh="onListsRefresh">
-        </category-list>
-      </div>
+    <div class="col-sm-6 grid-item">
+        <generic-list
+        data-items="dlCategories.items"
+        data-items-type="dlCategories.itemsType"
+        data-on-item-select="dlCategories.onItemSelect"
+
+        data-enable-header="dlCategories.enableHeader"
+        data-enable-maximize="dlCategories.enableMaximize"
+        data-enable-search="dlCategories.enableSearch"
+        data-enable-view-modes="dlCategories.enableViewModes"
+        data-enable-scrollbar="dlCategories.enableScrollbar"
+        data-enable-tags="dlCategories.enableTags"
+        data-enable-footer-link="dlCategories.enableFooterLink"
+        data-enable-paging="dlCategories.enablePaging"
+
+        data-header-title="dlCategories.headerTitle"
+        data-header-summary="dlCategories.headerSummary"
+        data-header-right-label="dlCategories.headerRightLabel"
+
+        data-view-mode="dlCategories.viewMode"
+
+        data-scroll-height="dlCategories.scrollHeight"
+
+        data-tags="dlCategories.tags"
+
+        data-footer-link-text="dlCategories.footerLinkText"
+        data-footer-link-url="dlCategories.footerLinkUrl"
+        data-on-footer-link-click="dlCategories.onFooterLinkClick"
+
+        data-paging-total-items="dlCategories.pagingTotalItems"
+        data-paging-selected-page="dlCategories.pagingSelectedPage"
+        data-paging-page-size="dlCategories.pagingPageSize"
+        data-paging-pager-size="dlCategories.pagingPagerSize"
+        data-on-paging-page-change="dlCategories.onPagingPageChange"
+
+        data-on-refresh="onListsRefresh"
+        data-is-loading="dlCategories.isLoading"
+        >
+        </generic-list>
     </div>
+
+  <div class="col-sm-6 grid-item">
+    <generic-list
+    data-items="dlTags.items"
+    data-items-type="dlTags.itemsType"
+    data-on-item-select="dlTags.onItemSelect"
+
+    data-enable-header="dlTags.enableHeader"
+    data-enable-maximize="dlTags.enableMaximize"
+    data-enable-search="dlTags.enableSearch"
+    data-enable-view-modes="dlTags.enableViewModes"
+    data-enable-scrollbar="dlTags.enableScrollbar"
+    data-enable-tags="dlTags.enableTags"
+    data-enable-footer-link="dlTags.enableFooterLink"
+    data-enable-paging="dlTags.enablePaging"
+
+    data-header-title="dlTags.headerTitle"
+    data-header-summary="dlTags.headerSummary"
+    data-header-right-label="dlTags.headerRightLabel"
+
+    data-view-mode="dlTags.viewMode"
+
+    data-scroll-height="dlTags.scrollHeight"
+
+    data-tags="dlTags.tags"
+
+    data-footer-link-text="dlTags.footerLinkText"
+    data-footer-link-url="dlTags.footerLinkUrl"
+    data-on-footer-link-click="dlTags.onFooterLinkClick"
+
+    data-paging-total-items="dlTags.pagingTotalItems"
+    data-paging-selected-page="dlTags.pagingSelectedPage"
+    data-paging-page-size="dlTags.pagingPageSize"
+    data-paging-pager-size="dlTags.pagingPagerSize"
+    data-on-paging-page-change="dlTags.onPagingPageChange"
+
+    data-on-refresh="onListsRefresh"
+    data-is-loading="dlTags.isLoading"
+    >
+    </generic-list>
   </div>
-<!-- Available Tags -->
+
   <div class="col-sm-6 grid-item">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-          <h3 class="panel-title">Available Content Tags
-            <span class="label label-{{ availableTags && availableTags.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="availableTags && availableTags.length || 'no results'"></span>
-          </h3>
-      </div>
-      <div class="panel-body">
-        <tag-list
-          data-tag-items="availableTags"
-          data-on-select="onTagsSelect"
-          data-on-refresh="onListsRefresh">
-        </tag-list>
-      </div>
-    </div>
+    <generic-list
+    data-items="dlDraftedContents.items"
+    data-items-type="dlDraftedContents.itemsType"
+    data-on-item-select="dlDraftedContents.onItemSelect"
+
+    data-enable-header="dlDraftedContents.enableHeader"
+    data-enable-maximize="dlDraftedContents.enableMaximize"
+    data-enable-search="dlDraftedContents.enableSearch"
+    data-enable-view-modes="dlDraftedContents.enableViewModes"
+    data-enable-scrollbar="dlDraftedContents.enableScrollbar"
+    data-enable-tags="dlDraftedContents.enableTags"
+    data-enable-footer-link="dlDraftedContents.enableFooterLink"
+    data-enable-paging="dlDraftedContents.enablePaging"
+
+    data-header-title="dlDraftedContents.headerTitle"
+    data-header-summary="dlDraftedContents.headerSummary"
+    data-header-right-label="dlDraftedContents.headerRightLabel"
+
+    data-view-mode="dlDraftedContents.viewMode"
+
+    data-scroll-height="dlDraftedContents.scrollHeight"
+
+    data-tags="dlDraftedContents.tags"
+
+    data-footer-link-text="dlDraftedContents.footerLinkText"
+    data-footer-link-url="dlDraftedContents.footerLinkUrl"
+    data-on-footer-link-click="dlDraftedContents.onFooterLinkClick"
+
+    data-paging-total-items="dlDraftedContents.pagingTotalItems"
+    data-paging-selected-page="dlDraftedContents.pagingSelectedPage"
+    data-paging-page-size="dlDraftedContents.pagingPageSize"
+    data-paging-pager-size="dlDraftedContents.pagingPagerSize"
+    data-on-paging-page-change="dlDraftedContents.onPagingPageChange"
+
+    data-on-refresh="onListsRefresh"
+    data-is-loading="dlDraftedContents.isLoading"
+    >
+    </generic-list>
   </div>
-  <!-- Drafted Contents -->
+
   <div class="col-sm-6 grid-item">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-          <h3 class="panel-title">Drafted Contents
-            <span class="label label-{{ draftedContents && draftedContents.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="draftedContents && draftedContents.length || 'no results'"></span>
-          </h3>
-      </div>
-      <div class="panel-body">
-        <content-list
-          data-key-name="authorContentId"
-          data-content-items="draftedContents"
-          data-on-select="onDraftedContentSelect"
-          data-on-refresh="onListsRefresh">
-        </content-list>
-      </div>
-    </div>
-  </div>
-<!-- Published Contents -->
-  <div class="col-sm-6 grid-item">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-          <h3 class="panel-title">Published Contents
-            <span class="label label-{{ publishedContents && publishedContents.length > 0 ?'success' : 'danger'}} pull-right" ng-bind="publishedContents && publishedContents.length || 'no results'"></span>
-          </h3>
-      </div>
-      <div class="panel-body">
-        <content-list
-          data-key-name="authorContentId"
-          data-content-items="publishedContents"
-          data-on-select="onPublishedContentSelect"
-          data-on-refresh="onListsRefresh">
-        </content-list>
-      </div>
-    </div>
+    <generic-list
+    data-items="dlPublishedContents.items"
+    data-items-type="dlPublishedContents.itemsType"
+    data-on-item-select="dlPublishedContents.onItemSelect"
+
+    data-enable-header="dlPublishedContents.enableHeader"
+    data-enable-maximize="dlPublishedContents.enableMaximize"
+    data-enable-search="dlPublishedContents.enableSearch"
+    data-enable-view-modes="dlPublishedContents.enableViewModes"
+    data-enable-scrollbar="dlPublishedContents.enableScrollbar"
+    data-enable-tags="dlPublishedContents.enableTags"
+    data-enable-footer-link="dlPublishedContents.enableFooterLink"
+    data-enable-paging="dlPublishedContents.enablePaging"
+
+    data-header-title="dlPublishedContents.headerTitle"
+    data-header-summary="dlPublishedContents.headerSummary"
+    data-header-right-label="dlPublishedContents.headerRightLabel"
+
+    data-view-mode="dlPublishedContents.viewMode"
+
+    data-scroll-height="dlPublishedContents.scrollHeight"
+
+    data-tags="dlPublishedContents.tags"
+
+    data-footer-link-text="dlPublishedContents.footerLinkText"
+    data-footer-link-url="dlPublishedContents.footerLinkUrl"
+    data-on-footer-link-click="dlPublishedContents.onFooterLinkClick"
+
+    data-paging-total-items="dlPublishedContents.pagingTotalItems"
+    data-paging-selected-page="dlPublishedContents.pagingSelectedPage"
+    data-paging-page-size="dlPublishedContents.pagingPageSize"
+    data-paging-pager-size="dlPublishedContents.pagingPagerSize"
+    data-on-paging-page-change="dlPublishedContents.onPagingPageChange"
+
+    data-on-refresh="onListsRefresh"
+    data-is-loading="dlPublishedContents.isLoading"
+    >
+    </generic-list>
   </div>
 </div>

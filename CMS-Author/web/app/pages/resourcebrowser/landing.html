@@ -13,19 +13,83 @@
 	</div>
 	<div class="row page-section">
 		<div class="col-sm-3 left-section">
-			<category-list
-			data-category-items="categories"
-			data-on-select="onCategorySelect"
-			data-mode="mini">
-			</category-list>
+			<generic-list
+	        data-items="dlCategories.items"
+	        data-items-type="dlCategories.itemsType"
+	        data-on-item-select="dlCategories.onItemSelect"
+
+	        data-enable-header="dlCategories.enableHeader"
+	        data-enable-maximize="dlCategories.enableMaximize"
+	        data-enable-search="dlCategories.enableSearch"
+	        data-enable-view-modes="dlCategories.enableViewModes"
+	        data-enable-scrollbar="dlCategories.enableScrollbar"
+	        data-enable-tags="dlCategories.enableTags"
+	        data-enable-footer-link="dlCategories.enableFooterLink"
+	        data-enable-paging="dlCategories.enablePaging"
+
+	        data-header-title="dlCategories.headerTitle"
+	        data-header-summary="dlCategories.headerSummary"
+	        data-header-right-label="dlCategories.headerRightLabel"
+
+	        data-view-mode="dlCategories.viewMode"
+
+	        data-scroll-height="dlCategories.scrollHeight"
+
+	        data-tags="dlCategories.tags"
+
+	        data-footer-link-text="dlCategories.footerLinkText"
+	        data-footer-link-url="dlCategories.footerLinkUrl"
+	        data-on-footer-link-click="dlCategories.onFooterLinkClick"
+
+	        data-paging-total-items="dlCategories.pagingTotalItems"
+	        data-paging-selected-page="dlCategories.pagingSelectedPage"
+	        data-paging-page-size="dlCategories.pagingPageSize"
+	        data-paging-pager-size="dlCategories.pagingPagerSize"
+	        data-on-paging-page-change="dlCategories.onPagingPageChange"
+
+	        data-on-refresh="onListsRefresh"
+	        data-is-loading="dlCategories.isLoading"
+	        >
+	        </generic-list>
 		</div>
 		<div class="col-sm-9 right-section">
-			<resource-list
-	          data-resource-items="currentResources"
-	          data-on-select="onResourceSelect"
-	          data-on-refresh="onListsRefresh"
-	          data-is-loading="isResourcesLoading">
-	        </resource-list>
+			<generic-list
+			data-items="dlResourceList.items"
+			data-items-type="dlResourceList.itemsType"
+			data-on-item-select="dlResourceList.onItemSelect"
+
+			data-enable-header="dlResourceList.enableHeader"
+			data-enable-maximize="dlResourceList.enableMaximize"
+			data-enable-search="dlResourceList.enableSearch"
+			data-enable-view-modes="dlResourceList.enableViewModes"
+			data-enable-scrollbar="dlResourceList.enableScrollbar"
+			data-enable-tags="dlResourceList.enableTags"
+			data-enable-footer-link="dlResourceList.enableFooterLink"
+			data-enable-paging="dlResourceList.enablePaging"
+
+			data-header-title="dlResourceList.headerTitle"
+			data-header-summary="dlResourceList.headerSummary"
+			data-header-right-label="dlResourceList.headerRightLabel"
+
+			data-view-mode="dlResourceList.viewMode"
+
+			data-scroll-height="dlResourceList.scrollHeight"
+
+			data-tags="dlResourceList.tags"
+
+			data-footer-link-text="dlResourceList.footerLinkText"
+			data-footer-link-url="dlResourceList.footerLinkUrl"
+			data-on-footer-link-click="dlResourceList.onFooterLinkClick"
+
+			data-paging-total-items="dlResourceList.pagingTotalItems"
+			data-paging-selected-page="dlResourceList.pagingSelectedPage"
+			data-paging-page-size="dlResourceList.pagingPageSize"
+			data-paging-pager-size="dlResourceList.pagingPagerSize"
+			data-on-paging-page-change="dlResourceList.onPagingPageChange"
+
+			data-on-refresh="onListsRefresh"
+			data-is-loading="dlResourceList.isLoading">
+			</generic-list>
 		</div>
 	</div>
 </div>

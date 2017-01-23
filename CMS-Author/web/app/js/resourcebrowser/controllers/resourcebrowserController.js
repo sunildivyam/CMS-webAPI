@@ -6,8 +6,10 @@
 */
 
 (function() {
-	var resourcebrowserController = function($rootScope, $scope, $state, $q, appService, resourcebrowserService, modalService, EntityMapper, ContentResource, Category, pageTitleService, contentService, CkEditorService) {
+	var resourcebrowserController = function($rootScope, $scope, $state, $q, appService, resourcebrowserService, modalService, EntityMapper, ContentResource, Category, pageTitleService, contentService, CkEditorService, Utils) {
 		$scope.resourceToolbarButtons = resourcebrowserService.getToolbarButtons();
+		$scope.dlCategories = {};
+		$scope.dlResourceList = {};
 
 		$scope.onResourceUpload = function(event, contentResource, completeCallback) {
 			if (contentResource) {
@@ -25,11 +27,11 @@
 			}
 		};
 
-		$scope.onCategorySelect = function(event, category) {
+		$scope.dlCategories.onItemSelect = function(event, category) {
 			$scope.currentCategory = category;
 		};
 
-		$scope.onResourceSelect = function(event, resource) {
+		$scope.dlResourceList.onItemSelect = function(event, resource) {
 			$scope.currentResource = resource;
 		};
 
@@ -62,12 +64,18 @@
 		// gets all categories
         function getCategories() {
             var defferedObj = $q.defer();
+            $scope.dlCategories.isLoading = true;
+            $scope.dlCategories = angular.extend(Utils.getListConfigOf('contentResourceCategory'), $scope.dlCategories);
+
             contentService.getCategories().then(function(response) {
-                $scope.categories = new EntityMapper(Category).toEntities(response.data);
-                defferedObj.resolve($scope.categories);
+                var categories = new EntityMapper(Category).toEntities(response.data);
+                $scope.dlCategories.items = categories;
+                defferedObj.resolve(categories);
+                $scope.dlCategories.isLoading = false;
             }, function() {
                 $scope.categories = new EntityMapper(Category).toEntities();
                 defferedObj.reject($scope.categories);
+                $scope.dlCategories.isLoading = false;
             });
 
             return defferedObj.promise;
@@ -90,15 +98,19 @@
         		categoryId = category.categoryId;
         	}
 
-        	$scope.isResourcesLoading = true;
+        	$scope.dlResourceList.isLoading = true;
+            $scope.dlResourceList = angular.extend(Utils.getListConfigOf('contentResource'), $scope.dlResourceList);
+
         	resourcebrowserService.getContentResourcesByCategory(categoryId).then(function(response) {
-        		$scope.currentResources = processContentResources(new EntityMapper(ContentResource).toEntities(response && response.data));
-        		$scope.isResourcesLoading = false;
+        		var currentResources = processContentResources(new EntityMapper(ContentResource).toEntities(response && response.data));
+        		$scope.dlResourceList.items = currentResources;
+        		$scope.dlResourceList.headerRightLabel = currentResources.length + ' files';
         		$scope.currentResource = undefined;
+        		$scope.dlResourceList.isLoading = false;
         	}, function() {
-        		$scope.currentResources = new EntityMapper(ContentResource).toEntities();
-        		$scope.isResourcesLoading = false;
+        		$scope.dlResourceList.items = new EntityMapper(ContentResource).toEntities();
         		$scope.currentResource = undefined;
+        		$scope.dlResourceList.isLoading = false;
         	});
         }
 
@@ -111,15 +123,17 @@
 
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
 			if (toState && toState.name && toParams) {
-				if (toParams.CKEditorFuncNum) {
-					$scope.ckFunctionNumber = toParams.CKEditorFuncNum;
-				} else {
-					$scope.ckFunctionNumber = undefined;
-				}
-				getCategories().then(function() {
-					if ($scope.categories && $scope.categories.length) {
-						$scope.currentCategory = $scope.categories[0];
+				Utils.getListConfigs().then(function() {
+					if (toParams.CKEditorFuncNum) {
+						$scope.ckFunctionNumber = toParams.CKEditorFuncNum;
+					} else {
+						$scope.ckFunctionNumber = undefined;
 					}
+					getCategories().then(function() {
+						if ($scope.dlCategories && $scope.dlCategories.items && $scope.dlCategories.items.length) {
+							$scope.currentCategory = $scope.dlCategories.items[0];
+						}
+					});
 				});
 			} else {
 				//
@@ -127,6 +141,6 @@
 		});
 	};
 
-	resourcebrowserController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'resourcebrowserService',  'modalService', 'EntityMapper', 'ContentResource', 'Category', 'pageTitleService', 'contentService', 'CkEditorService'];
+	resourcebrowserController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'resourcebrowserService',  'modalService', 'EntityMapper', 'ContentResource', 'Category', 'pageTitleService', 'contentService', 'CkEditorService', 'Utils'];
 	module.exports = resourcebrowserController;
 })();

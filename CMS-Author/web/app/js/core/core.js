@@ -225,17 +225,18 @@
     .factory('ContentResource', require('./domain/ContentResource'))
 
     .controller('appController', require('./controllers/appController'))
+    .controller('genericListController', require('./controllers/genericListController'))
 
     .directive('brandLogo', require('./directives/brandLogo'))
     .directive('loader', require('./directives/loader'))
     .directive('tags', require('./directives/tags'))
-    .directive('appHeader', require('./directives/appHeader'))
     .directive('ck', require('./directives/ck'))
     .directive('customNavbar', require('./directives/customNavbar'))
     .directive('isotopeLayout', require('./directives/isotopeLayout'))
     .directive('onNgRepeatItem', require('./directives/onNgRepeatItem'))
     .directive('fileInput', require('./directives/fileInput'))
-    .directive('btnToolbar', require('./directives/btnToolbar'));
+    .directive('btnToolbar', require('./directives/btnToolbar'))
+    .directive('genericList', require('./directives/genericList'));
 
     module.exports = angular.module('raiweb.core');
 })();

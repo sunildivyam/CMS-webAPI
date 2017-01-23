@@ -24,8 +24,7 @@
 
 	.controller('resourcebrowserController', require('./controllers/resourcebrowserController'))
 
-	.directive('uploadResource', require('./directives/uploadResource'))
-	.directive('resourceList', require('./directives/resourceList'));
+	.directive('uploadResource', require('./directives/uploadResource'));
 
 	module.exports = angular.module('raiweb.resourcebrowser');
 })();

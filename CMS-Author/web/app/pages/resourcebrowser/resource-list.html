@@ -1,30 +1,75 @@
 <div class="resource-list">
-	<inline-search></inline-search>
-
-	<btn-toolbar
-		data-buttons="modes"
-		data-on-select="onModeChange"
-		data-btn-size-class="btn-xs">
-	</btn-toolbar>
-
-	<ul class="media-list {{mode}}" ng-if="!mode || mode === 'default'">
-		<li class="media {{selectedResource && selectedResource.contentResourceId === contentResource.contentResourceId ? 'active': ''}}" ng-repeat="contentResource in resourceItems | filter: resourceFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+	<ul class="media-list {{viewMode}}" ng-show="!viewMode || viewMode === 'list'">
+		<li class="media {{selectedItem && selectedItem.contentResourceId === item.contentResourceId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
-				<a href="#" ng-click="onClick($event, contentResource)">
-					<img class="media-object" src="{{contentResource.resourceThumbnail}}" alt="{{contentResource.name}}"></img>
+				<a href="#" ng-click="itemClick($event, item)">
+					<img class="media-object" src="{{item.resourceThumbnail}}" alt="{{item.name}}"></img>
 				</a>
 			</div>
 			<div class="media-body">
-				<a href="#" ng-click="onClick($event, contentResource)">
-					<h5 class="media-heading text-primary" title="{{contentResource.name}}" ng-bind="contentResource.name"></h5>
+				<a href="#" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.name"></h5>
 				</a>
 				<div>
-					<span class="label label-info"> Size: <span>{{contentResource.size}} <small>bytes</small></span></span>
-					<span class="label label-info"> Type: <span ng-bind="contentResource.extension"></span></span>
+					<span class="label label-info"> Size: <span>{{item.size}} <small>bytes</small></span></span>
+					<span class="label label-info"> Type: <span ng-bind="item.extension"></span></span>
 				</div>
 			</div>
 		</li>
 	</ul>
+<!-- inline Mode-->
+	<ul class="media-list {{viewMode}}" ng-show="viewMode === 'inline'">
+		<li class="media {{selectedItem && selectedItem.contentResourceId === item.contentResourceId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ng-click="itemClick($event, item)">
+					<img class="media-object" src="{{item.resourceThumbnail}}" alt="{{item.name}}"></img>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.name"></h5>
+				</a>
+			</div>
+		</li>
+	</ul>
+<!-- Grid Mode-->
+	<ul class="row {{viewMode}}" ng-show="viewMode === 'grid'">
+		<li class="col-sm-3 thumbnail {{selectedItem && selectedItem.contentResourceId === item.contentResourceId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ng-click="itemClick($event, item)">
+					<img class="media-object" src="{{item.resourceThumbnail}}" alt="{{item.name}}"></img>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.name"></h5>
+				</a>
+				<div>
+					<span class="label label-info"> Size: <span>{{item.size}} <small>bytes</small></span></span>
+					<span class="label label-info"> Type: <span ng-bind="item.extension"></span></span>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="resource-list">
+
 <!-- mini Mode-->
 	<ul class="media-list {{mode}}" ng-if="mode === 'mini'">
 		<li class="media {{selectedResource && selectedResource.contentResourceId === contentResource.contentResourceId ? 'active': ''}}" ng-repeat="contentResource in resourceItems | filter: resourceFilter" on-ng-repeat-item="onRepeatItemsLoaded">
@@ -54,5 +99,5 @@
 		</li>
 	</ul>
 
-	<loader data-at-body="false" data-is-loading="isLoading" data-message="loading resources..."></
+	<loader data-at-body="false" data-is-loading="isLoading" data-message="loading resources..."></loader>
 </div>

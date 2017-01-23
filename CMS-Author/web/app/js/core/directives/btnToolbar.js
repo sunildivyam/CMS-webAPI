@@ -20,7 +20,7 @@
 	var btnToolbar = function() {
 		return {
 			restrict: 'E',
-			replace: true,
+			replace: false,
 			scope: {
 				buttons: '=',
 				onSelect: '=',
