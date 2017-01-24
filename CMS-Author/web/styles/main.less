@@ -9,16 +9,18 @@
 @import "site-variables";
 @import "mixins";
 
-@import "loader";
-@import "navigation";
-@import "search";
+//Bootstrap overrides
 @import "overrides";
-@import "generic-list";
+
+// Independent Components
+@import "loader";
+@import "tinyscrollbar";
 @import "tags";
-@import "service";
-@import "content";
-@import "category";
-@import "technology";
+@import "generic-list";
+@import "global-search";
+@import "brand-logo";
+
+//Page specific
+@import "app";
 @import "account";
 @import "resource-browser";
-@import "tinyscrollbar";

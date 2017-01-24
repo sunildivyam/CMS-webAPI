@@ -1,121 +1,10 @@
-@mainnav_bg_color: #E8E6E6;
-@mainnav_text_color: #FFF;
-
-@mainnav_item_bg_color: #DADADA;
-@mainnav_item_text_color: #000000;
-@mainnav_item_border_color1: #CECECE;
-@mainnav_item_border_color2: #E6E0E0;
-
-@mainnav_item_hover_bg_color: #009be4;
-@mainnav_item_hover_text_color: @mainnav_text_color;
-
-@mainnav_dropdown_bg_color: @mainnav_item_hover_bg_color;
-
-@mainnav_dropdown_item_bg_color: #009be4;
-@mainnav_dropdown_item_text_color: @mainnav_text_color;
-@mainnav_dropdown_item_border_color: #35bbef;
-
-@mainnav_dropdown_item_hover_bg_color: #fff;
-@mainnav_dropdown_item_hover_text_color: #000000;
-
-@highlight-bg-color: #ffc800;
-
-.raiweb-mainnav {
-	&.navbar-default {
-		margin-bottom: 0px;
-		background: @mainnav_bg_color;
-		border: none;
-
-		.navbar-nav {
-			& > li {
-				border-left: 1px solid @mainnav_item_border_color1;
-    			border-right: 2px solid @mainnav_item_border_color2;
-			}
-
-			li {
-				& > a {
-					padding: 20px;
-
-					background: @mainnav_item_bg_color;
-					color: @mainnav_item_text_color;
-
-					font-size: 16px;
-					&.active {
-						background: @mainnav_item_hover_bg_color;
-						color: @mainnav_item_hover_text_color;
-					}
-
-					&.register-btn, &.login-btn {
-						background: @highlight-bg-color;
-
-						&.glyphicon:before {
-							margin-right: 5px;
-						}
-
-					}
-				}
-
-				&:hover, &.open {
-					& > a, & > a:focus {
-						background: @mainnav_item_hover_bg_color;
-						color: @mainnav_item_hover_text_color;
-					}
-				}
-			}
-			.open {
-
-			}
-			.dropdown-menu {
-				background: @mainnav_dropdown_bg_color;
-				border: none;
-
-				li {
-					border-bottom: 1px solid @mainnav_dropdown_item_border_color;
-
-					&:first-child {
-						border-top: 1px solid @mainnav_dropdown_item_border_color;
-					}
-
-					& > a {
-						padding: 8px 20px;
-
-						background: @mainnav_dropdown_item_bg_color;
-						color: @mainnav_dropdown_item_text_color;
-
-						font-size: 14px;
-
-						&:focus, &:hover, &.active {
-							background: @mainnav_dropdown_item_hover_bg_color;
-							color: @mainnav_dropdown_item_hover_text_color;
-						}
-					}
-				}
-			}
-		}
-
-		.navbar-header {
-			.raiweb-logo {
-				.title {
-					font-family: @font-black-ops-one;
-					font-size: 16px;
-				}
-
-				.tagline {
-					font-family: @font-cinzel-decorative-regular;
-					font-size: 12px;
-				}
-			}
-		}
-	}
-}
-
 // Default and lg mode variables
 @brand-logo-bg-color: transparent;
 @brand-logo-max-width: 360px;
 @brand-logo-max-height: 80px;
 
 @brand-logo-primary-title-size: 34px;
-@brand-logo-primary-title-color: @mainnav_item_hover_bg_color;
+@brand-logo-primary-title-color: #009be4;
 
 @brand-logo-secondary-title-size: 18px;
 @brand-logo-secondary-title-color: #1e9a00;
@@ -134,7 +23,7 @@
 @brand-logo-max-height-xs: 80px;
 
 @brand-logo-primary-title-size-xs: 18px;
-@brand-logo-primary-title-color-xs: @mainnav_item_hover_bg_color;
+@brand-logo-primary-title-color-xs: @brand-logo-primary-title-color;
 
 @brand-logo-secondary-title-size-xs: 10px;
 @brand-logo-secondary-title-color-xs: #1e9a00;

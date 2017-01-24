@@ -1,186 +1,55 @@
 body {
     font-size: @font-size-normal;
     margin-top: 0px;
-}
 
-.help-block {
-    color: red;
-    font-size: 10px;
-}
+    &.app-body {
 
-.raiweb {
-    .well {
-        padding: 5px;
-        margin-bottom: 10px;
-    }
-
-    ul {
-        padding: 4px;
-    }
-
-    ui-view {
-        position: relative;
-        display: block;
-    }
-    .container-fluid {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-
-    .h1, h1 {
-        margin: 0px;
-        padding: 10px;
-        font-size: @font-size-h1;
-        border: none;
-    }
-
-    .page-header {
-        position: absolute;
-        display: block;
-        z-index: 1;
-        width: 100%;
-        margin: 0px;
-        padding: 0px;
-        border: none;
-
-        .header-title {
-            line-height: 20px;
-            color: @body-text-white-color;
-            background: @mainnav_item_hover_bg_color;
-            font-size: @font-size-h3;
-
-            .text-ellipsis();
+        .help-block {
+            color: red;
+            font-size: 10px;
         }
 
-        .header-float {
-            display: block;
-            height: 37px;
-
-            //background-image: @header-float-bg;
-            background-repeat: no-repeat;
-        }
-    }
-
-    .app-footer {
-        margin-top: 30px;
-        padding: 15px;
-        min-height: 100px;
-        background-color: @body-text-black-color;
-        color: @body-text-white-color;
-
-        .title {
-            font-size: @font-size-2xs;
-            font-weight: bold;
-            margin: 5px 10px;
+        .well {
+            padding: 5px;
+            margin-bottom: 10px;
         }
 
-        .app-info-section {
-            text-align: center;
+        ul {
+            padding: 4px;
         }
 
-        .copyrights, .credits {
-            display: block;
-            font-size: @font-size-2xs;
-        }
-
-        .copyrights {
-            margin-top: 15px;
-        }
-
-        .services {
-            ul.feature-list.link-mode {
-                li.feature {
-                    a.name {
-                        font-size: @font-size-2xs;
-                        .icon {
-                            background-position: -111px -364px;
-                        }
-                    }
-                }
-            }
-        }
-        .articles {
-            ul.feature-list.link-mode {
-                li.feature {
-                    a.name {
-                        font-size: @font-size-2xs;
-                        .icon {
-                            background-position: -67px -364px;
-                        }
-                    }
-                }
-            }
-        }
-        .technologies {
-            ul.feature-list.link-mode {
-                li.feature {
-                    a.name {
-                        font-size: @font-size-2xs;
-                        .icon {
-                            background-position: -132px -364px;
-                        }
-                    }
-                }
-            }
-        }
-
-        .social-media-links {
-            ul.feature-list.link-mode {
-                li.feature {
-                    a.name {
-                        font-size: @font-size-2xs;
-                        .icon {
-                            background-position: -24px -364px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .ui-view-contents {
-        position: relative;
-        display: block;
-        padding-top: 15px;
-    }
-
-    &.home, &.services, &.articles {
-        .global-search {
+        ui-view {
+            position: relative;
             display: block;
         }
-    }
 
-    .modal-header {
-        background: @modal-header-bg-color;
-        .border-radiuses (5px, 0px, 0px, 5px);
-    }
-
-    .panel {
-        position: relative;
-
-        &.panel-blue {
-            border-color: #3498db;
-
-            &>.panel-heading {
-                padding: 5px 15px;
-                background: #3498db;
-                color: #fff;
-
-                .panel-title {
-                    .fa {
-                        padding: 5px;
-                    }
-                }
-            }
+        .container-fluid {
+            padding-left: 0px;
+            padding-right: 0px;
         }
 
-        .panel-body {
-            padding: 15px;
-            overflow: hidden;
+        .h1, h1 {
+            margin: 0px;
+            padding: 10px;
+            font-size: @font-size-h1;
+            border: none;
         }
-    }
 
-    .glyphicon {
-        top: 0px;
+        .ui-view-contents {
+            position: relative;
+            display: block;
+            padding-top: 15px;
+        }
+
+        .modal-header {
+            .border-radiuses (5px, 0px, 0px, 5px);
+        }
+
+        .glyphicon {
+            top: 0px;
+        }
     }
 }
+
+
+
