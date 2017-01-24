@@ -15,6 +15,8 @@ require('ui-select');
 window.Isotope = require('isotope-layout/js/isotope');
 require('dotdotdot/src/js/jquery.dotdotdot');
 window.hljs = require('highlight.js/lib');
+require('tinyscrollbar/lib/jquery.tinyscrollbar');
+
 // CK Editor does not support browserify
 	//require('ckeditor');
 	//require('ckeditor/adapters/jquery.js');

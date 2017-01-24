@@ -42,6 +42,7 @@
     "jquery": "^2.2.4",
     "mathjax": "^2.7.0",
     "select2": "^4.0.3",
+    "tinyscrollbar": "^2.4.2",
     "ui-select": "^0.19.6"
   },
   "config": {

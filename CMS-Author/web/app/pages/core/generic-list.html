@@ -42,8 +42,10 @@
 		</btn-toolbar>
 
 		<!-- List Views -->
-		<article ng-include="currentListTemplate" class="item-list">
-		</article>
+		<div tiny-scrollbar="" data-enable-scrollbar="enableScrollbar" data-scroll-height="scrollHeight">
+			<article ng-include="currentListTemplate" class="item-list">
+			</article>
+		</div>
 
 		<!-- No Data available -->
 		<section class="no-data-section" ng-if="!items || items.length === 0">
