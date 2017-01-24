@@ -1,0 +1,66 @@
+body.theme-default {
+	background-image: url('/images/theme-default/body-background.jpg');
+	background-repeat: repeat;
+	background-attachment: fixed;
+
+	.panel {
+		background: transparent;
+
+		.panel-heading {
+			.gradient(rgba(178, 227, 255, 0.7), rgba(91, 195, 255, 0.7));
+		}
+
+		.panel-body {
+			background-color: rgba(144, 194, 255, 0.1);
+		}
+
+		.panel-footer {
+			.gradient(rgba(178, 227, 255, 0.7), rgba(91, 195, 255, 0.7));
+		}
+	}
+
+	.well {
+		.horizontal-gradient(rgba(101, 162, 240, 0.7), rgba(91, 195, 240, 0.7));
+	}
+
+	.navbar {
+		.horizontal-gradient(rgba(0, 136, 177, 0.7), rgba(0, 121, 173, 0.7));
+
+		* {
+			color: white;
+		}
+	}
+
+	p {
+		line-height: 1.7;
+		font-size: 14px;
+		color: #696969;
+	}
+
+	.tiny-scrollbar
+	{
+	    .scrollbar
+	    {
+	        .track
+	        {
+	            .thumb
+	            {
+	            	.gradient(rgba(0, 0, 255, 0.9), rgba(0, 200, 255, 0.9));
+	            	.border-radius(2px);
+	                .end
+	                {
+
+	                }
+	            }
+	        }
+	    }
+
+	    .viewport
+	    {
+	        .overview
+	        {
+
+	        }
+	    }
+	}
+}
