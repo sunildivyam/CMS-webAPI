@@ -1,6 +1,6 @@
 body {
     font-size: @font-size-normal;
-    margin: 0px;
+    margin: 0px 10px;
 
     &.app-body {
 
@@ -54,12 +54,16 @@ body {
         }
 
         .panel {
-            .panel-heading {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
 
+            .panel-heading {
+                overflow: hidden;
             }
 
             .panel-body {
-
+                overflow: hidden;
             }
 
             .panel-footer {

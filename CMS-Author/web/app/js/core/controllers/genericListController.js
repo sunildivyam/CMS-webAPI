@@ -32,6 +32,7 @@
                     $scope.onRefresh(event);
                 }
             }, 50);
+            $scope.updateEllipsis();
             $scope.updateScrollbar();
         };
 
