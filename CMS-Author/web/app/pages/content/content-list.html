@@ -1,5 +1,5 @@
 <div class="content-list">
-	<ul class="media-list {{viewMode}}" ng-show="!viewMode || viewMode === 'list'">
+	<ul class="media-list list-view" ng-show="!viewMode || viewMode === 'list'">
 		<li class="media {{selectedItem && selectedItem.authorContentId === item.authorContentId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
 				<a href="#" ng-click="itemClick($event, item)">
@@ -29,7 +29,7 @@
 		</li>
 	</ul>
 <!-- inline Mode-->
-	<ul class="media-list {{viewMode}}" ng-show="viewMode === 'inline'">
+	<ul class="media-list inline-view" ng-show="viewMode === 'inline'">
 		<li class="media {{selectedItem && selectedItem.authorContentId === item.authorContentId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
 				<a href="#" ng-click="itemClick($event, item)">
@@ -44,7 +44,7 @@
 		</li>
 	</ul>
 <!-- Grid Mode-->
-	<ul class="row {{viewMode}}" ng-show="viewMode === 'grid'">
+	<ul class="row grid-view" ng-show="viewMode === 'grid'">
 		<li class="col-sm-3 thumbnail {{selectedItem && selectedItem.authorContentId === item.authorContentId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
 				<a href="#" ng-click="itemClick($event, item)">

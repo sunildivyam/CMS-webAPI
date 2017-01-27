@@ -392,22 +392,26 @@
         "pubContentPopular": {
             "title": "Most Popular Articles",
             "sortField": "VisitCount",
-            "sortDirAsc": false
+            "sortDirAsc": false,
+            "viewMode": "list"
         },
         "pubContentLatest": {
             "title": "Latest Articles",
             "sortField": "PublishedDate",
-            "sortDirAsc": false
+            "sortDirAsc": false,
+            "viewMode": "inline"
         },
         "pubContentRelevant": {
             "title": "Most Relevant Articles",
             "sortField": "Title",
-            "sortDirAsc": true
+            "sortDirAsc": true,
+            "viewMode": "inline"
         },
         "pubContentRelated": {
             "title": "Related Articles",
             "sortField": "CategoryId",
-            "sortDirAsc": true
+            "sortDirAsc": true,
+            "viewMode": "inline"
         }
     }
 }

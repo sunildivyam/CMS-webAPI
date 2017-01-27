@@ -1,5 +1,5 @@
 <div class="resource-list">
-	<ul class="media-list {{viewMode}}" ng-show="!viewMode || viewMode === 'list'">
+	<ul class="media-list list-view" ng-show="!viewMode || viewMode === 'list'">
 		<li class="media {{selectedItem && selectedItem.contentResourceId === item.contentResourceId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
 				<a href="#" ng-click="itemClick($event, item)">
@@ -18,7 +18,7 @@
 		</li>
 	</ul>
 <!-- inline Mode-->
-	<ul class="media-list {{viewMode}}" ng-show="viewMode === 'inline'">
+	<ul class="media-list inline-view" ng-show="viewMode === 'inline'">
 		<li class="media {{selectedItem && selectedItem.contentResourceId === item.contentResourceId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
 				<a href="#" ng-click="itemClick($event, item)">
@@ -33,8 +33,8 @@
 		</li>
 	</ul>
 <!-- Grid Mode-->
-	<ul class="row {{viewMode}}" ng-show="viewMode === 'grid'">
-		<li class="col-sm-3 thumbnail {{selectedItem && selectedItem.contentResourceId === item.contentResourceId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+	<ul class="row grid-view" ng-show="viewMode === 'grid'">
+		<li class="media {{selectedItem && selectedItem.contentResourceId === item.contentResourceId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
 				<a href="#" ng-click="itemClick($event, item)">
 					<img class="media-object" src="{{item.resourceThumbnail}}" alt="{{item.name}}"></img>
@@ -44,7 +44,7 @@
 				<a href="#" ng-click="itemClick($event, item)">
 					<h5 class="media-heading text-primary" ng-bind="item.name"></h5>
 				</a>
-				<div>
+				<div class="body-info">
 					<span class="label label-info"> Size: <span>{{item.size}} <small>bytes</small></span></span>
 					<span class="label label-info"> Type: <span ng-bind="item.extension"></span></span>
 				</div>

@@ -73,6 +73,7 @@
 	                    dlContentList.isLoading = true;
 	                    dlContentList.enableGooterLink = false;
 	                    dlContentList.headerTitle = contentListTypes[key].title;
+	                    dlContentList.viewMode = contentListTypes[key].viewMode;
 	                    dlContentList = angular.extend(Utils.getListConfigOf('pubContent'), dlContentList);
 
 					$scope.dlContentLists.push(dlContentList);
