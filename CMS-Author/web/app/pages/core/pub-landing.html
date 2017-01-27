@@ -29,14 +29,16 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<custom-navbar
-				items="categories"
-				title="Explore Articles by "
-				class-name="navbar-default"
-				name="category"
-				state-name="pub.articles"
-				item-icon-class-name-pre="glyphicon glyphicon-list"
-				item-icon-class-name-post="glyphicon glyphicon-triangle-bottom"
-				header-icon-class-name="glyphicon glyphicon-arrow-right">
+				data-items="categories"
+				data-selected-item-name="$stateParams.n"
+				data-title=""
+				data-class-name="navbar-default"
+				data-name="category"
+				data-state-name="pub.articles"
+				data-item-icon-class-name-pre="glyphicon glyphicon-list"
+				data-item-icon-class-name-post=""
+				data-pre-header-icon-class-name="glyphicon glyphicon-pencil"
+				data-post-header-icon-class-name="glyphicon glyphicon-triangle-bottom">
 			</custom-navbar>
 		</div>
 	</div>

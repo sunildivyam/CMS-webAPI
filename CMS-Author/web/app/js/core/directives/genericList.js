@@ -49,14 +49,27 @@
 			},
 			controller: 'genericListController',
 			link: function($scope, element) {
+				$scope.updateEllipsis = function() {
+					$timeout(function() {
+						var $element = $(element);
+
+			            if ($scope.viewMode === 'list') {
+				            $element.find('.list-view .description, .short-description').dotdotdot({
+				                wrap: 'letters',
+				                //watch: 'window',
+				                height: (23 * 4)
+				            });
+				        } else if ($scope.viewMode === 'grid') {
+				            $element.find('.grid-view .media-heading').dotdotdot({
+				                wrap: 'letters',
+				                height: 80
+				            });
+				        }
+			        },100);
+				};
 
 				$scope.$on("onRepeatItemsLoaded", function(event) {
-		            $(element).find('.description, .short-description').dotdotdot({
-		                wrap: 'letters',
-		                watch: 'window',
-		                height: (17 * 4)
-		            });
-
+					$scope.updateEllipsis();
 		            $scope.updateScrollbar();
 
 		            if (typeof $scope.onRefresh === 'function' && !$scope.enableScrollbar) {
