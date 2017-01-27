@@ -7,14 +7,15 @@
 			<span class="icon-bar"></span>
 		</button>
 		<div class="navbar-brand">
-			<span ng-bind="title"></span>
-			<span class="{{headerIconClassName}}"></span>
+			<span class="pre-header-icon {{preHeaderIconClassName}}"></span>
+			<span ng-bind="titleStr"></span>
+			<span class="post-header-icon {{postHeaderIconClassName}}"></span>
 		</div>
 	</div>
 	<div class="navbar-collapse" id="navbar-collapse-{{name}}">
 		<ul class="nav navbar-nav">
-			<li class="" ng-repeat="item in items" ui-sref-active="active">
-				<a href="#" title="item.description" ui-sref="{{stateName}}({n: '{{item.name}}'})">
+			<li class="{{selectedItemName===item.name? 'active': ''}}" ng-repeat="item in items">
+				<a href="#" title="{{item.description}}" ui-sref="{{stateName}}({n: '{{item.name}}'})" ng-click="onItemClick($event, item)">
 					<span class="{{itemIconClassNamePre}}"></span>
 					<span ng-bind="item.title" ></span>
 					<span class="{{itemIconClassNamePost}}"></span>
