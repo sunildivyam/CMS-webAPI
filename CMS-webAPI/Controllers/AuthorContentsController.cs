@@ -14,6 +14,7 @@ using CMS_webAPI.Controllers;
 
 namespace CMS_webAPI.Controllers
 {
+    [Authorize(Roles="Administrators, Authors")]
     public class AuthorContentsController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
@@ -127,8 +128,9 @@ namespace CMS_webAPI.Controllers
         // Updates an AuthorContent matching an Id passed as param1
         // PUT: api/AuthorContents/PutAuthorContent/5
         [ResponseType(typeof(AuthorContentViewModel))]
-        public async Task<IHttpActionResult> PutAuthorContent(int param1 /*AuthorContentId */, AuthorContentViewModel authorContentView)
+        public async Task<IHttpActionResult> PutAuthorContent(int param1, AuthorContentViewModel authorContentView)
         {
+            var authorContentId = param1;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -136,12 +138,12 @@ namespace CMS_webAPI.Controllers
 
             // If AuthorContent ID mismatches, its a bad request to update
             // If It is already Published, It should not be allowed to Update.
-            if (param1 != authorContentView.AuthorContentId || authorContentView.PublishedDate != null)
+            if (authorContentId != authorContentView.AuthorContentId || authorContentView.PublishedDate != null)
             {
                 return BadRequest();
             }
 
-            AuthorContentViewModel updatedAuthorContentView = new AuthorContentViewModel(UpdateAuthorContent(param1, authorContentView));
+            AuthorContentViewModel updatedAuthorContentView = new AuthorContentViewModel(UpdateAuthorContent(authorContentId, authorContentView));
             await db.SaveChangesAsync();
             updatedAuthorContentView.UpdateCount = updatedAuthorContentView.UpdateCount + 1;
             //return StatusCode(HttpStatusCode.NoContent);

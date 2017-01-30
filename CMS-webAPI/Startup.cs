@@ -15,6 +15,7 @@ namespace CMS_webAPI
         {            
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureAuth(app);
+            createRolesandUsers();
         }
     }
 }

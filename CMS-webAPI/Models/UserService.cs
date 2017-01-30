@@ -60,5 +60,30 @@ namespace CMS_webAPI.Models
             ApplicationDbContext _appDB = new ApplicationDbContext();
             return _appDB.Users.FirstOrDefault(u => u.UserName == userName);
         }
+
+        public static RegisterBindingModel GetDefaultUser()
+        {
+            return new RegisterBindingModel() { 
+                Email= "admin@gmail.com",
+                Password = "Admin123#",
+                FirstName = "Administrator",
+                LastName = "User"
+            };
+        }
+
+        public static string GetDefaultRole()
+        {
+            return "Readers";
+        }
+
+        public static string GetDefaultAdminRole()
+        {
+            return "Administrators";
+        }
+
+        public static string GetAuthorRole()
+        {
+            return "Authors";
+        }
     }
 }

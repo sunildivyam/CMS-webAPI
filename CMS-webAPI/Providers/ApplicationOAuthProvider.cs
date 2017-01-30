@@ -39,12 +39,19 @@ namespace CMS_webAPI.Providers
                 return;
             }
 
+            var result = userManager.IsEmailConfirmedAsync(user.Id);
+            
+            if (!result.Result) {
+                context.SetError("email_not_verified", "Your registered Email is not verified.");
+                return;
+            }
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
-
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+            
+            AuthenticationProperties properties = CreateProperties(user.UserName, oAuthIdentity);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -86,11 +93,13 @@ namespace CMS_webAPI.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(string userName, ClaimsIdentity oAuthIdentity)
         {
+            string userRoles = string.Join(",", oAuthIdentity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToArray());
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName }
+                { "userName", userName },
+                {"roles", userRoles}
             };
             return new AuthenticationProperties(data);
         }

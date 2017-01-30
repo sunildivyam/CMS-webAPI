@@ -60,10 +60,12 @@ namespace CMS_webAPI.Controllers
             ApplicationUser appuser = UserManager.FindById(User.Identity.GetUserId());
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName(),
+                Email = appuser.Email,
+                UserName = appuser.UserName,
                 FirstName = appuser.FirstName,
                 LastName = appuser.LastName,
                 Phone = appuser.Phone,
+                Roles = UserManager.GetRoles(appuser.Id),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
@@ -89,7 +91,7 @@ namespace CMS_webAPI.Controllers
             }
 
             List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
-
+            
             foreach (IdentityUserLogin linkedAccount in user.Logins)
             {
                 logins.Add(new UserLoginInfoViewModel
@@ -120,12 +122,12 @@ namespace CMS_webAPI.Controllers
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
-        {
+        {            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
             
@@ -140,7 +142,7 @@ namespace CMS_webAPI.Controllers
         // POST api/Account/SetPassword
         [Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
-        {
+        {            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -265,9 +267,9 @@ namespace CMS_webAPI.Controllers
                  ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    CookieAuthenticationDefaults.AuthenticationType);
-
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                    CookieAuthenticationDefaults.AuthenticationType);               
+                
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, oAuthIdentity);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
@@ -321,6 +323,32 @@ namespace CMS_webAPI.Controllers
             return logins;
         }
 
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("ResendEmailVarificationCode")]
+        public async Task<IHttpActionResult> ResendEmailVerificationCode(string userName)
+        {
+            ApplicationUser user = await UserManager.FindByNameAsync(userName);
+
+            if (user == null) {
+                return NotFound();
+            }
+
+            try
+            {
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                await UserManager.SendEmailAsync(user.Id, EmailService.getEmailVerifySubject(), EmailService.getEmailVerifyBody(user.Id, code));
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex);
+                return InternalServerError();
+            }
+                
+            return Ok();
+        }
+
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -332,13 +360,24 @@ namespace CMS_webAPI.Controllers
             }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Phone = model.Phone };
-
+            
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
+            // Adds to Default user Role.
+            UserManager.AddToRole(user.Id, UserService.GetDefaultRole());
+            
+            // Send Email verificatoion Code
+            try
+            {
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                await UserManager.SendEmailAsync(user.Id, EmailService.getEmailVerifySubject(), EmailService.getEmailVerifyBody(user.Id, code));
+            } catch (Exception ex) {
+                Console.Write(ex);
+            }            
 
             return Ok();
         }

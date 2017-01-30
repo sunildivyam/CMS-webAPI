@@ -21,13 +21,14 @@ namespace CMS_webAPI.Controllers
         {
             return BadRequest();
         }
-        // GET: api/Categories
+        // GET: api/Categories        
         public IQueryable<Category> GetCategories()
         {
             return db.Categories;
         }
 
         // GET: api/Categories/5
+        
         [ResponseType(typeof(Category))]
         public async Task<IHttpActionResult> GetCategory(int param1)
         {
@@ -42,6 +43,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // GET: api/categories/GetCategoryByName/category-name
+        
         [ResponseType(typeof(Category))]
         public async Task<IHttpActionResult> GetCategoryByName(string param1)
         {
@@ -57,6 +59,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // PUT: api/Categories/5
+        [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutCategory(int param1, Category category)
         {
@@ -95,6 +98,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // POST: api/Categories
+        [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(Category))]
         public async Task<IHttpActionResult> PostCategory(Category category)
         {
@@ -116,6 +120,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // DELETE: api/Categories/5
+        [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(Category))]
         public async Task<IHttpActionResult> DeleteCategory(int param1)
         {

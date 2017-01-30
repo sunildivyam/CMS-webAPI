@@ -13,6 +13,7 @@ using CMS_webAPI.Models;
 
 namespace CMS_webAPI.Controllers
 {
+    [Authorize(Roles = "Administrators, Authors")]
     public class AuthorContentTagsController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();

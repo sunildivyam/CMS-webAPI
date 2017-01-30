@@ -27,6 +27,8 @@ namespace CMS_webAPI.Models
 
     public class UserInfoViewModel
     {
+        public string UserName { get; set; }
+
         public string Email { get; set; }
 
         public bool HasRegistered { get; set; }
@@ -38,6 +40,8 @@ namespace CMS_webAPI.Models
         public string LastName { get; set; }
 
         public string Phone { get; set; }
+
+        public IList<string> Roles { get; set; }
     }
 
     public class UserLoginInfoViewModel

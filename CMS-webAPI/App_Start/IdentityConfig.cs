@@ -34,11 +34,20 @@ namespace CMS_webAPI
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
+
+            manager.RegisterTwoFactorProvider("EmailCode", new EmailTokenProvider<ApplicationUser>
+            {
+                Subject = "CMS App | Security Code",
+                BodyFormat="Your Security Code is"
+            });
+            manager.EmailService = new EmailService();
+
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
                 manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+
             return manager;
         }
     }

@@ -22,13 +22,13 @@ namespace CMS_webAPI.Controllers
             return BadRequest();
         }
 
-        // GET: api/Tags
+        // GET: api/Tags        
         public IQueryable<Tag> GetTags()
         {
             return db.Tags;
         }
 
-        // GET: api/Tags/5
+        // GET: api/Tags/5        
         [ResponseType(typeof(Tag))]
         public async Task<IHttpActionResult> GetTag(int param1)
         {
@@ -44,6 +44,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // PUT: api/Tags/5
+        [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(Tag))]
         public async Task<IHttpActionResult> PutTag(int param1, Tag tag)
         {
@@ -81,6 +82,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // POST: api/Tags
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(Tag))]
         public async Task<IHttpActionResult> PostTag(Tag tag)
         {
@@ -96,6 +98,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // DELETE: api/Tags/5
+        [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(Tag))]
         public async Task<IHttpActionResult> DeleteTag(int param1)
         {

@@ -23,12 +23,14 @@ namespace CMS_webAPI.Controllers
         }
 
         // GET: api/ContentTags
+        [Authorize(Roles = "Readers")]
         public IQueryable<ContentTag> GetContentTags()
         {
             return db.ContentTags;
         }
 
         // GET: api/ContentTags/5
+        [Authorize(Roles = "Readers")]
         [ResponseType(typeof(ContentTag))]
         public async Task<IHttpActionResult> GetContentTag(int param1)
         {
@@ -44,6 +46,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // PUT: api/ContentTags/5
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutContentTag(int param1, ContentTag contentTag)
         {
@@ -81,6 +84,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // POST: api/ContentTags
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(ContentTag))]
         public async Task<IHttpActionResult> PostContentTag(ContentTag contentTag)
         {
@@ -96,6 +100,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // DELETE: api/ContentTags/5
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(ContentTag))]
         public async Task<IHttpActionResult> DeleteContentTag(int param1)
         {

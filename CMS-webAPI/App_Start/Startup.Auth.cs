@@ -38,7 +38,7 @@ namespace CMS_webAPI
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),       // expire in one day
                 AllowInsecureHttp = true
             };
 
@@ -64,5 +64,63 @@ namespace CMS_webAPI
             //    ClientSecret = ""
             //});
         }
+
+        private void createRolesandUsers()
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+
+            // In Startup iam creating first Admin Role and creating a default Admin User    
+            string defaultAdminRole = UserService.GetDefaultAdminRole();
+
+            if (!roleManager.RoleExists(defaultAdminRole))
+            {
+
+                // first we create Admin rool   
+                var role = new IdentityRole();
+                role.Name = defaultAdminRole;
+                roleManager.Create(role);                
+            }
+
+            //Here we create a Admin super user who will maintain the website                  
+            RegisterBindingModel adminUser = UserService.GetDefaultUser();
+            var chkAdminUser = context.Users.FirstOrDefault(u => u.Email == adminUser.Email);
+
+            if (chkAdminUser == null)
+            {
+                var user = new ApplicationUser();
+                user.UserName = "admin";
+                user.FirstName = adminUser.FirstName;
+                user.LastName = adminUser.LastName;
+                user.Email = adminUser.Email;
+                var chkUser = UserManager.Create(user, adminUser.Password);
+
+                //Add default User to Role Admin   
+                if (chkUser.Succeeded)
+                {
+                    var result1 = UserManager.AddToRole(user.Id, defaultAdminRole);
+                    UserManager.SetLockoutEnabled(user.Id, false);
+                }
+            }
+
+            // creating Creating Readers role    
+            if (!roleManager.RoleExists(UserService.GetDefaultRole()))
+            {
+                var role = new IdentityRole();
+                role.Name = UserService.GetDefaultRole();
+                roleManager.Create(role);
+            }       
+            
+            // creating Creating Authors role    
+            if (!roleManager.RoleExists(UserService.GetAuthorRole()))
+            {
+                var role = new IdentityRole();
+                role.Name = UserService.GetAuthorRole();
+                roleManager.Create(role);
+            }       
+        } 
     }
 }

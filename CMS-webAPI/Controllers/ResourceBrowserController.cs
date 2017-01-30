@@ -32,6 +32,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // GET: api/ResourceBrowser/GetContentResource/5?name="file.ext"
+        [Authorize(Roles = "Readers")]
         [ResponseType(typeof(ContentResource))]
         public async Task<HttpResponseMessage> GetContentResource(int param1, string name, bool? thumbnail)
         {
@@ -98,6 +99,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // GET: api/ResourceBrowser/GetContentResourcesByCategory/5"
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(List<ContentResourceViewModel>))]
         public async Task<IHttpActionResult> GetContentResourcesByCategory(int param1)
         {
@@ -131,7 +133,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // POST: api/ResourceBrowser
-
+        [Authorize(Roles = "Administrators, Authors")]
         public async Task<HttpResponseMessage> PostContentResource(string param1)
         {
             var categoryName = param1;
@@ -196,6 +198,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // DELETE: api/ResourceBrowser/5
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(ContentResource))]
         public async Task<IHttpActionResult> DeleteContentResource(int param1, string name)
         {
