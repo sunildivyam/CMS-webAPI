@@ -413,5 +413,30 @@
             "sortDirAsc": true,
             "viewMode": "inline"
         }
-    }
+    },
+    "profileActions": [
+        {
+            "id": "myProfile",
+            "title": "My Profile",
+            "iconClass": "glyphicon-list",
+            "templateUrl": "account/profile.html"
+        },
+        {
+            "id": "changePassword",
+            "title": "Change Password",
+            "iconClass": "glyphicon-th-list",
+            "templateUrl": "account/change-password.html"
+        },
+        {
+            "id": "resetPassword",
+            "title": "Reset Password",
+            "iconClass": "glyphicon-th",
+            "templateUrl": "account/reset-password.html"
+        },
+        {
+            "id": "myDashboard",
+            "title": "My Dashboard",
+            "iconClass": "glyphicon-th"
+        }
+     ]
 }

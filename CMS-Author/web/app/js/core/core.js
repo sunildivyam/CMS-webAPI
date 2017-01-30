@@ -71,7 +71,32 @@
             name: 'author.profile',
             url: '/account/profile',
             templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('account/profile-landing.html');
+            }],
+            controller: 'profileController',
+            isAnonymous: false
+        })
+        .state({
+            name: 'author.profile.myprofile',
+            url: '/myprofile',
+            templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('account/profile.html');
+            }],
+            isAnonymous: false
+        })
+        .state({
+            name: 'author.profile.changepassword',
+            url: '/changepassword',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('account/change-password.html');
+            }],
+            isAnonymous: false
+        })
+        .state({
+            name: 'author.profile.resetpassword',
+            url: '/resetpassword',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('account/reset-password.html');
             }],
             isAnonymous: false
         })

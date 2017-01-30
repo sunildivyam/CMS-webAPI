@@ -12,8 +12,11 @@
 		var urls = {
 			register: baseApiUrl + '/register',
 			login: appService.getApiServerUrl() + '/token',
-			logout: baseApiUrl + '/logout'
+			logout: baseApiUrl + '/logout',
+			changePassword: baseApiUrl + '/changePassword',
+			getUserInfo: baseApiUrl + '/UserInfo'
 		};
+
 
 		init();
 
@@ -112,13 +115,36 @@
 			return loggedInUser && loggedInUser.token;
 		}
 
+		function changePassword(changePasswordModel) {
+			return $http({
+				method: 'post',
+				url: urls.changePassword,
+				data: changePasswordModel,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
+		function getUserInfo() {
+			return $http({
+				method: 'get',
+				url: urls.getUserInfo,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
 		return {
 			register: register,
 			login: login,
 			logout: logout,
 			getLoggedInUser: getLoggedInUser,
 			isAnonymous: isAnonymous,
-			getToken: getToken
+			getToken: getToken,
+			changePassword: changePassword,
+			getUserInfo: getUserInfo
 		};
 	};
 

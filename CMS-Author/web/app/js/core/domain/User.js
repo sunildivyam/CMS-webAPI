@@ -22,7 +22,8 @@
                 this.expiry = raw.expires_in;
                 this.issuedDate = raw['.issued'];
                 this.expiryDate = raw['.expires'];
-                this.loginProvider = raw.loginProvider;
+                this.loginProvider = raw.LoginProvider;
+                this.roles = raw.Roles;
             }
         }
 

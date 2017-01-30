@@ -1,1 +1,65 @@
-<h1>User Profile </h1>
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-tasks"></i>My profile</h3>
+  </div>
+  <div class="panel-body">
+    <form name="profile-update" class="" role="form">
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i>Email Id</span>
+          <input ng-model="myProfile.email" type="text" class="form-control" name="email" id="email"  placeholder="Email Id" required="" ng-disabled="true"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i>User name</span>
+          <input ng-model="myProfile.userName" type="text" class="form-control" name="username" id="username"  placeholder="User Name" required="" ng-disabled="true"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i>First Name</span>
+          <input ng-model="myProfile.firstName" type="text" class="form-control" name="firstname" id="firstname"  placeholder="First Name" required="" ng-disabled="true"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i>Last Name</span>
+          <input ng-model="myProfile.lastName" type="text" class="form-control" name="lastname" id="lastname"  placeholder="Last Name" required="" ng-disabled="true"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-phone fa-lg" aria-hidden="true"></i>Phone</span>
+          <input ng-model="myProfile.phone" type="text" class="form-control" name="phone" id="phone"  placeholder="Phone" required="" ng-disabled="true"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i>Your Access Type</span>
+          <input value = "{{myProfile.roles.join(', ')}}" type="text" class="form-control" name="roles" id="roles"  placeholder="You currently have no access" required="" ng-disabled="true"/>
+        </div>
+      </div>
+
+      <div class="well">
+        <span class="text-success">Do you want to write and publish your own Articles/contents? You need to request for "Author" access.</span>
+
+        <button id="request-author-btn" name="requestauthoraccess" class="btn btn-success" ng-click="requestAuthorAccessClick($event)">Request Author Access</button>
+      </div>
+
+      <!-- Buttons -->
+      <div class="form-group">
+        <label class="control-label result-label"></label>
+        <div class="">
+          <button id="update-profile-btn" name="updateProfile" class="btn btn-primary" ng-click="updateProfileClick($event)" ng-disabled="true">Update Profile</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <loader data-is-loading="isUserInfoLoading"></loader>
+</div>

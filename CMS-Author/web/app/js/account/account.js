@@ -22,6 +22,7 @@
 	angular.module('raiweb.account')
 	.factory('accountService', require('./services/accountService'))
 	.controller('accountController', require('./controllers/accountController'))
+	.controller('profileController', require('./controllers/profileController'))
 	.directive('passwordCompare', require('./directives/passwordCompare'))
 	.directive('loginStatusBar', require('./directives/loginStatusBar'));
 
