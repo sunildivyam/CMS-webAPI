@@ -323,13 +323,36 @@ namespace CMS_webAPI.Controllers
             return logins;
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("VerifyEmail")]
+        public async Task<IHttpActionResult> VerifyEmail(string id, string code)
+        {
+            string userId = id;
+            string emailCode = code;
+
+            var result = await UserManager.ConfirmEmailAsync(userId, emailCode);
+
+            if (!result.Succeeded)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("ResendEmailVarificationCode")]
-        public async Task<IHttpActionResult> ResendEmailVerificationCode(string userName)
+        [Route("ResendVerifyEmail")]
+        public async Task<IHttpActionResult> ResendVerifyEmail(string id)
         {
-            ApplicationUser user = await UserManager.FindByNameAsync(userName);
+            ApplicationUser user = await UserManager.FindByEmailAsync(id);
+            if (user == null)
+            {
+                user = await UserManager.FindByNameAsync(id);
+            }            
 
             if (user == null) {
                 return NotFound();
@@ -342,8 +365,7 @@ namespace CMS_webAPI.Controllers
             }
             catch(Exception ex)
             {
-                Console.Write(ex);
-                return InternalServerError();
+                return InternalServerError(ex);
             }
                 
             return Ok();
@@ -376,7 +398,7 @@ namespace CMS_webAPI.Controllers
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                 await UserManager.SendEmailAsync(user.Id, EmailService.getEmailVerifySubject(), EmailService.getEmailVerifyBody(user.Id, code));
             } catch (Exception ex) {
-                Console.Write(ex);
+                Ok(new { code = "email_not_sent", message = ex });
             }            
 
             return Ok();

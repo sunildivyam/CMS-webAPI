@@ -96,15 +96,16 @@ namespace CMS_webAPI
                 user.FirstName = adminUser.FirstName;
                 user.LastName = adminUser.LastName;
                 user.Email = adminUser.Email;
+                user.EmailConfirmed = true;
+                user.LockoutEnabled = false;
                 var chkUser = UserManager.Create(user, adminUser.Password);
-
+                
                 //Add default User to Role Admin   
                 if (chkUser.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, defaultAdminRole);
-                    UserManager.SetLockoutEnabled(user.Id, false);
+                    UserManager.AddToRole(user.Id, defaultAdminRole);
                 }
-            }
+            }            
 
             // creating Creating Readers role    
             if (!roleManager.RoleExists(UserService.GetDefaultRole()))

@@ -31,7 +31,16 @@ namespace CMS_webAPI.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            ApplicationUser user = await userManager.FindByEmailAsync(context.UserName);
+            if (user != null)
+            {
+                user = await userManager.FindAsync(user.UserName, context.Password);
+            }
+            else
+            {
+                user = await userManager.FindAsync(context.UserName, context.Password);
+            }
+           
 
             if (user == null)
             {
@@ -39,11 +48,15 @@ namespace CMS_webAPI.Providers
                 return;
             }
 
-            var result = userManager.IsEmailConfirmedAsync(user.Id);
-            
-            if (!result.Result) {
-                context.SetError("email_not_verified", "Your registered Email is not verified.");
-                return;
+            if (user.Email != UserService.GetDefaultUser().Email)
+            {
+                var result = userManager.IsEmailConfirmedAsync(user.Id);
+
+                if (!result.Result)
+                {
+                    context.SetError("email_not_verified", "Your registered Email is not verified.");
+                    return;
+                }
             }
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
