@@ -40,6 +40,24 @@
             isAnonymous: true
         })
         .state({
+            name: 'verifyemail',
+            url: '/account/verifyemail?id&code',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('account/verify-email.html');
+            }],
+            controller: 'accountController',
+            isAnonymous: true
+        })
+        .state({
+            name: 'resendverifyemail',
+            url: '/account/resendverifyemail?id',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('account/resend-verify-email.html');
+            }],
+            controller: 'accountController',
+            isAnonymous: true
+        })
+        .state({
             name: 'logout',
             url: '/account/logout',
             templateProvider: ['$templateCache', function($templateCache) {

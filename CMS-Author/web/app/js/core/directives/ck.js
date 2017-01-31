@@ -4,8 +4,6 @@
         return {
             require: '?ngModel',
             link: function(scope, elm, attr, ngModel) {
-                var ckStatus = false;
-
                 $timeout(function() {
                     if (!ngModel) return;
 

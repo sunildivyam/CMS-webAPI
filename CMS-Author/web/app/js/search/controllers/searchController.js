@@ -11,17 +11,17 @@
         $scope.maxPageSize = 10; // page numbers to be displayed on page Bar
         $scope.dlSearch = {};
 
-        function setMetaInfo(searchNav) {
-            if (searchNav instanceof Object) {
-                metaInformationService.setMetaDescription(searchNav.description);
-                metaInformationService.setMetaKeywords(searchNav.keywords);
-                pageTitleService.setPageTitle(searchNav.title);
-            } else {
-                metaInformationService.resetMetaDescription();
-                metaInformationService.resetMetaKeywords();
-                pageTitleService.setPageTitle();
-            }
-        }
+        // function setMetaInfo(searchNav) {
+        //     if (searchNav instanceof Object) {
+        //         metaInformationService.setMetaDescription(searchNav.description);
+        //         metaInformationService.setMetaKeywords(searchNav.keywords);
+        //         pageTitleService.setPageTitle(searchNav.title);
+        //     } else {
+        //         metaInformationService.resetMetaDescription();
+        //         metaInformationService.resetMetaKeywords();
+        //         pageTitleService.setPageTitle();
+        //     }
+        // }
 
         function  initSearchListWithResults(searchResults) {
             if(searchResults instanceof Object) {

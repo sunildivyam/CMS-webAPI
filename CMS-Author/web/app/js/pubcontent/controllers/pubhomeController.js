@@ -57,21 +57,21 @@
                             dlCategoryContent.footerLinkUrl = [dlCategoryContent.footerLinkUrl, category && category.name].join('/');
                             dlCategoryContent.tags = pubcontentService.getUniqueTagsOfContents(contents);
                         } else {
-                            resetContentList();
+                            resetContentList(dlCategoryContent);
                         }
                         dlCategoryContent.isLoading = false;
                     }, function() {
-                        resetContentList();
+                        resetContentList(dlCategoryContent);
                     });
                 });
+            }
 
-                function resetContentList() {
-                    dlCategoryContent.items = new EntityMapper(Content).toEntities([]);
-                    dlCategoryContent.headerRightLabel = '0 articles';
-                    dlCategoryContent.pagingTotalItems = 0;
-                    dlCategoryContent.tags = [];
-                    dlCategoryContent.isLoading = false;
-                }
+            function resetContentList(dlCategoryContent) {
+                dlCategoryContent.items = new EntityMapper(Content).toEntities([]);
+                dlCategoryContent.headerRightLabel = '0 articles';
+                dlCategoryContent.pagingTotalItems = 0;
+                dlCategoryContent.tags = [];
+                dlCategoryContent.isLoading = false;
             }
         }
 
@@ -94,7 +94,7 @@
         }
 
         $scope.onGlobalSearch = function(event, category, keywords) {
-            var categoryName = 'All'
+            var categoryName = 'All';
             if (category && category.name) {
                 categoryName = category.name;
             }
@@ -111,6 +111,7 @@
         };
 
         $scope.onListsRefresh = function(event) {
+            event.preventDefault();
             $scope.refreshIsotopeLayout();
         };
 

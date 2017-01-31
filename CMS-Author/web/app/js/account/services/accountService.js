@@ -14,7 +14,9 @@
 			login: appService.getApiServerUrl() + '/token',
 			logout: baseApiUrl + '/logout',
 			changePassword: baseApiUrl + '/changePassword',
-			getUserInfo: baseApiUrl + '/UserInfo'
+			getUserInfo: baseApiUrl + '/UserInfo',
+			verifyEmail: baseApiUrl + '/VerifyEmail',
+			resendVerifyEmail: baseApiUrl + '/ResendVerifyEmail'
 		};
 
 
@@ -136,6 +138,28 @@
 			});
 		}
 
+		function verifyEmail(userName, code) {
+			var url = urls.verifyEmail + '?id=' + userName + '&code=' + code;
+			return $http({
+				method: 'get',
+				url: url,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
+		function resendVerifyEmail(userName) {
+			var url = urls.resendVerifyEmail + '?id=' + userName;
+			return $http({
+				method: 'get',
+				url: url,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
 		return {
 			register: register,
 			login: login,
@@ -144,7 +168,9 @@
 			isAnonymous: isAnonymous,
 			getToken: getToken,
 			changePassword: changePassword,
-			getUserInfo: getUserInfo
+			getUserInfo: getUserInfo,
+			verifyEmail: verifyEmail,
+			resendVerifyEmail: resendVerifyEmail
 		};
 	};
 

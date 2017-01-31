@@ -31,13 +31,13 @@
 						event.preventDefault();
 						$scope.onSelect(event, item);
 					}
-				}
+				};
 
 				$scope.$watch('selectedItemName', function(newValue) {
 					setTitleStr(newValue);
 				});
 
-				$scope.$watch('items', function(newValue) {
+				$scope.$watch('items', function() {
 					setTitleStr($scope.selectedItemName);
 				});
 

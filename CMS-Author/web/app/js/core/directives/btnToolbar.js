@@ -27,7 +27,7 @@
 				btnSizeClass: '@'
 			},
 			templateUrl: 'core/btn-toolbar.html',
-			link: function($scope, element) {
+			link: function($scope) {
 				$scope.onButtonClick = function(event, btn) {
 					if (typeof $scope.onSelect === 'function') {
 						$scope.onSelect(event, btn);

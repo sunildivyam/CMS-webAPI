@@ -8,7 +8,7 @@
 */
 
 (function() {
-	var resourcebrowserService = function(appService, EntityMapper, ContentResource) {
+	var resourcebrowserService = function(appService) {
 		var urls = {
 			'resourcebrowser': {
 				base: 'resourcebrowser',
@@ -79,6 +79,6 @@
 			getResourcePubUrl: getResourcePubUrl
 		};
 	};
-	resourcebrowserService.$inject = ['appService', 'EntityMapper', 'ContentResource'];
+	resourcebrowserService.$inject = ['appService'];
 	module.exports = resourcebrowserService;
 })();

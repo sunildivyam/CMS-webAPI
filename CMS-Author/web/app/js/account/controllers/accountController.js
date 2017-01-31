@@ -3,10 +3,10 @@
 * @ngdoc controller
 * @name raiweb.account.controller:accountController
 * @description
-*	The account controller provides the scope methods for following:
-*	1) Registering User
-*	2) Loging User
-*	3) For other user account specific operations, methods will be added.
+*   The account controller provides the scope methods for following:
+*   1) Registering User
+*   2) Loging User
+*   3) For other user account specific operations, methods will be added.
 * @requires $rootScope
 * @requires $scope
 * @requires $state
@@ -14,50 +14,127 @@
 */
 
 (function() {
-	var accountController = function($rootScope, $scope, $state, appService, accountService, User, modalService) {
-		$scope.newUser = new User();
-		$scope.loginInfo = {};
+    var accountController = function($rootScope, $scope, $state, appService, accountService, User, modalService) {
+        $scope.newUser = new User();
+        $scope.loginInfo = {};
 
-		$scope.retry = function() {
-			$scope.success = false;
-		};
+        $scope.retry = function() {
+            $scope.success = false;
+        };
 
-		$scope.registerSubmit = function() {
-			accountService.register($scope.newUser).then(function() {
-				$scope.newUser = new User();
-				var successModal = modalService.alert('md',
-					'Thanks for joining us.',
-					'You have been successfully registered with us. Please click "Sign in" to login with your credentials.',
-					'Sign In');
-				successModal.result.then(function() {
-					$state.go('login');
-				});
-			}, function(rejection){
-				modalService.alert('md',
-					'Registeration Failed',
-					'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
-					'Try again');
-			});
-		};
+        $scope.registerSubmit = function() {
+            accountService.register($scope.newUser).then(function(response) {
+                var userName = $scope.newUser.Email;
+                $scope.newUser = new User();
+                if (response && response.data && response.data.code === 'email_not_sent') {
+                    var emailSendFailed = modalService.alert('md',
+                        'Thanks for joining us.',
+                        'You have been successfully registered with us. But Confirmation Mail sending failed. </br>Please Re-send Confirmation Email.',
+                        'Re-send Confirmation Email');
+                    emailSendFailed.result.then(function() {
+                        $state.go('resendverifyemail', {
+                            id : userName
+                        });
+                    }, function() {
+                        $state.go('resendverifyemail', {
+                            id : userName
+                        });
+                    });
+                } else {
+                    var successModal = modalService.alert('md',
+                        'Thanks for joining us.',
+                        'You have been successfully registered with us. Please go to your mail inbox and verify your Email. Then Sign In.',
+                        'Sign In');
+                    successModal.result.then(function() {
+                        $state.go('login');
+                    });
+                }
+            }, function(rejection){
+                modalService.alert('md',
+                    'Registeration Failed',
+                    'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+                    'Try again');
+            });
+        };
 
-		$scope.loginSubmit = function() {
-			$scope.isSigningIn = true;
-			accountService.login($scope.loginInfo).then(function() {
-				$rootScope.currentUser = accountService.getLoggedInUser();
-				$scope.isSigningIn = false;
-				modalService.alert('sm', 'Login Successful', 'You are successfully logged in.', 'View Dashboard');
-				$state.go('author.dashboard');
-			}, function(rejection){
-				$rootScope.currentUser = accountService.getLoggedInUser();
-				$scope.isSigningIn = false;
-				modalService.alert('sm',
-					'Login Failed',
-					rejection && rejection.data && rejection.data.error_description,
-					'Try again');
-			});
-		};
-	};
+        $scope.loginSubmit = function() {
+            $scope.isSigningIn = true;
+            accountService.login($scope.loginInfo).then(function() {
+                $rootScope.currentUser = accountService.getLoggedInUser();
+                $scope.isSigningIn = false;
+                modalService.alert('sm', 'Login Successful', 'You are successfully logged in.', 'View Dashboard');
+                $state.go('author.dashboard');
+            }, function(rejection){
+                $rootScope.currentUser = accountService.getLoggedInUser();
+                $scope.isSigningIn = false;
 
-	accountController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'modalService'];
-	module.exports = accountController;
+                if (rejection && rejection.data && rejection.data.error === 'email_not_verified') {
+                    modalService.alert('sm',
+                    'Login Failed',
+                    rejection && rejection.data && rejection.data.error_description +
+                    "</br> Please Go to your mail Inbox and verify your email by clicking the link there" +
+                    "</br> Or Resend the Verification Code to your registered Email Id",
+                    'Resend Code')
+                    .result.then(function() {
+                        $state.go('resendverifyemail', {
+                            id : $scope.loginInfo.userName
+                        });
+                    }, function() {
+                        $state.go('resendverifyemail', {
+                            id : $scope.loginInfo.userName
+                        });
+                    });
+                } else {
+                    modalService.alert('sm',
+                    'Login Failed',
+                    rejection && rejection.data && rejection.data.error_description,
+                    'Try again');
+                }
+            });
+        };
+
+        $scope.resendVerifyEmail = function() {
+            $scope.isSendingEmail = true;
+            accountService.resendVerifyEmail($scope.userName).then(function() {
+                modalService.alert('md',
+                        'Confirmation E-mail Sent',
+                        'Confirmation E-mail has been sent successfully to your registered E-mail. Please click verify link from there.',
+                        'Ok');
+                $scope.isSendingEmail = false;
+            }, function() {
+                modalService.alert('md',
+                        'Confirmation E-mail Sending Failed',
+                        'Confirmation E-mail Sending Failed due to some unknown reason. Please try again.',
+                        'try again');
+                $scope.isSendingEmail = false;
+            });
+        };
+
+        function verifyEmail(userName, code) {
+            $scope.isVerifying = true;
+            accountService.verifyEmail(userName, code).then(function() {
+                $scope.isVerified = true;
+                $scope.isVerifying = false;
+            }, function() {
+                $scope.isVerified = false;
+                $scope.isVerifying = false;
+            });
+        }
+
+        $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
+            if (toState && toState.name === 'verifyemail') {
+                var userName = toParams && toParams.id;
+                var code = toParams && toParams.code;
+                verifyEmail(userName, code);
+            }
+
+            if (toState && toState.name === 'resendverifyemail') {
+                $scope.userName = toParams && toParams.id;
+
+            }
+        });
+    };
+
+    accountController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'modalService'];
+    module.exports = accountController;
 })();

@@ -17,7 +17,9 @@
         "$": "jQuery",
         "$stateProviderRef": "$stateProviderRef",
         "CKEDITOR": "CKEDITOR",
-        "Isotope": "Isotope"
+        "Isotope": "Isotope",
+        "MathJax": "MathJax",
+        "hljs": "hljs"
     },
     "extends": "defaults"
 }

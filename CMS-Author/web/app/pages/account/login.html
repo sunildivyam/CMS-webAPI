@@ -16,15 +16,17 @@
 				 <form class="form" role="form" method="post" action="#" name="loginForm">
 						<div class="form-group">
 							 <label class="sr-only" for="UserName">Email address</label>
-							 <input ng-model="loginInfo.userName" type="email" class="form-control" id="UserName" placeholder="Email address" required>
+							 <input ng-model="loginInfo.userName" type="email" class="form-control" id="UserName" name="userName" placeholder="Email/User name" required>
+							 <p ng-show="loginForm.userName.$invalid && !loginForm.userName.$pristine && loginForm.userName.$error.required" class="help-block">User Name/Email is required.</p>
 						</div>
 						<div class="form-group">
 							 <label class="sr-only" for="password">Password</label>
-							 <input ng-model="loginInfo.password" type="password" class="form-control" id="password" placeholder="Password" required>
+							 <input ng-model="loginInfo.password" type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+							 <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine && loginForm.password.$error.required" class="help-block">Password is required.</p>
 	                         <div class="help-block text-right"><a href="">Forget the password ?</a></div>
 						</div>
 						<div class="form-group">
-							 <button type="button" class="btn btn-primary btn-block" ng-click="loginSubmit($event)">Sign in</button>
+							 <button ng-disabled="loginForm.$invalid || !loginForm.$dirty" type="button" class="btn btn-primary btn-block" ng-click="loginSubmit($event)">Sign in</button>
 						</div>
 						<div class="checkbox">
 							 <label>

@@ -22,6 +22,7 @@
 		}
 
 		$scope.changePasswordClick = function(event) {
+			event.preventDefault();
 			$scope.isChangingPassword = true;
 			accountService.changePassword($scope.changePasswordModel).then(function() {
 				$scope.isChangingPassword = false;
