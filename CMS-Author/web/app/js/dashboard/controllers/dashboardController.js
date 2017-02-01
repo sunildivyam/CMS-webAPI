@@ -142,8 +142,7 @@
             }
         };
 
-        $scope.onListsRefresh = function(event) {
-            event.preventDefault();
+        $scope.onListsRefresh = function() {
             $scope.refreshIsotopeLayout();
         };
 
