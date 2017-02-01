@@ -32,7 +32,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // GET: api/ResourceBrowser/GetContentResource/5?name="file.ext"
-        [Authorize(Roles = "Readers")]
+        
         [ResponseType(typeof(ContentResource))]
         public async Task<HttpResponseMessage> GetContentResource(int param1, string name, bool? thumbnail)
         {
