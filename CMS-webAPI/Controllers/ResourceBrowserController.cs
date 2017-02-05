@@ -198,7 +198,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // DELETE: api/ResourceBrowser/5
-        [Authorize(Roles = "Administrators, Authors")]
+        [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(ContentResource))]
         public async Task<IHttpActionResult> DeleteContentResource(int param1, string name)
         {

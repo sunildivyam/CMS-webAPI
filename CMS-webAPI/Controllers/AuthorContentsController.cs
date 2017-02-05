@@ -261,6 +261,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // DELETE: api/AuthorContents/5
+        [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(AuthorContent))]
         public async Task<IHttpActionResult> DeleteAuthorContent(int param1)
         {
@@ -269,11 +270,12 @@ namespace CMS_webAPI.Controllers
             {
                 return NotFound();
             }
+            return Unauthorized();
 
-            db.AuthorContents.Remove(authorContent);
-            await db.SaveChangesAsync();
+            ////db.AuthorContents.Remove(authorContent);
+            ////await db.SaveChangesAsync();
 
-            return Ok(authorContent);
+            ////return Ok(authorContent);
         }
 
         protected override void Dispose(bool disposing)
