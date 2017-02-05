@@ -8,7 +8,7 @@
 */
 
 (function() {
-	var Utils = function(appService, $q) {
+	var Utils = function(appService, $q, metaInformationService, pageTitleService) {
 		var requestHeaders = {
 			'Content-Type': 'application/json'
 		};
@@ -125,6 +125,12 @@
 			return angular.copy(listConfig && listConfig.pubContentListTypes);
 		}
 
+		function setMetaInfo(pageTitle, description, keywords) {
+			metaInformationService.setMetaDescription(description);
+			metaInformationService.setMetaKeywords(keywords);
+			pageTitleService.setPageTitle(pageTitle);
+        }
+
 		return {
 			parseStringExt: parseStringExt,
 			filterByKeywords: filterByKeywords,
@@ -135,10 +141,11 @@
 			getListConfigs: getListConfigs,
 			getListConfigOf: getListConfigOf,
 			getItemTypeOf: getItemTypeOf,
-			getPubContentListTypes: getPubContentListTypes
+			getPubContentListTypes: getPubContentListTypes,
+			setMetaInfo: setMetaInfo
 		};
 	};
 
-	Utils.$inject = ['appService', '$q'];
+	Utils.$inject = ['appService', '$q', 'metaInformationService', 'pageTitleService'];
 	module.exports = Utils;
 })();

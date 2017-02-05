@@ -19,12 +19,15 @@
         <div class="carousel-inner" role="listbox">
             <div class="item" ng-repeat="slide in slides" ng-class="{active: $index === 0}">
                 <img
-                    ng-if="slide.images && slide.images.slideImage"
-                    ng-src="{{slide.images.slideImage.url}}"
-                    alt="{{slide.images.slideImage.alternateText}}"/>
+                    ng-src="/images/slideimages/{{slide.name}}.png"
+                    alt="{{slide.title}}"/>
                 <div class="carousel-caption">
-                  <h3 ng-bind="slide.name" title="{{slide.title}}"></h3>
-                  <p ng-bind-html="slide.shortDescription"></p>
+                    <h3 ng-bind="slide.title"></h3>
+                    <p ng-bind-html="slide.description"></p>
+                    <a href="{{readMoreUrl}}/{{slide.name}}" class="btn btn-success btn-xs pull-right ng-scope" ng-click="">
+                        <span class="ng-binding">Read more on {{slide.title}}...</span>
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
                 </div>
             </div>
         </div>

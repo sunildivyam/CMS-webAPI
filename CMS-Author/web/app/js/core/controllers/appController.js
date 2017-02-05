@@ -6,12 +6,12 @@
 */
 
 (function() {
-    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService) {
+    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService, Utils) {
         $rootScope.bodyClass = '';
         $rootScope.appLogo = {
-            primaryTitle: 'SAPIENT',
-            highCharIndex: 2,
-            secondaryTitle: 'India'
+            primaryTitle: 'WISDOM',
+            highCharIndex: 3,
+            secondaryTitle: 'Learn Wise Way'
         };
         // sets the currentBreakpoint on page Load.
         setCurrentBreakpoint();
@@ -45,6 +45,12 @@
 
         $rootScope.$on('$stateChangeSuccess', function(event, toState) {
             if (toState && toState.name) {
+                Utils.getListConfigs().then(function(response) {
+                    $rootScope.application = response && response.application;
+                    $rootScope.appLogo = $rootScope.application && $rootScope.application.appLogo;
+                });
+                // Scrolls to Top on State Change
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
                 //Adds Body Class as per currentState
                 $rootScope.bodyClass = toState.name.split('.')[0];
             }
@@ -66,6 +72,6 @@
         });
     };
 
-    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService'];
+    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService', 'Utils'];
     module.exports = appController;
 })();

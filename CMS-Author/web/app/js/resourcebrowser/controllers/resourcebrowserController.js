@@ -42,7 +42,11 @@
             switch(btn.id)
             {
                 case 'select':
-                    CkEditorService.getUrlFromImageBrowser($scope.ckFunctionNumber, resourcebrowserService.getResourcePubUrl($scope.currentResource));
+                    if ($scope.currentResource) {
+                        CkEditorService.getUrlFromImageBrowser($scope.ckFunctionNumber, resourcebrowserService.getResourcePubUrl($scope.currentResource));
+                    } else {
+                        modalService.alert('sm', 'No Resource Selected', 'Please select a resource, then click this Button', 'Ok')
+                    }
                 break;
                 case 'upload':
                     modalService.showUploadResourceModal($scope.onResourceUpload, 'md').result.then(function() {
@@ -52,10 +56,24 @@
                     });
                 break;
                 case 'delete':
-                    console.log('Removed');
+                    console.log('under dev');
+                break;
+                case 'preview':
+                    if ($scope.currentResource) {
+                        modalService.alert('lg',
+                            'Preview',
+                            '<img src="' + resourcebrowserService.getResourcePubUrl($scope.currentResource) + '"></img>',
+                            'Close');
+                    } else {
+                        modalService.alert('sm', 'No Resource Selected', 'Please select a resource, then click this Button', 'Ok')
+                    }
                 break;
                 case 'download':
-                    console.log('Download');
+                    if ($scope.currentResource) {
+                        window.open(resourcebrowserService.getResourcePubUrl($scope.currentResource));
+                    } else {
+                        modalService.alert('sm', 'No Resource Selected', 'Please select a resource, then click this Button', 'Ok')
+                    }
                 break;
             }
 

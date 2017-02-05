@@ -280,7 +280,8 @@
     .directive('fileInput', require('./directives/fileInput'))
     .directive('btnToolbar', require('./directives/btnToolbar'))
     .directive('genericList', require('./directives/genericList'))
-    .directive('tinyScrollbar', require('./directives/tinyScrollbar'));
+    .directive('tinyScrollbar', require('./directives/tinyScrollbar'))
+    .directive('bootstrapCarousel', require('./directives/bootstrapCarousel'));
 
     module.exports = angular.module('raiweb.core');
 })();

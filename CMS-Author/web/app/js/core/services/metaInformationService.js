@@ -9,13 +9,13 @@
 	var metaInformationService = function($rootScope) {
 		var metaKeywords = '';
 		var metaDescription = '';
-		var application = $rootScope && $rootScope.appHeader && $rootScope.appHeader.application || {};
+		var application = $rootScope && $rootScope.application || {};
 		/*
 		*	getMetaKeywords() method returns the Meta Keywords
 		*/
 
 		function getMetaKeywords() {
-			return metaKeywords;
+			return metaKeywords + application.keywords;
 		}
 
 		/*
@@ -23,7 +23,7 @@
 		*/
 
 		function getMetaDescription() {
-			return metaDescription;
+			return metaDescription || application.description;
 		}
 
 		/*
@@ -35,8 +35,16 @@
 		function setMetaKeywords(keywords) {
 			if (typeof keywords === 'string') {
 				metaKeywords = keywords;
-			} else if(keywords instanceof Array) {
-				metaKeywords = keywords.join(',');
+			} else if(keywords instanceof Array && keywords.length) {
+				if (keywords[0] instanceof Object) {
+					var kws = [];
+					keywords.filter(function(item) {
+						kws.push(item.title);
+					});
+					metaKeywords = kws.join(', ');
+				} else {
+					metaKeywords = keywords.join(', ');
+				}
 			} else {
 				metaKeywords = '';
 			}

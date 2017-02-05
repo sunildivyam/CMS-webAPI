@@ -12,6 +12,19 @@
             category: searchService.getDefaultCategory()
         };
 
+        function initMainCarousel(categories) {
+            var mainCr = Utils.getListConfigOf('mainCarousel');
+            var opts = mainCr && mainCr.options;
+            $scope.mainCarousel = {
+                slides: categories || [],
+                options:  opts || {},
+                name: 'mainCarousel',
+                readMoreUrl: '/articles'
+            };
+        }
+
+        initMainCarousel();
+
         function findCategory(categories, categoryName) {
             var foundCategories = [];
 
@@ -144,6 +157,7 @@
                     $scope.iso = undefined;
                     getCategories().then(function() {
                         if (toState.name === 'pub') {
+                            initMainCarousel($scope.categories);
                             getListOfContentsOfAllcategories($scope.categories);
                         }
 
@@ -162,7 +176,7 @@
                             }
                         }
                     }, function() {
-                        //
+                        initMainCarousel();
                     });
                 });
             }

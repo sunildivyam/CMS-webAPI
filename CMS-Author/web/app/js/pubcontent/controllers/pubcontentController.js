@@ -48,6 +48,9 @@
                     var content = new Content(response && response.data);
                     content.description = Utils.decodeContent(content.description);
                     $scope.currentContent = content;
+
+                    // Sets Meta information for Page
+                    Utils.setMetaInfo(content.title, content.shortDescription, content.tags);
                 }, function(rejection) {
                     modalService.alert('md',
                     'No Content found',

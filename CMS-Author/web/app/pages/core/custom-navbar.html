@@ -12,10 +12,15 @@
 			<span class="post-header-icon {{postHeaderIconClassName}}"></span>
 		</div>
 	</div>
-	<div class="navbar-collapse" id="navbar-collapse-{{name}}">
+	<div class="navbar-collapse collapse" id="navbar-collapse-{{name}}">
 		<ul class="nav navbar-nav">
 			<li class="{{selectedItemName===item.name? 'active': ''}}" ng-repeat="item in items">
-				<a href="#" title="{{item.description}}" ui-sref="{{stateName}}({n: '{{item.name}}'})" ng-click="onItemClick($event, item)">
+				<a href="#"
+					title="{{item.title}}"
+					ui-sref="{{stateName}}({n: '{{item.name}}'})"
+					ng-click="onItemClick($event, item)"
+					data-toggle="collapse"
+					data-target="#navbar-collapse-{{name}}.in">
 					<span class="{{itemIconClassNamePre}}"></span>
 					<span ng-bind="item.title" ></span>
 					<span class="{{itemIconClassNamePost}}"></span>

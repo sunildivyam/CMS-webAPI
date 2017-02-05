@@ -47,6 +47,10 @@
 					iconClass: 'glyphicon-ok'
 				},
 				{
+					id: 'preview',
+					iconClass: 'glyphicon-picture'
+				},
+				{
 					id: 'upload',
 					iconClass: 'glyphicon-upload'
 				},

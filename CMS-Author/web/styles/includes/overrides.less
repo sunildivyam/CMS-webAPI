@@ -45,6 +45,11 @@ body {
             .border-radiuses (5px, 0px, 0px, 5px);
         }
 
+        .modal-body {
+            img {
+                max-width: 100%;
+            }
+        }
         .glyphicon {
             top: 0px;
         }
@@ -74,6 +79,89 @@ body {
         .fa {
             margin-right: 5px;
         }
+
+        .carousel {
+            margin-bottom: 15px;
+
+            &.slide {
+                height: 200px;
+            }
+
+            a {
+                cursor: pointer;
+            }
+
+            .carousel-inner {
+                .item{
+                    height: 200px;
+
+                    .carousel-caption {
+                        margin: 0px;
+                        padding: 10px 30px;
+                        top: 0px;
+                        right: 0px;
+                        bottom: 0px;
+                        left: 0px;
+
+                        &>h3 {
+                            margin: 0px;
+                            padding: 10px;
+                        }
+
+                        &>p {
+                            margin: 0px;
+                            padding: 10px;
+                            color: #e2e2e2;
+                        }
+                        &>a {
+                            position: absolute;
+                            bottom: -2px;
+                            right: 40px;
+                        }
+                    }
+                }
+            }
+
+            .carousel-control {
+                width: 30px;
+
+                .glyphicon {
+                    top: 50%;
+                }
+
+                &:hover {
+                    color: #00b7f9;
+                }
+            }
+
+            .carousel-indicators {
+                bottom: 0px;
+
+                li {
+                    width: 20px;
+                    height: 20px;
+
+                    &:hover {
+                        background-color: #00b7f9;
+                    }
+                }
+            }
+        }
+
+        .app-footer {
+            .section-categories, .section-social {
+                ul {
+                    list-style: none;
+
+                    li {
+                        padding: 2px;
+                        text-align: center;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+                    }
+                }
+            }
+        }
+
     }
 }
 

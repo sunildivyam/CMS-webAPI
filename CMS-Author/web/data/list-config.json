@@ -438,5 +438,25 @@
             "title": "My Dashboard",
             "iconClass": "glyphicon-th"
         }
-     ]
+     ],
+     "mainCarousel": {
+        "options": {
+            "ride": "carousel",
+            "pause": "hover",
+            "wrap": true,
+            "interval": 4000,
+            "theme": "default"
+        }
+    },
+    "application": {
+        "title": "Home",
+        "shortTitle": "WisdomK",
+        "description": "This is an Articles base for educational and academic studies",
+        "keywords": "articles, maths, science, chemistry",
+        "appLogo": {
+            "primaryTitle": "WISDOMK",
+            "highCharIndex": 2,
+            "secondaryTitle": "Learn Wise Way"
+        }
+    }
 }

@@ -6,6 +6,9 @@
 @default-text-color: rgba(0, 0, 0, 1);
 @default-hover-text-color: rgba(255, 255, 255, 1);
 
+@default-border-color: rgba(255, 255, 255, 0.2);
+
+
 // Mixins
 .default-grad(@opacity: 0.7) {
 	.gradient(rgba(178, 227, 255, @opacity), rgba(91, 195, 255, @opacity));
@@ -167,6 +170,13 @@ body.theme-default {
 
 				&.hover, &:hover {
 					color: @default-text-color;
+				}
+			}
+
+			.navbar-toggle {
+				.icon-bar {
+					height: 5px;
+					.default-orange-grad(1);
 				}
 			}
 		}
@@ -362,4 +372,84 @@ body.theme-default {
 			border: 1px solid lightgrey;
 		}
 	}
+
+	.carousel {
+        .carousel-inner {
+            .item {
+            	.default-black-grad(0.8);
+
+                .carousel-caption {
+                    h3 {
+                    	.default-grad(0.3);
+                    }
+
+                    p {
+                    	.default-grad(0.2);
+                    }
+                }
+            }
+        }
+
+        .carousel-control {
+
+        }
+
+        .carousel-indicators {
+
+            li {
+
+                &:hover {
+
+                }
+            }
+        }
+    }
+
+    .app-footer {
+    	padding: 10px;
+    	color: @default-hover-text-color;
+    	background: rgba(0, 0, 0, 0.9);
+
+        .section-categories {
+            ul {
+            	text-align: center;
+
+                li {
+                	display: inline-block;
+                	padding: 0px;
+                	border: none;
+                	border-right: 1px solid @default-border-color;
+
+                	a {
+                		padding: 4px 10px;
+                		text-decoration: none;
+                	}
+
+                	&:hover {
+                		a {
+                			text-decoration: none;
+                			.default-grad(0.2);
+                			color: @default-hover-text-color;
+                			.border-radius(3px);
+                		}
+                	}
+                }
+            }
+        }
+
+        .section-social {
+        	ul {
+        		li {
+        			display: inline-block;
+                	padding: 0px;
+                	border: none;
+                	border-right: 1px solid @default-border-color;
+        		}
+        	}
+        }
+        .section-copyright {
+        	text-align: right;
+        	font-size: 10px;
+        }
+    }
 }

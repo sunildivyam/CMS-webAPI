@@ -42,6 +42,19 @@
 			</custom-navbar>
 		</div>
 	</div>
+
+	<div class="row" ng-if="$state.$current.name === 'pub'">
+		<div class="col-sm-12">
+			<bootstrap-carousel
+				data-slides="mainCarousel.slides"
+				data-options="mainCarousel.options"
+				data-carousel-name="{{mainCarousel.name}}"
+				data-read-more-url="{{mainCarousel.readMoreUrl}}">
+			</bootstrap-carousel>
+		</div>
+	</div>
+
+
 	<div class="row grid" ng-if="$state.$current.name === 'pub'" isotope-layout="">
 		<div class="col-sm-4 col-xs-12 grid-item" ng-repeat="dlCategoryContent in dlListOfContentsOfAllcategories track by $index" on-ng-repeat-item="onLoadCategoryContentList">
 			<generic-list
@@ -86,6 +99,69 @@
 		<div class="col-sm-12">
 			<ui-view></ui-view>
 		</div>
+	</div>
+
+	<!-- Footer -->
+	<div class="row app-footer">
+		<div class="col-sm-12">
+			<div class="app-footer container-fluid">
+				<div class="row">
+					<section class="col-sm-4">
+					  <brand-logo class="xs" data-logo="appLogo"></brand-logo>
+					</section>
+					<section class="col-sm-4 section-categories">
+						<ul>
+							<li ng-repeat="category in categories">
+								<a
+									title="{{category.title}}"
+									ui-sref="pub.articles({n: '{{category.name}}'})"
+									ng-bind="category.title">
+								</a>
+							</li>
+						</ul>
+					</section>
+					<section class="col-sm-4 section-social">
+						<h3>Follow us:</h3>
+						<ul>
+							<li>Google</li>
+							<li>Facebook</li>
+							<li>Twitter</li>
+							<li>GitHub</li>
+						</ul>
+					</section>
+					<section class="col-sm-12 section-copyright">
+						<span>&copy;2017-2019 Xyz Inc. All rights reserved</span>
+						<div>
+							<a href="#" data-toggle="modal" data-target="#t_and_c_m">Privacy Policy</a> |
+							<a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms of Use</a>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+					</div>
+					<div class="modal-body">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	</div>
 </div>
 

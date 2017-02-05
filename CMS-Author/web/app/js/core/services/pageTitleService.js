@@ -13,7 +13,7 @@
 		}
 
 		function setPageTitle(title) {
-			var application = $rootScope && $rootScope.appHeader && $rootScope.appHeader.application || {};
+			var application = $rootScope && $rootScope.application || {};
 			if (typeof title === 'string') {
 				pageTitle = [application.shortTitle || '',  title || ''].join(' | ');
 			} else {
