@@ -173,7 +173,9 @@ namespace CMS_webAPI.Controllers
         [ResponseType(typeof(ContentViewModel))]
         public async Task<IHttpActionResult> PostPublishContent(int param1 /*AuthorContentId */, AuthorContentViewModel authorContentView)
         {
-            //if modestateis invalid or param1 (AuthorContentId is not same as to the AuthorContent itself or is already published
+            int authorContentId = param1;
+
+            //if model state is invalid or authorContentId is null/0  or is already published
             // should be a bad request.
             if (!ModelState.IsValid || param1 != authorContentView.AuthorContentId || authorContentView.PublishedDate != null)
             {
@@ -183,20 +185,19 @@ namespace CMS_webAPI.Controllers
             Content contentToPub = new Content();
             ContentViewModel contentView = new ContentViewModel(authorContentView);
             ContentViewModel publishedContentView;
+            
             using (db)
             {
                 using (var dbTransaction = db.Database.BeginTransaction())
                 {
                     try
-                    {
+                    {                        
                         if (authorContentView.ContentId != null && authorContentView.ContentId > 0)
                         {
                             // Content in Pub Should be Updated                            
-                            contentView = new ContentViewModel( UpdateContent(contentToPub.ContentId, contentView));
-                            // Updates the AuthorContent with the Published content's ContentId
-                            authorContentView.ContentId = contentView.ContentId;
-                            authorContentView.PublishedDate = contentView.PublishedDate;
-                            contentToPub = contentView.ToDbModel();
+                            contentToPub = UpdateContent(contentView);
+                            await db.SaveChangesAsync();
+                            //contentToPub = contentView.ToDbModel();
                         }
                         else
                         {
@@ -219,34 +220,22 @@ namespace CMS_webAPI.Controllers
                             contentToPub.IsLive = true;
 
                             db.Contents.Add(contentToPub);
-                            db.ContentTags.AddRange(contentTags);                
-                            // Updates the AuthorContent with the Published content's ContentId
-                            await db.SaveChangesAsync();
-                            authorContentView.ContentId = contentToPub.ContentId;
-                            authorContentView.PublishedDate = contentToPub.PublishedDate;
-                            publishedContentView = new ContentViewModel(contentToPub);
-                        }            
+                            db.ContentTags.AddRange(contentTags);                                            
+                            await db.SaveChangesAsync();                            
+                        }                                    
 
-                        // Updates or Adds AuthorContent After Publishing it.
-                        if (authorContentView.AuthorContentId > 0)
-                        {
-                            new AuthorContentViewModel(UpdateAuthorContent(authorContentView.AuthorContentId, authorContentView));
-                        }
-                        else
-                        {
-                            new AuthorContentViewModel( AddAuthorContent(authorContentView));
-                        }                
+                        // Updates the AuthorContent with the Published content's ContentId and publishedDate
+                        authorContentView.ContentId = contentToPub.ContentId;
+                        authorContentView.PublishedDate = contentToPub.PublishedDate;
+                        var authorContent = authorContentView.ToDbModel();
+                        db.Entry(authorContent).State = EntityState.Unchanged;
+                        db.Entry(authorContent).Property(x => x.ContentId).IsModified = true;
+                        db.Entry(authorContent).Property(x => x.PublishedDate).IsModified = true;
 
                         await db.SaveChangesAsync();
-
-                        // Updates AuthorContentId to Published Content.
-                        Content originalContent = db.Contents.Find(contentToPub.ContentId);
-                        contentToPub.AuthorContentId = authorContentView.AuthorContentId;
-                        db.Entry(originalContent).CurrentValues.SetValues(contentToPub);
-                        await db.SaveChangesAsync();
+                        dbTransaction.Commit();
 
                         publishedContentView = new ContentViewModel(contentToPub);
-                        dbTransaction.Commit();
                     }
                     catch (Exception ex)
                     {
@@ -337,7 +326,7 @@ namespace CMS_webAPI.Controllers
             return authorContent;
         }
 
-        private Content UpdateContent(int Id, ContentViewModel contentView)
+        private Content UpdateContent(ContentViewModel contentView)
         {
             Content content = contentView.ToDbModel();
             var contentTags = contentView.getContentTags();

@@ -82,6 +82,7 @@ namespace CMS_webAPI.Models
             if (authorContent != null)
             {
                 this.ContentId = (int)authorContent.ContentId;
+                this.AuthorContentId = authorContent.AuthorContentId;
                 this.Category = _db.Categories.Find(authorContent.CategoryId);
                 this.Name = authorContent.Name;
                 this.Title = authorContent.Title;
@@ -117,7 +118,7 @@ namespace CMS_webAPI.Models
                 {
                     this.ContentId = 0;
                 }
-                
+                this.AuthorContentId = authorContentView.AuthorContentId;
                 this.Category = authorContentView.Category;
                 this.Name = authorContentView.Name;
                 this.Title = authorContentView.Title;
