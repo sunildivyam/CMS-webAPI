@@ -45,7 +45,7 @@
                     if ($scope.currentResource) {
                         CkEditorService.getUrlFromImageBrowser($scope.ckFunctionNumber, resourcebrowserService.getResourcePubUrl($scope.currentResource));
                     } else {
-                        modalService.alert('sm', 'No Resource Selected', 'Please select a resource, then click this Button', 'Ok')
+                        modalService.alert('sm', 'No Resource Selected', 'Please select a resource, then click this Button', 'Ok');
                     }
                 break;
                 case 'upload':
@@ -65,14 +65,14 @@
                             '<img src="' + resourcebrowserService.getResourcePubUrl($scope.currentResource) + '"></img>',
                             'Close');
                     } else {
-                        modalService.alert('sm', 'No Resource Selected', 'Please select a resource, then click this Button', 'Ok')
+                        modalService.alert('sm', 'No Resource Selected', 'Please select a resource, then click this Button', 'Ok');
                     }
                 break;
                 case 'download':
                     if ($scope.currentResource) {
                         window.open(resourcebrowserService.getResourcePubUrl($scope.currentResource));
                     } else {
-                        modalService.alert('sm', 'No Resource Selected', 'Please select a resource, then click this Button', 'Ok')
+                        modalService.alert('sm', 'No Resource Selected', 'Please select a resource, then click this Button', 'Ok');
                     }
                 break;
             }

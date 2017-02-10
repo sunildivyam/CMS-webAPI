@@ -13,7 +13,9 @@
 				onCancel: '=',
 				onAddnew: '=',
 				onPreview: '=',
-				onPublish: '='
+				onPublish: '=',
+				isLoading: '=',
+				loaderMsg: '='
 			},
 			templateUrl: 'content/content-form.html',
 			link: function($scope) {

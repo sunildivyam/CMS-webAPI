@@ -14,13 +14,27 @@
 </ul>
 <ul class="nav navbar-nav navbar-right" ng-if="user.userName">
     <li class="">
-        <a ui-sref="author.profile" class="">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="glyphicon glyphicon-user"></span> 
             <strong> {{user.userName}}</strong>
         </a>
+        <ul class="dropdown-menu">
+	        <li class="dropdown-item">
+				<a ui-sref="author.profile">
+					<span class="glyphicon glyphicon-user"></span> 
+            		<strong>My Profile</strong>
+				</a>
+			</li>
+			<li class="dropdown-item">
+				<a ui-sref="author.dashboard">
+					<span class="glyphicon glyphicon glyphicon-th"></span> 
+            		<strong>My Dashboard</strong>
+				</a>
+			</li>
+		</ul>
     </li>
     <li>
-		<a ui-sref="logout">
+		<a ui-sref="logout" class="btn">
 			<span class="glyphicon glyphicon-user"></span> 
 		 	<span class="">Logout</span>
 		</a>

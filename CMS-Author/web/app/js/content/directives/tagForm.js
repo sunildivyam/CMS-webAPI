@@ -9,7 +9,9 @@
 				onDelete: '=',
 				onUpdate: '=',
 				onCancel: '=',
-				onAddnew: '='
+				onAddnew: '=',
+				isLoading: '=',
+				loaderMsg: '='
 			},
 			templateUrl: 'content/tag-form.html',
 			link: function($scope) {

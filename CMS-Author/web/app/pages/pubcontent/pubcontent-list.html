@@ -17,7 +17,7 @@
 				<p ng-bind-html="item.shortDescription" class="small short-description"></p>
 				<span title="Author">
 					<span class="glyphicon glyphicon-user"></span>
-					<span class="label label-info" ng-bind="item.owner.email"></span>
+					<span class="label label-info">{{item.owner.lastName?item.owner.lastName + ', ': '' }} {{item.owner.firstName}}</span>
 				</span>
 				<span title="Publish Date">
 					<span class="glyphicon glyphicon-pencil"></span>

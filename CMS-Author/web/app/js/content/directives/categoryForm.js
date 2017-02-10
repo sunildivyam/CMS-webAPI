@@ -21,7 +21,9 @@
 				onDelete: '=',
 				onUpdate: '=',
 				onCancel: '=',
-				onAddnew: '='
+				onAddnew: '=',
+				isLoading: '=',
+				loaderMsg: '='
 			},
 			templateUrl: 'content/category-form.html',
 			link: function($scope) {

@@ -23,9 +23,11 @@
         };
 
         $scope.registerSubmit = function() {
+            $scope.isRegistering = true;
             accountService.register($scope.newUser).then(function(response) {
                 var userName = $scope.newUser.Email;
                 $scope.newUser = new User();
+                $scope.isRegistering = false;
                 if (response && response.data && response.data.code === 'email_not_sent') {
                     var emailSendFailed = modalService.alert('md',
                         'Thanks for joining us.',
@@ -50,6 +52,7 @@
                     });
                 }
             }, function(rejection){
+                $scope.isRegistering = false;
                 modalService.alert('md',
                     'Registeration Failed',
                     'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,

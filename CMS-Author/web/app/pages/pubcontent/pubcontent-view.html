@@ -4,7 +4,7 @@
 		<div class="small">
 			<span class="" title="Author">
 				<span class="glyphicon glyphicon-user"></span>
-				<span class="label label-default" ng-bind="content.owner.userName"></span>
+				<span class="label label-default">{{content.owner.lastName?content.owner.lastName + ', ': '' }} {{content.owner.firstName}}</span>
 			</span>
 			<span class="" title="Last Updated">
 				<span class="glyphicon glyphicon-pencil"></span>
@@ -15,7 +15,7 @@
 				<span class="label label-default" ng-bind="content.visitCount"></span>
 			</span>
 			<p> &nbsp;</p>
-			<p class="" ng-bind-html="content.shortDescription"></p>
+			<p class="content-short-description" ng-bind-html="content.shortDescription"></p>
 			<tags tag-items="content.tags"></tags>
 		</div>
 	</div>
@@ -25,4 +25,5 @@
 	<div class="panel-footer">
 		<tags tag-items="content.tags"></tags>
 	</div>
+	<loader data-at-body="false" data-is-loading="isLoading"></loader>
 </div>

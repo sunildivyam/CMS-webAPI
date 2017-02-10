@@ -4,7 +4,8 @@
 		return {
 			restrict: 'E',
 			scope: {
-				content: '='
+				content: '=',
+				isLoading: '='
 			},
 			templateUrl: 'pubcontent/pubcontent-view.html',
 			link: function($scope, element) {

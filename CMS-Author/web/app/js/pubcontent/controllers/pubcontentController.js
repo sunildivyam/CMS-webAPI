@@ -43,19 +43,21 @@
         }
 
         function getContent(categoryName, contentId, contentName) {
+            $scope.isLoading = true;
             if (categoryName && contentId && contentName) {
                 pubcontentService.getContent(categoryName, contentId, contentName).then(function(response) {
                     var content = new Content(response && response.data);
                     content.description = Utils.decodeContent(content.description);
                     $scope.currentContent = content;
-
+                    $scope.isLoading = false;
                     // Sets Meta information for Page
                     Utils.setMetaInfo(content.title, content.shortDescription, content.tags);
                 }, function(rejection) {
+                    $scope.isLoading = false;
                     modalService.alert('md',
                     'No Content found',
                     'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Content Not Found.') ,
-                    'Go to Back').result.then(function() {
+                    'Go Back').result.then(function() {
                         $state.go('pub.articles', {n: $scope.currentCategory && $scope.currentCategory.name});
                     }, function() {
                         $state.go('pub.articles');
