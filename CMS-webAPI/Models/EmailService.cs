@@ -6,16 +6,17 @@ using Microsoft.AspNet.Identity;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace CMS_webAPI.Models
 {
     public class EmailService: IIdentityMessageService
     {
-        string _MAIL_FROM = "info@redarrowindia.com";
-        string _MAIL_FROM_PW = "redcarpet33#";
-        string _SMTP_SERVER = "smtp.redarrowindia.com";
-        int _SMTP_PORT = 587;
-        static string _REFERER_URL = "http://wisdomk.redarrowindia.com/account/verifyemail";
+        string _MAIL_FROM = ConfigurationManager.AppSettings["MailFrom"];
+        string _MAIL_FROM_PW = ConfigurationManager.AppSettings["MailFromPw"];
+        string _SMTP_SERVER = ConfigurationManager.AppSettings["SmtpServer"];
+        int _SMTP_PORT = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
+        static string _REFERER_URL = ConfigurationManager.AppSettings["ReferalUrl"];
 
         public Task SendAsync(IdentityMessage message)
         {
