@@ -329,7 +329,7 @@ namespace CMS_webAPI.Controllers
         public async Task<IHttpActionResult> VerifyEmail(string id, string code)
         {
             string userId = id;
-            string emailCode = code;
+            string emailCode = code.Replace(' ', '+');
 
             var result = await UserManager.ConfirmEmailAsync(userId, emailCode);
 

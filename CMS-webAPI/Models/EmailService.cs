@@ -11,11 +11,11 @@ namespace CMS_webAPI.Models
 {
     public class EmailService: IIdentityMessageService
     {
-        string _MAIL_FROM = "sunil.divyam@gmail.com";
-        string _MAIL_FROM_PW = "Roshanlochi33#";
-        string _SMTP_SERVER = "smtp.gmail.com";
+        string _MAIL_FROM = "info@redarrowindia.com";
+        string _MAIL_FROM_PW = "redcarpet33#";
+        string _SMTP_SERVER = "smtp.redarrowindia.com";
         int _SMTP_PORT = 587;
-        static string _REFERER_URL = "http://localhost:82/account/verifyemail";
+        static string _REFERER_URL = "http://wisdomk.redarrowindia.com/account/verifyemail";
 
         public Task SendAsync(IdentityMessage message)
         {
@@ -27,7 +27,7 @@ namespace CMS_webAPI.Models
 
             SmtpClient smtp = new SmtpClient();
             smtp.Host = _SMTP_SERVER;
-            smtp.EnableSsl = true;
+            smtp.EnableSsl = false;
             NetworkCredential NetworkCred = new NetworkCredential(_MAIL_FROM, _MAIL_FROM_PW);
             smtp.UseDefaultCredentials = true;
             smtp.Credentials = NetworkCred;
@@ -38,7 +38,7 @@ namespace CMS_webAPI.Models
 
         public static string getEmailVerifyBody(string userId, string code)
         {
-            string callbackUrlFromEmail = _REFERER_URL = "?id=" + userId + "&code=" + code;
+            string callbackUrlFromEmail = _REFERER_URL + "?id=" + userId + "&code=" + code;
             string msg = "Please confirm your Email Address by clicking <a href=\""
                    + callbackUrlFromEmail + "\">here</a>";
             return msg;
