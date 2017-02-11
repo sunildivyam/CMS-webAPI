@@ -358,6 +358,11 @@ namespace CMS_webAPI.Controllers
                 return NotFound();
             }
 
+            if (user.EmailConfirmed == true)
+            {
+                return InternalServerError(new Exception("Email is already confirmed"));
+            }
+
             try
             {
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
