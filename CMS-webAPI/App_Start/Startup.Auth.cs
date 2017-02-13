@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using CMS_webAPI.Providers;
 using CMS_webAPI.Models;
+using System.Configuration;
 
 namespace CMS_webAPI
 {
@@ -91,19 +92,19 @@ namespace CMS_webAPI
             }
 
             //Here we create a Admin super user who will maintain the website                  
-            RegisterBindingModel adminUser = UserService.GetDefaultUser();
-            var chkAdminUser = context.Users.FirstOrDefault(u => u.Email == adminUser.Email);
+            RegisterBindingModel superUser = UserService.GetSuperUser();
+            var chkSuperUser = context.Users.FirstOrDefault(u => u.Email == superUser.Email);
 
-            if (chkAdminUser == null)
+            if (chkSuperUser == null)
             {
                 var user = new ApplicationUser();
-                user.UserName = "admin";
-                user.FirstName = adminUser.FirstName;
-                user.LastName = adminUser.LastName;
-                user.Email = adminUser.Email;
+                user.UserName = ConfigurationManager.AppSettings["SuperUserName"];
+                user.FirstName = superUser.FirstName;
+                user.LastName = superUser.LastName;
+                user.Email = superUser.Email;
                 user.EmailConfirmed = true;
                 user.LockoutEnabled = false;
-                var chkUser = UserManager.Create(user, adminUser.Password);
+                var chkUser = UserManager.Create(user, superUser.Password);
                 
                 //Add default User to Role Admin   
                 if (chkUser.Succeeded)

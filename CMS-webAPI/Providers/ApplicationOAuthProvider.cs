@@ -48,7 +48,7 @@ namespace CMS_webAPI.Providers
                 return;
             }
 
-            if (user.Email != UserService.GetDefaultUser().Email)
+            if (user.Email != UserService.GetSuperUser().Email)
             {
                 var result = userManager.IsEmailConfirmedAsync(user.Id);
 

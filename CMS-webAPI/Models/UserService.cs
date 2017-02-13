@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Configuration;
 
 namespace CMS_webAPI.Models
 {
@@ -61,11 +62,11 @@ namespace CMS_webAPI.Models
             return _appDB.Users.FirstOrDefault(u => u.UserName == userName);
         }
 
-        public static RegisterBindingModel GetDefaultUser()
+        public static RegisterBindingModel GetSuperUser()
         {
             return new RegisterBindingModel() { 
-                Email= "admin@gmail.com",
-                Password = "Admin123#",
+                Email= ConfigurationManager.AppSettings["SuperUserEmail"], // super user Email id
+                Password = ConfigurationManager.AppSettings["SuperUserEmail"],  // Super User Pw,
                 FirstName = "Administrator",
                 LastName = "User"
             };
