@@ -39,7 +39,7 @@ namespace CMS_webAPI.Models
 
         public static string getEmailVerifyBody(string userId, string code)
         {
-            string callbackUrlFromEmail = _REFERER_URL + "?id=" + userId + "&code=" + code;
+            string callbackUrlFromEmail = _REFERER_URL + "/verifyemail" + "?id=" + userId + "&code=" + code;
             string msg = "Please confirm your Email Address by clicking <a href=\""
                    + callbackUrlFromEmail + "\">here</a>";
             return msg;
@@ -48,6 +48,19 @@ namespace CMS_webAPI.Models
         public static string getEmailVerifySubject()
         {
             return "Confirm your Email Address";
+        }
+
+        public static string getPasswordResetEmailBody(string userId, string code)
+        {
+            string callbackUrlFromEmail = _REFERER_URL + "/resetpassword" + "?id=" + userId + "&code=" + code;
+            string msg = "Please click <a href=\""
+                   + callbackUrlFromEmail + "\">here</a> to reset your password.";
+            return msg;
+        }
+
+        public static string getPasswordResetEmailSubject()
+        {
+            return "Password Reset";
         }
     }
 }

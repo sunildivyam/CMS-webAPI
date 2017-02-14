@@ -342,7 +342,6 @@ namespace CMS_webAPI.Controllers
         }
 
 
-
         [AllowAnonymous]
         [HttpGet]
         [Route("ResendVerifyEmail")]
@@ -373,6 +372,58 @@ namespace CMS_webAPI.Controllers
                 return InternalServerError(ex);
             }
                 
+            return Ok();
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("SendPasswordResetEmail")]
+        public async Task<IHttpActionResult> SendPasswordResetEmail(string id)
+        {            
+            ApplicationUser user = await UserManager.FindByEmailAsync(id);
+            if (user == null)
+            {
+                user = await UserManager.FindByNameAsync(id);
+            }
+
+            if (user == null)
+            {
+                return NotFound();
+            }            
+
+            try
+            {
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                await UserManager.SendEmailAsync(user.Id, EmailService.getPasswordResetEmailSubject(), EmailService.getPasswordResetEmailBody(user.Id, code));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("ResetPassword")]
+        public async Task<IHttpActionResult> ResetPassword(PasswordResetViewModel passwordResetViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            string emailCode = passwordResetViewModel.PasswordResetToken.Replace(' ', '+');
+
+            var result = await UserManager.ResetPasswordAsync(passwordResetViewModel.UserId, emailCode, passwordResetViewModel.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return NotFound();
+            }
+
             return Ok();
         }
 
@@ -442,6 +493,7 @@ namespace CMS_webAPI.Controllers
             return Ok();
         }
 
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

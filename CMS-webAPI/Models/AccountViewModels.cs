@@ -50,4 +50,11 @@ namespace CMS_webAPI.Models
 
         public string ProviderKey { get; set; }
     }
+
+    public class PasswordResetViewModel
+    {
+        public string UserId { get; set; }
+        public string PasswordResetToken { get; set; }
+        public string NewPassword { get; set; }
+    }
 }
