@@ -16,7 +16,9 @@
 			changePassword: baseApiUrl + '/changePassword',
 			getUserInfo: baseApiUrl + '/UserInfo',
 			verifyEmail: baseApiUrl + '/VerifyEmail',
-			resendVerifyEmail: baseApiUrl + '/ResendVerifyEmail'
+			resendVerifyEmail: baseApiUrl + '/ResendVerifyEmail',
+			sendResetPasswordEmail: baseApiUrl + '/SendResetPasswordEmail',
+			resetPassword: baseApiUrl + '/ResetPassword'
 		};
 
 
@@ -160,6 +162,29 @@
 			});
 		}
 
+		function sendResetPasswordEmail(userName) {
+			var url = urls.sendResetPasswordEmail + '?id=' + userName;
+			return $http({
+				method: 'get',
+				url: url,
+				data: changePasswordModel,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
+		function resetPassword(resetPasswordModel) {
+			return $http({
+				method: 'post',
+				url: urls.resetPassword,
+				data: resetPasswordModel,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
 		return {
 			register: register,
 			login: login,
@@ -170,7 +195,9 @@
 			changePassword: changePassword,
 			getUserInfo: getUserInfo,
 			verifyEmail: verifyEmail,
-			resendVerifyEmail: resendVerifyEmail
+			resendVerifyEmail: resendVerifyEmail,
+			sendResetPasswordEmail: sendResetPasswordEmail,
+			resetPassword: resetPassword
 		};
 	};
 

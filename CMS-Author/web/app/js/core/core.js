@@ -40,6 +40,24 @@
             isAnonymous: true
         })
         .state({
+            name: 'forgotpassword',
+            url: '/account/forgotpassword',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('account/forgot-password.html');
+            }],
+            controller: 'accountController',
+            isAnonymous: true
+        })
+        .state({
+            name: 'resetpassword',
+            url: '/account/resetpassword?id&code',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('account/reset-password.html');
+            }],
+            controller: 'accountController',
+            isAnonymous: true
+        })
+        .state({
             name: 'verifyemail',
             url: '/account/verifyemail?id&code',
             templateProvider: ['$templateCache', function($templateCache) {
@@ -107,14 +125,6 @@
             url: '/changepassword',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('account/change-password.html');
-            }],
-            isAnonymous: false
-        })
-        .state({
-            name: 'author.profile.resetpassword',
-            url: '/resetpassword',
-            templateProvider: ['$templateCache', function($templateCache) {
-                return $templateCache.get('account/reset-password.html');
             }],
             isAnonymous: false
         })

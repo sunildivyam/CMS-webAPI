@@ -428,12 +428,6 @@
             "templateUrl": "account/change-password.html"
         },
         {
-            "id": "resetPassword",
-            "title": "Reset Password",
-            "iconClass": "glyphicon-th",
-            "templateUrl": "account/reset-password.html"
-        },
-        {
             "id": "myDashboard",
             "title": "My Dashboard",
             "iconClass": "glyphicon-th"
@@ -450,11 +444,11 @@
     },
     "application": {
         "title": "Home",
-        "shortTitle": "WisdomK",
+        "shortTitle": "Sapient",
         "description": "This is an Articles base for educational and academic studies",
         "keywords": "articles, maths, science, chemistry",
         "appLogo": {
-            "primaryTitle": "WISDOMK",
+            "primaryTitle": "Sapient",
             "highCharIndex": 2,
             "secondaryTitle": "Learn Wise Way"
         }

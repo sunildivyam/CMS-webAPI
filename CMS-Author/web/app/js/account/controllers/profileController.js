@@ -61,12 +61,11 @@
 			switch(button.id) {
 				case 'myProfile':
 				case 'changePassword':
-				case 'resetPassword':
 					$state.go('author.profile.' + button.id.toLowerCase());
-				break;
+					break;
 				case 'myDashboard':
 					$state.go('author.dashboard');
-				break;
+					break;
 			}
 		};
 

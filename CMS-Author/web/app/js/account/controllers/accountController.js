@@ -17,6 +17,7 @@
     var accountController = function($rootScope, $scope, $state, appService, accountService, User, modalService) {
         $scope.newUser = new User();
         $scope.loginInfo = {};
+        $scope.resetPasswordModel = {};
 
         $scope.retry = function() {
             $scope.success = false;
@@ -100,15 +101,15 @@
             $scope.isSendingEmail = true;
             accountService.resendVerifyEmail($scope.userName).then(function() {
                 modalService.alert('md',
-                        'Confirmation E-mail Sent',
-                        'Confirmation E-mail has been sent successfully to your registered E-mail. Please click verify link from there.',
-                        'Ok');
+                    'Confirmation E-mail Sent',
+                    'Confirmation E-mail has been sent successfully to your registered E-mail. Please click verify link from there.',
+                    'Ok');
                 $scope.isSendingEmail = false;
             }, function() {
                 modalService.alert('md',
-                        'Confirmation E-mail Sending Failed',
-                        'Confirmation E-mail Sending Failed due to some unknown reason. Please try again.',
-                        'try again');
+                    'Confirmation E-mail Sending Failed',
+                    'Confirmation E-mail Sending Failed due to some unknown reason. Please try again.',
+                    'try again');
                 $scope.isSendingEmail = false;
             });
         };
@@ -124,11 +125,53 @@
             });
         }
 
+        $scope.sendResetPasswordEmail = function() {
+            $scope.isSendingEmail = true;
+            accountService.sendResetPasswordEmail($scope.userName).then(function() {
+                modalService.alert('md',
+                    'Password Reset E-mail Sent',
+                    'An Email has been sent to your registered Email. Please click the link there and follow the instructions to reset your password.',
+                    'Ok');
+                $scope.isSendingEmail = false;
+            }, function() {
+                modalService.alert('md',
+                    'Password Reset Email Sending - Failed',
+                    'Invalid UserName or Email Id. Or an unknown error occured. Please try again.',
+                    'try again');
+                $scope.isSendingEmail = false;
+            });
+        };
+
+        $scope.resetPassword = function() {
+            $scope.isVerifying = true;
+            accountService.resetPassword($scope.resetPasswordModel).then(function() {
+                modalService.alert('md',
+                    'Password Reset Success',
+                    'Your password has been successfully reset. Please login',
+                    'Login').result.then(function() {
+                        $state.go('login');
+                    });
+                $scope.isVerifying = false;
+            }, function() {
+                modalService.alert('md',
+                    'Password Reset Failed',
+                    'Invalid User Id or Verification Code. Or an unknown error has occured. Pleae try again',
+                    'Try Again',
+                    'Cancel');
+                $scope.isVerifying = false;
+            });
+        };
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
-            if (toState && toState.name === 'verifyemail') {
+            if (toState && (toState.name === 'verifyemail' || toState.name === 'resetpassword')) {
                 var userName = toParams && toParams.id;
                 var code = toParams && toParams.code;
                 verifyEmail(userName, code);
+
+                if (toState.name === 'resetpassword') {
+                    $scope.resetPasswordModel.userId = userName;
+                    $scope.resetPasswordModel.resetPasswordToken = code;
+                }
             }
 
             if (toState && toState.name === 'resendverifyemail') {
