@@ -88,14 +88,14 @@
 		$scope.getUserRoles = function() {
 			$scope.isUserRolesProcessing = true;
 			accountService.getUserRoles($scope.userRolesViewModel.userName).then(function(response) {
-				$scope.userRolesViewModel.roles = response && response.data.Roles || [];
+				$scope.userRolesViewModel.roles = response && response.data || [];
 				$scope.isUserRolesProcessing = false;
 			}, function() {
 				$scope.userRolesViewModel.roles = [];
 				modalService.alert('md',
 				'User Roles Loading Failed',
 				'User Not Found or some unknown error occured',
-				'Try Again')
+				'Try Again');
 				$scope.isUserRolesProcessing = false;
 			});
 		};
@@ -112,11 +112,21 @@
 				modalService.alert('md',
 				'User Roles Assignment Failed',
 				'Please verify User Name and Roles. User Not Found or Invalid Role/s. Or some unknown error has occured',
-				'Try Again')
+				'Try Again');
 				$scope.isUserRolesProcessing = false;
 			});
 		};
 
+		function getAvaliableRoles() {
+			$scope.isPageLoading = true;
+			accountService.getRoles().then(function(response) {
+				$scope.availableRoles = response && response.data || [];
+				$scope.isPageLoading = false;
+			}, function() {
+				$scope.availableRoles = [];
+				$scope.isPageLoading = false;
+			});
+		}
 
 		$scope.$on('$stateChangeSuccess', function(event, toState /*, fromState , fromParams*/) {
 			if (toState && toState.name) {
@@ -131,6 +141,11 @@
 						getUserInfo();
 					}
 				});
+
+				if (toState.name === 'author.profile.adminpanel') {
+					getAvaliableRoles();
+				}
+
 			} else {
 				//
 			}

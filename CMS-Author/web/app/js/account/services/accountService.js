@@ -20,7 +20,8 @@
 			sendResetPasswordEmail: baseApiUrl + '/SendResetPasswordEmail',
 			resetPassword: baseApiUrl + '/ResetPassword',
 			getUserRoles: baseApiUrl + '/GetUserRoles',
-			setUserRoles: baseApiUrl + '/SetUserRoles'
+			setUserRoles: baseApiUrl + '/SetUserRoles',
+			getRoles: baseApiUrl + '/GetRoles'
 		};
 
 
@@ -190,7 +191,6 @@
 			return $http({
 				method: 'get',
 				url: url,
-				data: changePasswordModel,
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -230,6 +230,16 @@
 			});
 		}
 
+		function getRoles() {
+			return $http({
+				method: 'get',
+				url: urls.getRoles,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
 		return {
 			register: register,
 			login: login,
@@ -245,7 +255,8 @@
 			sendResetPasswordEmail: sendResetPasswordEmail,
 			resetPassword: resetPassword,
 			getUserRoles: getUserRoles,
-			setUserRoles: setUserRoles
+			setUserRoles: setUserRoles,
+			getRoles: getRoles
 		};
 	};
 
