@@ -57,4 +57,10 @@ namespace CMS_webAPI.Models
         public string PasswordResetToken { get; set; }
         public string NewPassword { get; set; }
     }
+
+    public class UserRolesViewModel
+    {
+        public string UserName { get; set; }
+        public IList<string> Roles { get; set; }
+    }
 }

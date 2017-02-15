@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using CMS_webAPI.Models;
 using CMS_webAPI.Providers;
 using CMS_webAPI.Results;
+using System.Linq;
 
 namespace CMS_webAPI.Controllers
 {
@@ -25,9 +26,12 @@ namespace CMS_webAPI.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-
+        private RoleManager<IdentityRole> _roleManager;
+        
         public AccountController()
         {
+            ApplicationDbContext context = new ApplicationDbContext();
+            RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
         }
 
         public AccountController(ApplicationUserManager userManager,
@@ -35,6 +39,9 @@ namespace CMS_webAPI.Controllers
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
+
+            ApplicationDbContext context = new ApplicationDbContext();
+            RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
         }
 
         public ApplicationUserManager UserManager
@@ -46,6 +53,18 @@ namespace CMS_webAPI.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+
+        public RoleManager<IdentityRole> RoleManager
+        {
+            get
+            {
+                return _roleManager;
+            }
+            private set
+            {
+                _roleManager = value;
             }
         }
 
@@ -375,7 +394,6 @@ namespace CMS_webAPI.Controllers
             return Ok();
         }
 
-
         [AllowAnonymous]
         [HttpGet]
         [Route("SendPasswordResetEmail")]
@@ -426,6 +444,142 @@ namespace CMS_webAPI.Controllers
 
             return Ok();
         }
+
+        [Authorize(Roles = "Administrators")]
+        [HttpGet]
+        [Route("GetRoles")]
+        public async Task<IHttpActionResult> GetRoles()
+        {
+            IList<string> roles = new List<string>();           
+            
+            try
+            {
+                roles = RoleManager.Roles.Select<IdentityRole, string>(r => r.Name).ToList();                
+                await Task.Delay(0);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return Ok(roles);
+        }
+
+
+        [Authorize(Roles = "Administrators")]
+        [HttpGet]
+        [Route("GetUserRoles")]
+        public async Task<IHttpActionResult> GetUserRoles(string id)
+        {
+            var userName = id;
+
+            ApplicationUser user = await UserManager.FindByEmailAsync(userName);
+            if (user == null)
+            {
+                user = await UserManager.FindByNameAsync(userName);
+            }
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            IList<string> currentUserRoles = new List<string>();
+
+            try
+            {
+                currentUserRoles = await UserManager.GetRolesAsync(user.Id);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return Ok(currentUserRoles);
+        }
+
+        [Authorize(Roles="Administrators")]
+        [HttpPost]
+        [Route("SetUserRoles")]
+        public async Task<IHttpActionResult> SetUserRoles(UserRolesViewModel userRolesViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser user = await UserManager.FindByEmailAsync(userRolesViewModel.UserName);
+            if (user == null)
+            {
+                user = await UserManager.FindByNameAsync(userRolesViewModel.UserName);
+            }
+            
+            if (user == null)
+            {
+                return NotFound();
+            }            
+            
+           // Need to Find whic Roles to be removed and which to be added
+            IList <string> currentUserRoles = await UserManager.GetRolesAsync(user.Id);
+            IList<string> newRoles = userRolesViewModel.Roles;
+
+            IList<string> rolesToBeRemoved = new List<string>();
+            IList<string> rolesToBeAdded = new List<string>();
+
+            // if currentUserRoles which are not present in newRoles, should be removed.
+            foreach(var currentRole in currentUserRoles) {
+                bool match = false;
+                foreach(var newRole in newRoles) {
+                    if (currentRole == newRole) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match == false)
+                {
+                    rolesToBeRemoved.Add(currentRole);
+                }
+            }
+
+            // if newRoles which are not present in CurrentRoles, should be added
+            foreach (var newRole in newRoles)
+            {
+                bool match = false;
+                foreach (var currentRole in currentUserRoles)
+                {                    
+                    if (newRole == currentRole)
+                    {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match == false)
+                {
+                    rolesToBeAdded.Add(newRole);
+                }
+            }
+
+            try
+            {
+                if (rolesToBeRemoved.Count > 0)
+                {
+                    await UserManager.RemoveFromRolesAsync(user.Id, rolesToBeRemoved.ToArray<string>());
+                }
+                if (rolesToBeAdded.Count > 0)
+                {
+                    await UserManager.AddToRolesAsync(user.Id, rolesToBeAdded.ToArray<string>());
+                }                
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return Ok();
+        }
+
 
         // POST api/Account/Register
         [AllowAnonymous]
