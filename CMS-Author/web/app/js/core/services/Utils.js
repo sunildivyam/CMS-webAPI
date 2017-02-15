@@ -126,8 +126,18 @@
 		}
 
 		function setMetaInfo(pageTitle, description, keywords) {
-			metaInformationService.setMetaDescription(description);
-			metaInformationService.setMetaKeywords(keywords);
+			if (!description) {
+				metaInformationService.resetMetaDescription();
+			} else {
+				metaInformationService.setMetaDescription(description);
+			}
+
+			if (!keywords) {
+				metaInformationService.resetMetaKeywords();
+			} else {
+				metaInformationService.setMetaKeywords(keywords);
+			}
+
 			pageTitleService.setPageTitle(pageTitle);
         }
 

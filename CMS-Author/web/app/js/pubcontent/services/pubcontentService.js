@@ -94,6 +94,20 @@
 			return distinctTags;
 		}
 
+		function getUniqueTagsOfTags(tags) {
+			var distinctTags = new EntityMapper(Tag).toEntities();
+			var unique = {};
+
+			tags.filter(function(tag) {
+				if (!unique[tag.tagId]) {
+					distinctTags.push(tag);
+					unique[tag.tagId] = true;
+				}
+			});
+
+			return distinctTags;
+		}
+
 		return {
 			getTags: getTags,
 			getTagById: getTagById,
@@ -102,7 +116,8 @@
 			getCategoryByName: getCategoryByName,
 			getContentsByCategoryName: getContentsByCategoryName,
 			getContent: getContent,
-			getUniqueTagsOfContents: getUniqueTagsOfContents
+			getUniqueTagsOfContents: getUniqueTagsOfContents,
+			getUniqueTagsOfTags: getUniqueTagsOfTags
 		};
 	};
 	pubcontentService.$inject = ['appService', 'EntityMapper', 'Tag'];

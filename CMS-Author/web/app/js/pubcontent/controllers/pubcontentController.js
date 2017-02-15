@@ -14,7 +14,7 @@
         $scope.dlLatest = {};
         $scope.dlRelevant = {};
         $scope.dlRelated = {};
-
+        $scope.allCategoryContentTags = []; // For Meta information
         function getCategoryByName(name) {
             if (name) {
                 pubcontentService.getCategoryByName(name).then(function(response) {
@@ -23,6 +23,8 @@
                     } else {
                         $scope.currentCategory = new Category();
                     }
+                    // Sets Meta information for Page
+                    Utils.setMetaInfo($scope.currentCategory.title, $scope.currentCategory.description, pubcontentService.getUniqueTagsOfTags($scope.allCategoryContentTags));
                 }, function(rejection) {
                     onNoCategory(rejection);
                 });
@@ -71,6 +73,7 @@
         function getAllContentLists(categoryName) {
             var contentListTypes = Utils.getPubContentListTypes();
             $scope.dlContentLists = [];
+            $scope.allCategoryContentTags = [];
 
             for (var key in contentListTypes) {
                 (function() {
@@ -100,6 +103,14 @@
                             dlContentList.pagingTotalItems = 0;
                             dlContentList.headerRightLabel = '0 articles';
                         }
+                        $scope.allCategoryContentTags = $scope.allCategoryContentTags.concat(dlContentList.tags);
+
+                        // This should be set only for Category (articles) state, and not for content state
+                        if ($state.$current.name === 'pub.articles') {
+                            // Sets Meta information for Page
+                            Utils.setMetaInfo($scope.currentCategory.title, $scope.currentCategory.description, pubcontentService.getUniqueTagsOfTags($scope.allCategoryContentTags));
+                        }
+
                         dlContentList.isLoading = false;
                     }, function() {
                         dlContentList.items = new EntityMapper(Content).toEntities([]);

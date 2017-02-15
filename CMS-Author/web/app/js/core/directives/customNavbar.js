@@ -24,6 +24,8 @@
 			},
 			templateUrl: 'core/custom-navbar.html',
 			link: function($scope) {
+				$scope.isLoading = true;
+
 				$scope.onItemClick = function(event, item) {
 					$scope.selectedItemName = item && item.name;
 
@@ -37,7 +39,11 @@
 					setTitleStr(newValue);
 				});
 
-				$scope.$watch('items', function() {
+				$scope.$watch('items', function(newValue) {
+					$scope.isLoading = true;
+					if (newValue && newValue.length > 0) {
+						$scope.isLoading = false;
+					}
 					setTitleStr($scope.selectedItemName);
 				});
 

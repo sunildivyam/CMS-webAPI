@@ -157,11 +157,15 @@
                     $scope.iso = undefined;
                     getCategories().then(function() {
                         if (toState.name === 'pub') {
+                            // Sets Meta information for Page
+                            Utils.setMetaInfo(); // this sets application level meta data
                             initMainCarousel($scope.categories);
                             getListOfContentsOfAllcategories($scope.categories);
                         }
 
                         if (toState.name === 'pub.search' && toParams && toParams.n && toParams.kw) {
+                            // Sets Meta information for Page
+                            Utils.setMetaInfo('Search'); // this sets application level meta data
                             var prevKw = $scope.globalSearch.searchString && $scope.globalSearch.searchString.toLowerCase();
                             var prevN = $scope.globalSearch.category;
                             var newKw = toParams.kw.replace(/-/g, ' ');
