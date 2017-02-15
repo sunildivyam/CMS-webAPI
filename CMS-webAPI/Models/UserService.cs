@@ -66,7 +66,7 @@ namespace CMS_webAPI.Models
         {
             return new RegisterBindingModel() { 
                 Email= ConfigurationManager.AppSettings["SuperUserEmail"], // super user Email id
-                Password = ConfigurationManager.AppSettings["SuperUserEmail"],  // Super User Pw,
+                Password = ConfigurationManager.AppSettings["SuperUserPw"],  // Super User Pw,
                 FirstName = "Administrator",
                 LastName = "User"
             };
