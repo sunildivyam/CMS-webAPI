@@ -16,6 +16,10 @@
 (function() {
 	var profileController = function($rootScope, $scope, $state, appService, accountService, User, modalService, Utils) {
 		$scope.changePasswordModel = {};	// model to hold oldPW,newPW and confirmPw
+		$scope.userRolesViewModel = {
+			userName: undefined,
+			roles: []
+		};
 
 		function setProfileData() {
 			$scope.toolbarButtons = Utils.getListConfigOf('profileActions');
@@ -61,6 +65,7 @@
 			switch(button.id) {
 				case 'myProfile':
 				case 'changePassword':
+				case 'adminPanel':
 					$state.go('author.profile.' + button.id.toLowerCase());
 					break;
 				case 'myDashboard':
@@ -79,6 +84,39 @@
 				$scope.isUserInfoLoading = false;
 			});
 		}
+
+		$scope.getUserRoles = function() {
+			$scope.isUserRolesProcessing = true;
+			accountService.getUserRoles($scope.userRolesViewModel.userName).then(function(response) {
+				$scope.userRolesViewModel.roles = response && response.data.Roles || [];
+				$scope.isUserRolesProcessing = false;
+			}, function() {
+				$scope.userRolesViewModel.roles = [];
+				modalService.alert('md',
+				'User Roles Loading Failed',
+				'User Not Found or some unknown error occured',
+				'Try Again')
+				$scope.isUserRolesProcessing = false;
+			});
+		};
+
+		$scope.setUserRoles = function() {
+			$scope.isUserRolesProcessing = true;
+			accountService.setUserRoles($scope.userRolesViewModel).then(function() {
+				$scope.userRolesViewModel = {
+					userName: undefined,
+					roles: []
+				};
+				$scope.isUserRolesProcessing = false;
+			}, function() {
+				modalService.alert('md',
+				'User Roles Assignment Failed',
+				'Please verify User Name and Roles. User Not Found or Invalid Role/s. Or some unknown error has occured',
+				'Try Again')
+				$scope.isUserRolesProcessing = false;
+			});
+		};
+
 
 		$scope.$on('$stateChangeSuccess', function(event, toState /*, fromState , fromParams*/) {
 			if (toState && toState.name) {

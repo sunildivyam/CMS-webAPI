@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService, Utils) {
+    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService, Utils, modalService) {
         $rootScope.bodyClass = '';
         $rootScope.appLogo = {
             primaryTitle: 'WISDOM',
@@ -60,9 +60,18 @@
             if (toState && toState.name) {
                 //Adds Body Class as per currentState
                 $rootScope.bodyClass = toState.name.split('.')[0];
-                if (toState.isAnonymous !== true && accountService.isAnonymous() === true) {
+                if (toState.isAnonymous !== true && (accountService.isAnonymous() === true ||
+                (toState.inRoles instanceof Array && accountService.isUserInRoles(toState.inRoles) === false))) {
                     event.preventDefault();
-                    $rootScope.$state.go('login');
+                    modalService.alert('md',
+                    'Not Authorized',
+                    'You are not authorized to view this Page.',
+                    'Login',
+                    'Cancel').result.then(function() {
+                        $rootScope.$state.go('login');
+                    }, function() {
+                        //event.preventDefault();
+                    });
                 }
 
                 if (toState.name === 'logout') {
@@ -72,6 +81,6 @@
         });
     };
 
-    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService', 'Utils'];
+    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService', 'Utils', 'modalService'];
     module.exports = appController;
 })();

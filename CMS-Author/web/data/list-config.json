@@ -431,6 +431,11 @@
             "id": "myDashboard",
             "title": "My Dashboard",
             "iconClass": "glyphicon-th"
+        },
+        {
+            "id": "adminPanel",
+            "title": "Admin Panel",
+            "iconClass": "glyphicon-blackboard"
         }
      ],
      "mainCarousel": {

@@ -18,7 +18,9 @@
 			verifyEmail: baseApiUrl + '/VerifyEmail',
 			resendVerifyEmail: baseApiUrl + '/ResendVerifyEmail',
 			sendResetPasswordEmail: baseApiUrl + '/SendResetPasswordEmail',
-			resetPassword: baseApiUrl + '/ResetPassword'
+			resetPassword: baseApiUrl + '/ResetPassword',
+			getUserRoles: baseApiUrl + '/GetUserRoles',
+			setUserRoles: baseApiUrl + '/SetUserRoles'
 		};
 
 
@@ -119,6 +121,27 @@
 			return loggedInUser && loggedInUser.token;
 		}
 
+		function isUserInRoles(roles) {
+			if (!roles || (roles instanceof Array && roles.length > 0)) {
+				return true;
+			}
+
+			var loggedInUser = $cookies.getObject('loggedInUser');
+			var userRoles = loggedInUser.roles;
+
+			if (userRoles instanceof Array && userRoles.length > 0) {
+				var isUserInRoles = true;
+				roles.filter(function(role) {
+					if (!userRoles.includes(role)) {
+						isUserInRoles = false;
+					}
+				});
+				return isUserInRoles;
+			}
+
+			return false;
+		}
+
 		function changePassword(changePasswordModel) {
 			return $http({
 				method: 'post',
@@ -185,19 +208,44 @@
 			});
 		}
 
+		function getUserRoles(userName) {
+			var url = urls.getUserRoles + '?id=' + userName;
+			return $http({
+				method: 'get',
+				url: url,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
+		function setUserRoles(userRolesViewModel) {
+			return $http({
+				method: 'post',
+				url: urls.setUserRoles,
+				data: userRolesViewModel,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
 		return {
 			register: register,
 			login: login,
 			logout: logout,
 			getLoggedInUser: getLoggedInUser,
 			isAnonymous: isAnonymous,
+			isUserInRoles: isUserInRoles,
 			getToken: getToken,
 			changePassword: changePassword,
 			getUserInfo: getUserInfo,
 			verifyEmail: verifyEmail,
 			resendVerifyEmail: resendVerifyEmail,
 			sendResetPasswordEmail: sendResetPasswordEmail,
-			resetPassword: resetPassword
+			resetPassword: resetPassword,
+			getUserRoles: getUserRoles,
+			setUserRoles: setUserRoles
 		};
 	};
 

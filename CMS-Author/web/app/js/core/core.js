@@ -129,6 +129,15 @@
             isAnonymous: false
         })
         .state({
+            name: 'author.profile.adminpanel',
+            url: '/adminpanel',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('account/admin-panel.html');
+            }],
+            isAnonymous: false,
+            inRoles: ['Administrators']
+        })
+        .state({
             name: 'author.content',
             url: '/content?id',
             templateProvider: ['$templateCache', function($templateCache) {
