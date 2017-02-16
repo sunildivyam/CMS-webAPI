@@ -166,7 +166,10 @@
             if (toState && (toState.name === 'verifyemail' || toState.name === 'resetpassword')) {
                 var userName = toParams && toParams.id;
                 var code = toParams && toParams.code;
-                verifyEmail(userName, code);
+
+                if (toState.name === 'verifyemail') {
+                    verifyEmail(userName, code);
+                }
 
                 if (toState.name === 'resetpassword') {
                     $scope.resetPasswordModel.userId = userName;
