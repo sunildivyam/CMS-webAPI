@@ -47,8 +47,8 @@
 				<!-- Cotent Tags -->
 				<div class="form-group">
 					<label class="control-label" for="contentTags">Selected Tags</label>
-					<span class="tag" ng-repeat="tag in content.tags"></span>
-					<ui-select id="content-tag-id" name="contentTags" class="" ng-model="content.tags" close-on-select="false" sortable="true"required multiple>
+
+					<ui-select id="content-tag-id" name="contentTags" class="" ng-model="content.tags" close-on-select="false" sortable="true" required multiple>
 						<ui-select-match placeholder="Select Tags...">
 							<span ng-bind="$item.title"></span>
 						</ui-select-match>
