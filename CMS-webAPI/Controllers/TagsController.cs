@@ -44,6 +44,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // PUT: api/Tags/5
+        [HttpPost]
         [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(Tag))]
         public async Task<IHttpActionResult> PutTag(int param1, Tag tag)

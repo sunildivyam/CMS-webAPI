@@ -16,7 +16,7 @@ namespace CMS_webAPI.Models
         string _MAIL_FROM_PW = ConfigurationManager.AppSettings["MailFromPw"];
         string _SMTP_SERVER = ConfigurationManager.AppSettings["SmtpServer"];
         int _SMTP_PORT = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
-        static string _REFERER_URL = ConfigurationManager.AppSettings["ReferalUrl"];
+        static string _REFERER_URL = ConfigurationManager.AppSettings["RefererUrl"];
 
         public Task SendAsync(IdentityMessage message)
         {

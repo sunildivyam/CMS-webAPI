@@ -127,6 +127,7 @@ namespace CMS_webAPI.Controllers
 
         // Updates an AuthorContent matching an Id passed as param1
         // PUT: api/AuthorContents/PutAuthorContent/5
+        [HttpPost]
         [ResponseType(typeof(AuthorContentViewModel))]
         public async Task<IHttpActionResult> PutAuthorContent(int param1, AuthorContentViewModel authorContentView)
         {

@@ -396,8 +396,8 @@ namespace CMS_webAPI.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("SendPasswordResetEmail")]
-        public async Task<IHttpActionResult> SendPasswordResetEmail(string id)
+        [Route("SendResetPasswordEmail")]
+        public async Task<IHttpActionResult> SendResetPasswordEmail(string id)
         {            
             ApplicationUser user = await UserManager.FindByEmailAsync(id);
             if (user == null)

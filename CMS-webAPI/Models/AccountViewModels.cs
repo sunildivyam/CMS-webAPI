@@ -56,6 +56,7 @@ namespace CMS_webAPI.Models
         public string UserId { get; set; }
         public string PasswordResetToken { get; set; }
         public string NewPassword { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 
     public class UserRolesViewModel

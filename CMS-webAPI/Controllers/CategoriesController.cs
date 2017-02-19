@@ -59,6 +59,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // PUT: api/Categories/5
+        [HttpPost]
         [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutCategory(int param1, Category category)
