@@ -57,7 +57,8 @@
 		}
 
 		function updateTag(tag) {
-			return appService.put([urls.tags.base, urls.tags.updateTag, tag.tagId].join('/'), tag, requestHeaders);
+			// return appService.put([urls.tags.base, urls.tags.updateTag, tag.tagId].join('/'), tag, requestHeaders);
+			return appService.post([urls.tags.base, urls.tags.updateTag, tag.tagId].join('/'), tag, requestHeaders);
 		}
 
 		function deleteTag(id) {
@@ -79,7 +80,8 @@
 		}
 
 		function updateCategory(category) {
-			return appService.put([urls.categories.base, urls.categories.updateCategory, category && category.categoryId].join('/'), category, requestHeaders);
+			// return appService.put([urls.categories.base, urls.categories.updateCategory, category && category.categoryId].join('/'), category, requestHeaders);
+			return appService.post([urls.categories.base, urls.categories.updateCategory, category && category.categoryId].join('/'), category, requestHeaders);
 		}
 
 		function deleteCategory(id) {
@@ -109,7 +111,8 @@
 		}
 
 		function updateContent(content) {
-			return appService.put([urls.authorContents.base, urls.authorContents.updateAuthorContent, content && content.authorContentId].join('/'), content, requestHeaders);
+			// return appService.put([urls.authorContents.base, urls.authorContents.updateAuthorContent, content && content.authorContentId].join('/'), content, requestHeaders);
+			return appService.post([urls.authorContents.base, urls.authorContents.updateAuthorContent, content && content.authorContentId].join('/'), content, requestHeaders);
 		}
 
 		function deleteContent(id) {

@@ -164,8 +164,6 @@
                         }
 
                         if (toState.name === 'pub.search' && toParams && toParams.n && toParams.kw) {
-                            // Sets Meta information for Page
-                            Utils.setMetaInfo('Search'); // this sets application level meta data
                             var prevKw = $scope.globalSearch.searchString && $scope.globalSearch.searchString.toLowerCase();
                             var prevN = $scope.globalSearch.category;
                             var newKw = toParams.kw.replace(/-/g, ' ');

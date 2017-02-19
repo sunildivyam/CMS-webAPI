@@ -16,6 +16,7 @@
         $scope.dlRelated = {};
         $scope.allCategoryContentTags = []; // For Meta information
         function getCategoryByName(name) {
+            $scope.isCategoryLoading = true;
             if (name) {
                 pubcontentService.getCategoryByName(name).then(function(response) {
                     if (response && response.data) {
@@ -23,6 +24,7 @@
                     } else {
                         $scope.currentCategory = new Category();
                     }
+                    $scope.isCategoryLoading = false;
                     // Sets Meta information for Page
                     Utils.setMetaInfo($scope.currentCategory.title, $scope.currentCategory.description, pubcontentService.getUniqueTagsOfTags($scope.allCategoryContentTags));
                 }, function(rejection) {
@@ -33,6 +35,7 @@
             }
 
             function onNoCategory(rejection) {
+                $scope.isCategoryLoading = false;
                 modalService.alert('md',
                 'No Category found',
                 'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Content Not Found.') ,
@@ -129,8 +132,10 @@
                     getAllContentLists(toParams.n);
 
                     if (toState.name === 'pub.articles' && toParams.n) {
+                        Utils.setMetaInfo(toParams.n);
                         getCategoryByName(toParams.n);
                     } else if(toState.name === 'pub.articles.content' && toParams.n && toParams.ci && toParams.cn) {
+                        Utils.setMetaInfo(toParams.n);
                         getContent(toParams.n, toParams.ci, toParams.cn);
                     } else {
                         //

@@ -6,23 +6,11 @@
 */
 
 (function() {
-	var contentController = function($rootScope, $scope, $state, $q, appService, contentService, modalService, Content, Tag, Category, EntityMapper, metaInformationService, pageTitleService, Utils) {
+	var contentController = function($rootScope, $scope, $state, $q, appService, contentService, modalService, Content, Tag, Category, EntityMapper, Utils) {
 		$scope.currentContent = new Content();
 
 		getTags();
 		getCategories();
-
-		function setMetaInfo(content) {
-			if (content instanceof Object) {
-				metaInformationService.setMetaDescription(content.description);
-				metaInformationService.setMetaKeywords(content.name);
-				pageTitleService.setPageTitle(content.title);
-			} else {
-				metaInformationService.resetMetaDescription();
-				metaInformationService.resetMetaKeywords();
-				pageTitleService.setPageTitle();
-			}
-		}
 
 		function getTags() {
 			contentService.getTags().then(function(response) {
@@ -94,7 +82,6 @@
 						}
 						content.description = Utils.decodeContent(content.description);
 						$scope.currentContent = content;
-						setMetaInfo($scope.currentContent);
 					} else {
 						modalService.alert('md',
 						'Content Not Found',
@@ -337,6 +324,6 @@
 		});
 	};
 
-	contentController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'contentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils'];
+	contentController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'contentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'Utils'];
 	module.exports = contentController;
 })();

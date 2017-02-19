@@ -19,7 +19,8 @@
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('core/error.html');
             }],
-            isAnonymous: true
+            isAnonymous: true,
+            title: 'Error'
         })
         .state({
             name: 'login',
@@ -28,7 +29,8 @@
                 return $templateCache.get('account/login.html');
             }],
             controller: 'accountController',
-            isAnonymous: true
+            isAnonymous: true,
+            title: 'Login'
         })
         .state({
             name: 'register',
@@ -37,7 +39,8 @@
                 return $templateCache.get('account/register.html');
             }],
             controller: 'accountController',
-            isAnonymous: true
+            isAnonymous: true,
+            title: 'Register'
         })
         .state({
             name: 'forgotpassword',
@@ -46,7 +49,8 @@
                 return $templateCache.get('account/forgot-password.html');
             }],
             controller: 'accountController',
-            isAnonymous: true
+            isAnonymous: true,
+            title: 'Forgot Password'
         })
         .state({
             name: 'resetpassword',
@@ -55,7 +59,8 @@
                 return $templateCache.get('account/reset-password.html');
             }],
             controller: 'accountController',
-            isAnonymous: true
+            isAnonymous: true,
+            title: 'Reset Password'
         })
         .state({
             name: 'verifyemail',
@@ -64,7 +69,8 @@
                 return $templateCache.get('account/verify-email.html');
             }],
             controller: 'accountController',
-            isAnonymous: true
+            isAnonymous: true,
+            title: 'Verify Email'
         })
         .state({
             name: 'resendverifyemail',
@@ -73,7 +79,8 @@
                 return $templateCache.get('account/resend-verify-email.html');
             }],
             controller: 'accountController',
-            isAnonymous: true
+            isAnonymous: true,
+            title: 'Resend Confirmation Email'
         })
         .state({
             name: 'logout',
@@ -82,7 +89,8 @@
                 return $templateCache.get('account/logout.html');
             }],
             controller: 'accountController',
-            isAnonymous: false
+            isAnonymous: false,
+            title: 'Logout'
         })
         .state({
             name: 'resourcebrowser',
@@ -91,7 +99,8 @@
                 return $templateCache.get('resourcebrowser/landing.html');
             }],
             controller: 'resourcebrowserController',
-            isAnonymous: false
+            isAnonymous: false,
+            title: 'File Browser'
         })
         .state({
             name: 'author',
@@ -118,7 +127,8 @@
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('account/profile.html');
             }],
-            isAnonymous: false
+            isAnonymous: false,
+            title: 'My Profile'
         })
         .state({
             name: 'author.profile.changepassword',
@@ -126,7 +136,8 @@
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('account/change-password.html');
             }],
-            isAnonymous: false
+            isAnonymous: false,
+            title: 'Change Password'
         })
         .state({
             name: 'author.profile.adminpanel',
@@ -135,7 +146,8 @@
                 return $templateCache.get('account/admin-panel.html');
             }],
             isAnonymous: false,
-            inRoles: ['Administrators']
+            inRoles: ['Administrators'],
+            title: 'My Workspace'
         })
         .state({
             name: 'author.content',
@@ -144,7 +156,8 @@
                 return $templateCache.get('content/landing.html');
             }],
             controller: 'contentController',
-            isAnonymous: false
+            isAnonymous: false,
+            title: 'Write Article'
         })
         .state({
             name: 'author.tag',
@@ -153,7 +166,8 @@
                 return $templateCache.get('content/landing.html');
             }],
             controller: 'tagController',
-            isAnonymous: false
+            isAnonymous: false,
+            title: 'Manage Tags'
         })
         .state({
             name: 'author.category',
@@ -162,7 +176,8 @@
                 return $templateCache.get('content/landing.html');
             }],
             controller: 'categoryController',
-            isAnonymous: false
+            isAnonymous: false,
+            title: 'Manage Categories'
         })
         .state({
             name: 'author.dashboard',
@@ -171,7 +186,8 @@
                 return $templateCache.get('dashboard/landing.html');
             }],
             controller: 'dashboardController',
-            isAnonymous: false
+            isAnonymous: false,
+            title: 'Author Dashboard'
         })
 
         // Published Contents
@@ -209,7 +225,8 @@
                 return $templateCache.get('search/landing.html');
             }],
             controller: 'searchController',
-            isAnonymous: true
+            isAnonymous: true,
+            title: 'Search Articles'
         });
 
         // Enables html5Mode Urls

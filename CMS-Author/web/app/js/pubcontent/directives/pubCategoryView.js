@@ -4,7 +4,8 @@
 		return {
 			restrict: 'E',
 			scope: {
-				category: '='
+				category: '=',
+				isLoading: '='
 			},
 			templateUrl: 'pubcontent/pubcategory-view.html',
 			link: function() {

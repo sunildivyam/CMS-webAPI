@@ -15,9 +15,9 @@
 		function setPageTitle(title) {
 			var application = $rootScope && $rootScope.application || {};
 			if (typeof title === 'string') {
-				pageTitle = [application.shortTitle || '',  title || ''].join(' | ');
+				pageTitle = [title || '', application.shortTitle || ''].join(' | ');
 			} else {
-				pageTitle = [application.shortTitle || '',  application.title || ''].join(' | ');
+				pageTitle = [application.shortTitle || '',  application.title || ''].join(' - ');
 			}
 		}
 

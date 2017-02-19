@@ -6,20 +6,8 @@
 */
 
 (function() {
-	var tagController = function($rootScope, $scope, $state, appService, contentService, modalService, Tag, metaInformationService, pageTitleService) {
+	var tagController = function($rootScope, $scope, $state, appService, contentService, modalService, Tag) {
 		$scope.currentTag = new Tag();
-
-		function setMetaInfo(tag) {
-			if (tag instanceof Object) {
-				metaInformationService.setMetaDescription(tag.description);
-				metaInformationService.setMetaKeywords(tag.name);
-				pageTitleService.setPageTitle(tag.title);
-			} else {
-				metaInformationService.resetMetaDescription();
-				metaInformationService.resetMetaKeywords();
-				pageTitleService.setPageTitle();
-			}
-		}
 
 		function getTag(id) {
 			if (id) {
@@ -32,7 +20,6 @@
 					$scope.loaderMsg = '';
 					if (tag instanceof Object) {
 						$scope.currentTag = tag;
-						setMetaInfo($scope.currentTag);
 					} else {
 						modalService.alert('md',
 						'Tag Not Found',
@@ -146,6 +133,6 @@
 		});
 	};
 
-	tagController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Tag', 'metaInformationService', 'pageTitleService'];
+	tagController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Tag'];
 	module.exports = tagController;
 })();

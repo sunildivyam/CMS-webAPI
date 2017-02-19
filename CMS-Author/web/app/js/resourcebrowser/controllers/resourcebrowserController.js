@@ -140,6 +140,10 @@
         });
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
+            if (toState) {
+                // Sets Meta information for Page
+                Utils.setMetaInfo(toState.title);
+            }
             if (toState && toState.name && toParams) {
                 Utils.getListConfigs().then(function() {
                     if (toParams.CKEditorFuncNum) {

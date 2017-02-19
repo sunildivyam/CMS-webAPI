@@ -56,7 +56,7 @@ body.theme-default {
 		}
 
 		.panel-body {
-			.default-grad(0.1);
+			background-color: @default-body-bg-color;
 		}
 
 		.panel-footer {
@@ -380,12 +380,19 @@ body.theme-default {
 
                 .carousel-caption {
                     h3 {
-                    	.default-grad(0.3);
+                    	color: @default-hover-text-color;
+                    	.default-orange-grad(0.7);
                     }
 
                     p {
-                    	.default-grad(0.2);
+                    	color: @default-hover-text-color;
+                    	.default-orange-grad(0.5);
                     }
+                }
+
+                img {
+                	width: auto;
+                	max-width: none;
                 }
             }
         }

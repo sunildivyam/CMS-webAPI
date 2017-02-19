@@ -14,7 +14,7 @@
 */
 
 (function() {
-    var accountController = function($rootScope, $scope, $state, appService, accountService, User, modalService) {
+    var accountController = function($rootScope, $scope, $state, appService, accountService, User, modalService, Utils) {
         $scope.newUser = new User();
         $scope.loginInfo = {};
         $scope.resetPasswordModel = {};
@@ -163,6 +163,11 @@
         };
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
+            if (toState) {
+                // Sets Meta information for Page
+                Utils.setMetaInfo(toState.title);
+            }
+
             if (toState && (toState.name === 'verifyemail' || toState.name === 'resetpassword')) {
                 var userName = toParams && toParams.id;
                 var code = toParams && toParams.code;
@@ -179,11 +184,10 @@
 
             if (toState && toState.name === 'resendverifyemail') {
                 $scope.userName = toParams && toParams.id;
-
             }
         });
     };
 
-    accountController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'modalService'];
+    accountController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'modalService', 'Utils'];
     module.exports = accountController;
 })();

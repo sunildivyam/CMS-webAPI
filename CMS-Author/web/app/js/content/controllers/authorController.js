@@ -1,19 +1,26 @@
 'use strict';
 /*
-*	authorController
-*	Description
-*	authorController controls the content page Level Scope Data.
+*   authorController
+*   Description
+*   authorController controls the content page Level Scope Data.
 */
 
 (function() {
-	var authorController = function($scope, $state) {
-		$scope.$on('$stateChangeSuccess', function(event, toState/*, toParams, fromState , fromParams*/) {
-			if (toState && toState.name === 'author') {
-				$state.go('author.dashboard');
-			}
-		});
-	};
+    var authorController = function($scope, $state, Utils) {
+        $scope.$on('$stateChangeSuccess', function(event, toState/*, toParams, fromState , fromParams*/) {
+            if (toState) {
+                switch(toState.name) {
+                    case 'author':
+                        $state.go('author.dashboard');
+                        break;
+                    default:
+                        // Sets Meta information for Page
+                        Utils.setMetaInfo(toState.title);
+                }
+            }
+        });
+    };
 
-	authorController.$inject = ['$scope', '$state'];
-	module.exports = authorController;
+    authorController.$inject = ['$scope', '$state', 'Utils'];
+    module.exports = authorController;
 })();

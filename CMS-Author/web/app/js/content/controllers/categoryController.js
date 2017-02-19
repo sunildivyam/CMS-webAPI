@@ -6,20 +6,8 @@
 */
 
 (function() {
-	var categoryController = function($rootScope, $scope, $state, appService, contentService, modalService, Category, metaInformationService, pageTitleService) {
+	var categoryController = function($rootScope, $scope, $state, appService, contentService, modalService, Category) {
 		$scope.currentCategory = new Category();
-
-		function setMetaInfo(category) {
-			if (category instanceof Object) {
-				metaInformationService.setMetaDescription(category.description);
-				metaInformationService.setMetaKeywords(category.name);
-				pageTitleService.setPageTitle(category.title);
-			} else {
-				metaInformationService.resetMetaDescription();
-				metaInformationService.resetMetaKeywords();
-				pageTitleService.setPageTitle();
-			}
-		}
 
 		function getCategory(id) {
 			if (id) {
@@ -32,7 +20,6 @@
 					var category = new Category(response && response.data);
 					if (category instanceof Object) {
 						$scope.currentCategory = category;
-						setMetaInfo($scope.currentCategory);
 					} else {
 						modalService.alert('md',
 						'Category Not Found',
@@ -146,6 +133,6 @@
 		});
 	};
 
-	categoryController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Category', 'metaInformationService', 'pageTitleService'];
+	categoryController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Category'];
 	module.exports = categoryController;
 })();
