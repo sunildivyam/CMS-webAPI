@@ -1,0 +1,440 @@
+Index: web/app/index.html
+===================================================================
+--- web/app/index.html	(revision 51)
++++ web/app/index.html	(working copy)
+@@ -21,7 +21,7 @@
+   </head>
+   <body class="raiweb">
+     <div class="container-fluid">
+-      <app-header></app-header>
++      <div ui-view=""></div>
+     </div>
+     <script type="text/javascript" src="index.js"></script>
+   </body>
+Index: web/app/js/account/controllers/accountController.js
+===================================================================
+--- web/app/js/account/controllers/accountController.js	(revision 51)
++++ web/app/js/account/controllers/accountController.js	(working copy)
+@@ -1,8 +1,16 @@
+ 'use strict';
+ /*
+-*	accountController
+-*	Description
+-*	accountController controls the account page Level Scope Data.
++* @ngdoc controller
++* @name raiweb.account.controller:accountController
++* @description
++*	The account controller provides the scope methods for following:
++*	1) Registering User
++*	2) Loging User
++*	3) For other user account specific operations, methods will be added.
++* @requires $rootScope
++* @requires $scope
++* @requires $state
++* @requires appService
+ */
+ 
+ (function() {
+@@ -38,7 +46,7 @@
+ 				$rootScope.currentUser = accountService.getLoggedInUser();
+ 				$scope.isSigningIn = false;
+ 				modalService.alert('sm', 'Login Successful', 'You are successfully logged in.', 'View Dashboard');
+-				$state.go('dashboard');
++				$state.go('author.dashboard');
+ 			}, function(rejection){
+ 				$rootScope.currentUser = accountService.getLoggedInUser();
+ 				$scope.isSigningIn = false;
+Index: web/app/js/content/controllers/categoryController.js
+===================================================================
+--- web/app/js/content/controllers/categoryController.js	(revision 55)
++++ web/app/js/content/controllers/categoryController.js	(working copy)
+@@ -34,7 +34,7 @@
+ 						'Category Not Found',
+ 						'Category with Id: ' + id + ' not found',
+ 						'Go to Dashboard').result.then(function() {
+-							$state.go('dashboard');
++							$state.go('author.dashboard');
+ 						});
+ 					}
+ 				}, function(rejection) {
+@@ -42,7 +42,7 @@
+ 					'Category loading Failed',
+ 					'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Category Not Found.') ,
+ 					'Go to Dashboard').result.then(function() {
+-						$state.go('dashboard');
++						$state.go('author.dashboard');
+ 					});
+ 				});
+ 			}
+@@ -57,9 +57,9 @@
+ 				'Category saved successfully',
+ 				'Go to Dashboard',
+ 				'Continue..').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				}, function() {
+-					$state.go('category', {id: addedCategory.categoryId});
++					$state.go('author.category', {id: addedCategory.categoryId});
+ 				});
+ 			}, function(rejection) {
+ 				modalService.alert('md',
+@@ -78,9 +78,9 @@
+ 				'Category Updated successfully',
+ 				'Go to Dashboard',
+ 				'Continue..').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				}, function() {
+-					$state.go('category', {id: updatedCategory.categoryId});
++					$state.go('author.category', {id: updatedCategory.categoryId});
+ 				});
+ 			}, function(rejection) {
+ 				modalService.alert('md',
+@@ -98,7 +98,7 @@
+ 				'Category Delete',
+ 				'Following Category Deleted successfully: <br/>' + updatedCategory.title + '(' + updatedCategory.categoryId + ')',
+ 				'Go to Dashboard').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				});
+ 			}, function(rejection) {
+ 				modalService.alert('md',
+Index: web/app/js/content/controllers/contentController.js
+===================================================================
+--- web/app/js/content/controllers/contentController.js	(revision 55)
++++ web/app/js/content/controllers/contentController.js	(working copy)
+@@ -35,7 +35,7 @@
+ 					'No Content Tags',
+ 					'No content Tags Available <br> Please add One or more tags',
+ 					'Add Tags').result.then(function() {
+-						$state.go('tag');
++						$state.go('author.tag');
+ 					});
+ 				}
+ 			}, function(rejection) {
+@@ -43,7 +43,7 @@
+ 				'Content Tags Load Failed',
+ 				'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Unknown') ,
+ 				'Go to Dashboard').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				});
+ 			});
+ 		}
+@@ -59,7 +59,7 @@
+ 					'No Content Categories',
+ 					'No content Categories Available <br> Please add One or more categories',
+ 					'Add Categories').result.then(function() {
+-						$state.go('category');
++						$state.go('author.category');
+ 					});
+ 				}
+ 			}, function(rejection) {
+@@ -67,7 +67,7 @@
+ 				'Content Categories Load Failed',
+ 				'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Unknown') ,
+ 				'Go to Dashboard').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				});
+ 			});
+ 		}
+@@ -85,7 +85,7 @@
+ 						'Content Not Found',
+ 						'Content with Id: ' + id + ' not found',
+ 						'Go to Dashboard').result.then(function() {
+-							$state.go('dashboard');
++							$state.go('author.dashboard');
+ 						});
+ 					}
+ 				}, function(rejection) {
+@@ -93,7 +93,7 @@
+ 					'Content loading Failed',
+ 					'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Content Not Found.') ,
+ 					'Go to Dashboard').result.then(function() {
+-						$state.go('dashboard');
++						$state.go('author.dashboard');
+ 					});
+ 				});
+ 			}
+@@ -108,9 +108,9 @@
+ 				'Content saved successfully',
+ 				'Go to Dashboard',
+ 				'Continue..').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				}, function() {
+-					$state.go('content', {id: addedContent.authorContentId});
++					$state.go('author.content', {id: addedContent.authorContentId});
+ 				});
+ 			}, function(rejection) {
+ 				modalService.alert('md',
+@@ -129,9 +129,9 @@
+ 				'Content Updated successfully',
+ 				'Go to Dashboard',
+ 				'Continue..').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				}, function() {
+-					$state.go('content', {id: updatedContent.authorContentId});
++					$state.go('author.content', {id: updatedContent.authorContentId});
+ 				});
+ 			}, function(rejection) {
+ 				modalService.alert('md',
+@@ -149,7 +149,7 @@
+ 				'Content Delete',
+ 				'Following Content Deleted successfully: <br/>' + updatedContent.title + '(' + updatedContent.authorContentId + ')',
+ 				'Go to Dashboard').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				});
+ 			}, function(rejection) {
+ 				modalService.alert('md',
+Index: web/app/js/content/controllers/tagController.js
+===================================================================
+--- web/app/js/content/controllers/tagController.js	(revision 55)
++++ web/app/js/content/controllers/tagController.js	(working copy)
+@@ -34,7 +34,7 @@
+ 						'Tag Not Found',
+ 						'Tag with Id: ' + id + ' not found',
+ 						'Go to Dashboard').result.then(function() {
+-							$state.go('dashboard');
++							$state.go('author.dashboard');
+ 						});
+ 					}
+ 				}, function(rejection) {
+@@ -42,7 +42,7 @@
+ 					'Tag loading Failed',
+ 					'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Tag Not Found.') ,
+ 					'Go to Dashboard').result.then(function() {
+-						$state.go('dashboard');
++						$state.go('author.dashboard');
+ 					});
+ 				});
+ 			}
+@@ -57,9 +57,9 @@
+ 				'Tag saved successfully',
+ 				'Go to Dashboard',
+ 				'Continue..').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				}, function() {
+-					$state.go('tag', {id: addedTag.tagId});
++					$state.go('author.tag', {id: addedTag.tagId});
+ 				});
+ 			}, function(rejection) {
+ 				modalService.alert('md',
+@@ -78,9 +78,9 @@
+ 				'Tag Updated successfully',
+ 				'Go to Dashboard',
+ 				'Continue..').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				}, function() {
+-					$state.go('tag', {id: updatedTag.tagId});
++					$state.go('author.tag', {id: updatedTag.tagId});
+ 				});
+ 			}, function(rejection) {
+ 				modalService.alert('md',
+@@ -98,7 +98,7 @@
+ 				'Tag Delete',
+ 				'Following Tag Deleted successfully: <br/>' + updatedTag.title + '(' + updatedTag.tagId + ')',
+ 				'Go to Dashboard').result.then(function() {
+-					$state.go('dashboard');
++					$state.go('author.dashboard');
+ 				});
+ 			}, function(rejection) {
+ 				modalService.alert('md',
+Index: web/app/js/core/core.js
+===================================================================
+--- web/app/js/core/core.js	(revision 55)
++++ web/app/js/core/core.js	(working copy)
+@@ -11,7 +11,7 @@
+     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
+         function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+         // Error Page State Definition. All other states are created in Run section of this module
+-        $urlRouterProvider.otherwise('/dashboard');
++        $urlRouterProvider.otherwise('/');
+         $stateProvider.state({
+             name: 'error',
+             url: '/error',
+@@ -48,7 +48,15 @@
+             isAnonymous: false
+         })
+         .state({
+-            name: 'profile',
++            name: 'author',
++            //url: '/author',
++            templateProvider: ['$templateCache', function($templateCache) {
++                return $templateCache.get('core/author-home.html');
++            }],
++            isAnonymous: false
++        })
++        .state({
++            name: 'author.profile',
+             url: '/account/profile',
+             templateProvider: ['$templateCache', function($templateCache) {
+                 return $templateCache.get('account/profile.html');
+@@ -56,7 +64,7 @@
+             isAnonymous: false
+         })
+         .state({
+-            name: 'content',
++            name: 'author.content',
+             url: '/content?id',
+             templateProvider: ['$templateCache', function($templateCache) {
+                 return $templateCache.get('content/landing.html');
+@@ -65,7 +73,7 @@
+             isAnonymous: false
+         })
+         .state({
+-            name: 'tag',
++            name: 'author.tag',
+             url: '/tag?id',
+             templateProvider: ['$templateCache', function($templateCache) {
+                 return $templateCache.get('content/landing.html');
+@@ -74,7 +82,7 @@
+             isAnonymous: false
+         })
+         .state({
+-            name: 'category',
++            name: 'author.category',
+             url: '/category?id',
+             templateProvider: ['$templateCache', function($templateCache) {
+                 return $templateCache.get('content/landing.html');
+@@ -83,7 +91,7 @@
+             isAnonymous: false
+         })
+         .state({
+-            name: 'dashboard',
++            name: 'author.dashboard',
+             url: '/dashboard',
+             templateProvider: ['$templateCache', function($templateCache) {
+                 return $templateCache.get('dashboard/landing.html');
+@@ -90,6 +98,14 @@
+             }],
+             controller: 'dashboardController',
+             isAnonymous: false
++        })
++        .state({
++            name: 'home',
++            url: '/',
++            templateProvider: ['$templateCache', function($templateCache) {
++                return $templateCache.get('core/home.html');
++            }],
++            isAnonymous: true
+         });
+ 
+         // Enables html5Mode Urls
+Index: web/app/js/core/services/Utils.js
+===================================================================
+--- web/app/js/core/services/Utils.js	(revision 55)
++++ web/app/js/core/services/Utils.js	(working copy)
+@@ -34,7 +34,12 @@
+ 			return str;
+ 		}
+ 
+-		/* 	Filter Objects of content, tag or category, for title to contain searchKeywords
++		/*
++		* @ngdoc method
++		* @name filterByKeywords
++		* @description
++
++		Filter Objects of content, tag or category, for title to contain searchKeywords
+ 		*	and returns tru or false if found/notfound.
+ 		*	This should be used in filtering Array of above Objects
+ 		*/
+Index: web/app/js/dashboard/controllers/dashboardController.js
+===================================================================
+--- web/app/js/dashboard/controllers/dashboardController.js	(revision 55)
++++ web/app/js/dashboard/controllers/dashboardController.js	(working copy)
+@@ -48,19 +48,19 @@
+ 
+ 		$scope.onDraftedContentSelect = function(event, content) {
+ 			if(content instanceof Object) {
+-				$state.go('content', {id: content.authorContentId});
++				$state.go('author.content', {id: content.authorContentId});
+ 			}
+ 		};
+ 
+ 		$scope.onCategoriesSelect = function(event, category) {
+ 			if(category instanceof Object) {
+-				$state.go('category', {id: category.categoryId});
++				$state.go('author.category', {id: category.categoryId});
+ 			}
+ 		};
+ 
+ 		$scope.onTagsSelect = function(event, tag) {
+ 			if(tag instanceof Object) {
+-				$state.go('tag', {id: tag.tagId});
++				$state.go('author.tag', {id: tag.tagId});
+ 			}
+ 		};
+ 
+Index: web/app/pages/account/logout.html
+===================================================================
+--- web/app/pages/account/logout.html	(revision 51)
++++ web/app/pages/account/logout.html	(working copy)
+@@ -10,7 +10,7 @@
+ 		New here ? Please <a ui-sref="register"><b>Join Us</b></a>
+ 	</div>
+ 	<div class="bottom text-center">
+-		or <a ui-sref="dashboard"><b>Go to Home Page</b></a>
++		or <a ui-sref="author.dashboard"><b>Go to Home Page</b></a>
+ 	</div>
+ </div>
+ <loader data-at-body="true" data-is-loading="currentUser ? true : false" data-message="Logging out"></loader>
+Index: web/app/pages/core/app-header.html
+===================================================================
+--- web/app/pages/core/app-header.html	(revision 52)
++++ web/app/pages/core/app-header.html	(working copy)
+@@ -11,12 +11,12 @@
+       </div>
+       <div class="collapse navbar-collapse" id="myNavbar">
+         <ul class="nav navbar-nav">
+-          <li ui-sref-active="active"><a ui-sref="dashboard">Dashboard</a></li>
+-          <li ui-sref-active="active"><a ui-sref="content">Content</a></li>
+-          <li ui-sref-active="active"><a ui-sref="category">Category</a></li>
+-          <li ui-sref-active="active"><a ui-sref="tag">Tag</a></li>
++          <li ui-sref-active="active"><a ui-sref="author.dashboard">Dashboard</a></li>
++          <li ui-sref-active="active"><a ui-sref="author.content">Content</a></li>
++          <li ui-sref-active="active"><a ui-sref="author.category">Category</a></li>
++          <li ui-sref-active="active"><a ui-sref="author.tag">Tag</a></li>
+           <li><hr></li>
+-          <li ui-sref-active="active"><a ui-sref="profile">Profile</a></li>
++          <li ui-sref-active="active"><a ui-sref="author.profile">Profile</a></li>
+           <li ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+         </ul>
+       </div>
+@@ -25,12 +25,12 @@
+   <div class="col-sm-3 sidenav hidden-xs" ng-hide="!currentUser">
+     <brand-logo data-logo="appLogo"></brand-logo>
+     <ul class="nav nav-pills nav-stacked">
+-      <li ui-sref-active="active"><a ui-sref="dashboard">Dashboard</a></li>
+-      <li ui-sref-active="active"><a ui-sref="content">Content</a></li>
+-      <li ui-sref-active="active"><a ui-sref="category">Category</a></li>
+-      <li ui-sref-active="active"><a ui-sref="tag">Tag</a></li>
++      <li ui-sref-active="active"><a ui-sref="author.dashboard">Dashboard</a></li>
++      <li ui-sref-active="active"><a ui-sref="author.content">Content</a></li>
++      <li ui-sref-active="active"><a ui-sref="author.category">Category</a></li>
++      <li ui-sref-active="active"><a ui-sref="author.tag">Tag</a></li>
+       <li><hr></li>
+-      <li ui-sref-active="active"><a ui-sref="profile">Profile</a></li>
++      <li ui-sref-active="active"><a ui-sref="author.profile">Profile</a></li>
+       <li ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+     </ul><br>
+   </div>
+Index: web/app/pages/core/author-home.html
+===================================================================
+--- web/app/pages/core/author-home.html	(revision 0)
++++ web/app/pages/core/author-home.html	(working copy)
+@@ -0,0 +1 @@
++<app-header></app-header>
+\ No newline at end of file
+Index: web/app/pages/core/home.html
+===================================================================
+--- web/app/pages/core/home.html	(revision 0)
++++ web/app/pages/core/home.html	(working copy)
+@@ -0,0 +1 @@
++<h1>Home</h1>
+\ No newline at end of file
