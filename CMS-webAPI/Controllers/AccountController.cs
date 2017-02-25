@@ -288,7 +288,7 @@ namespace CMS_webAPI.Controllers
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);               
                 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, oAuthIdentity);
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user, oAuthIdentity);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else

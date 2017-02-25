@@ -64,7 +64,7 @@ namespace CMS_webAPI.Providers
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
             
-            AuthenticationProperties properties = CreateProperties(user.UserName, oAuthIdentity);
+            AuthenticationProperties properties = CreateProperties(user, oAuthIdentity);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -106,13 +106,15 @@ namespace CMS_webAPI.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, ClaimsIdentity oAuthIdentity)
+        public static AuthenticationProperties CreateProperties(ApplicationUser user, ClaimsIdentity oAuthIdentity)
         {
             string userRoles = string.Join(",", oAuthIdentity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToArray());
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName },
-                {"roles", userRoles}
+                { "userName", user.UserName },
+                {"roles", userRoles},
+                {"firstName", user.FirstName},
+                {"lastName", user.LastName}
             };
             return new AuthenticationProperties(data);
         }
