@@ -13,18 +13,6 @@
         $scope.dlPublishedContents = {};
         $scope.dlContentHistory= {};
 
-        // function setMetaInfo(article) {
-        //  if (article instanceof Object) {
-        //      metaInformationService.setMetaDescription(article.shortDescription);
-        //      metaInformationService.setMetaKeywords(article.tags);
-        //      pageTitleService.setPageTitle(article.name);
-        //  } else {
-        //      metaInformationService.resetMetaDescription();
-        //      metaInformationService.resetMetaKeywords();
-        //      pageTitleService.setPageTitle();
-        //  }
-        // }
-
         $scope.getDraftedContents = function() {
             $scope.dlDraftedContents.isLoading = true;
             $scope.dlDraftedContents = angular.extend(Utils.getListConfigOf('draftedContent'), $scope.dlDraftedContents);
@@ -49,6 +37,7 @@
             contentService.getCategories().then(function(response) {
                 var categories = new EntityMapper(Category).toEntities(response.data);
                 $scope.dlCategories.items = categories;
+                $rootScope.categories = categories;
                 $scope.dlCategories.pagingTotalItems = categories.length;
                 $scope.dlCategories.headerRightLabel = categories.length + ' results';
                 $scope.dlCategories.isLoading = false;
