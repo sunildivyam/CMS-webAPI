@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var pubhomeController = function($scope, $state, $timeout, $q, pubcontentService, EntityMapper, Category, Tag, Content, Utils, searchService) {
+    var pubhomeController = function($rootScope, $scope, $state, $timeout, $q, pubcontentService, EntityMapper, Category, Tag, Content, Utils, searchService) {
         $scope.globalSearch = {
             searchString: '',
             category: searchService.getDefaultCategory()
@@ -95,6 +95,7 @@
                 $scope.categories = new EntityMapper(Category).toEntities(response.data);
                 $scope.searchDropdownCategories = angular.copy($scope.categories);
                 $scope.searchDropdownCategories.unshift(searchService.getDefaultCategory());
+                $rootScope.categories = $scope.categories;
                 defferedObj.resolve($scope.categories);
             }, function() {
                 $scope.categories = new EntityMapper(Category).toEntities();
@@ -187,6 +188,6 @@
         });
     };
 
-    pubhomeController.$inject = ['$scope', '$state', '$timeout', '$q', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils', 'searchService'];
+    pubhomeController.$inject = ['$rootScope', '$scope', '$state', '$timeout', '$q', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils', 'searchService'];
     module.exports = pubhomeController;
 })();

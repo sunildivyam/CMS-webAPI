@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService, Utils, modalService) {
+    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService, Utils, modalService, EntityMapper, Category, pubcontentService) {
         $rootScope.bodyClass = '';
         $rootScope.appLogo = {
             primaryTitle: 'LearnWiseWay',
@@ -16,6 +16,8 @@
         // sets the currentBreakpoint on page Load.
         setCurrentBreakpoint();
 
+        //Gets all categories
+        getCategories();
         /*
         *   setCurrentBreakpoint is a private method
         *   sets the current bootstrap breakpoint, on load or resize of the window.
@@ -42,6 +44,15 @@
                 $rootScope.currentUser = accountService.getLoggedInUser();
             });
         };
+
+        // gets all categories
+        function getCategories() {
+            pubcontentService.getCategories().then(function(response) {
+                $rootScope.categories = new EntityMapper(Category).toEntities(response.data);
+            }, function() {
+                $rootScope.categories = new EntityMapper(Category).toEntities();
+            });
+        }
 
         $rootScope.$on('$stateChangeSuccess', function(event, toState) {
             if (toState && toState.name) {
@@ -85,6 +96,6 @@
         });
     };
 
-    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService', 'Utils', 'modalService'];
+    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService', 'Utils', 'modalService', 'EntityMapper', 'Category', 'pubcontentService'];
     module.exports = appController;
 })();
