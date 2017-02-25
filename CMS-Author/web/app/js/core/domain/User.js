@@ -14,8 +14,8 @@
                 this.email = raw.Email;
                 this.password = raw.password;
                 this.confirmPassword = raw.ConfirmPassword;
-                this.firstName = raw.FirstName;
-                this.lastName = raw.LastName;
+                this.firstName = raw.FirstName || raw.firstName;
+                this.lastName = raw.LastName || raw.lastName;
                 this.phone = raw.Phone;
                 this.token = raw.access_token;
                 this.tokenType = raw.token_type;
@@ -23,7 +23,13 @@
                 this.issuedDate = raw['.issued'];
                 this.expiryDate = raw['.expires'];
                 this.loginProvider = raw.LoginProvider;
-                this.roles = raw.Roles;
+                var roles  = raw.Roles || raw.roles;
+                if (typeof roles === 'string') {
+                    this.roles = roles.split(',');
+                } else {
+                    this.roles = roles;
+                }
+
             }
         }
 

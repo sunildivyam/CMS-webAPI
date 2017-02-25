@@ -32,26 +32,30 @@
 		var SORT_DIR_ASC = true;
 		var SORT_FIELD = 'Title';
 
+		var requestHeaders = {
+			'Content-Type': 'application/json'
+		};
+
 		// Tags
 		function getTags() {
-			return appService.get([urls.tags].join('/'));
+			return appService.get([urls.tags].join('/'), undefined, requestHeaders);
 		}
 
 		function getTagById(id) {
-			return appService.get([urls.tags, id].join('/'));
+			return appService.get([urls.tags, id].join('/'), undefined, requestHeaders);
 		}
 
 		// Category
 		function getCategories() {
-			return appService.get([urls.categories.base, urls.categories.getCategories].join('/'), undefined , undefined, CACHE);
+			return appService.get([urls.categories.base, urls.categories.getCategories].join('/'), undefined , requestHeaders, CACHE);
 		}
 
 		function getCategoryById(id) {
-			return appService.get([urls.categories, id].join('/'));
+			return appService.get([urls.categories, id].join('/'), undefined, requestHeaders);
 		}
 
 		function getCategoryByName(name) {
-			return appService.get([urls.categories.base, urls.categories.getCategoryByName, name].join('/'));
+			return appService.get([urls.categories.base, urls.categories.getCategoryByName, name].join('/'), undefined, requestHeaders);
 		}
 
 		//Content
@@ -62,8 +66,7 @@
 			return appService.get([urls.contents.base,
 				urls.contents.getContentsByCategoryName,
 				name,
-				PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'),
-				undefined , undefined, CACHE);
+				PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
 		}
 
 		function getContent(categoryName, contentId, contentName) {
@@ -71,8 +74,7 @@
 				urls.contents.getContent,
 				categoryName,
 				contentId,
-				contentName].join('/'),
-				undefined , undefined, CACHE);
+				contentName].join('/'), undefined, requestHeaders, CACHE);
 		}
 
 

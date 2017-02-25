@@ -9,9 +9,9 @@
     var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService, Utils, modalService) {
         $rootScope.bodyClass = '';
         $rootScope.appLogo = {
-            primaryTitle: 'WISDOM',
-            highCharIndex: 3,
-            secondaryTitle: 'Learn Wise Way'
+            primaryTitle: 'LearnWiseWay',
+            highCharIndex: 6,
+            secondaryTitle: 'Wise Learnings'
         };
         // sets the currentBreakpoint on page Load.
         setCurrentBreakpoint();
@@ -48,6 +48,10 @@
                 Utils.getListConfigs().then(function(response) {
                     $rootScope.application = response && response.application;
                     $rootScope.appLogo = $rootScope.application && $rootScope.application.appLogo;
+                    if (toState && toState.title) {
+                        // Sets Meta information for Page
+                        Utils.setMetaInfo(toState.title);
+                    }
                 });
                 // Scrolls to Top on State Change
                 document.body.scrollTop = document.documentElement.scrollTop = 0;

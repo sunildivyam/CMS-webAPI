@@ -8,7 +8,7 @@ if (typeof String.prototype.startsWith !== 'function') {
 			return true;
 		}
 		return false;
-	}
+	};
 }
 
 if (typeof String.prototype.endsWith !== 'function') {
@@ -17,7 +17,7 @@ if (typeof String.prototype.endsWith !== 'function') {
 			return true;
 		}
 		return false;
-	}
+	};
 }
 
 if (typeof String.prototype.includes !== 'function') {
@@ -26,5 +26,5 @@ if (typeof String.prototype.includes !== 'function') {
 			return true;
 		}
 		return false;
-	}
+	};
 }

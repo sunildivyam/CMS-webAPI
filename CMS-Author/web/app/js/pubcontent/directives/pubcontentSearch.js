@@ -17,7 +17,7 @@
                 });
 
                 $scope.onSearchClick = function(event) {
-                    if (typeof $scope.onSearch === 'function') {
+                    if (typeof $scope.onSearch === 'function' && $scope.search.searchString.trim()) {
                         $scope.onSearch(event, $scope.search.category, $scope.search.searchString);
                     }
                 };

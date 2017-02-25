@@ -1,8 +1,91 @@
 <div class="well">
-  <h4>Welcome: {{currentUser.userName}}</h4>
-  <p>Some text..</p>
+  <h4>Welcome: {{user.lastName?user.lastName + ', ': '' }} {{user.firstName}}</h4>
+  <span class="well">Articles in Draft: <span class="label label-success">{{dlDraftedContents.pagingTotalItems || 0}}</span></span> |
+  <span class="well">Published Articles: <span class="label label-success">{{dlPublishedContents.pagingTotalItems || 0}}</span></span>
 </div>
 <div class="row grid" isotope-layout="">
+    <div class="col-sm-6 grid-item">
+        <generic-list
+        data-items="dlDraftedContents.items"
+        data-items-type="dlDraftedContents.itemsType"
+        data-on-item-select="dlDraftedContents.onItemSelect"
+
+        data-enable-header="dlDraftedContents.enableHeader"
+        data-enable-maximize="dlDraftedContents.enableMaximize"
+        data-enable-search="dlDraftedContents.enableSearch"
+        data-enable-view-modes="dlDraftedContents.enableViewModes"
+        data-enable-scrollbar="dlDraftedContents.enableScrollbar"
+        data-enable-tags="dlDraftedContents.enableTags"
+        data-enable-footer-link="dlDraftedContents.enableFooterLink"
+        data-enable-paging="dlDraftedContents.enablePaging"
+
+        data-header-title="dlDraftedContents.headerTitle"
+        data-header-summary="dlDraftedContents.headerSummary"
+        data-header-right-label="dlDraftedContents.headerRightLabel"
+
+        data-view-mode="dlDraftedContents.viewMode"
+
+        data-scroll-height="dlDraftedContents.scrollHeight"
+
+        data-tags="dlDraftedContents.tags"
+
+        data-footer-link-text="dlDraftedContents.footerLinkText"
+        data-footer-link-url="dlDraftedContents.footerLinkUrl"
+        data-on-footer-link-click="dlDraftedContents.onFooterLinkClick"
+
+        data-paging-total-items="dlDraftedContents.pagingTotalItems"
+        data-paging-selected-page="dlDraftedContents.pagingSelectedPage"
+        data-paging-page-size="dlDraftedContents.pagingPageSize"
+        data-paging-pager-size="dlDraftedContents.pagingPagerSize"
+        data-on-paging-page-change="dlDraftedContents.onPagingPageChange"
+
+        data-on-refresh="onListsRefresh"
+        data-is-loading="dlDraftedContents.isLoading"
+        >
+        </generic-list>
+    </div>
+
+    <div class="col-sm-6 grid-item">
+        <generic-list
+        data-items="dlPublishedContents.items"
+        data-items-type="dlPublishedContents.itemsType"
+        data-on-item-select="dlPublishedContents.onItemSelect"
+
+        data-enable-header="dlPublishedContents.enableHeader"
+        data-enable-maximize="dlPublishedContents.enableMaximize"
+        data-enable-search="dlPublishedContents.enableSearch"
+        data-enable-view-modes="dlPublishedContents.enableViewModes"
+        data-enable-scrollbar="dlPublishedContents.enableScrollbar"
+        data-enable-tags="dlPublishedContents.enableTags"
+        data-enable-footer-link="dlPublishedContents.enableFooterLink"
+        data-enable-paging="dlPublishedContents.enablePaging"
+
+        data-header-title="dlPublishedContents.headerTitle"
+        data-header-summary="dlPublishedContents.headerSummary"
+        data-header-right-label="dlPublishedContents.headerRightLabel"
+
+        data-view-mode="dlPublishedContents.viewMode"
+
+        data-scroll-height="dlPublishedContents.scrollHeight"
+
+        data-tags="dlPublishedContents.tags"
+
+        data-footer-link-text="dlPublishedContents.footerLinkText"
+        data-footer-link-url="dlPublishedContents.footerLinkUrl"
+        data-on-footer-link-click="dlPublishedContents.onFooterLinkClick"
+
+        data-paging-total-items="dlPublishedContents.pagingTotalItems"
+        data-paging-selected-page="dlPublishedContents.pagingSelectedPage"
+        data-paging-page-size="dlPublishedContents.pagingPageSize"
+        data-paging-pager-size="dlPublishedContents.pagingPagerSize"
+        data-on-paging-page-change="dlPublishedContents.onPagingPageChange"
+
+        data-on-refresh="onListsRefresh"
+        data-is-loading="dlPublishedContents.isLoading"
+        >
+        </generic-list>
+    </div>
+
     <div class="col-sm-6 grid-item">
         <generic-list
         data-items="dlCategories.items"
@@ -44,126 +127,44 @@
         </generic-list>
     </div>
 
-  <div class="col-sm-6 grid-item">
-    <generic-list
-    data-items="dlTags.items"
-    data-items-type="dlTags.itemsType"
-    data-on-item-select="dlTags.onItemSelect"
+    <div class="col-sm-6 grid-item">
+        <generic-list
+        data-items="dlTags.items"
+        data-items-type="dlTags.itemsType"
+        data-on-item-select="dlTags.onItemSelect"
 
-    data-enable-header="dlTags.enableHeader"
-    data-enable-maximize="dlTags.enableMaximize"
-    data-enable-search="dlTags.enableSearch"
-    data-enable-view-modes="dlTags.enableViewModes"
-    data-enable-scrollbar="dlTags.enableScrollbar"
-    data-enable-tags="dlTags.enableTags"
-    data-enable-footer-link="dlTags.enableFooterLink"
-    data-enable-paging="dlTags.enablePaging"
+        data-enable-header="dlTags.enableHeader"
+        data-enable-maximize="dlTags.enableMaximize"
+        data-enable-search="dlTags.enableSearch"
+        data-enable-view-modes="dlTags.enableViewModes"
+        data-enable-scrollbar="dlTags.enableScrollbar"
+        data-enable-tags="dlTags.enableTags"
+        data-enable-footer-link="dlTags.enableFooterLink"
+        data-enable-paging="dlTags.enablePaging"
 
-    data-header-title="dlTags.headerTitle"
-    data-header-summary="dlTags.headerSummary"
-    data-header-right-label="dlTags.headerRightLabel"
+        data-header-title="dlTags.headerTitle"
+        data-header-summary="dlTags.headerSummary"
+        data-header-right-label="dlTags.headerRightLabel"
 
-    data-view-mode="dlTags.viewMode"
+        data-view-mode="dlTags.viewMode"
 
-    data-scroll-height="dlTags.scrollHeight"
+        data-scroll-height="dlTags.scrollHeight"
 
-    data-tags="dlTags.tags"
+        data-tags="dlTags.tags"
 
-    data-footer-link-text="dlTags.footerLinkText"
-    data-footer-link-url="dlTags.footerLinkUrl"
-    data-on-footer-link-click="dlTags.onFooterLinkClick"
+        data-footer-link-text="dlTags.footerLinkText"
+        data-footer-link-url="dlTags.footerLinkUrl"
+        data-on-footer-link-click="dlTags.onFooterLinkClick"
 
-    data-paging-total-items="dlTags.pagingTotalItems"
-    data-paging-selected-page="dlTags.pagingSelectedPage"
-    data-paging-page-size="dlTags.pagingPageSize"
-    data-paging-pager-size="dlTags.pagingPagerSize"
-    data-on-paging-page-change="dlTags.onPagingPageChange"
+        data-paging-total-items="dlTags.pagingTotalItems"
+        data-paging-selected-page="dlTags.pagingSelectedPage"
+        data-paging-page-size="dlTags.pagingPageSize"
+        data-paging-pager-size="dlTags.pagingPagerSize"
+        data-on-paging-page-change="dlTags.onPagingPageChange"
 
-    data-on-refresh="onListsRefresh"
-    data-is-loading="dlTags.isLoading"
-    >
-    </generic-list>
-  </div>
-
-  <div class="col-sm-6 grid-item">
-    <generic-list
-    data-items="dlDraftedContents.items"
-    data-items-type="dlDraftedContents.itemsType"
-    data-on-item-select="dlDraftedContents.onItemSelect"
-
-    data-enable-header="dlDraftedContents.enableHeader"
-    data-enable-maximize="dlDraftedContents.enableMaximize"
-    data-enable-search="dlDraftedContents.enableSearch"
-    data-enable-view-modes="dlDraftedContents.enableViewModes"
-    data-enable-scrollbar="dlDraftedContents.enableScrollbar"
-    data-enable-tags="dlDraftedContents.enableTags"
-    data-enable-footer-link="dlDraftedContents.enableFooterLink"
-    data-enable-paging="dlDraftedContents.enablePaging"
-
-    data-header-title="dlDraftedContents.headerTitle"
-    data-header-summary="dlDraftedContents.headerSummary"
-    data-header-right-label="dlDraftedContents.headerRightLabel"
-
-    data-view-mode="dlDraftedContents.viewMode"
-
-    data-scroll-height="dlDraftedContents.scrollHeight"
-
-    data-tags="dlDraftedContents.tags"
-
-    data-footer-link-text="dlDraftedContents.footerLinkText"
-    data-footer-link-url="dlDraftedContents.footerLinkUrl"
-    data-on-footer-link-click="dlDraftedContents.onFooterLinkClick"
-
-    data-paging-total-items="dlDraftedContents.pagingTotalItems"
-    data-paging-selected-page="dlDraftedContents.pagingSelectedPage"
-    data-paging-page-size="dlDraftedContents.pagingPageSize"
-    data-paging-pager-size="dlDraftedContents.pagingPagerSize"
-    data-on-paging-page-change="dlDraftedContents.onPagingPageChange"
-
-    data-on-refresh="onListsRefresh"
-    data-is-loading="dlDraftedContents.isLoading"
-    >
-    </generic-list>
-  </div>
-
-  <div class="col-sm-6 grid-item">
-    <generic-list
-    data-items="dlPublishedContents.items"
-    data-items-type="dlPublishedContents.itemsType"
-    data-on-item-select="dlPublishedContents.onItemSelect"
-
-    data-enable-header="dlPublishedContents.enableHeader"
-    data-enable-maximize="dlPublishedContents.enableMaximize"
-    data-enable-search="dlPublishedContents.enableSearch"
-    data-enable-view-modes="dlPublishedContents.enableViewModes"
-    data-enable-scrollbar="dlPublishedContents.enableScrollbar"
-    data-enable-tags="dlPublishedContents.enableTags"
-    data-enable-footer-link="dlPublishedContents.enableFooterLink"
-    data-enable-paging="dlPublishedContents.enablePaging"
-
-    data-header-title="dlPublishedContents.headerTitle"
-    data-header-summary="dlPublishedContents.headerSummary"
-    data-header-right-label="dlPublishedContents.headerRightLabel"
-
-    data-view-mode="dlPublishedContents.viewMode"
-
-    data-scroll-height="dlPublishedContents.scrollHeight"
-
-    data-tags="dlPublishedContents.tags"
-
-    data-footer-link-text="dlPublishedContents.footerLinkText"
-    data-footer-link-url="dlPublishedContents.footerLinkUrl"
-    data-on-footer-link-click="dlPublishedContents.onFooterLinkClick"
-
-    data-paging-total-items="dlPublishedContents.pagingTotalItems"
-    data-paging-selected-page="dlPublishedContents.pagingSelectedPage"
-    data-paging-page-size="dlPublishedContents.pagingPageSize"
-    data-paging-pager-size="dlPublishedContents.pagingPagerSize"
-    data-on-paging-page-change="dlPublishedContents.onPagingPageChange"
-
-    data-on-refresh="onListsRefresh"
-    data-is-loading="dlPublishedContents.isLoading"
-    >
-    </generic-list>
-  </div>
+        data-on-refresh="onListsRefresh"
+        data-is-loading="dlTags.isLoading"
+        >
+        </generic-list>
+    </div>
 </div>

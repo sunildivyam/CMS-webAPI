@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-	var pubCategoryView = function() {
+	var pubCategoryView = function($location, pageTitleService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -8,12 +8,13 @@
 				isLoading: '='
 			},
 			templateUrl: 'pubcontent/pubcategory-view.html',
-			link: function() {
-
+			link: function($scope) {
+				$scope.$location = $location;
+				$scope.pageTitleService = pageTitleService;
 			}
 		};
 	};
 
-	pubCategoryView.$inject = [];
+	pubCategoryView.$inject = ['$location', 'pageTitleService'];
 	module.exports = pubCategoryView;
 })();

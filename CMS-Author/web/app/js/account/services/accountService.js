@@ -123,7 +123,7 @@
 		}
 
 		function isUserInRoles(roles) {
-			if (!roles || (roles instanceof Array && roles.length > 0)) {
+			if (!roles || (roles instanceof Array && roles.length <= 0)) {
 				return true;
 			}
 

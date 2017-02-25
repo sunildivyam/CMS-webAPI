@@ -32,12 +32,12 @@
 		}
 
 		function executeRequest(config) {
+			angular.extend(config.headers || {}, {'Accept': '*/*'});
 			return $http(config);
 		}
 
 		function nonGetRequest(requestType, url, data, headers, options) {
 			var reqHeaders = headers || {};
-
 			var config = {
 				method: requestType,
 				url: getFullUrl(url),

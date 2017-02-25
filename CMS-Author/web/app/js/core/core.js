@@ -23,6 +23,15 @@
             title: 'Error'
         })
         .state({
+            name: 'termsandconditions',
+            url: '/termsandconditions',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('core/terms-and-conditions-landing.html');
+            }],
+            isAnonymous: true,
+            title: 'Terms and Conditions'
+        })
+        .state({
             name: 'login',
             url: '/account/login',
             templateProvider: ['$templateCache', function($templateCache) {
@@ -249,10 +258,11 @@
     *   Run method of core module, makes the $state and $stateParams Service, available
     *   to the $rootScope Service
     */
-    .run(['$state', '$stateParams', '$rootScope', 'pageTitleService', 'metaInformationService',
-        function($state, $stateParams, $rootScope, pageTitleService, metaInformationService) {
+    .run(['$state', '$stateParams', '$rootScope', '$location', 'pageTitleService', 'metaInformationService',
+        function($state, $stateParams, $rootScope, $location, pageTitleService, metaInformationService) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
+        $rootScope.$location = $location;
         /*
         *   assigns pageTitleService and metaInformationService to $rootScope
         *   so that both are available in the Head section of HTML page
@@ -317,7 +327,9 @@
     .directive('btnToolbar', require('./directives/btnToolbar'))
     .directive('genericList', require('./directives/genericList'))
     .directive('tinyScrollbar', require('./directives/tinyScrollbar'))
-    .directive('bootstrapCarousel', require('./directives/bootstrapCarousel'));
+    .directive('bootstrapCarousel', require('./directives/bootstrapCarousel'))
+    .directive('appFooter', require('./directives/appFooter'))
+    .directive('socialMediaShare', require('./directives/socialMediaShare'));
 
     module.exports = angular.module('raiweb.core');
 })();

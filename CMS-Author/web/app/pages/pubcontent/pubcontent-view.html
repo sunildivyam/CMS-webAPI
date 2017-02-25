@@ -17,6 +17,12 @@
 			<p> &nbsp;</p>
 			<p class="content-short-description" ng-bind-html="content.shortDescription"></p>
 			<tags tag-items="content.tags"></tags>
+			<social-media-share
+				data-header-text="Share this article: "
+				data-share-page-url="{{$location.absUrl()}}"
+				data-share-page-title="{{pageTitleService.getPageTitle()}}"
+				class="pull-right">
+			</social-media-share>
 		</div>
 	</div>
 	<div class="panel-body">

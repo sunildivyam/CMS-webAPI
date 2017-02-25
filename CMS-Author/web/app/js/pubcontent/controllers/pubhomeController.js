@@ -154,6 +154,8 @@
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
             if (toState && toState.name) {
                 Utils.getListConfigs().then(function() {
+                    // Sets Meta information for Page
+                    Utils.setMetaInfo(); // this sets application level meta data
                     $scope.iso = undefined;
                     getCategories().then(function() {
                         if (toState.name === 'pub') {

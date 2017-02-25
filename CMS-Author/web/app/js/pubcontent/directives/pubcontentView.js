@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-	var pubcontentView = function($timeout, CkEditorService) {
+	var pubcontentView = function($timeout, CkEditorService, $location, pageTitleService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -9,6 +9,9 @@
 			},
 			templateUrl: 'pubcontent/pubcontent-view.html',
 			link: function($scope, element) {
+				$scope.$location = $location;
+				$scope.pageTitleService = pageTitleService;
+
 				$scope.$watch('content', function(content) {
 					if (content && content.description) {
 						$timeout(function() {
@@ -21,6 +24,6 @@
 		};
 	};
 
-	pubcontentView.$inject = ['$timeout', 'CkEditorService'];
+	pubcontentView.$inject = ['$timeout', 'CkEditorService', '$location', 'pageTitleService'];
 	module.exports = pubcontentView;
 })();
