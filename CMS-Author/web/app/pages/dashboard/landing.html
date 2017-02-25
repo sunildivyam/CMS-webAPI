@@ -1,7 +1,9 @@
 <div class="well">
-  <h4>Welcome: {{user.lastName?user.lastName + ', ': '' }} {{user.firstName}}</h4>
-  <span class="well">Articles in Draft: <span class="label label-success">{{dlDraftedContents.pagingTotalItems || 0}}</span></span> |
-  <span class="well">Published Articles: <span class="label label-success">{{dlPublishedContents.pagingTotalItems || 0}}</span></span>
+  <h4>Welcome: {{currentUser.lastName?currentUser.lastName + ', ': '' }} {{currentUser.firstName}}</h4>
+  <div class="well">
+      <span class="btn btn-warning">Articles in Draft: <span class="label label-success">{{dlDraftedContents.pagingTotalItems || 0}}</span></span> |
+      <span class="btn btn-warning">Published Articles: <span class="label label-success">{{dlPublishedContents.pagingTotalItems || 0}}</span></span>
+  </div>
 </div>
 <div class="row grid" isotope-layout="">
     <div class="col-sm-6 grid-item">
