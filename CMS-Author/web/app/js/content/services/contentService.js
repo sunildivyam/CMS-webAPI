@@ -27,7 +27,8 @@
 				addAuthorContent: 'PostAuthorContent',
 				updateAuthorContent: 'PutAuthorContent',
 				deleteAuthorContent: 'DeleteAuthorContent',
-				publishContent: 'PostPublishContent'
+				publishContent: 'PostPublishContent',
+				uploadContentThumbnail: 'PostContentThumbnail'
 			},
 			'categories': {
 				base: 'categories',
@@ -123,6 +124,23 @@
 			return appService.post([urls.authorContents.base, urls.authorContents.publishContent, content && content.authorContentId].join('/'), content, requestHeaders);
 		}
 
+		function uploadContentThumbnail(contentId, thumbnailData) {
+			var requestHeaders = {
+				'Content-Type': undefined
+			};
+
+			var requestOptions = {
+				transformRequest: angular.identity
+			};
+
+			var fd = new FormData();
+			fd.append('file', thumbnailData);
+			return appService.post([urls.authorContents.base, urls.authorContents.uploadContentThumbnail, contentId].join('/'),
+			fd,
+			requestHeaders,
+			requestOptions);
+		}
+
 		return {
 			getTags: getTags,
 			getTagById: getTagById,
@@ -141,7 +159,8 @@
 			addNewContent: addNewContent,
 			updateContent: updateContent,
 			deleteContent: deleteContent,
-			publishContent: publishContent
+			publishContent: publishContent,
+			uploadContentThumbnail: uploadContentThumbnail
 		};
 	};
 	contentService.$inject = ['appService'];

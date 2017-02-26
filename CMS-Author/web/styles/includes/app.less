@@ -7,7 +7,7 @@
 
 	.terms-conditions-section {
 		h1, h2, h3 {
-			color: darkgreen;
+			color: @font-color-green;
 		}
 
 		a, a:hover {
@@ -25,6 +25,46 @@
 
 			.panel-body {
 				overflow: visible;
+			}
+		}
+	}
+
+	.content-form, .content-preview, .content-list, .pub-content-list, .pubcontent-view {
+		.thumbnail {
+			padding: 0px;
+			background-image: @grid-thumbnail-image;
+			width: 100px;
+			height: 100px;
+			overflow: hidden;
+		}
+
+		a {
+			h5.media-heading, h1, h2.media-heading {
+				text-transform: uppercase;
+				color: @font-color-green;
+				font-weight: bold;
+				font-size: 18px;
+			}
+		}
+
+		.inline-view {
+			a {
+				h5.media-heading {
+					font-size: 14px;
+				}
+			}
+		}
+	}
+
+	.pubcontent-view {
+		.thumbnail {
+			padding: 0px;
+			background-image: @grid-thumbnail-image;
+			max-height: 200px;
+			overflow: hidden;
+
+			img {
+				width: auto;
 			}
 		}
 	}

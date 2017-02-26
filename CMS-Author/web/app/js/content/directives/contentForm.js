@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-	var contentForm = function(modalService, Utils) {
+	var contentForm = function(modalService, Utils, appService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -14,14 +14,26 @@
 				onAddnew: '=',
 				onPreview: '=',
 				onPublish: '=',
+				onThumbnailUpload: '=',
 				isLoading: '=',
 				loaderMsg: '='
 			},
 			templateUrl: 'content/content-form.html',
 			link: function($scope) {
+				$scope.thumbnailUrl = '';
+
 				$scope.$watch('content.title', function(newValue) {
 					if (newValue) $scope.content.name = Utils.parseStringExt(newValue, '-');
 				});
+
+				$scope.addThumbnail = function() {
+					setThumbnailUrl(false);
+					modalService.showUploadResourceModal($scope.onThumbnailUpload, 'md').result.then(function() {
+                        setThumbnailUrl();
+                    }, function() {
+                        setThumbnailUrl();
+                    });
+				};
 
 				$scope.save = function(event) {
 					if ($scope.contentForm.$valid === true) {
@@ -147,12 +159,21 @@
 						} else {
 							$scope.previousPublishedDate = undefined;
 						}
+						setThumbnailUrl();
 					}
 				});
+
+				function setThumbnailUrl(url) {
+					if (url === false) {
+						$scope.thumbnailUrl = '';
+					} else {
+						$scope.thumbnailUrl = [appService.getArticleImagesUrl(), ($scope.content.authorContentId || $scope.content.contentId) + '.jpg?v=' + (new Date()).getTime()].join('/');
+					}
+				}
 			}
 		};
 	};
 
-	contentForm.$inject = ['modalService', 'Utils'];
+	contentForm.$inject = ['modalService', 'Utils', 'appService'];
 	module.exports = contentForm;
 })();

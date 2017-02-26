@@ -56,7 +56,7 @@
 
 
 	<div class="row grid" ng-if="$state.$current.name === 'pub'" isotope-layout="">
-		<div class="col-sm-4 col-xs-12 grid-item" ng-repeat="dlCategoryContent in dlListOfContentsOfAllcategories track by $index" on-ng-repeat-item="onLoadCategoryContentList">
+		<div class="col-md-4 col-sm-6 col-xs-12 grid-item" ng-repeat="dlCategoryContent in dlListOfContentsOfAllcategories track by $index" on-ng-repeat-item="onLoadCategoryContentList">
 			<generic-list
 			data-items="dlCategoryContent.items"
 			data-items-type="dlCategoryContent.itemsType"

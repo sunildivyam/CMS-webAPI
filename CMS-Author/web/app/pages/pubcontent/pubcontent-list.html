@@ -1,29 +1,39 @@
 <div class="pub-content-list">
 	<ul class="media-list list-view" ng-show="!viewMode || viewMode === 'list'">
-		<li class="media {{selectedItem && selectedItem.contentId === item.contentId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
-			<div class="media-left">
-				<a href="#" ui-sref="pub.articles.content({n: item.category.name, ci: item.contentId, cn: item.name})" ng-click="itemClick($event, item)">
-					<span class="media-object label label-info" ng-bind=""></span>
-				</a>
-				<span class="label label-info" title="Total Views">
-					<span class="" ng-bind="item.visitCount"></span>
-					<span class="glyphicon glyphicon-eye-open"></span>
-				</span>
-			</div>
-			<div class="media-body">
-				<a href="#" ui-sref="pub.articles.content({n: item.category.name, ci: item.contentId, cn: item.name})" ng-click="itemClick($event, item)">
-					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
-				</a>
-				<p ng-bind-html="item.shortDescription" class="small short-description"></p>
-				<span title="Author">
-					<span class="glyphicon glyphicon-user"></span>
-					<span class="label label-info">{{item.owner.lastName?item.owner.lastName + ', ': '' }} {{item.owner.firstName}}</span>
-				</span>
-				<span title="Publish Date">
-					<span class="glyphicon glyphicon-pencil"></span>
-					<span class="label label-info" ng-bind="item.publishedDate.toDateString()"></span>
-				</span>
-				<span class="label label-default" ng-bind="item.category.title"></span>
+		<li class="{{selectedItem && selectedItem.contentId === item.contentId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<a href="#" ui-sref="pub.articles.content({n: item.category.name, ci: item.contentId, cn: item.name})" ng-click="itemClick($event, item)">
+				<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
+			</a>
+			<div class="media">
+				<div class="media-left">
+					<a href="#" ui-sref="pub.articles.content({n: item.category.name, ci: item.contentId, cn: item.name})" ng-click="itemClick($event, item)">
+						<div class="media-object">
+							<div class="thumbnail center-block">
+								<img class="content-thumbnail" ng-if="item.authorContentId || item.contentId"
+									src="{{getThumbnailUrl(item)}}"
+									onerror="this.style.display = 'none';"
+									onload="this.style.display = 'block';">
+							</div>
+						</div>
+					</a>
+
+				</div>
+				<div class="media-body">
+					<p ng-bind-html="item.shortDescription" class="small short-description"></p>
+					<span title="Author">
+						<span class="glyphicon glyphicon-user"></span>
+						<span class="label label-info">{{item.owner.lastName?item.owner.lastName + ', ': '' }} {{item.owner.firstName}}</span>
+					</span>
+					<span title="Publish Date">
+						<span class="glyphicon glyphicon-pencil"></span>
+						<span class="label label-info" ng-bind="item.publishedDate.toDateString()"></span>
+					</span>
+					<span class="label label-info" title="Total Views">
+						<span class="" ng-bind="item.visitCount"></span>
+						<span class="glyphicon glyphicon-eye-open"></span>
+					</span>
+					<span class="label label-default" ng-bind="item.category.title"></span>
+				</div>
 			</div>
 		</li>
 	</ul>
@@ -47,7 +57,14 @@
 		<li class="col-sm-3 thumbnail {{selectedItem && selectedItem.contentId === item.contentId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
 			<div class="media-left">
 				<a href="#" ui-sref="pub.articles.content({n: item.category.name, ci: item.contentId, cn: item.name})" ng-click="itemClick($event, item)">
-					<span class="media-object label label-info"></span>
+					<div class="media-object">
+						<div class="thumbnail center-block">
+							<img class="content-thumbnail" ng-if="item.authorContentId || item.contentId"
+								src="{{getThumbnailUrl(item)}}"
+								onerror="this.style.display = 'none';"
+								onload="this.style.display = 'block';">
+						</div>
+					</div>
 				</a>
 			</div>
 			<div class="media-body">

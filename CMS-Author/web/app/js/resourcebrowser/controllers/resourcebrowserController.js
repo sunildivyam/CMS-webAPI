@@ -11,8 +11,10 @@
         $scope.dlCategories = {};
         $scope.dlResourceList = {};
 
-        $scope.onResourceUpload = function(event, contentResource, completeCallback) {
-            if (contentResource) {
+        $scope.onResourceUpload = function(event, resourceData, completeCallback) {
+            if (resourceData) {
+                var contentResource = new ContentResource();
+                contentResource.resourceData = resourceData;
                 contentResource.category = $scope.currentCategory;
 
                 resourcebrowserService.uploadContentResource(contentResource).then(function() {

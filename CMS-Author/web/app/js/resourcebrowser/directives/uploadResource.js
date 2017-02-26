@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-	var uploadResource = function(ContentResource) {
+	var uploadResource = function() {
 		return {
 			restrict: 'E',
 			scope: {
@@ -8,14 +8,12 @@
 			},
 			templateUrl: 'resourcebrowser/upload.html',
 			link: function($scope) {
-				$scope.contentResource = new ContentResource();
-
 				$scope.onUploadClick = function(event) {
 					$scope.isUploading = true;
 					$scope.uploadStatus = undefined;
 
 					if (typeof $scope.onUpload === 'function') {
-						$scope.onUpload(event, $scope.contentResource, completeCallback);
+						$scope.onUpload(event, $scope.resourceData, completeCallback);
 					}
 
 					function completeCallback(status, message) {
@@ -28,6 +26,6 @@
 		};
 	};
 
-	uploadResource.$inject = ['ContentResource'];
+	uploadResource.$inject = [];
 	module.exports = uploadResource;
 })();

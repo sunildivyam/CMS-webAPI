@@ -1,25 +1,46 @@
-<article>
+<article class="content-form">
 	<div class="panel">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-tasks"></i>Content Form</h3>
+			<h3 class="panel-title"><i class="fa fa-tasks"></i>Manage Article: {{content.title}}</h3>
 		</div>
 		<div class="panel-body">
 			<form class="" role="form" name="contentForm">
-				<!-- Text input-->
-				<div class="form-group">
-				  <label class="control-label" for="content-name">Last Published on: </label>
-				  <label id="content-name" name="content-name" type="text" placeholder="" class="badge">{{previousPublishedDate? previousPublishedDate.toUTCString() : (content.contentId ? 'This is Draft of Previously Published Content with Id: ' + content.contentId + ' and not re-published yet.' : 'Never')}}</label>
-				  <span class="text-info" ng-if="previousPublishedDate">This Content, with Id- <span ng-bind="content.contentId" class="badge"></span> was previously published and is available for <strong>update again.</strong></span>
-				</div>
-				<div class="form-group">
-				  <label class="control-label" for="content-name">Last Updated on: </label>
-				  <label id="content-name" name="content-name" type="text" placeholder="" class="badge">{{content.updatedDate? content.updatedDate.toUTCString() : 'Never'}}</label>
-				</div>
-				<!-- Text input-->
-				<div class="form-group">
-				  <label class="control-label" for="content-name">Content Name</label>
-				  <label id="content-name" name="content-name" type="text" placeholder="" class="badge" ng-bind="content.name"> </label>
-				  <span class="text-info">This is dash ( - ) separated name auto-generated from Title </span>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="control-label" for="publishedDate">Last Published on: </label>
+								<input id="publishedDate" name="publishedDate" type="text" placeholder="" class="form-control" ng-disabled="true" value="{{previousPublishedDate? previousPublishedDate.toUTCString() : (content.contentId ? 'This is Draft of Previously Published Content with Id: ' + content.contentId + ' and not re-published yet.' : 'Never')}}"></input>
+								<span class="text-info" ng-if="previousPublishedDate">This Content, with Id- <span ng-bind="content.contentId" class="badge"></span> was previously published and is available for <strong>update again.</strong></span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="control-label" for="last-updated">Last Updated on: </label>
+								<input id="last-updated" name="last-updated" type="text" placeholder="" ng-disabled="true" value="{{content.updatedDate? content.updatedDate.toUTCString() : 'Never'}}" class="form-control"></input>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="control-label" for="contentName">Content Name</label>
+								<input id="content-name" name="contentName" type="text" placeholder="" class="form-control" ng-model="content.name" ng-disabled="true">
+								<span class="text-info">This is dash ( - ) separated name auto-generated from Title </span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<div class="thumbnail center-block">
+									<img id="content-thumbnail" ng-if="content.authorContentId || content.contentId"
+										src="{{thumbnailUrl}}"
+										onerror="this.style.display = 'none';"
+										onload="this.style.display = 'block';">
+								</div>
+								<button  ng-show="content.authorContentId > 0" class="btn btn-primary center-block" ng-click="addThumbnail($event)">Add Thumbnail</button>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<!-- Select Content Type -->

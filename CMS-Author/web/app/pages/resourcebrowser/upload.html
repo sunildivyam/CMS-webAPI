@@ -8,7 +8,7 @@
       <!-- Text input-->
       <div class="form-group">
         <label class="control-label" for="uploaded-file">Choose a File</label>
-        <input id="uploaded-file" name="uploadFile" type="file" class="form-control" file-input="contentResource.resourceData" required="">
+        <input id="uploaded-file" name="uploadFile" type="file" class="form-control" file-input="resourceData" required="" accept="image/*">
         <span class="help-block" ng-if="resourceUploadForm.uploadFile.$invalid">browse a file to upload</span>
       </div>
 
@@ -18,9 +18,9 @@
       </div>
       <!-- Button (Double) -->
       <div class="form-group">
-        <label class="control-label" for="category-save"></label>
+        <label class="control-label" for="resourceUploadBtn"></label>
         <div class="">
-          <button id="category-save" name="categorySave" class="btn btn-primary" ng-click="onUploadClick($event)" ng-hide="category.categoryId">Upload</button>
+          <button id="resource-upload-btn" name="resourceUploadBtn" class="btn btn-primary" ng-click="onUploadClick($event)">Upload</button>
         </div>
       </div>
     </form>

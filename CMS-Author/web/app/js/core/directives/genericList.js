@@ -5,7 +5,7 @@
 *   genericList directive is responsible for Painting List of Type
 */
 (function() {
-    var genericList = function($timeout) {
+    var genericList = function($timeout, appService) {
         return {
             restrict: 'E',
             replace: false,
@@ -142,10 +142,17 @@
                         $scope.onRefresh(event);
                     }
                 }
+
+                $scope.getThumbnailUrl = function(item) {
+                    if (!item) {
+                        return '';
+                    }
+                    return [appService.getArticleImagesUrl(), (item.authorContentId || item.contentId) + '.jpg'].join('/');
+                };
             }
         };
     };
 
-    genericList.$inject = ['$timeout'];
+    genericList.$inject = ['$timeout', 'appService'];
     module.exports = genericList;
 })();

@@ -132,6 +132,9 @@ body.theme-default {
 						.default-dark-grad-h(0.5);
 						color: @default-hover-text-color;
 						.transition(background-color 0.5s);
+						text-shadow: 1px 1px 20px #636363;
+						text-transform: uppercase;
+    					font-weight: bold;
 					}
 
 					&.active {
@@ -454,15 +457,33 @@ body.theme-default {
     }
 
     .social-media-share {
-        	ul {
-        		list-style: none;
+    	ul {
+    		list-style: none;
 
-        		li {
-        			margin-right: 2px;
-        			display: inline-block;
-                	padding: 0px;
-                	border: none;
-        		}
-        	}
-        }
+    		li {
+    			margin-right: 2px;
+    			display: inline-block;
+            	padding: 0px;
+            	border: none;
+    		}
+    	}
+    }
+
+    .author-landing-page {
+    	.navbar-default {
+    		a {
+    			text-transform: uppercase;
+				font-weight: bold;
+				font-size: 14px;
+    		}
+
+    		li:active, li.active {
+				a {
+					color: @font-color-green;
+					font-size: 18px;
+					text-shadow: 1px 1px 20px #636363;
+				}
+			}
+    	}
+    }
 }

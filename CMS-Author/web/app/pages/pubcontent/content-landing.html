@@ -1,12 +1,12 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-8">
+		<div class="col-md-8">
 			<pubcontent-view
 				data-content="currentContent"
 				data-is-loading="isLoading">
 			</pubcontent-view>
 		</div>
-		<div class="col-sm-4 grid">
+		<div class="col-md-4 grid">
 			<div class="col-sm-12 grid-item" ng-repeat="dlContentList in dlContentLists track by $index">
 				<generic-list
 				data-items="dlContentList.items"

@@ -18,9 +18,9 @@
 		// Use method encodeContent() to convert Keyword to real Url
 		// Use method decodeContent() to real Url to keyWord.
 		var API_SERVER_DUMMY_URL = '/CMSSERVERAPIURL/';
-		var API_SERVER_URL = 'https://api.cmsweb.red'; //62287
+		var API_SERVER_URL = 'http://lwwapi.learnwiseway.com'; //62287
 		var JSON_DATA_BASE_URL = '/data/';
-
+		var ARTICLE_IMAGES_URL = API_SERVER_URL + '/articleimages';
 		var baseApiUrl = API_SERVER_URL + '/api';
 
 		function getFullUrl(url) {
@@ -166,6 +166,10 @@
 			return API_SERVER_DUMMY_URL;
 		}
 
+		function getArticleImagesUrl() {
+			return ARTICLE_IMAGES_URL;
+		}
+
 		return {
 			get: get,
 			post: post,
@@ -173,7 +177,8 @@
 			del: del,
 			getErrorMessage: getErrorMessage,
 			getApiServerUrl: getApiServerUrl,
-			getApiServerDummyUrl: getApiServerDummyUrl
+			getApiServerDummyUrl: getApiServerDummyUrl,
+			getArticleImagesUrl: getArticleImagesUrl
 		};
 	};
 
