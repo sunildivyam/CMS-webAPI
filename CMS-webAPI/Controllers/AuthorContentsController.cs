@@ -11,6 +11,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS_webAPI.Models;
 using CMS_webAPI.Controllers;
+using System.Web;
+using System.IO;
 
 namespace CMS_webAPI.Controllers
 {
@@ -18,7 +20,7 @@ namespace CMS_webAPI.Controllers
     public class AuthorContentsController : ApiController
     {
         private CmsDbContext db = new CmsDbContext();
-
+        private int MAX_FILE_SIZE = 1024 * 512; //Size = 512 kb  
 
         // This is Default Route and should return a BadRequest.
         // GET: api/AuthorContents
@@ -266,6 +268,58 @@ namespace CMS_webAPI.Controllers
             ////await db.SaveChangesAsync();
 
             ////return Ok(authorContent);
+        }
+
+        // POST: api/AuthorContents/2
+        [Authorize(Roles = "Administrators, Authors")]
+        public async Task<HttpResponseMessage> PostContentThumbnail(int param1)
+        {
+            var contentId = param1;
+            AuthorContent authorContent = await db.AuthorContents.FindAsync(contentId);
+
+            if (authorContent == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Content not Found: " + contentId);
+            }
+
+            if (HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                // Get the uploaded image from the Files collection  
+                var httpPostedFile = HttpContext.Current.Request.Files["file"];
+                if (httpPostedFile != null && httpPostedFile.ContentLength > 0)
+                {                   
+                    try
+                    {
+                        int length = httpPostedFile.ContentLength;
+
+                        var ext = httpPostedFile.FileName.Substring(httpPostedFile.FileName.LastIndexOf('.'));
+                        var extension = ext.ToLower();
+                        if (!ImageHelper.IsImage(httpPostedFile))
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Please Upload image of type .jpg, .jpg, .gif, .png only");
+                        }
+
+                        if (length > MAX_FILE_SIZE)
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Please Upload a file upto " + (MAX_FILE_SIZE/1024) +"kb only");
+                        }                        
+
+                        var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/articleimages"), authorContent.AuthorContentId.ToString() + ".jpg");
+                        //Save the uploaded file to "articleimages" folder  
+                        httpPostedFile.SaveAs(fileSavePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                    }
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No file to upload, Please select a file to upload");
+                }
+            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No file to upload, Please select a file to upload");
         }
 
         protected override void Dispose(bool disposing)
