@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using CMS_webAPI.Models;
+using CMS_webAPI.AppCode;
 
 namespace CMS_webAPI.Controllers
 {
@@ -24,7 +25,17 @@ namespace CMS_webAPI.Controllers
         // GET: api/Categories        
         public IQueryable<Category> GetCategories()
         {
-            return db.Categories;
+            string cacheKey = "api/Categories/GetCategories";
+            IQueryable<Category> categoriesFromCache = (IQueryable < Category >)ApiCache.Get(cacheKey);
+
+            if (categoriesFromCache != null)
+            {
+                IQueryable<Category> categories = db.Categories;
+                ApiCache.Add(cacheKey, categories);
+                return categories;
+            }
+
+            return categoriesFromCache;
         }
 
         // GET: api/Categories/5
@@ -33,12 +44,22 @@ namespace CMS_webAPI.Controllers
         public async Task<IHttpActionResult> GetCategory(int param1)
         {
             var id = param1;
+
+            string cacheKey = "api/Categories/GetCategory/" + id;
+            Category categoryFromCache = (Category)ApiCache.Get(cacheKey);
+
+            if (categoryFromCache != null)
+            {
+                return Ok(categoryFromCache);
+            }
+
             Category category = await db.Categories.FindAsync(id);
             if (category == null)
             {
                 return NotFound();
             }
 
+            ApiCache.Add(cacheKey, category);
             return Ok(category);
         }
 
@@ -48,6 +69,15 @@ namespace CMS_webAPI.Controllers
         public async Task<IHttpActionResult> GetCategoryByName(string param1)
         {
             string categoryName = param1;
+
+            string cacheKey = "api/Categories/GetCategoryByName/" + categoryName;
+            Category categoryFromCache = (Category)ApiCache.Get(cacheKey);
+
+            if (categoryFromCache != null)
+            {
+                return Ok(categoryFromCache);
+            }
+
             Category category = await db.Categories.SingleOrDefaultAsync(c => c.Name == categoryName);
 
             if (category == null)
@@ -55,13 +85,14 @@ namespace CMS_webAPI.Controllers
                 return NotFound();
             }
 
+            ApiCache.Add(cacheKey, category);
             return Ok(category);
         }
 
         // PUT: api/Categories/5
         [HttpPost]
         [Authorize(Roles = "Administrators")]
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(Category))]
         public async Task<IHttpActionResult> PutCategory(int param1, Category category)
         {
             var id = param1;
