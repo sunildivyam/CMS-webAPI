@@ -36,6 +36,43 @@
         "onRefresh": "undefined",
         "isLoading": false
     },
+    "pubtag": {
+        "items": [],
+        "itemsType": "pubtag",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": false,
+        "enableSearch": false,
+        "enableViewModes": true,
+        "enableScrollbar": false,
+        "enableTags": true,
+        "enableFooterLink": false,
+        "enablePaging": true,
+
+        "headerTitle": "Articles By Tag",
+        "headerSummary": "Articles for the Tag, you searched for",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+
+        "scrollHeight": 0,
+
+        "tags": [],
+
+        "footerLinkText": "",
+        "footerLinkUrl": "",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 1,
+        "pagingPageSize": 10,
+        "pagingPagerSize": 10,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
     "category": {
         "items": [],
         "itemsType": "category",

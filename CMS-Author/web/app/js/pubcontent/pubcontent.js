@@ -24,10 +24,12 @@
 
 	.controller('pubhomeController', require('./controllers/pubhomeController'))
 	.controller('pubcontentController', require('./controllers/pubcontentController'))
+	.controller('pubTagController', require('./controllers/pubTagController'))
 
 	.directive('pubcategoryView', require('./directives/pubcategoryView'))
 	.directive('pubcontentView', require('./directives/pubcontentView'))
-	.directive('pubcontentSearch', require('./directives/pubcontentSearch'));
+	.directive('pubcontentSearch', require('./directives/pubcontentSearch'))
+	.directive('pubTagView', require('./directives/pubTagView'));
 
 	module.exports = angular.module('raiweb.pubcontent');
 })();

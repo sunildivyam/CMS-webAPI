@@ -228,6 +228,15 @@
             isAnonymous: true
         })
         .state({
+            name: 'pub.articles.tag',
+            url: '/tag/:ti/:tn',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('pubcontent/tag-landing.html');
+            }],
+            controller: 'pubTagController',
+            isAnonymous: true
+        })
+        .state({
             name: 'pub.search',
             url: 'search/:n/:kw',
             templateProvider: ['$templateCache', function($templateCache) {

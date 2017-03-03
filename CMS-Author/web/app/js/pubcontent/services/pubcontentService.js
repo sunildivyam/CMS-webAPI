@@ -16,7 +16,8 @@
 			'contents': {
 				base: 'contents',
 				getContentsByCategoryName: 'GetContentsByCategoryName', // ceetgory-name
-				getContent: 'GetContent'	// category-name/contentId/categoryName
+				getContent: 'GetContent',	// category-name/contentId/categoryName
+				getContentsByTag: 'GetContentsByTag'	// tag-id/tag-name/...
 			},
 			'categories': {
 				base: 'categories',
@@ -69,6 +70,17 @@
 				PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
 		}
 
+		function getContentsByTag(tagId, tagName, pageNo, pageSize) {
+			var sortDireAsc = false;
+			var sortField = 'PublishedDate';
+
+			return appService.get([urls.contents.base,
+				urls.contents.getContentsByTag,
+				tagId,
+				tagName,
+				pageNo || PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
+		}
+
 		function getContent(categoryName, contentId, contentName) {
 			return appService.get([urls.contents.base,
 				urls.contents.getContent,
@@ -117,6 +129,7 @@
 			getCategoryById: getCategoryById,
 			getCategoryByName: getCategoryByName,
 			getContentsByCategoryName: getContentsByCategoryName,
+			getContentsByTag: getContentsByTag,
 			getContent: getContent,
 			getUniqueTagsOfContents: getUniqueTagsOfContents,
 			getUniqueTagsOfTags: getUniqueTagsOfTags
