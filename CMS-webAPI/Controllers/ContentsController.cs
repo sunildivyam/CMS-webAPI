@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS_webAPI.Models;
 using System.Data.SqlClient;
+using CMS_webAPI.AppCode;
 
 namespace CMS_webAPI.Controllers
 {    
@@ -28,6 +29,14 @@ namespace CMS_webAPI.Controllers
         [ResponseType(typeof(ContentViewModel))]
         public async Task<IHttpActionResult> GetContent(string param1, int param2, string param3)
         {
+            string cacheKey = ApiCache.GenerateKey("Contents", "GetContent", new string[] {param1, param2.ToString(), param3});
+            ContentViewModel contentViewFromCache = (ContentViewModel)ApiCache.Get(cacheKey);
+
+            if (contentViewFromCache != null)
+            {
+                return Ok(contentViewFromCache);
+            }
+
             var categoryName = param1;
             var contentId = param2;
             var contentName = param3;
@@ -42,7 +51,7 @@ namespace CMS_webAPI.Controllers
             db.Database.ExecuteSqlCommand("exec proc_UpdateVisitCountOnContents " + content.ContentId);
             // Update and increment the VisitCount By 1
                 // Code goes here
-
+            ApiCache.Add(cacheKey, contentView);
             return Ok(contentView);
         }
 
@@ -51,6 +60,14 @@ namespace CMS_webAPI.Controllers
         [ResponseType(typeof(CategoryViewModel))]
         public async Task<IHttpActionResult> GetContentsByCategoryName(string param1,int param2, int param3, string param4, bool param5)
         {
+            string cacheKey = ApiCache.GenerateKey("Contents", "GetContentsByCategoryName", new string[] {param1, param2.ToString(), param3.ToString(), param4, param5.ToString()});
+            CategoryViewModel categoryViewFromCache = (CategoryViewModel)ApiCache.Get(cacheKey);
+
+            if (categoryViewFromCache != null)
+            {
+                return Ok(categoryViewFromCache);
+            }
+
             string categoryName = param1;
             int pageNo = param2;
             int pageSize = param3;
@@ -89,6 +106,7 @@ namespace CMS_webAPI.Controllers
 
             CategoryViewModel categoryView = new CategoryViewModel(category, contents, contentsEnums.Count());
 
+            ApiCache.Add(cacheKey, categoryView);
             return Ok(categoryView);
         }
 

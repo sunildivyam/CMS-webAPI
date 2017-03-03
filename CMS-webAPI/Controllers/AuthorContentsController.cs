@@ -13,6 +13,7 @@ using CMS_webAPI.Models;
 using CMS_webAPI.Controllers;
 using System.Web;
 using System.IO;
+using CMS_webAPI.AppCode;
 
 namespace CMS_webAPI.Controllers
 {
@@ -249,6 +250,16 @@ namespace CMS_webAPI.Controllers
             }
 
             //ContentViewModel publishedContentView = new ContentViewModel(contentToPub);
+            try
+            {
+                ApiCache.Remove(ApiCache.GenerateKey("Contents", "GetContent", new string[] { publishedContentView.Category.Name, publishedContentView.ContentId.ToString() }));
+                ApiCache.Remove(ApiCache.GenerateKey("Contents", "GetContentsByCategoryName", new string[] { publishedContentView.Category.Name}));
+            } 
+            catch(Exception) 
+            {
+                //
+            }
+            
             return Ok(publishedContentView);
         }
 

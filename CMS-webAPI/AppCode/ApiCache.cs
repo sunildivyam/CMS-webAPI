@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Runtime.Caching;
+using System.IO;
 
 namespace CMS_webAPI.AppCode
 {
@@ -31,6 +32,23 @@ namespace CMS_webAPI.AppCode
             }
         }
 
+        public static void Remove(string key, Boolean IsContainsMatch)
+        {
+            if (IsContainsMatch == false)
+            {
+                Remove(key);
+            }
+            else
+            {
+                MemoryCache memCache = MemoryCache.Default;
+                IEnumerable<KeyValuePair<string, object>> matchedCacheItems = memCache.Where(c=> c.Key.Contains(key) == true);
+                foreach (var item in matchedCacheItems)
+                {
+                    memCache.Remove(item.Key);
+                }
+            }            
+        }
+
         public static void RemoveAll()
         {
             MemoryCache memCache = MemoryCache.Default;
@@ -53,6 +71,13 @@ namespace CMS_webAPI.AppCode
                 allKeys.Add(item.Key);
             }
             return allKeys;
+        }
+
+        public static string GenerateKey(string ctrlName, string methodName, string[] parameters)
+        {
+            string[] paramArray = { "api", ctrlName, methodName };
+            paramArray.Concat(parameters);
+            return Path.Combine(paramArray);            
         }
     }
 }
