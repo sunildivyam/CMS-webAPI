@@ -111,7 +111,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // Gets all Published And Live Contents for a Category Name
-        // GET: api/Contents/GetContentsByCategoryName/category-name
+        // GET: api/Contents/GetSearchResults/category-name/search-keywords/pageno/pagesize/sortfield/sortdir
         [ResponseType(typeof(CategoryViewModel))]
         public async Task<IHttpActionResult> GetSearchResults(string param1, string param2, int param3, int param4, string param5, bool param6)
         {
@@ -196,7 +196,81 @@ namespace CMS_webAPI.Controllers
 
             return Ok(categoryView);
         }
-        
+
+
+        // Gets all Published And Live Contents having a tag
+        // GET: api/Contents/GetContentsByTag/tag-id/tag-name/search-keywords/pageno/pagesize/sortfield/sortdir
+        [ResponseType(typeof(TagViewModel))]
+        public async Task<IHttpActionResult> GetContentsByTag(int param1, string param2, int param3, int param4, string param5, bool param6)
+        {
+            int tagId = param1;
+            string tagName = param2;
+            int pageNo = param3;
+            int pageSize = param4;
+            string sortField = "c." + param5;
+            bool sortDirAsc = param6;
+            string sortDir = "ASC";
+
+            List<Content> contents = new List<Content>();
+            Tag tag = await db.Tags.FirstOrDefaultAsync(t=> t.TagId == tagId && t.Name == tagName);           
+            int totalCount = 0;
+
+            
+            if (pageNo < 1 || pageSize < 1)
+            {
+                return BadRequest();
+            }
+            pageNo = pageNo - 1;
+           
+            string searchQuery = @"select distinct c.* from Contents as c 
+                inner join ContentTags as ct on c.ContentId = ct.ContentId                  
+                WHERE ct.TagId= @TagId";
+
+            string searchQueryForPagedData = searchQuery + " order by " + sortField + " " + sortDir + " OFFSET @PageStart ROWS FETCH NEXT @PageSize ROWS ONLY";
+            string searchQueryForTotalCount = "Select Count(cc.ContentId) as TotalCount from (" + searchQuery + ") as cc";
+
+            var ParamsPagedData = new[] 
+            {
+                new SqlParameter("TagId", tagId),                
+                new SqlParameter("SortField", sortField),
+                new SqlParameter("SortDir", sortDir),
+                new SqlParameter("PageStart", pageNo * pageSize),
+                new SqlParameter("PageSize", pageSize)
+            };
+
+            var ParamsTotalCount = new[] 
+            {
+                new SqlParameter("TagId", tagId),                
+                new SqlParameter("SortField", sortField),
+                new SqlParameter("SortDir", sortDir)
+            };
+
+            try
+            {
+                var TotalCountResult = db.Database.SqlQuery<int>(searchQueryForTotalCount, ParamsTotalCount).ToList();
+
+                totalCount = TotalCountResult[0];
+                if (totalCount > 0)
+                {
+                    contents = db.Database.SqlQuery<Content>(searchQueryForPagedData, ParamsPagedData)
+                    .ToList<Content>();
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            if (contents == null)
+            {
+                return NotFound();
+            }
+
+            TagViewModel tagView = new TagViewModel(tag, contents, totalCount);
+
+            return Ok(tagView);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
