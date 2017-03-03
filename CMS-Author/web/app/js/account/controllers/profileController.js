@@ -128,6 +128,51 @@
 			});
 		}
 
+		function getCachedRequests() {
+			$scope.isCacheProcessing = true;
+			accountService.getCachedRequests().then(function(response) {
+				$scope.cachedRequestKeys = response && response.data || [];
+				$scope.isCacheProcessing = false;
+			}, function() {
+				$scope.cachedRequestKeys = [];
+				$scope.isCacheProcessing = false;
+			});
+		}
+
+		$scope.clearCache = function() {
+			if (!$scope.selectedCachedkey) {
+				return;
+			}
+			$scope.isCacheProcessing = true;
+			accountService.clearCache($scope.selectedCachedkey).then(function() {
+				var index = $scope.cachedRequestKeys.indexOf($scope.selectedCachedkey);
+				if (index > -1) {
+					$scope.cachedRequestKeys.splice(index, 1);
+				}
+				$scope.isCacheProcessing = false;
+			}, function() {
+				modalService.alert('md',
+				'Clearing cache Failed',
+				'Key Not Found or some unknown error occured',
+				'Try Again');
+				$scope.isCacheProcessing = false;
+			});
+		};
+
+		$scope.clearCacheAll = function() {
+			$scope.isCacheProcessing = true;
+			accountService.clearCacheAll().then(function() {
+				$scope.cachedRequestKeys= [];
+				$scope.isCacheProcessing = false;
+			}, function() {
+				modalService.alert('md',
+				'Clearing cache Failed',
+				'some unknown error occured',
+				'Try Again');
+				$scope.isCacheProcessing = false;
+			});
+		};
+
 		$scope.$on('$stateChangeSuccess', function(event, toState /*, fromState , fromParams*/) {
 			if (toState && toState.name) {
 				if (toState.name === 'author.profile') {
@@ -144,6 +189,7 @@
 
 				if (toState.name === 'author.profile.adminpanel') {
 					getAvaliableRoles();
+					getCachedRequests();
 				}
 
 			} else {

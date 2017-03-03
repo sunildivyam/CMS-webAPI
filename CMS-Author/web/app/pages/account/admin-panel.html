@@ -36,12 +36,30 @@
       </div>
     </div>
 
-    <div class="panel other-section">
+    <div class="panel cache-section">
       <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-tasks"></i>Another Section</h3>
+        <h3 class="panel-title"><i class="fa fa-tasks"></i>Reset Cache</h3>
       </div>
       <div class="panel-body">
-        <!-- next Admin Activity -->
+        <form name="userRolesForm" class="" role="form">
+
+          <div class="form-group">
+            <label class="control-label" for="userRoles">Cached Requests</label>
+            <ui-select id="cached-keys" name="cachedKeys" class="" ng-model="selectedCachedkey" close-on-select="false" sortable="true" required>
+              <ui-select-match placeholder="Select a key...">
+                <span ng-bind="$item"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="cacheKey in (cachedRequestKeys | filter: $select.search) track by cacheKey">
+                <span ng-bind="cacheKey"></span>
+              </ui-select-choices>
+            </ui-select>
+            <span class="help-block" ng-if="contentForm.userRoles.$invalid">* required. Select a key.</span>
+          </div>
+
+          <button ng-disabled="!selectedCachedkey" type="button" class="btn btn-primary" ng-click="clearCache($event)">Clear Cache</button>
+          <button ng-disabled="!cachedRequestKeys || (cachedRequestKeys && cachedRequestKeys.length <=0)" type="button" class="btn btn-primary" ng-click="clearCacheAll($event)">Clear Cache All</button>
+        </form>
+        <loader data-is-loading="isCacheProcessing"></loader>
       </div>
     </div>
 

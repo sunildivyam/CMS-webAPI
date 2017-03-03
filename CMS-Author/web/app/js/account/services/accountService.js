@@ -9,6 +9,7 @@
 	var accountService = function($rootScope, $q, $http, $cookies, User, appService) {
 
 		var baseApiUrl = appService.getApiServerUrl() + '/api/account';
+		var baseCacheApiUrl = appService.getApiServerUrl() + '/api/cache';
 		var urls = {
 			register: baseApiUrl + '/register',
 			login: appService.getApiServerUrl() + '/token',
@@ -21,7 +22,10 @@
 			resetPassword: baseApiUrl + '/ResetPassword',
 			getUserRoles: baseApiUrl + '/GetUserRoles',
 			setUserRoles: baseApiUrl + '/SetUserRoles',
-			getRoles: baseApiUrl + '/GetRoles'
+			getRoles: baseApiUrl + '/GetRoles',
+			getCachedRequests: baseCacheApiUrl + '/GetKeys',
+			clearCache: baseCacheApiUrl + '/PostClearCache',
+			clearCacheAll: baseCacheApiUrl + '/PostClearCacheAll'
 		};
 
 
@@ -240,6 +244,37 @@
 			});
 		}
 
+		function getCachedRequests() {
+			return $http({
+				method: 'get',
+				url: urls.getCachedRequests,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
+		function clearCache(key) {
+			return $http({
+				method: 'post',
+				url: urls.clearCache,
+				data: key,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
+		function clearCacheAll() {
+			return $http({
+				method: 'post',
+				url: urls.clearCacheAll,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
 		return {
 			register: register,
 			login: login,
@@ -256,7 +291,10 @@
 			resetPassword: resetPassword,
 			getUserRoles: getUserRoles,
 			setUserRoles: setUserRoles,
-			getRoles: getRoles
+			getRoles: getRoles,
+			getCachedRequests: getCachedRequests,
+			clearCache: clearCache,
+			clearCacheAll: clearCacheAll
 		};
 	};
 
