@@ -15,6 +15,7 @@ using CMS_webAPI.Models;
 
 namespace CMS_webAPI.Controllers
 {
+    [Authorize(Roles= "Administrators")]
     public class CacheController : ApiController
     {
         public IHttpActionResult Get()
