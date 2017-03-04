@@ -23,19 +23,19 @@ namespace CMS_webAPI.Controllers
             return BadRequest();
         }
         // GET: api/Categories        
-        public IQueryable<Category> GetCategories()
+        public async Task<IHttpActionResult> GetCategories()
         {
             string cacheKey = "api/Categories/GetCategories";
-            IQueryable<Category> categoriesFromCache = (IQueryable < Category >)ApiCache.Get(cacheKey);
+            IList<Category> categoriesFromCache = (IList < Category >)ApiCache.Get(cacheKey);
 
-            if (categoriesFromCache != null)
+            if (categoriesFromCache == null)
             {
-                IQueryable<Category> categories = db.Categories;
+                IList<Category> categories = db.Categories.ToList();
                 ApiCache.Add(cacheKey, categories);
-                return categories;
+                return Ok(categories);
             }
 
-            return categoriesFromCache;
+            return Ok(categoriesFromCache);
         }
 
         // GET: api/Categories/5
