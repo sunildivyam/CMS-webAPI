@@ -28,14 +28,14 @@ namespace CMS_webAPI.Controllers
             string cacheKey = "api/Categories/GetCategories";
             IList<Category> categoriesFromCache = (IList < Category >)ApiCache.Get(cacheKey);
 
-            if (categoriesFromCache == null)
+            if (categoriesFromCache != null)
             {
-                IList<Category> categories = db.Categories.ToList();
-                ApiCache.Add(cacheKey, categories);
-                return Ok(categories);
+                return Ok(categoriesFromCache);                
             }
 
-            return Ok(categoriesFromCache);
+            IList<Category> categories = await db.Categories.ToListAsync();
+            ApiCache.Add(cacheKey, categories);
+            return Ok(categories);            
         }
 
         // GET: api/Categories/5
