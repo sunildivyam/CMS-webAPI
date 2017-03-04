@@ -25,7 +25,7 @@ namespace CMS_webAPI.Controllers
         // GET: api/Categories        
         public async Task<IHttpActionResult> GetCategories()
         {
-            string cacheKey = "api/Categories/GetCategories";
+            string cacheKey = ApiCache.GenerateKey("Categories","GetCategories", null);
             IList<Category> categoriesFromCache = (IList < Category >)ApiCache.Get(cacheKey);
 
             if (categoriesFromCache != null)
@@ -45,7 +45,7 @@ namespace CMS_webAPI.Controllers
         {
             var id = param1;
 
-            string cacheKey = "api/Categories/GetCategory/" + id;
+            string cacheKey = ApiCache.GenerateKey("Categories", "GetCategory", new string[] {id.ToString()});
             Category categoryFromCache = (Category)ApiCache.Get(cacheKey);
 
             if (categoryFromCache != null)
@@ -70,7 +70,7 @@ namespace CMS_webAPI.Controllers
         {
             string categoryName = param1;
 
-            string cacheKey = "api/Categories/GetCategoryByName/" + categoryName;
+            string cacheKey = ApiCache.GenerateKey("Categories", "GetCategoryByName", new string[] {categoryName});
             Category categoryFromCache = (Category)ApiCache.Get(cacheKey);
 
             if (categoryFromCache != null)

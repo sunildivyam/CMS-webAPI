@@ -76,8 +76,12 @@ namespace CMS_webAPI.AppCode
         public static string GenerateKey(string ctrlName, string methodName, string[] parameters)
         {
             string[] paramArray = { "api", ctrlName, methodName };
-            paramArray.Concat(parameters);
-            return Path.Combine(paramArray);            
+            if (parameters != null)
+            {
+                paramArray = paramArray.Concat(parameters).ToArray<string>();
+            }
+            
+            return Path.Combine(paramArray).Replace('\\', '/');            
         }
     }
 }
