@@ -423,6 +423,10 @@
         "search": {
             "name": "search",
             "templateUrl": "pubcontent/pubcontent-list.html"
+        },
+        "pubtag": {
+            "name": "pubtag",
+            "templateUrl": "pubcontent/pubcontent-list.html"
         }
     },
     "pubContentListTypes": {

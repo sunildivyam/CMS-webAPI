@@ -29,7 +29,7 @@
 	.directive('pubcategoryView', require('./directives/pubcategoryView'))
 	.directive('pubcontentView', require('./directives/pubcontentView'))
 	.directive('pubcontentSearch', require('./directives/pubcontentSearch'))
-	.directive('pubTagView', require('./directives/pubTagView'));
+	.directive('pubtagView', require('./directives/pubtagView'));
 
 	module.exports = angular.module('raiweb.pubcontent');
 })();

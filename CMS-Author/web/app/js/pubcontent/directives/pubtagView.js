@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-	var pubTagView = function($location, pageTitleService) {
+	var pubtagView = function($location, pageTitleService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -15,6 +15,6 @@
 		};
 	};
 
-	pubTagView.$inject = ['$location', 'pageTitleService'];
-	module.exports = pubTagView;
+	pubtagView.$inject = ['$location', 'pageTitleService'];
+	module.exports = pubtagView;
 })();

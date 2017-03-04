@@ -228,8 +228,8 @@
             isAnonymous: true
         })
         .state({
-            name: 'pub.articles.tag',
-            url: '/tag/:ti/:tn',
+            name: 'pub.tags',
+            url: 'tags/articles/:ti/:tn',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('pubcontent/tag-landing.html');
             }],
