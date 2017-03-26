@@ -47,10 +47,13 @@
 
         // gets all categories
         function getCategories() {
+            $scope.isCategoriesLoading = true;
             pubcontentService.getCategories().then(function(response) {
                 $rootScope.categories = new EntityMapper(Category).toEntities(response.data);
+                $scope.isCategoriesLoading = false;
             }, function() {
                 $rootScope.categories = new EntityMapper(Category).toEntities();
+                $scope.isCategoriesLoading = false;
             });
         }
 

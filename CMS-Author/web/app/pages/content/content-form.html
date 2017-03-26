@@ -68,7 +68,6 @@
 				<!-- Cotent Tags -->
 				<div class="form-group">
 					<label class="control-label" for="contentTags">Selected Tags</label>
-
 					<ui-select id="content-tag-id" name="contentTags" class="" ng-model="content.tags" close-on-select="false" sortable="true" required multiple>
 						<ui-select-match placeholder="Select Tags...">
 							<span ng-bind="$item.title"></span>
@@ -78,6 +77,12 @@
 						</ui-select-choices>
 					</ui-select>
 					<span class="help-block" ng-if="contentForm.contentTags.$invalid">* required. Content should have one or more Tags.</span>
+					<div class="well">did not find your Tag in the List? You can add your own Tags to the List, just click <button type="button" id="content-add-tags" name="contentAddtags" class="btn btn-success" ng-click="showAddTags($event)">Add New Tags</button> Please add only those tags, which are not available in the list.</div>
+					<div>
+						<div class="hide-not-imp add-tags-form">
+							<add-tags-form data-on-save="onAddNewTagsSave" data-on-cancel="onAddNewTagsCancel" ng-if="isAddNewTagsVisible"></add-tags-form>
+						</div>
+					</div>
 				</div>
 
 				<!-- Textarea -->

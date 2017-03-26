@@ -11,17 +11,18 @@
 */
 
 (function() {
-	var appService = function($http) {
+	var appService = function($http, appConfig) {
 		// This is the base URL prepended to all Image (resource) link in the content data, while saving
 		// This must be processed/replaced with Real API Server Url from appService.getApiServerUrl, before rendering on Page.
 		// or before rendering in CK Editor
 		// Use method encodeContent() to convert Keyword to real Url
 		// Use method decodeContent() to real Url to keyWord.
-		var API_SERVER_DUMMY_URL = '/CMSSERVERAPIURL/';
-		var API_SERVER_URL = 'http://lwwapi.learnwiseway.com'; //62287
-		var JSON_DATA_BASE_URL = '/data/';
-		var ARTICLE_IMAGES_URL = API_SERVER_URL + '/articleimages';
-		var baseApiUrl = API_SERVER_URL + '/api';
+
+		var API_SERVER_DUMMY_URL = appConfig.appUrls.API_SERVER_DUMMY_URL;
+		var API_SERVER_URL = appConfig.appUrls.API_SERVER_URL;
+		var JSON_DATA_BASE_URL = appConfig.appUrls.JSON_DATA_BASE_URL;
+		var ARTICLE_IMAGES_URL = appConfig.appUrls.ARTICLE_IMAGES_URL;
+		var baseApiUrl = appConfig.appUrls.baseApiUrl;
 
 		function getFullUrl(url) {
 			if (url.indexOf(JSON_DATA_BASE_URL) === 0) {
@@ -182,6 +183,6 @@
 		};
 	};
 
-	appService.$inject = ['$http'];
+	appService.$inject = ['$http', 'appConfig'];
 	module.exports = appService;
 })();

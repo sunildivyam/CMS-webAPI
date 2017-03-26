@@ -4,11 +4,17 @@
 		return {
 			restrict: 'E',
 			scope: {
-				tagItems: "="
+				tagItems: "=",
+				onSelect: '='
 			},
 			templateUrl: 'core/tags.html',
-			link: function() {
-
+			link: function($scope) {
+				$scope.onClick = function(event, tag, index) {
+					if (typeof $scope.onSelect === 'function') {
+						event.preventDefault();
+						$scope.onSelect(event, tag, index);
+					}
+				};
 			}
 		};
 	};

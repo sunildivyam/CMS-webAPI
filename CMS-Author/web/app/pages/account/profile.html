@@ -46,10 +46,10 @@
         </div>
       </div>
 
-      <div class="well">
+      <div class="well" ng-show="myProfile.roles && myProfile.roles.indexOf('Authors') < 0">
         <span class="text-success">Do you want to write and publish your own Articles/contents? You need to request for "Author" access.</span>
 
-        <button id="request-author-btn" name="requestauthoraccess" class="btn btn-success" ng-click="requestAuthorAccessClick($event)">Request Author Access</button>
+        <a id="request-author-btn" name="requestauthoraccess" class="btn btn-success" href="mailto:info@learnwiseway.com?Subject=AuthorAccess|{{myProfile.email}}&body=Please Provide Author Access to me - {{myProfile.email}}">Request Author Access</a>
       </div>
 
       <!-- Buttons -->

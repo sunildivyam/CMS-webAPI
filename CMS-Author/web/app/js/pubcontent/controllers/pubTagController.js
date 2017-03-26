@@ -10,12 +10,27 @@
         $scope.dlContentsListOfTag = {};
         $scope.currentTag = new Tag();
 
+        function getSearchResultsTags(searchResults) {
+            var tags = [];
+            if (searchResults && searchResults.length) {
+                searchResults.filter(function(article) {
+                    tags = tags.concat(article.tags);
+                });
+            }
+            return tags;
+        }
+
         function  initTagContentListWithResults(searchResults) {
             if(searchResults instanceof Object) {
                 $scope.currentTag = new Tag(searchResults.Tag);
                 $scope.dlContentsListOfTag.items = new EntityMapper(Content).toEntities(searchResults.Contents);
                 $scope.dlContentsListOfTag.pagingTotalItems = searchResults.TotalCount;
                 $scope.dlContentsListOfTag.headerRightLabel = searchResults.TotalCount + " results";
+                // Sets Meta information for Page
+                Utils.setMetaInfo(
+                    [$scope.baseTitle, $scope.currentTag.title].join(' '),
+                    $scope.currentTag.description,
+                    pubcontentService.getUniqueTagsOfTags(getSearchResultsTags($scope.dlContentsListOfTag.items)));
             } else {
                 $scope.currentTag = new Tag();
                 $scope.dlContentsListOfTag.items = undefined;
@@ -25,6 +40,7 @@
         }
 
         function getSearchResults(tagId, tagName, pageNo) {
+            $scope.isTagLoading = true;
             $scope.dlContentsListOfTag.isLoading = true;
             $scope.dlContentsListOfTag = angular.extend(Utils.getListConfigOf('pubtag'), $scope.dlContentsListOfTag);
 
@@ -35,9 +51,11 @@
                     initTagContentListWithResults();
                 }
                 $scope.dlContentsListOfTag.isLoading = false;
+                $scope.isTagLoading = false;
             }, function() {
                 initTagContentListWithResults();
                 $scope.dlContentsListOfTag.isLoading = false;
+                $scope.isTagLoading = false;
             });
         }
 
@@ -53,6 +71,7 @@
             if (toState) {
                 // Sets Meta information for Page
                 Utils.setMetaInfo(toState.title);
+                $scope.baseTitle = toState.title;
             }
 
             if (toState && toState.name && toParams && toParams.ti && toParams.tn) {

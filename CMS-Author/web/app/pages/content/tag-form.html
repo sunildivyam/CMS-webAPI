@@ -8,7 +8,7 @@
       <!-- Text input-->
       <div class="form-group">
         <label class="control-label" for="tag-name">Name</label>
-        <span id="tag-name" name="tagName" class="form-control" ng-bind="tag.name"> </span>
+        <input id="tag-name" name="tagName" type="text" placeholder="This will autogenerate while you type Title" class="form-control" ng-model="tag.name" ng-disabled="true">
         <span class="text-info">This will autogenerate while you type Title</span>
       </div>
 

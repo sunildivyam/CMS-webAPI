@@ -88,19 +88,27 @@
             }
         }
 
+        function setCategories(categories) {
+            if (categories && categories.length > 0) {
+                $scope.categories = new EntityMapper(Category).toEntities(categories);
+                $scope.searchDropdownCategories = angular.copy($scope.categories);
+                $scope.searchDropdownCategories.unshift(searchService.getDefaultCategory());
+                $rootScope.categories = $scope.categories;
+            } else {
+                $scope.categories = new EntityMapper(Category).toEntities();
+                $scope.searchDropdownCategories = angular.copy($scope.categories);
+                $scope.searchDropdownCategories.unshift(searchService.getDefaultCategory());
+            }
+        }
+
         // gets all categories
         function getCategories() {
             var defferedObj = $q.defer();
             pubcontentService.getCategories().then(function(response) {
-                $scope.categories = new EntityMapper(Category).toEntities(response.data);
-                $scope.searchDropdownCategories = angular.copy($scope.categories);
-                $scope.searchDropdownCategories.unshift(searchService.getDefaultCategory());
-                $rootScope.categories = $scope.categories;
+                setCategories(response.data);
                 defferedObj.resolve($scope.categories);
             }, function() {
-                $scope.categories = new EntityMapper(Category).toEntities();
-                $scope.searchDropdownCategories = angular.copy($scope.categories);
-                $scope.searchDropdownCategories.unshift(searchService.getDefaultCategory());
+                setCategories();
                 defferedObj.reject($scope.categories);
             });
 
@@ -155,8 +163,11 @@
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
             if (toState && toState.name) {
                 Utils.getListConfigs().then(function() {
+                    setCategories(Utils.getCategories());
                     // Sets Meta information for Page
                     Utils.setMetaInfo(); // this sets application level meta data
+                    initMainCarousel($scope.categories);
+
                     $scope.iso = undefined;
                     getCategories().then(function() {
                         if (toState.name === 'pub') {

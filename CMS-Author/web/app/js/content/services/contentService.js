@@ -15,6 +15,7 @@
 				getTags: 'GetTags',
 				getTag: 'GetTag',
 				addTag: 'PostTag',
+				addTags: 'PostTags',
 				updateTag: 'PutTag',
 				deleteTag: 'DeleteTag'
 			},
@@ -56,7 +57,9 @@
 		function addNewTag(tag) {
 			return appService.post([urls.tags.base, urls.tags.addTag].join('/'), tag, requestHeaders);
 		}
-
+		function addNewTags(tags) {
+			return appService.post([urls.tags.base, urls.tags.addTags].join('/'), tags, requestHeaders);
+		}
 		function updateTag(tag) {
 			// return appService.put([urls.tags.base, urls.tags.updateTag, tag.tagId].join('/'), tag, requestHeaders);
 			return appService.post([urls.tags.base, urls.tags.updateTag, tag.tagId].join('/'), tag, requestHeaders);
@@ -145,6 +148,7 @@
 			getTags: getTags,
 			getTagById: getTagById,
 			addNewTag: addNewTag,
+			addNewTags: addNewTags,
 			updateTag: updateTag,
 			deleteTag: deleteTag,
 			getCategories: getCategories,

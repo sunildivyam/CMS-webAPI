@@ -234,7 +234,8 @@
                 return $templateCache.get('pubcontent/tag-landing.html');
             }],
             controller: 'pubTagController',
-            isAnonymous: true
+            isAnonymous: true,
+            title: 'Articles by Tag'
         })
         .state({
             name: 'pub.search',
@@ -314,6 +315,7 @@
     .factory('modalService', require('./services/modalService'))
     .factory('Utils', require('./services/Utils'))
     .factory('CkEditorService', require('./services/CkEditorService'))
+    .factory('appConfig', require('./services/appConfig'))
 
     .factory('EntityMapper', require('./domain/EntityMapper'))
     .factory('User', require('./domain/User'))

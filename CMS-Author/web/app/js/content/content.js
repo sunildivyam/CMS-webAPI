@@ -31,7 +31,8 @@
 	.directive('tagForm', require('./directives/tagForm'))
 	.directive('contentForm', require('./directives/contentForm'))
 	.directive('inlineSearch', require('./directives/inlineSearch'))
-	.directive('contentPreview', require('./directives/contentPreview'));
+	.directive('contentPreview', require('./directives/contentPreview'))
+	.directive('addTagsForm', require('./directives/addTagsForm'));
 
 	module.exports = angular.module('raiweb.content');
 })();
