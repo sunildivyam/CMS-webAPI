@@ -144,7 +144,7 @@ namespace CMS_webAPI.Controllers
             string searchQuery = @"select distinct c.* from Contents as c 
                 inner join ContentTags as ct on c.ContentId = ct.ContentId 
                 inner join Tags as tg on ct.TagId=tg.TagId 
-                WHERE " + (categoryName != "all" ? "c.CategoryId = @CategoryId AND (" : "") +
+                WHERE c.IsLive='True' AND " + (categoryName != "all" ? "c.CategoryId = @CategoryId AND (" : "") +
                 @"contains(c.Title, @SearchWordsCriteria) OR                
                 contains (c.ShortDescription, @SearchWordsCriteria) OR
                 contains (c.Description, @SearchWordsCriteria) OR
@@ -224,7 +224,7 @@ namespace CMS_webAPI.Controllers
            
             string searchQuery = @"select distinct c.* from Contents as c 
                 inner join ContentTags as ct on c.ContentId = ct.ContentId                  
-                WHERE ct.TagId= @TagId";
+                WHERE ct.TagId= @TagId AND c.IsLive='True'";
 
             string searchQueryForPagedData = searchQuery + " order by " + sortField + " " + sortDir + " OFFSET @PageStart ROWS FETCH NEXT @PageSize ROWS ONLY";
             string searchQueryForTotalCount = "Select Count(cc.ContentId) as TotalCount from (" + searchQuery + ") as cc";

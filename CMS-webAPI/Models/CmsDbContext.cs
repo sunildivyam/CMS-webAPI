@@ -9,6 +9,7 @@ namespace CMS_webAPI.Models
     public class CmsDbContext: DbContext
     {
         public CmsDbContext()
+            //: base("CmsConnection")
             : base("DefaultConnection")
         {
         }

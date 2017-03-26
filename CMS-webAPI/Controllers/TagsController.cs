@@ -98,6 +98,44 @@ namespace CMS_webAPI.Controllers
             //return CreatedAtRoute("DefaultApi", new { id = tag.TagId }, tag);
         }
 
+        // POST: api/Tags
+        [Authorize(Roles = "Administrators, Authors")]
+        [ResponseType(typeof(IList<Tag>))]
+        public async Task<IHttpActionResult> PostTags(IList<Tag> tags)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IList<Tag> tagsvalidForAddition = new List<Tag>();
+            try
+            {
+                foreach (Tag tag in tags) {
+                    if (TagExists(tag.Name) == false)
+                    {
+                        tagsvalidForAddition.Add(tag);
+                    }
+                }
+                if (tagsvalidForAddition.Count > 0)
+                {
+                    db.Tags.AddRange(tagsvalidForAddition);
+                    await db.SaveChangesAsync();
+                }
+                else
+                {
+                    return Conflict();
+                }                
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return Ok(tagsvalidForAddition);
+            //return CreatedAtRoute("DefaultApi", new { id = tag.TagId }, tag);
+        }
+
         // DELETE: api/Tags/5
         [Authorize(Roles = "Administrators")]
         [ResponseType(typeof(Tag))]
@@ -129,6 +167,11 @@ namespace CMS_webAPI.Controllers
         private bool TagExists(int id)
         {
             return db.Tags.Count(e => e.TagId == id) > 0;
+        }
+
+        private bool TagExists(string name)
+        {
+            return db.Tags.Count(e => e.Name == name) > 0;
         }
     }
 }
