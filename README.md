@@ -14,10 +14,10 @@ Creates a database at location mentioned in Connection String
 Other Commands
 
 # To Run Specific Migration (Downgrade or Upgrade):
-> Update-Database –TargetMigration: MigrationName
+> Update-Database â€“TargetMigration: MigrationName
 
 # To Run Migration in Verbose Mode:
-> Update-Database –Verbose
+> Update-Database â€“Verbose
 
 # Updaing Database without actually updating database, rather to a script
 > Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract
