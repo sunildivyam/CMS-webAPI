@@ -85,6 +85,23 @@
 			});
 		}
 
+		$scope.updateProfileClick = function() {
+			$scope.isUserInfoLoading = true;
+			accountService.setUserInfo($scope.myProfile).then(function(response) {
+				modalService.alert('md',
+				'Profile Update',
+				'Your profile is Updated, successfully',
+				'Ok');
+				$scope.isUserInfoLoading = false;
+			}, function() {
+				modalService.alert('md',
+				'Profile Update',
+				'Profile Update FAILED.',
+				'Try Again');
+				$scope.isUserInfoLoading = false;
+			});
+		}
+
 		$scope.getUserRoles = function() {
 			$scope.isUserRolesProcessing = true;
 			accountService.getUserRoles($scope.userRolesViewModel.userName).then(function(response) {

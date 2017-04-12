@@ -6,8 +6,8 @@
     <form name="profile-update" class="" role="form">
       <div class="form-group">
         <div class="input-group">
-          <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i>Email Id</span>
-          <input ng-model="myProfile.email" type="text" class="form-control" name="email" id="email"  placeholder="Email Id" required="" ng-disabled="true"/>
+          <span class="input-group-addon"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i>Email Id</span>
+          <input ng-model="myProfile.email" type="email" class="form-control" name="email" id="email"  placeholder="Email Id" required="" ng-disabled="true"/>
         </div>
       </div>
 
@@ -35,7 +35,7 @@
       <div class="form-group">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-phone fa-lg" aria-hidden="true"></i>Phone</span>
-          <input ng-model="myProfile.phone" type="text" class="form-control" name="phone" id="phone"  placeholder="Phone" required="" ng-disabled="true"/>
+          <input ng-model="myProfile.phone" type="text" class="form-control" name="phone" id="phone"  placeholder="Phone" required=""/>
         </div>
       </div>
 
@@ -43,6 +43,86 @@
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i>Your Access Type</span>
           <input value = "{{myProfile.roles.join(', ')}}" type="text" class="form-control" name="roles" id="roles"  placeholder="You currently have no access" required="" ng-disabled="true"/>
+        </div>
+      </div>
+
+      <!-- Twitter -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i>Twitter</span>
+          <input ng-model="myProfile.twitter" type="url" class="form-control" name="twitter" id="twitter"  placeholder="Twitter link"/>
+        </div>
+      </div>
+
+      <!-- Facebook -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i>Facebook</span>
+          <input ng-model="myProfile.facebook" type="url" class="form-control" name="facebook" id="facebook"  placeholder="Facebook Url"/>
+        </div>
+      </div>
+
+      <!-- Google -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-google fa-lg" aria-hidden="true"></i>Google</span>
+          <input ng-model="myProfile.google" type="url" class="form-control" name="google" id="google"  placeholder="Google Url"/>
+        </div>
+      </div>
+
+      <!-- GitHub -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-github fa-lg" aria-hidden="true"></i>GitHub</span>
+          <input ng-model="myProfile.github" type="url" class="form-control" name="github" id="github"  placeholder="GitHub Url"/>
+        </div>
+      </div>
+
+      <!-- Youtube -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-youtube fa-lg" aria-hidden="true"></i>Youtube</span>
+          <input ng-model="myProfile.youtube" type="url" class="form-control" name="youtube" id="youtube"  placeholder="Youtube Url"/>
+        </div>
+      </div>
+
+      <!-- LinkedIn -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i>LinkedIn</span>
+          <input ng-model="myProfile.linkedin" type="url" class="form-control" name="linkedin" id="linkedin"  placeholder="LinkedIn Url"/>
+        </div>
+      </div>
+
+      <!-- Webpage -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-webpage fa-lg" aria-hidden="true"></i>Webpage</span>
+          <input ng-model="myProfile.webpage" type="url" class="form-control" name="webpage" id="webpage"  placeholder="Webpage Url"/>
+        </div>
+      </div>
+
+      <!-- Organisation -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-group fa-lg" aria-hidden="true"></i>Organisation</span>
+          <input ng-model="myProfile.organisation" type="text" class="form-control" name="organisation" id="organisation"  placeholder="Organisation"/>
+        </div>
+      </div>
+
+      <!-- Designation -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user fa-lg" aria-hidden="true"></i>Designation</span>
+          <input ng-model="myProfile.designation" type="text" class="form-control" name="designation" id="designation"  placeholder="Designation"/>
+        </div>
+      </div>
+
+      <!-- Description: User Profile Summary -->
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-list-alt fa-lg" aria-hidden="true"></i>Profile Summary</span>
+          <textarea ng-model="myProfile.description" class="form-control" name="description" id="description"  placeholder="Profile Summary" rows="5" max-length="500"></textarea>
         </div>
       </div>
 
@@ -54,9 +134,8 @@
 
       <!-- Buttons -->
       <div class="form-group">
-        <label class="control-label result-label"></label>
         <div class="">
-          <button id="update-profile-btn" name="updateProfile" class="btn btn-primary" ng-click="updateProfileClick($event)" ng-disabled="true">Update Profile</button>
+          <button id="update-profile-btn" name="updateProfile" class="btn btn-primary" ng-click="updateProfileClick($event)">Update Profile</button>
         </div>
       </div>
     </form>
