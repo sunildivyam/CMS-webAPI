@@ -162,6 +162,21 @@
             });
         };
 
+        $scope.onUserNameChange = function() {
+            $scope.isMatchingUser = true;
+            $scope.registerForm.userName.$invalid = true;
+
+            accountService.checkUserAvailabilty($scope.newUser.userName).then(function(response) {
+                $scope.isUserMatched = true;
+                $scope.isMatchingUser = false;
+                $scope.registerForm.userName.$invalid = false;
+            }, function(rejection) {
+                $scope.registerForm.userName.$invalid = true;
+                $scope.isUserMatched = false;
+                $scope.isMatchingUser = false;
+            });
+        }
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
             if (toState) {
                 // Sets Meta information for Page

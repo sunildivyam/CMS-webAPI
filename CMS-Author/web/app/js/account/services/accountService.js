@@ -26,7 +26,8 @@
 			getRoles: baseApiUrl + '/GetRoles',
 			getCachedRequests: baseCacheApiUrl + '/GetKeys',
 			clearCache: baseCacheApiUrl + '/PostClearCache',
-			clearCacheAll: baseCacheApiUrl + '/PostClearCacheAll'
+			clearCacheAll: baseCacheApiUrl + '/PostClearCacheAll',
+			checkUserAvailabilty: baseCacheApiUrl + 'CheckUserAvailabilty'
 		};
 
 
@@ -287,6 +288,16 @@
 			});
 		}
 
+
+		function checkUserAvailabilty(userName) {
+			return $http({
+				method: 'get',
+				url: urls.clearCache + '?UserName=' + userName,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
 		return {
 			register: register,
 			login: login,
@@ -307,7 +318,8 @@
 			getRoles: getRoles,
 			getCachedRequests: getCachedRequests,
 			clearCache: clearCache,
-			clearCacheAll: clearCacheAll
+			clearCacheAll: clearCacheAll,
+			checkUserAvailabilty: checkUserAvailabilty
 		};
 	};
 
