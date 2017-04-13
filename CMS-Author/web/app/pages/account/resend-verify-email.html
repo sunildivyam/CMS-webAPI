@@ -1,21 +1,29 @@
-<div class="well resend-verify-email-page">
-	<brand-logo class="xs" data-logo="appLogo"></brand-logo>
-	<div class="panel panel-default col-sm-6 col-sm-offset-3">
-		<div class="panel-heading row">
-			<h1 class="panel-title">Resend Confirmation E-mail</small></h1>
+<div class="resend-verify-email-page">
+	<div class="row">
+		<div class="col-sm-12">
+			<brand-logo class="xs" data-logo="appLogo"></brand-logo>
 		</div>
-		<div class="panel-body row">
-			<div>
-				<form class="form" role="form" method="get" action="#" name="resendVerifyEmailForm">
-					<div class="form-group">
-						<label class="form-label">User Id/ Email: </label>
-						<input type="text" class="form-control" ng-model="userName" name="userName" id="userName" required/>
-						<p ng-show="resendVerifyEmailForm.userName.$invalid && !resendVerifyEmailForm.userName.$pristine && resendVerifyEmailForm.userName.$error.required" class="help-block">User Name/Email is required.</p>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default col-sm-6 col-sm-offset-3">
+				<div class="panel-heading row">
+					<h1 class="panel-title">Resend Confirmation E-mail</small></h1>
+				</div>
+				<div class="panel-body row">
+					<div>
+						<form class="form" role="form" method="get" action="#" name="resendVerifyEmailForm">
+							<div class="form-group">
+								<label class="form-label">User Id/ Email: </label>
+								<input type="text" class="form-control" ng-model="userName" name="userName" id="userName" required/>
+								<p ng-show="resendVerifyEmailForm.userName.$invalid && !resendVerifyEmailForm.userName.$pristine && resendVerifyEmailForm.userName.$error.required" class="help-block">User Name/Email is required.</p>
+							</div>
+							<button ng-disabled="!userName" type="button" class="btn btn-primary" ng-click="resendVerifyEmail($event)">Re-Send Confirmation e-mail</button>
+						</form>
 					</div>
-					<button ng-disabled="!userName" type="button" class="btn btn-primary" ng-click="resendVerifyEmail($event)">Re-Send Confirmation e-mail</button>
-				</form>
+					<loader data-is-loading="isSendingEmail" data-message="Sending Confirmation email. Please wait..."></loader>
+				</div>
 			</div>
-			<loader data-is-loading="isSendingEmail" data-message="Sending Confirmation email. Please wait..."></loader>
 		</div>
 	</div>
 </div>

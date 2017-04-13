@@ -12,34 +12,26 @@
 				</div>
 				<div class="panel-body row">
 					<form name="registerForm" class="form" method="post" action="#" ng-model-options="{updateOn: 'change'}">
-						<!-- First Name -->
+						<!-- User Name -->
 						<div class="form-group col-sm-6">
 							<div class="col-sm-12">
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input ng-model="newUser.firstName" type="text" class="form-control" name="firstName" id="firstName"  placeholder="First Name" required ng-maxlength="500"/>
+									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+									<input ng-model="newUser.userName" ng-change="onUserNameChange($event)" type="text" class="form-control" name="userName" id="username"  placeholder="Choose your Display Name" required/>
+									<span class="input-group-addon">
+										<i class="fa {{isMatchingUser?'fa-spinner fa-spin': (isUserMatched ? 'fa-check text-success': (isUserMatched === false ? 'fa-close text-danger': 'fa-search'))}}" aria-hidden="true"></i>
+									</span>
 								</div>
-								<p ng-show="registerForm.firstName.$invalid && !registerForm.firstName.$pristine" class="help-block">Your First Name is required.</p>
-								<p ng-show="registerForm.firstName.$error.maxlength && !registerForm.firstName.$pristine" class="help-block">First Name is too long. (maximum 500 characters allowed)</p>
-							</div>
-						</div>
-						<!-- Last Name -->
-						<div class="form-group col-sm-6">
-							<div class="col-sm-12">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input ng-model="newUser.lastName" type="text" class="form-control" name="lastName" id="lastName"  placeholder="Last Name" ng-maxlength="500"/>
-
-								</div>
-								<p ng-show="registerForm.lastName.$error.maxlength" class="help-block">Last Name is too long. (maximum 500 characters allowed)</p>
+								<p ng-show="registerForm.userName.$invalid && !registerForm.userName.$pristine && registerForm.userName.$error.required" class="help-block">User Name is required.</p>
+								<p ng-show="isUserMatched === false" class="help-block">{{newUser.userName}} is not available. Please choose something else.</p>
 							</div>
 						</div>
 
 						<!-- Email -->
-						<div class="form-group col-sm-12">
+						<div class="form-group col-sm-6">
 							<div class="col-sm-12">
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
 									<input ng-model="newUser.email" type="email" class="form-control" name="email" id="email"  placeholder="Email" required/>
 								</div>
 								<p ng-show="registerForm.email.$invalid && !registerForm.email.$pristine && registerForm.email.$error.required" class="help-block">Your Email is required.</p>
@@ -47,6 +39,31 @@
 							</div>
 						</div>
 
+						<!-- First Name -->
+						<div class="form-group col-sm-6">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+									<input ng-model="newUser.firstName" type="text" class="form-control" name="firstName" id="firstName"  placeholder="First Name" required ng-maxlength="500"/>
+								</div>
+								<p ng-show="registerForm.firstName.$invalid && !registerForm.firstName.$pristine" class="help-block">Your First Name is required.</p>
+								<p ng-show="registerForm.firstName.$error.maxlength && !registerForm.firstName.$pristine" class="help-block">First Name is too long. (maximum 500 characters allowed)</p>
+							</div>
+						</div>
+
+						<!-- Last Name -->
+						<div class="form-group col-sm-6">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+									<input ng-model="newUser.lastName" type="text" class="form-control" name="lastName" id="lastName"  placeholder="Last Name" ng-maxlength="500"/>
+
+								</div>
+								<p ng-show="registerForm.lastName.$error.maxlength" class="help-block">Last Name is too long. (maximum 500 characters allowed)</p>
+							</div>
+						</div>
+
+						<!-- Password -->
 						<div class="form-group col-sm-6">
 							<div class="col-sm-12">
 								<div class="input-group">
@@ -60,6 +77,7 @@
 							</div>
 						</div>
 
+						<!-- Confirm Password -->
 						<div class="form-group col-sm-6">
 							<div class="col-sm-12">
 								<div class="input-group">
@@ -69,6 +87,8 @@
 								<p ng-show="registerForm.confirmPassword.$error.passwordcompare" class="help-block">Passwords don't match</p>
 							</div>
 						</div>
+
+						<!-- Accept Agreement -->
 						<div class="form-group col-sm-12">
 							<div class="col-sm-12">
 								<span class="button-checkbox">
@@ -79,11 +99,13 @@
 							</div>
 						</div>
 
+						<!-- Register Button -->
 						<div class="form-group col-sm-6">
 							<button type="button" class="btn btn-primary btn-lg btn-block register-button"
 							ng-disabled="registerForm.$invalid || !registerForm.$dirty" ng-click="registerSubmit($event)">Register</button>
 						</div>
 
+						<!-- Login Button -->
 						<div class="form-group col-sm-6">
 							<a ui-sref="login" class="btn btn-success btn-lg btn-block login-button">Already a User? Login here</a>
 						</div>
