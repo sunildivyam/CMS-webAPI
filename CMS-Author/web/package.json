@@ -28,6 +28,7 @@
     "angular": "^1.5.6",
     "angular-animate": "^1.5.7",
     "angular-cookies": "^1.5.8",
+    "angular-daterangepicker": "^0.2.3-alpha1",
     "angular-mock": "^1.0.0",
     "angular-sanitize": "^1.5.6",
     "angular-ui-bootstrap": "^2.2.0",

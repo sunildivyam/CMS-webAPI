@@ -16,7 +16,7 @@
                 this.confirmPassword = raw.ConfirmPassword;
                 this.firstName = raw.FirstName || raw.firstName;
                 this.lastName = raw.LastName || raw.lastName;
-                this.phone = raw.Phone || raw.phone;
+                this.phoneNumber = raw.PhoneNumber || raw.phoneNumber;
                 this.token = raw.access_token;
                 this.tokenType = raw.token_type;
                 this.expiry = raw.expires_in;

@@ -8,8 +8,12 @@ require('angular-cookies');
 
 window.$ = require('jquery');
 window.jQuery = window.$;
+window.moment = require('moment');
+
 require('bootstrap');
+require('bootstrap-daterangepicker');
 require('angular-ui-bootstrap');
+require('angular-daterangepicker');
 require('angular-ui-router');
 require('ui-select');
 window.Isotope = require('isotope-layout/js/isotope');
@@ -31,6 +35,7 @@ angular.module('raiweb', [
 	'ngAnimate',
 	'ngCookies',
 	'ui.bootstrap',
+	'daterangepicker',
 	'ui.select',
 	require('./js/core/core').name,
 	require('./js/dashboard/dashboard').name,

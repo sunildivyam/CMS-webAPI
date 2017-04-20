@@ -14,11 +14,21 @@
 */
 
 (function() {
-	var profileController = function($rootScope, $scope, $state, appService, accountService, User, modalService, Utils) {
+	var profileController = function($rootScope, $scope, $state, appService, accountService, User, EntityMapper, modalService, Utils) {
 		$scope.changePasswordModel = {};	// model to hold oldPW,newPW and confirmPw
 		$scope.userRolesViewModel = {
 			userName: undefined,
 			roles: []
+		};
+
+		var dpRangeOptions = Utils.getDateRangePicker();
+		$scope.usersViewModel = {
+			dateRange: {
+				startDate: dpRangeOptions.startDate,
+				endDate: dpRangeOptions.endDate
+			},
+			users: new EntityMapper('User').toEntities(),
+			rangeOptions: dpRangeOptions
 		};
 
 		function setProfileData() {
@@ -74,6 +84,17 @@
 			}
 		};
 
+		$scope.getUsersByDate = function() {
+			$scope.isUsersLoading = true;
+			accountService.getUsersByDate($scope.usersViewModel.dateRange).then(function(response) {
+				$scope.usersViewModel.users = new EntityMapper('User').toEntities(response && response.data);
+				$scope.isUsersLoading = false;
+			}, function() {
+				$scope.usersViewModel.users = new EntityMapper('User').toEntities();
+				$scope.isUsersLoading = false;
+			});
+		}
+
 		function getUserInfo() {
 			$scope.isUserInfoLoading = true;
 			accountService.getUserInfo().then(function(response) {
@@ -102,7 +123,8 @@
 			});
 		}
 
-		$scope.getUserRoles = function() {
+		$scope.getUserRoles = function(event) {
+			console.log("dd");
 			$scope.isUserRolesProcessing = true;
 			accountService.getUserRoles($scope.userRolesViewModel.userName).then(function(response) {
 				$scope.userRolesViewModel.roles = response && response.data || [];
@@ -135,13 +157,13 @@
 		};
 
 		function getAvaliableRoles() {
-			$scope.isPageLoading = true;
+			$scope.isUserRolesProcessing = true;
 			accountService.getRoles().then(function(response) {
 				$scope.availableRoles = response && response.data || [];
-				$scope.isPageLoading = false;
+				$scope.isUserRolesProcessing = false;
 			}, function() {
 				$scope.availableRoles = [];
-				$scope.isPageLoading = false;
+				$scope.isUserRolesProcessing = false;
 			});
 		}
 
@@ -215,6 +237,6 @@
 		});
 	};
 
-	profileController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'modalService', 'Utils'];
+	profileController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'EntityMapper', 'modalService', 'Utils'];
 	module.exports = profileController;
 })();

@@ -27,7 +27,8 @@
 			getCachedRequests: baseCacheApiUrl + '/GetKeys',
 			clearCache: baseCacheApiUrl + '/PostClearCache',
 			clearCacheAll: baseCacheApiUrl + '/PostClearCacheAll',
-			checkUserAvailabilty: baseCacheApiUrl + 'CheckUserAvailabilty'
+			checkUserAvailabilty: baseApiUrl + '/CheckUserAvailabilty',
+			getUsersByDate: baseApiUrl + '/GetUsersByDate'
 		};
 
 
@@ -298,6 +299,17 @@
 				}
 			});
 		}
+
+		function getUsersByDate(dateRange) {
+			return $http({
+				method: 'get',
+				url: urls.getUsersByDate + '?start=' + dateRange.startDate.format('YYYY-MM-DD') + '&end=' + dateRange.endDate.format('YYYY-MM-DD'),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
 		return {
 			register: register,
 			login: login,
@@ -319,7 +331,8 @@
 			getCachedRequests: getCachedRequests,
 			clearCache: clearCache,
 			clearCacheAll: clearCacheAll,
-			checkUserAvailabilty: checkUserAvailabilty
+			checkUserAvailabilty: checkUserAvailabilty,
+			getUsersByDate: getUsersByDate
 		};
 	};
 
