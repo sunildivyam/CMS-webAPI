@@ -592,7 +592,7 @@ namespace CMS_webAPI.Controllers
             var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, CreatedOn = createdOn };
             
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-            
+                        
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -645,7 +645,89 @@ namespace CMS_webAPI.Controllers
             return Ok();
         }
 
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("CheckUserAvailabilty")]
+        public async Task<IHttpActionResult> CheckUserAvailabilty(string userName)
+        {            
+            if (UserService.IsUserExist(userName) == true)
+            {
+                await Task.Delay(0);
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }            
+        }
         
+        [HttpPost]
+        [Route("SetUserInfo")]
+        public async Task<IHttpActionResult> SetUserInfo(UserInfoViewModel userInfoView)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                user= UserService.LoadUserWithProfileView(user, userInfoView);
+                await UserManager.UpdateAsync(user);                               
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return Ok();
+        }
+
+
+        [Authorize(Roles="Administrators")]
+        [HttpGet]
+        [Route("GetUsersByDate")]        
+        public async Task<IHttpActionResult> GetUsersByDate(DateTime start, DateTime end)
+        {
+            try
+            {
+                await Task.Delay(0);
+                return Ok(UserService.GetUsersByDate(start, end));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }            
+        }
+
+        // GET api/Account/UserInfoByName
+        [Authorize(Roles="Administrators")]
+        [Route("UserInfoByName")]
+        public async Task<IHttpActionResult> GetUserInfoByName(string userName)
+        {            
+            ApplicationUser appuser = UserManager.FindByName(userName);
+            if (appuser == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                UserInfoViewModel userInfoView = new UserInfoViewModel();
+                await Task.Delay(0);
+                userInfoView = UserService.AppUserToUserInfoViewModel(appuser);            
+                return Ok(userInfoView);
+            } catch (Exception ex) {
+                return InternalServerError(ex);
+            }            
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

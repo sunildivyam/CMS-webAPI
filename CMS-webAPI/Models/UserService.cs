@@ -119,5 +119,30 @@ namespace CMS_webAPI.Models
             }
             return null;            
         }
+
+        public static ApplicationUser LoadUserWithProfileView(ApplicationUser user, UserInfoViewModel userInfoView) {
+            user.PhoneNumber = userInfoView.PhoneNumber;
+            user.Twitter = userInfoView.Twitter;
+            user.Facebook = userInfoView.Facebook;
+            user.Google = userInfoView.Google;
+            user.Github = userInfoView.Github;
+            user.Webpage = userInfoView.Webpage;
+            user.Youtube = userInfoView.Youtube;
+            user.Linkedin = userInfoView.Linkedin;
+            user.Description = userInfoView.Description;
+            user.Organisation = userInfoView.Organisation;
+            user.Designation = userInfoView.Designation;
+            return user;
+        }
+
+        public static IList<UsersViewModel> GetUsersByDate(DateTime start, DateTime end)
+        {
+            ApplicationDbContext _appDB = new ApplicationDbContext();            
+            List<UsersViewModel> users = _appDB.Users.Where(u => u.CreatedOn >= start && u.CreatedOn <= end)
+                .Select(u => new UsersViewModel() { UserName = u.UserName, CreatedOn = (DateTime)u.CreatedOn })
+                .ToList();
+
+            return users;
+        }
     }
 }
