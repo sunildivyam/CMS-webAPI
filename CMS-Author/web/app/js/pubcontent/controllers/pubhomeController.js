@@ -160,37 +160,55 @@
             }
         });
 
+        function initPageData() {
+            // Sets Meta information for Page
+            Utils.setMetaInfo(); // this sets application level meta data
+            initMainCarousel($scope.categories);
+            getListOfContentsOfAllcategories($scope.categories);
+        }
+
+        function initGlobalSearch(toParams) {
+            var prevKw = $scope.globalSearch.searchString && $scope.globalSearch.searchString.toLowerCase();
+            var prevN = $scope.globalSearch.category;
+            var newKw = toParams.kw.replace(/-/g, ' ');
+            var newN = findCategory($scope.categories, toParams.n);
+
+            if (prevKw !== newKw) {
+                $scope.globalSearch.searchString = newKw;
+            }
+
+            if (typeof prevN === 'undefined' || (prevN && prevN.name !== newN.name)) {
+                $scope.globalSearch.category = newN;
+            }
+        }
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
             if (toState && toState.name) {
                 Utils.getListConfigs().then(function() {
                     setCategories(Utils.getCategories());
-                    // Sets Meta information for Page
-                    Utils.setMetaInfo(); // this sets application level meta data
-                    initMainCarousel($scope.categories);
+
+                    if (toState.name === 'pub') {
+                        initPageData();
+                    }
 
                     $scope.iso = undefined;
+
+                    if (toState.name === 'pub.search' && toParams && toParams.n && toParams.kw) {
+                        initGlobalSearch(toParams);
+                    }
+
                     getCategories().then(function() {
-                        if (toState.name === 'pub') {
-                            // Sets Meta information for Page
-                            Utils.setMetaInfo(); // this sets application level meta data
-                            initMainCarousel($scope.categories);
-                            getListOfContentsOfAllcategories($scope.categories);
-                        }
+                        var staticCategories = Utils.getCategories();
 
-                        if (toState.name === 'pub.search' && toParams && toParams.n && toParams.kw) {
-                            var prevKw = $scope.globalSearch.searchString && $scope.globalSearch.searchString.toLowerCase();
-                            var prevN = $scope.globalSearch.category;
-                            var newKw = toParams.kw.replace(/-/g, ' ');
-                            var newN = findCategory($scope.categories, toParams.n);
-
-                            if (prevKw !== newKw) {
-                                $scope.globalSearch.searchString = newKw;
+                        if (staticCategories && staticCategories.length != $scope.categories.length) {
+                            if (toState.name === 'pub') {
+                                initPageData();
                             }
 
-                            if (typeof prevN === 'undefined' || (prevN && prevN.name !== newN.name)) {
-                                $scope.globalSearch.category = newN;
+                            if (toState.name === 'pub.search' && toParams && toParams.n && toParams.kw) {
+                                initGlobalSearch(toParams);
                             }
-                        }
+                        }                        
                     }, function() {
                         initMainCarousel();
                     });
