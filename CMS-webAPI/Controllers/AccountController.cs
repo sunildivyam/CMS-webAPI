@@ -77,17 +77,14 @@ namespace CMS_webAPI.Controllers
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
             ApplicationUser appuser = UserManager.FindById(User.Identity.GetUserId());
-            return new UserInfoViewModel
-            {
-                Email = appuser.Email,
-                UserName = appuser.UserName,
-                FirstName = appuser.FirstName,
-                LastName = appuser.LastName,
-                Phone = appuser.Phone,
-                Roles = UserManager.GetRoles(appuser.Id),
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
+            UserInfoViewModel userInfoView = new UserInfoViewModel();
+            userInfoView = UserService.AppUserToUserInfoViewModel(appuser);
+            if (userInfoView != null) {
+                userInfoView.Roles = UserManager.GetRoles(appuser.Id);
+                userInfoView.HasRegistered = externalLogin == null;
+                userInfoView.LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null;
+            }
+            return userInfoView;
         }
 
         // POST api/Account/Logout
@@ -591,7 +588,8 @@ namespace CMS_webAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Phone = model.Phone };
+            DateTime createdOn = DateTime.Now;
+            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, CreatedOn = createdOn };
             
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             

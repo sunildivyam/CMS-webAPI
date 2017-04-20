@@ -17,11 +17,8 @@ namespace CMS_webAPI.Models
             ApplicationUser user = _appDB.Users.FirstOrDefault(u => u.UserName == userName);
             if (user != null)
             {
-                userViewModel.FirstName = user.FirstName;
-                userViewModel.LastName = user.LastName;
-                userViewModel.Email = user.Email;
+                userViewModel = AppUserToUserInfoViewModel(user);               
                 userViewModel.HasRegistered = true;
-                userViewModel.Phone = user.Phone;
             }
             return userViewModel;
         }
@@ -34,11 +31,8 @@ namespace CMS_webAPI.Models
 
             if (user != null)
             {
-                userViewModel.FirstName = user.FirstName;
-                userViewModel.LastName = user.LastName;
-                userViewModel.Email = user.Email;
+                userViewModel = AppUserToUserInfoViewModel(user);
                 userViewModel.HasRegistered = true;
-                userViewModel.Phone = user.Phone;
             }
             return userViewModel;
         }
@@ -53,7 +47,7 @@ namespace CMS_webAPI.Models
             {
                 ApplicationDbContext _appDB = new ApplicationDbContext();
                 return _appDB.Users.FirstOrDefault(u => u.UserName == userViewModel.Email);
-            }            
+            }
         }
 
         public static ApplicationUser getUserByUserName(string userName)
@@ -64,7 +58,7 @@ namespace CMS_webAPI.Models
 
         public static RegisterBindingModel GetSuperUser()
         {
-            return new RegisterBindingModel() { 
+            return new RegisterBindingModel() {
                 Email= ConfigurationManager.AppSettings["SuperUserEmail"], // super user Email id
                 Password = ConfigurationManager.AppSettings["SuperUserPw"],  // Super User Pw,
                 FirstName = "Administrator",
@@ -85,6 +79,45 @@ namespace CMS_webAPI.Models
         public static string GetAuthorRole()
         {
             return "Authors";
+        }
+
+        public static bool IsUserExist(string userName)
+        {
+            ApplicationDbContext _appDB = new ApplicationDbContext();
+            ApplicationUser user = _appDB.Users.FirstOrDefault(u => u.UserName == userName);
+
+            if (user != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static UserInfoViewModel AppUserToUserInfoViewModel(ApplicationUser user)
+        {
+            if (user != null)
+            {
+                UserInfoViewModel userInfoView = new UserInfoViewModel()
+                {
+                    Email = user.Email,
+                    UserName = user.UserName,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PhoneNumber = user.PhoneNumber,                    
+                    Twitter = user.Twitter,
+                    Facebook = user.Facebook,
+                    Google = user.Google,
+                    Webpage = user.Webpage,
+                    Youtube = user.Youtube,
+                    Github = user.Github,
+                    Description = user.Description,
+                    Organisation = user.Organisation,
+                    Designation = user.Designation,
+                    CreatedOn = (DateTime)user.CreatedOn
+                };
+                return userInfoView;
+            }
+            return null;            
         }
     }
 }
