@@ -106,6 +106,23 @@
 			});
 		}
 
+		function getUserInfoByName(userName) {
+
+			/*
+			*	This should be used and implemented, if Admin requires a user's Detailed Info.
+			* 	Its back end API and its AJAX are pre-implemented.
+			*/
+
+			// $scope.isUserInfoLoading = true;
+			// accountService.getUserInfoByName(userName).then(function(response) {
+			// 	$scope.myProfile = new User(response && response.data);
+			// 	$scope.isUserInfoLoading = false;
+			// }, function() {
+			// 	$scope.myProfile = new User();
+			// 	$scope.isUserInfoLoading = false;
+			// });
+		}
+
 		$scope.updateProfileClick = function() {
 			$scope.isUserInfoLoading = true;
 			accountService.setUserInfo($scope.myProfile).then(function(response) {

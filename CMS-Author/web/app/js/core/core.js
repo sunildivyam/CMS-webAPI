@@ -246,6 +246,16 @@
             controller: 'searchController',
             isAnonymous: true,
             title: 'Search Articles'
+        })
+        .state({
+            name: 'pub.myspace',
+            url: 'myspace/:n',      // where n is UserName
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('pubcontent/myspace-landing.html');
+            }],
+            controller: 'myspaceController',
+            isAnonymous: true,
+            title: 'Articles'            // should be "User Name - Articles"
         });
 
         // Enables html5Mode Urls

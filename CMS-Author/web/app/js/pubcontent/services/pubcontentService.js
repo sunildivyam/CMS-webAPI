@@ -17,7 +17,8 @@
 				base: 'contents',
 				getContentsByCategoryName: 'GetContentsByCategoryName', // ceetgory-name
 				getContent: 'GetContent',	// category-name/contentId/categoryName
-				getContentsByTag: 'GetContentsByTag'	// tag-id/tag-name/...
+				getContentsByTag: 'GetContentsByTag',	// tag-id/tag-name/...
+				getContentsByUserName: 'GetContentsByUserName'	// userName
 			},
 			'categories': {
 				base: 'categories',
@@ -81,6 +82,16 @@
 				pageNo || PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
 		}
 
+		function getContentsByUserName(tagId, tagName, pageNo, pageSize) {
+			var sortDireAsc = false;
+			var sortField = 'PublishedDate';
+
+			return appService.get([urls.contents.base,
+				urls.contents.getContentsByUserName,
+				userName,
+				pageNo || PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
+		}
+
 		function getContent(categoryName, contentId, contentName) {
 			return appService.get([urls.contents.base,
 				urls.contents.getContent,
@@ -132,7 +143,8 @@
 			getContentsByTag: getContentsByTag,
 			getContent: getContent,
 			getUniqueTagsOfContents: getUniqueTagsOfContents,
-			getUniqueTagsOfTags: getUniqueTagsOfTags
+			getUniqueTagsOfTags: getUniqueTagsOfTags,
+			getContentsByUserName: getContentsByUserName
 		};
 	};
 	pubcontentService.$inject = ['appService', 'EntityMapper', 'Tag'];

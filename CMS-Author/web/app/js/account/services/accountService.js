@@ -15,7 +15,8 @@
 			login: appService.getApiServerUrl() + '/token',
 			logout: baseApiUrl + '/logout',
 			changePassword: baseApiUrl + '/changePassword',
-			getUserInfo: baseApiUrl + '/UserInfo',
+			getUserInfo: baseApiUrl + '/UserInfo',				// for currently logged in User
+			getUserInfoByName: baseApiUrl + '/UserInfoByName',	// For any User
 			setUserInfo: baseApiUrl + '/SetUserInfo',
 			verifyEmail: baseApiUrl + '/VerifyEmail',
 			resendVerifyEmail: baseApiUrl + '/ResendVerifyEmail',
@@ -182,6 +183,17 @@
 			});
 		}
 
+
+		function getUserInfoByName(userName) {
+			return $http({
+				method: 'get',
+				url: urls.getUserInfoByName + '?userName=' + userName,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
 		function verifyEmail(userName, code) {
 			var url = urls.verifyEmail + '?id=' + userName + '&code=' + code;
 			return $http({
@@ -321,6 +333,7 @@
 			changePassword: changePassword,
 			getUserInfo: getUserInfo,
 			setUserInfo: setUserInfo,
+			getUserInfoByName: getUserInfoByName,
 			verifyEmail: verifyEmail,
 			resendVerifyEmail: resendVerifyEmail,
 			sendResetPasswordEmail: sendResetPasswordEmail,
