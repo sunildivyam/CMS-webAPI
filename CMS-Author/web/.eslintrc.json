@@ -19,7 +19,8 @@
         "CKEDITOR": "CKEDITOR",
         "Isotope": "Isotope",
         "MathJax": "MathJax",
-        "hljs": "hljs"
+        "hljs": "hljs",
+        "moment": "moment"
     },
     "extends": "defaults"
 }
