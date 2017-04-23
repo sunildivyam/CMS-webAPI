@@ -31,10 +31,10 @@ namespace CMS_webAPI.Controllers
         }
 
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PostClearCache(string key)
+        public async Task<IHttpActionResult> PostClearCache(ApiCacheViewModel apiCacheView)
         {
-            try { 
-                ApiCache.Remove(key);
+            try {
+                ApiCache.Remove(apiCacheView.Key);
                 await Task.Delay(0);
             }
             catch (Exception ex)
