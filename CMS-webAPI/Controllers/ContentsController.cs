@@ -301,8 +301,8 @@ namespace CMS_webAPI.Controllers
             }
             pageNo = pageNo - 1;
 
-            string searchQuery = @"select distinct c.* from Contents as c                
-                WHERE c.AuthorId=@UserId AND c.IsLive='True'";
+            string searchQuery = @"select c.* from Contents as c                
+                WHERE c.OwnerId=@UserId AND c.IsLive='True'";
 
             string searchQueryForPagedData = searchQuery + " order by " + sortField + " " + sortDir + " OFFSET @PageStart ROWS FETCH NEXT @PageSize ROWS ONLY";
             string searchQueryForTotalCount = "Select Count(cc.ContentId) as TotalCount from (" + searchQuery + ") as cc";

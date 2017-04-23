@@ -59,7 +59,9 @@ namespace CMS_webAPI.Models
 
     public class UsersViewModel
     {
-        public string UserName { get; set; }        
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }   
         public DateTime CreatedOn { get; set; }
     }
 

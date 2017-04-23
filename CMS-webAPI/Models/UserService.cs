@@ -109,11 +109,12 @@ namespace CMS_webAPI.Models
                     Google = user.Google,
                     Webpage = user.Webpage,
                     Youtube = user.Youtube,
+                    Linkedin = user.Linkedin,
                     Github = user.Github,
                     Description = user.Description,
                     Organisation = user.Organisation,
                     Designation = user.Designation,
-                    CreatedOn = (DateTime)user.CreatedOn
+                    CreatedOn = user.CreatedOn !=null ? (DateTime)user.CreatedOn: DateTime.Now  // DateTime type can not be null
                 };
                 return userInfoView;
             }
@@ -137,9 +138,10 @@ namespace CMS_webAPI.Models
 
         public static IList<UsersViewModel> GetUsersByDate(DateTime start, DateTime end)
         {
+            end = end.AddSeconds(86399);
             ApplicationDbContext _appDB = new ApplicationDbContext();            
             List<UsersViewModel> users = _appDB.Users.Where(u => u.CreatedOn >= start && u.CreatedOn <= end)
-                .Select(u => new UsersViewModel() { UserName = u.UserName, CreatedOn = (DateTime)u.CreatedOn })
+                .Select(u => new UsersViewModel() { UserName = u.UserName, FirstName = u.FirstName, LastName = u.LastName, CreatedOn = (DateTime)u.CreatedOn })
                 .ToList();
 
             return users;
