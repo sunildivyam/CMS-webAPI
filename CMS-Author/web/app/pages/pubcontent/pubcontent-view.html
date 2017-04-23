@@ -22,7 +22,7 @@
 				<div class="small">
 					<span class="" title="Author">
 						<span class="glyphicon glyphicon-user"></span>
-						<span class="label label-default">{{content.owner.lastName?content.owner.lastName + ', ': '' }} {{content.owner.firstName}}</span>
+						<a class="label label-default" ui-sref="pub.myspace({n:content.owner.userName})">{{content.owner.lastName?content.owner.lastName + ', ': '' }} {{content.owner.firstName}}</a>
 					</span>
 					<span class="" title="Last Updated">
 						<span class="glyphicon glyphicon-pencil"></span>

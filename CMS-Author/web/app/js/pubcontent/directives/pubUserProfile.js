@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-	var pubUserProfile = function($location, pageTitleService) {
+	var pubUserProfile = function($location, pageTitleService, appService) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -11,10 +11,27 @@
 			link: function($scope) {
 				$scope.$location = $location;
 				$scope.pageTitleService = pageTitleService;
+				setThumbnailUrl(false);
+
+				$scope.$watch('user', function(newValue) {
+					if (newValue && newValue.userName) {
+						setThumbnailUrl();
+					}
+				});
+
+				function setThumbnailUrl(url) {
+		            if (url === false) {
+		                $scope.userThumbnailUrl = '';
+		            } else if($scope.user && $scope.user.userName){
+		                $scope.userThumbnailUrl = [appService.getUserImagesUrl(), $scope.user.userName + '.jpg'].join('/');
+		            } else {
+		            	$scope.userThumbnailUrl = '';
+		            }
+		        }
 			}
 		};
 	};
 
-	pubUserProfile.$inject = ['$location', 'pageTitleService'];
+	pubUserProfile.$inject = ['$location', 'pageTitleService', 'appService'];
 	module.exports = pubUserProfile;
 })();

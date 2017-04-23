@@ -82,7 +82,7 @@
 				pageNo || PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
 		}
 
-		function getContentsByUserName(tagId, tagName, pageNo, pageSize) {
+		function getContentsByUserName(userName, pageNo, pageSize) {
 			var sortDireAsc = false;
 			var sortField = 'PublishedDate';
 

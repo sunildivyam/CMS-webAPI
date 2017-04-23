@@ -1,10 +1,9 @@
 <div class="pub-myspace-page container-fluid">
-	<pub-user-profile class="col-sm-12"
-		data-user="currentAuthor"
-		data-is-loading="isAuthorLoading">
-	</pub-user-profile>
-
-	<div class="row>">
+	<div class="row" ng-show="currentAuthor && currentAuthor.userName">
+		<pub-user-profile class="col-sm-12 user-profile"
+			data-user="currentAuthor"
+			data-is-loading="isAuthorLoading">
+		</pub-user-profile>
 		<div class="col-sm-12">
 			<generic-list
 			data-items="dlContentsListOfAuthor.items"
@@ -43,10 +42,14 @@
 			data-is-loading="dlContentsListOfAuthor.isLoading">
 			</generic-list>
 		</div>
+		<pub-user-profile class="col-sm-12 user-profile"
+			data-user="currentAuthor"
+			data-is-loading="isAuthorLoading">
+		</pub-user-profile>
 	</div>
-
-	<pub-user-profile class="col-sm-12"
-		data-user="currentAuthor"
-		data-is-loading="isAuthorLoading">
-	</pub-user-profile>
+	<div class="row" ng-show="!currentAuthor || (currentAuthor && !currentAuthor.userName)">
+		<div class="col-sm-12">
+			<span class="text-danger">No Data available.</span>
+		</div>
+	</div>
 </div>

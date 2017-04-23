@@ -23,12 +23,15 @@
         function  initAuthorContentListWithResults(searchResults) {
             if(searchResults instanceof Object) {
                 $scope.currentAuthor = new User(searchResults.Author);
+                var pageTitle = $scope.baseTitle + ' by ' + $scope.currentAuthor.userName;
                 $scope.dlContentsListOfAuthor.items = new EntityMapper(Content).toEntities(searchResults.Contents);
                 $scope.dlContentsListOfAuthor.pagingTotalItems = searchResults.TotalCount;
                 $scope.dlContentsListOfAuthor.headerRightLabel = searchResults.TotalCount + " results";
+                $scope.dlContentsListOfAuthor.headerTitle = pageTitle;
+                $scope.dlContentsListOfAuthor.headerSummary = 'Explore articles authored by ' + $scope.currentAuthor.userName;
                 // Sets Meta information for Page
                 Utils.setMetaInfo(
-                    [$scope.currentAuthor.userName, $scope.baseTitle].join('-'),
+                    pageTitle,
                     $scope.currentAuthor.description,
                     pubcontentService.getUniqueTagsOfTags(getSearchResultsTags($scope.dlContentsListOfAuthor.items)));
             } else {
@@ -83,6 +86,6 @@
         });
     };
 
-    myspaceController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'EntityMapper', 'Content', 'Utils'];
+    myspaceController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'EntityMapper', 'Content', 'User', 'Utils'];
     module.exports = myspaceController;
 })();

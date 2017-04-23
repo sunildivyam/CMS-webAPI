@@ -1,18 +1,57 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h1 class="panel-title" ng-bind="user.userName" title="{{user.firstName}}"></h1>
+		<div class="row">
+			<div class="col-sm-3 user-info-left-section">
+				<h2>
+					{{user.lastName?user.lastName + ', ': '' }} {{user.firstName}}
+					<h3 ng-bind="user.userName"></h3>
+				</h2>
+				<div class="thumbnail center-block">
+		          <img id="user-thumbnail"
+		            src="{{userThumbnailUrl}}"
+		            alt="Articles by {{user.userName}}"
+		            onerror="this.style.display = 'none';"
+		            onload="this.style.display = 'block';">
+		        </div>
+		        <h3 ng-bind="user.designation"></h3>
+		        <h4 ng-bind="user.organisation"></h4>
+
+				<span ng-show="user.twitter" class="social-media-links">
+					<a href="{{user.twitter}}" target="_blank"><span class=""><i class="fa fa-twitter fa-lg"></i>Twitter</span></a>
+				</span>
+				<span ng-show="user.facebook" class="social-media-links">
+					<a href="{{user.facebook}}" target="_blank"><span class=""><i class="fa fa-facebook fa-lg"></i>Facebook</span></a>
+				</span>
+				<span ng-show="user.google" class="social-media-links">
+					<a href="{{user.google}}" target="_blank"><span class=""><i class="fa fa-google fa-lg"></i>Google plus</span></a>
+				</span>
+				<span ng-show="user.github" class="social-media-links">
+					<a href="{{user.github}}" target="_blank"><span class=""><i class="fa fa-github fa-lg"></i>GitHub</span></a>
+				</span>
+				<span ng-show="user.youtube" class="social-media-links">
+					<a href="{{user.youtube}}" target="_blank"><span class=""><i class="fa fa-youtube fa-lg"></i>Youtube</span></a>
+				</span>
+				<span ng-show="user.linkedin" class="social-media-links">
+					<a href="{{user.linkedin}}" target="_blank"><span class=""><i class="fa fa-linkedin fa-lg"></i>LinkedIn</span></a>
+				</span>
+				<span ng-show="user.webpage" class="social-media-links">
+					<a href="{{user.webpage}}" target="_blank"><span class=""><i class="fa fa-globe fa-lg"></i>My Web page</span></a>
+				</span>
+			</div>
+			<div class="col-sm-9">
+				<p class="small" ng-bind-html="user.description"></p>
+				<social-media-share
+					data-header-text="Share this Page: "
+					data-share-page-url="{{$location.absUrl()}}"
+					data-share-page-title="{{pageTitleService.getPageTitle()}}"
+					class="pull-right">
+				</social-media-share>
+			</div>
+		</div>
+
 	</div>
 	<div class="panel-body">
-		<h2 ng-bind="user.organisation"></h2>
-		<h2 ng-bind="user.designation"></h2>
-		<p class="small" ng-bind-html="user.description"></p>
-		
-		<social-media-share
-			data-header-text="Share this Page: "
-			data-share-page-url="{{$location.absUrl()}}"
-			data-share-page-title="{{pageTitleService.getPageTitle()}}"
-			class="pull-right">
-		</social-media-share>
+
 	</div>
 	<loader data-at-body="false" data-is-loading="isLoading"></loader>
 </div>

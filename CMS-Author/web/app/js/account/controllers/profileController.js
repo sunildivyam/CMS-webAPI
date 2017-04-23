@@ -30,6 +30,9 @@
 			users: new EntityMapper('User').toEntities(),
 			rangeOptions: dpRangeOptions
 		};
+		$scope.selectedCachedkey = {
+			name: ''
+		};
 
 		function setProfileData() {
 			$scope.toolbarButtons = Utils.getListConfigOf('profileActions');
@@ -87,10 +90,10 @@
 		$scope.getUsersByDate = function() {
 			$scope.isUsersLoading = true;
 			accountService.getUsersByDate($scope.usersViewModel.dateRange).then(function(response) {
-				$scope.usersViewModel.users = new EntityMapper('User').toEntities(response && response.data);
+				$scope.usersViewModel.users = new EntityMapper(User).toEntities(response && response.data);
 				$scope.isUsersLoading = false;
 			}, function() {
-				$scope.usersViewModel.users = new EntityMapper('User').toEntities();
+				$scope.usersViewModel.users = new EntityMapper(User).toEntities();
 				$scope.isUsersLoading = false;
 			});
 		}
@@ -100,9 +103,11 @@
 			accountService.getUserInfo().then(function(response) {
 				$scope.myProfile = new User(response && response.data);
 				$scope.isUserInfoLoading = false;
+				setThumbnailUrl();
 			}, function() {
 				$scope.myProfile = new User();
 				$scope.isUserInfoLoading = false;
+				setThumbnailUrl();
 			});
 		}
 
@@ -196,15 +201,16 @@
 		}
 
 		$scope.clearCache = function() {
-			if (!$scope.selectedCachedkey) {
+			if (!$scope.selectedCachedkey.name) {
 				return;
 			}
 			$scope.isCacheProcessing = true;
-			accountService.clearCache($scope.selectedCachedkey).then(function() {
-				var index = $scope.cachedRequestKeys.indexOf($scope.selectedCachedkey);
+			accountService.clearCache($scope.selectedCachedkey.name).then(function() {
+				var index = $scope.cachedRequestKeys.indexOf($scope.selectedCachedkey.name);
 				if (index > -1) {
 					$scope.cachedRequestKeys.splice(index, 1);
 				}
+				$scope.selectedCachedkey.name = '';
 				$scope.isCacheProcessing = false;
 			}, function() {
 				modalService.alert('md',
@@ -220,6 +226,7 @@
 			accountService.clearCacheAll().then(function() {
 				$scope.cachedRequestKeys= [];
 				$scope.isCacheProcessing = false;
+				$scope.selectedCachedkey.name = '';
 			}, function() {
 				modalService.alert('md',
 				'Clearing cache Failed',
@@ -228,6 +235,41 @@
 				$scope.isCacheProcessing = false;
 			});
 		};
+
+		function thumbnailUpload(event, resourceData, completeCallback) {
+            if (resourceData && $scope.myProfile && $scope.myProfile.userName) {
+                accountService.uploadUserThumbnail(resourceData).then(function() {
+                    if (typeof completeCallback === 'function') {
+                        completeCallback(true);
+                    }
+                }, function(rejection) {
+                    if (typeof completeCallback === 'function') {
+                        completeCallback(false, rejection && rejection.data && rejection.data.Message);
+                    }
+                });
+            } else {
+                completeCallback(false, 'Image data or User Name Missing.');
+            }
+        }
+
+		$scope.addUserThumbnail = function() {
+            setThumbnailUrl(false);
+            modalService.showUploadResourceModal(thumbnailUpload, 'md').result.then(function() {
+                setThumbnailUrl();
+            }, function() {
+                setThumbnailUrl();
+            });
+        };
+
+		function setThumbnailUrl(url) {
+            if (url === false) {
+                $scope.userThumbnailUrl = '';
+            } else if($scope.myProfile && $scope.myProfile.userName){
+                $scope.userThumbnailUrl = [appService.getUserImagesUrl(), $scope.myProfile.userName + '.jpg?v=' + (new Date()).getTime()].join('/');
+            } else {
+            	$scope.userThumbnailUrl = '';
+            }
+        }
 
 		$scope.$on('$stateChangeSuccess', function(event, toState /*, fromState , fromParams*/) {
 			if (toState && toState.name) {

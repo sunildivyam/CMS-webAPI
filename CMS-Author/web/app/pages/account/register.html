@@ -17,13 +17,15 @@
 							<div class="col-sm-12">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-									<input ng-model="newUser.userName" ng-change="onUserNameChange($event)" type="text" class="form-control" name="userName" id="username"  placeholder="Choose your Display Name" required/>
+									<input ng-model="newUser.userName" ng-change="onUserNameChange($event)" type="text" class="form-control" name="userName" id="username"  placeholder="Choose your Display Name" required ng-minlength="6" ng-maxlength="100" ng-pattern="/^[A-Za-z0-9]+(?:[ ._-][A-Za-z0-9]+)*$/"/>
 									<span class="input-group-addon">
-										<i class="fa {{isMatchingUser?'fa-spinner fa-spin': (isUserMatched ? 'fa-check text-success': (isUserMatched === false ? 'fa-close text-danger': 'fa-search'))}}" aria-hidden="true"></i>
+										<i class="fa {{isMatchingUser?'fa-spinner fa-spin': (isUserNameAvailable ? 'fa-check text-success': (isUserNameAvailable === false ? 'fa-close text-danger': 'fa-search'))}}" aria-hidden="true"></i>
 									</span>
 								</div>
 								<p ng-show="registerForm.userName.$invalid && !registerForm.userName.$pristine && registerForm.userName.$error.required" class="help-block">User Name is required.</p>
-								<p ng-show="isUserMatched === false" class="help-block">{{newUser.userName}} is not available. Please choose something else.</p>
+								<p ng-show="registerForm.userName.$error.availibility" class="help-block">{{newUser.userName}} is not available. Please choose something else.</p>
+								<p ng-show="registerForm.userName.$error.minlength" class="help-block">should be minimum 6 characters long.</p>
+								<p ng-show="registerForm.userName.$error.pattern" class="help-block">Not a valid user Name (can contain A-Z,a-z,0-9 and single _ - . only)</p>
 							</div>
 						</div>
 

@@ -15,8 +15,10 @@
 						<form class="form" role="form" method="get" action="#" name="resendVerifyEmailForm">
 							<div class="form-group">
 								<label class="form-label">User Id/ Email: </label>
-								<input type="text" class="form-control" ng-model="userName" name="userName" id="userName" required/>
+								<input type="text" class="form-control" ng-model="userName" name="userName" id="userName" required ng-minlength="6" ng-maxlength="500"/>
 								<p ng-show="resendVerifyEmailForm.userName.$invalid && !resendVerifyEmailForm.userName.$pristine && resendVerifyEmailForm.userName.$error.required" class="help-block">User Name/Email is required.</p>
+								<p ng-show="resendVerifyEmailForm.userName.$error.minlength" class="help-block">should be minimum 6 characters long.</p>
+								<p ng-show="resendVerifyEmailForm.userName.$error.maxlength" class="help-block">Too long. Max 500 characters allowed.</p>
 							</div>
 							<button ng-disabled="!userName" type="button" class="btn btn-primary" ng-click="resendVerifyEmail($event)">Re-Send Confirmation e-mail</button>
 						</form>

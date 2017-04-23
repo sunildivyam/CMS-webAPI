@@ -29,7 +29,8 @@
 			clearCache: baseCacheApiUrl + '/PostClearCache',
 			clearCacheAll: baseCacheApiUrl + '/PostClearCacheAll',
 			checkUserAvailabilty: baseApiUrl + '/CheckUserAvailabilty',
-			getUsersByDate: baseApiUrl + '/GetUsersByDate'
+			getUsersByDate: baseApiUrl + '/GetUsersByDate',
+			uploadUserThumbnail: baseApiUrl + '/UploadUserThumbnail'
 		};
 
 
@@ -284,7 +285,7 @@
 			return $http({
 				method: 'post',
 				url: urls.clearCache,
-				data: key,
+				data: {"key": key},
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -305,7 +306,7 @@
 		function checkUserAvailabilty(userName) {
 			return $http({
 				method: 'get',
-				url: urls.clearCache + '?UserName=' + userName,
+				url: urls.checkUserAvailabilty + '?UserName=' + userName,
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -319,6 +320,27 @@
 				headers: {
 					'Content-Type': 'application/json'
 				}
+			});
+		}
+
+		function uploadUserThumbnail(thumbnailData) {
+			var requestHeaders = {
+				'Content-Type': undefined
+			};
+
+			var requestOptions = {
+				transformRequest: angular.identity
+			};
+
+			var fd = new FormData();
+			fd.append('file', thumbnailData);
+
+			return $http({
+				method: 'post',
+				url: urls.uploadUserThumbnail,
+				data: fd,
+				headers: requestHeaders,
+				transformRequest: angular.identity
 			});
 		}
 
@@ -345,7 +367,8 @@
 			clearCache: clearCache,
 			clearCacheAll: clearCacheAll,
 			checkUserAvailabilty: checkUserAvailabilty,
-			getUsersByDate: getUsersByDate
+			getUsersByDate: getUsersByDate,
+			uploadUserThumbnail: uploadUserThumbnail
 		};
 	};
 
