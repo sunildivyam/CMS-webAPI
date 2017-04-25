@@ -1,5 +1,5 @@
 <div class="pub-myspace-page container-fluid">
-	<div class="row" ng-show="currentAuthor && currentAuthor.userName">
+	<div class="row">
 		<pub-user-profile class="col-sm-12 user-profile"
 			data-user="currentAuthor"
 			data-is-loading="isAuthorLoading">
@@ -46,10 +46,5 @@
 			data-user="currentAuthor"
 			data-is-loading="isAuthorLoading">
 		</pub-user-profile>
-	</div>
-	<div class="row" ng-show="!currentAuthor || (currentAuthor && !currentAuthor.userName)">
-		<div class="col-sm-12">
-			<span class="text-danger">No Data available.</span>
-		</div>
 	</div>
 </div>

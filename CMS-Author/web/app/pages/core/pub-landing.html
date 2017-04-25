@@ -6,8 +6,10 @@
 					<div class="col-sm-3">
 						<brand-logo class="xs" data-logo="appLogo"></brand-logo>
 					</div>
-					<div class="col-sm-6 well">
-						Advertisement Area
+					<div class="col-sm-6 well text-center">
+						<span class="label">This space is available for Advertisement.</span>
+						</br>
+						<a name="requestadvt" class="btn btn-success" href="mailto:info@learnwiseway.com?Subject=Advertisement Request&body=Please Provide Advertisement Tarrifs. My Details are (Name, Phone, Email, Business etc.):">Advertise Here</a>
 					</div>
 					<div class="col-sm-3">
 						<login-status-bar user="currentUser">
@@ -56,7 +58,9 @@
 
 
 	<div class="row grid" ng-if="$state.$current.name === 'pub'" isotope-layout="">
+		<!--
 		<loader data-at-body="false" data-is-loading="isCategoriesLoading" data-message="loading articles..."></loader>
+	-->
 		<div class="col-md-4 col-sm-6 col-xs-12 grid-item" ng-repeat="dlCategoryContent in dlListOfContentsOfAllcategories track by $index" on-ng-repeat-item="onLoadCategoryContentList">
 			<generic-list
 			data-items="dlCategoryContent.items"

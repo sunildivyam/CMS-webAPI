@@ -57,7 +57,7 @@
                             $element.find('.list-view .description, .short-description').dotdotdot({
                                 wrap: 'letters',
                                 //watch: 'window',
-                                height: (23 * 4)
+                                height: (23 * 6)
                             });
                         } else if ($scope.viewMode === 'grid') {
                             $element.find('.grid-view .media-heading').dotdotdot({

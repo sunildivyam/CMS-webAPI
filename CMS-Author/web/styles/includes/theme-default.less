@@ -8,7 +8,7 @@
 @default-hover-text-color: rgba(255, 255, 255, 1);
 
 @default-border-color: rgba(255, 255, 255, 0.2);
-
+@default-forestgreen: forestgreen;
 
 // Mixins
 .default-grad(@opacity: 0.7) {
@@ -116,7 +116,16 @@ body.theme-default {
 		.navbar-nav {
 			li {
 				a {
+					.default-grad(0.7);
 					padding: 5px 10px;
+					color: @default-text-color;
+				}
+
+				&:hover {
+					a {
+						.default-grad(0.4);
+						color: @default-hover-text-color;
+					}
 				}
 			}
 		}
@@ -319,12 +328,14 @@ body.theme-default {
 	    .tag {
 	    	padding: 7px;
 	    	margin: 2px;
-	    	.default-orange-grad-h(0.9);
+	    	background: @default-body-bg-color;
+	    	color: @default-forestgreen;
+
 	    	.border-radius(5px);
 
 	    	a {
 	    		font-size: 12px;
-	    		color: @default-hover-text-color;
+	    		color: @default-text-color;
 	    	}
 
 	    	&:hover, &.hover {
