@@ -43,9 +43,8 @@
     "jquery": "^2.2.4",
     "mathjax": "^2.7.0",
     "roboto-fontface": "^0.7.0",
-    "select2": "^4.0.3",
     "tinyscrollbar": "^2.4.2",
-    "ui-select": "^0.19.6"
+    "ui-select": "^0.19.8"
   },
   "config": {
     "targetDir": "target",
