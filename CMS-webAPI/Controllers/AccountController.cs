@@ -745,6 +745,7 @@ namespace CMS_webAPI.Controllers
             }
 
             string userName = User.Identity.Name;
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
             if (HttpContext.Current.Request.Files.AllKeys.Any())
             {
@@ -768,9 +769,11 @@ namespace CMS_webAPI.Controllers
                             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Please Upload a file upto " + (MAX_FILE_SIZE / 1024) + "kb only");
                         }
 
-                        var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/UserImages"), userName + ".jpg");
-                        //Save the uploaded file to "articleimages" folder  
-                        httpPostedFile.SaveAs(fileSavePath);
+                        user.Photo = ImageHelper.ConvertToByteArray(httpPostedFile);
+
+                        await UserManager.UpdateAsync(user);
+                        
+                        return Request.CreateResponse(HttpStatusCode.OK, "Image uploaded successfully");                        
                     }
                     catch (Exception ex)
                     {

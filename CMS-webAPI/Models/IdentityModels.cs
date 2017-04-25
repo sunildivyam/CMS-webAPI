@@ -63,6 +63,8 @@ namespace CMS_webAPI.Models
         [Display(Name = "CreatedOn")]        
         public DateTime? CreatedOn { get; set; }
 
+        [Display(Name = "Photo")]
+        public byte[] Photo { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

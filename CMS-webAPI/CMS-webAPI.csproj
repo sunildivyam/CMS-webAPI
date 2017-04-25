@@ -206,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCode\ApiCache.cs" />
+    <Compile Include="AppCode\ImagesService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ContentsController.cs" />
     <Compile Include="Controllers\ContentTagsController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ResourceBrowserController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="IdentityMigrations\201608280406225_InitialCreate.cs" />

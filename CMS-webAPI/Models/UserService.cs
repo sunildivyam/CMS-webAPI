@@ -146,5 +146,13 @@ namespace CMS_webAPI.Models
 
             return users;
         }
+
+        public static byte[] GetPhoto(string userName)
+        {            
+            ApplicationDbContext _appDB = new ApplicationDbContext();
+            byte[] photo = _appDB.Users.FirstOrDefault(u => u.UserName == userName)
+                .Photo;
+            return photo;
+        }
     }
 }
