@@ -1,5 +1,5 @@
 <ul class="tags-list">
-	<li ng-repeat="tag in tagItems" class="tag">
+	<li ng-repeat="tag in tagItems" class="tag fa fa-tag">
 		<a ui-sref="pub.tags({ti: tag.tagId, tn: tag.name})" ng-bind="tag.title" title="{{tag.description}}" ng-click="onClick($event, tag, $index)">
 		</a>
 	</li>

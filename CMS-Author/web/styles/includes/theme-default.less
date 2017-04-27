@@ -2,12 +2,13 @@
 @default-body-bg-color: rgba(255, 255, 255, 0.9);
 @default-body-bg-image: url('/images/theme-default/body-background.jpg');
 @grid-thumbnail-image: url('/images/theme-default/thumbnail.png');
+@user-thumbnail-image: url('/images/theme-default/user-thumbnail.png');
 
 @default-text-color: rgba(0, 0, 0, 1);
 @default-hover-text-color: rgba(255, 255, 255, 1);
 
 @default-border-color: rgba(255, 255, 255, 0.2);
-
+@default-forestgreen: forestgreen;
 
 // Mixins
 .default-grad(@opacity: 0.7) {
@@ -115,7 +116,16 @@ body.theme-default {
 		.navbar-nav {
 			li {
 				a {
+					.default-grad(0.7);
 					padding: 5px 10px;
+					color: @default-text-color;
+				}
+
+				&:hover {
+					a {
+						.default-grad(0.4);
+						color: @default-hover-text-color;
+					}
 				}
 			}
 		}
@@ -316,14 +326,16 @@ body.theme-default {
 
 	.tags-list {
 	    .tag {
-	    	padding: 0px 7px 3px 7px;
-	    	margin: 1px;
-	    	.default-orange-grad-h(0.9);
+	    	padding: 7px;
+	    	margin: 2px;
+	    	background: @default-body-bg-color;
+	    	color: @default-forestgreen;
+
 	    	.border-radius(5px);
 
 	    	a {
 	    		font-size: 12px;
-	    		color: @default-hover-text-color;
+	    		color: @default-text-color;
 	    	}
 
 	    	&:hover, &.hover {
@@ -485,9 +497,9 @@ body.theme-default {
     		}
 
     		li:active, li.active {
-				a {
+				&>a {
 					color: @font-color-green;
-					font-size: 18px;
+					font-size: 14px;
 					text-shadow: 1px 1px 20px #636363;
 				}
 			}

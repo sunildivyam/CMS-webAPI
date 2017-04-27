@@ -10,19 +10,20 @@
         function User(userInfo) {
             if (userInfo instanceof Object) {
                 var raw = userInfo;
-                this.userName = raw.Email || raw.UserName || raw.userName;
-                this.email = raw.Email;
+                this.userName = raw.UserName || raw.userName || raw.Email;
+                this.email = raw.Email || raw.email;
                 this.password = raw.password;
                 this.confirmPassword = raw.ConfirmPassword;
                 this.firstName = raw.FirstName || raw.firstName;
                 this.lastName = raw.LastName || raw.lastName;
-                this.phone = raw.Phone;
+                this.phoneNumber = raw.PhoneNumber || raw.phoneNumber;
                 this.token = raw.access_token;
                 this.tokenType = raw.token_type;
                 this.expiry = raw.expires_in;
                 this.issuedDate = raw['.issued'];
                 this.expiryDate = raw['.expires'];
                 this.loginProvider = raw.LoginProvider;
+
                 var roles  = raw.Roles || raw.roles;
                 if (typeof roles === 'string') {
                     this.roles = roles.split(',');
@@ -30,6 +31,17 @@
                     this.roles = roles;
                 }
 
+                this.twitter = raw.Twitter || raw.twitter;
+                this.facebook = raw.Facebook || raw.facebook;
+                this.google = raw.Google || raw.google;
+                this.github = raw.Github || raw.github;
+                this.webpage = raw.Webpage || raw.webpage;
+                this.youtube = raw.Youtube || raw.youtube;
+                this.linkedin = raw.Linkedin || raw.linkedin;
+                this.description = raw.Description || raw.description;
+                this.organisation = raw.Organisation || raw.organisation;
+                this.designation = raw.Designation || raw.designation;
+                this.createdOn = raw.CreatedOn || raw.createdOn;
             }
         }
 

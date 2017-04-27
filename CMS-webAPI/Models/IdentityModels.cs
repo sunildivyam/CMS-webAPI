@@ -20,9 +20,51 @@ namespace CMS_webAPI.Models
         [MaxLength(500)]
         public string LastName { get; set; }
 
-        [Display(Name = "Phone")]
-        [MaxLength(50)]
-        public string Phone { get; set; }
+        [Display(Name = "Twitter")]
+        [MaxLength()]
+        public string Twitter { get; set; }
+
+        [Display(Name = "Facebook")]
+        [MaxLength()]
+        public string Facebook { get; set; }
+
+        [Display(Name = "Google")]
+        [MaxLength()]
+        public string Google { get; set; }
+
+        [Display(Name = "Github")]
+        [MaxLength()]
+        public string Github { get; set; }
+
+        [Display(Name = "Webpage")]
+        [MaxLength()]
+        public string Webpage { get; set; }
+
+        [Display(Name = "Youtube")]
+        [MaxLength()]
+        public string Youtube { get; set; }
+
+        [Display(Name = "Linkedin")]
+        [MaxLength()]
+        public string Linkedin { get; set; }
+
+        [Display(Name = "Description")]
+        [MaxLength()]
+        public string Description { get; set; }
+
+        [Display(Name = "Organisation")]
+        [MaxLength()]
+        public string Organisation { get; set; }
+
+        [Display(Name = "Designation")]
+        [MaxLength()]
+        public string Designation { get; set; }
+
+        [Display(Name = "CreatedOn")]        
+        public DateTime? CreatedOn { get; set; }
+
+        [Display(Name = "Photo")]
+        public byte[] Photo { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
@@ -40,7 +82,7 @@ namespace CMS_webAPI.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

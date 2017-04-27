@@ -14,11 +14,24 @@
 */
 
 (function() {
-	var profileController = function($rootScope, $scope, $state, appService, accountService, User, modalService, Utils) {
+	var profileController = function($rootScope, $scope, $state, appService, accountService, User, EntityMapper, modalService, Utils) {
 		$scope.changePasswordModel = {};	// model to hold oldPW,newPW and confirmPw
 		$scope.userRolesViewModel = {
 			userName: undefined,
 			roles: []
+		};
+
+		var dpRangeOptions = Utils.getDateRangePicker();
+		$scope.usersViewModel = {
+			dateRange: {
+				startDate: dpRangeOptions.startDate,
+				endDate: dpRangeOptions.endDate
+			},
+			users: new EntityMapper('User').toEntities(),
+			rangeOptions: dpRangeOptions
+		};
+		$scope.selectedCachedkey = {
+			name: ''
 		};
 
 		function setProfileData() {
@@ -74,18 +87,66 @@
 			}
 		};
 
+		$scope.getUsersByDate = function() {
+			$scope.isUsersLoading = true;
+			accountService.getUsersByDate($scope.usersViewModel.dateRange).then(function(response) {
+				$scope.usersViewModel.users = new EntityMapper(User).toEntities(response && response.data);
+				$scope.isUsersLoading = false;
+			}, function() {
+				$scope.usersViewModel.users = new EntityMapper(User).toEntities();
+				$scope.isUsersLoading = false;
+			});
+		}
+
 		function getUserInfo() {
 			$scope.isUserInfoLoading = true;
 			accountService.getUserInfo().then(function(response) {
 				$scope.myProfile = new User(response && response.data);
 				$scope.isUserInfoLoading = false;
+				setThumbnailUrl();
 			}, function() {
 				$scope.myProfile = new User();
+				$scope.isUserInfoLoading = false;
+				setThumbnailUrl();
+			});
+		}
+
+		function getUserInfoByName(userName) {
+
+			/*
+			*	This should be used and implemented, if Admin requires a user's Detailed Info.
+			* 	Its back end API and its AJAX are pre-implemented.
+			*/
+
+			// $scope.isUserInfoLoading = true;
+			// accountService.getUserInfoByName(userName).then(function(response) {
+			// 	$scope.myProfile = new User(response && response.data);
+			// 	$scope.isUserInfoLoading = false;
+			// }, function() {
+			// 	$scope.myProfile = new User();
+			// 	$scope.isUserInfoLoading = false;
+			// });
+		}
+
+		$scope.updateProfileClick = function() {
+			$scope.isUserInfoLoading = true;
+			accountService.setUserInfo($scope.myProfile).then(function(response) {
+				modalService.alert('md',
+				'Profile Update',
+				'Your profile is Updated, successfully',
+				'Ok');
+				$scope.isUserInfoLoading = false;
+			}, function() {
+				modalService.alert('md',
+				'Profile Update',
+				'Profile Update FAILED.',
+				'Try Again');
 				$scope.isUserInfoLoading = false;
 			});
 		}
 
-		$scope.getUserRoles = function() {
+		$scope.getUserRoles = function(event) {
+			console.log("dd");
 			$scope.isUserRolesProcessing = true;
 			accountService.getUserRoles($scope.userRolesViewModel.userName).then(function(response) {
 				$scope.userRolesViewModel.roles = response && response.data || [];
@@ -118,13 +179,13 @@
 		};
 
 		function getAvaliableRoles() {
-			$scope.isPageLoading = true;
+			$scope.isUserRolesProcessing = true;
 			accountService.getRoles().then(function(response) {
 				$scope.availableRoles = response && response.data || [];
-				$scope.isPageLoading = false;
+				$scope.isUserRolesProcessing = false;
 			}, function() {
 				$scope.availableRoles = [];
-				$scope.isPageLoading = false;
+				$scope.isUserRolesProcessing = false;
 			});
 		}
 
@@ -140,15 +201,16 @@
 		}
 
 		$scope.clearCache = function() {
-			if (!$scope.selectedCachedkey) {
+			if (!$scope.selectedCachedkey.name) {
 				return;
 			}
 			$scope.isCacheProcessing = true;
-			accountService.clearCache($scope.selectedCachedkey).then(function() {
-				var index = $scope.cachedRequestKeys.indexOf($scope.selectedCachedkey);
+			accountService.clearCache($scope.selectedCachedkey.name).then(function() {
+				var index = $scope.cachedRequestKeys.indexOf($scope.selectedCachedkey.name);
 				if (index > -1) {
 					$scope.cachedRequestKeys.splice(index, 1);
 				}
+				$scope.selectedCachedkey.name = '';
 				$scope.isCacheProcessing = false;
 			}, function() {
 				modalService.alert('md',
@@ -164,6 +226,7 @@
 			accountService.clearCacheAll().then(function() {
 				$scope.cachedRequestKeys= [];
 				$scope.isCacheProcessing = false;
+				$scope.selectedCachedkey.name = '';
 			}, function() {
 				modalService.alert('md',
 				'Clearing cache Failed',
@@ -172,6 +235,41 @@
 				$scope.isCacheProcessing = false;
 			});
 		};
+
+		function thumbnailUpload(event, resourceData, completeCallback) {
+            if (resourceData && $scope.myProfile && $scope.myProfile.userName) {
+                accountService.uploadUserThumbnail(resourceData).then(function() {
+                    if (typeof completeCallback === 'function') {
+                        completeCallback(true);
+                    }
+                }, function(rejection) {
+                    if (typeof completeCallback === 'function') {
+                        completeCallback(false, rejection && rejection.data && rejection.data.Message);
+                    }
+                });
+            } else {
+                completeCallback(false, 'Image data or User Name Missing.');
+            }
+        }
+
+		$scope.addUserThumbnail = function() {
+            setThumbnailUrl(false);
+            modalService.showUploadResourceModal(thumbnailUpload, 'md').result.then(function() {
+                setThumbnailUrl();
+            }, function() {
+                setThumbnailUrl();
+            });
+        };
+
+		function setThumbnailUrl(url) {
+            if (url === false) {
+                $scope.userThumbnailUrl = '';
+            } else if($scope.myProfile && $scope.myProfile.userName){
+                $scope.userThumbnailUrl = [appService.getUserImagesUrl(), $scope.myProfile.userName + '.jpg?v=' + (new Date()).getTime()].join('/');
+            } else {
+            	$scope.userThumbnailUrl = '';
+            }
+        }
 
 		$scope.$on('$stateChangeSuccess', function(event, toState /*, fromState , fromParams*/) {
 			if (toState && toState.name) {
@@ -198,6 +296,6 @@
 		});
 	};
 
-	profileController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'modalService', 'Utils'];
+	profileController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'EntityMapper', 'modalService', 'Utils'];
 	module.exports = profileController;
 })();

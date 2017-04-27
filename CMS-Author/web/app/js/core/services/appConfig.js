@@ -602,6 +602,7 @@
             }
 
             config.appUrls.ARTICLE_IMAGES_URL = config.appUrls.API_SERVER_URL + '/articleimages';
+            config.appUrls.USER_IMAGES_URL = config.appUrls.API_SERVER_URL + '/userimages';
             config.appUrls.baseApiUrl = config.appUrls.API_SERVER_URL + '/api';
         }
 

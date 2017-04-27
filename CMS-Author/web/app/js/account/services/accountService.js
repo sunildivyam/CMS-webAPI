@@ -15,7 +15,9 @@
 			login: appService.getApiServerUrl() + '/token',
 			logout: baseApiUrl + '/logout',
 			changePassword: baseApiUrl + '/changePassword',
-			getUserInfo: baseApiUrl + '/UserInfo',
+			getUserInfo: baseApiUrl + '/UserInfo',				// for currently logged in User
+			getUserInfoByName: baseApiUrl + '/UserInfoByName',	// For any User
+			setUserInfo: baseApiUrl + '/SetUserInfo',
 			verifyEmail: baseApiUrl + '/VerifyEmail',
 			resendVerifyEmail: baseApiUrl + '/ResendVerifyEmail',
 			sendResetPasswordEmail: baseApiUrl + '/SendResetPasswordEmail',
@@ -25,7 +27,10 @@
 			getRoles: baseApiUrl + '/GetRoles',
 			getCachedRequests: baseCacheApiUrl + '/GetKeys',
 			clearCache: baseCacheApiUrl + '/PostClearCache',
-			clearCacheAll: baseCacheApiUrl + '/PostClearCacheAll'
+			clearCacheAll: baseCacheApiUrl + '/PostClearCacheAll',
+			checkUserAvailabilty: baseApiUrl + '/CheckUserAvailabilty',
+			getUsersByDate: baseApiUrl + '/GetUsersByDate',
+			uploadUserThumbnail: baseApiUrl + '/UploadUserThumbnail'
 		};
 
 
@@ -168,6 +173,28 @@
 			});
 		}
 
+		function setUserInfo(userInfo) {
+			return $http({
+				method: 'post',
+				url: urls.setUserInfo,
+				data: userInfo,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
+
+		function getUserInfoByName(userName) {
+			return $http({
+				method: 'get',
+				url: urls.getUserInfoByName + '?userName=' + userName,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
 		function verifyEmail(userName, code) {
 			var url = urls.verifyEmail + '?id=' + userName + '&code=' + code;
 			return $http({
@@ -258,7 +285,7 @@
 			return $http({
 				method: 'post',
 				url: urls.clearCache,
-				data: key,
+				data: {"key": key},
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -275,6 +302,48 @@
 			});
 		}
 
+
+		function checkUserAvailabilty(userName) {
+			return $http({
+				method: 'get',
+				url: urls.checkUserAvailabilty + '?UserName=' + userName,
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
+		function getUsersByDate(dateRange) {
+			return $http({
+				method: 'get',
+				url: urls.getUsersByDate + '?start=' + dateRange.startDate.format('YYYY-MM-DD') + '&end=' + dateRange.endDate.format('YYYY-MM-DD'),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+		}
+
+		function uploadUserThumbnail(thumbnailData) {
+			var requestHeaders = {
+				'Content-Type': undefined
+			};
+
+			var requestOptions = {
+				transformRequest: angular.identity
+			};
+
+			var fd = new FormData();
+			fd.append('file', thumbnailData);
+
+			return $http({
+				method: 'post',
+				url: urls.uploadUserThumbnail,
+				data: fd,
+				headers: requestHeaders,
+				transformRequest: angular.identity
+			});
+		}
+
 		return {
 			register: register,
 			login: login,
@@ -285,6 +354,8 @@
 			getToken: getToken,
 			changePassword: changePassword,
 			getUserInfo: getUserInfo,
+			setUserInfo: setUserInfo,
+			getUserInfoByName: getUserInfoByName,
 			verifyEmail: verifyEmail,
 			resendVerifyEmail: resendVerifyEmail,
 			sendResetPasswordEmail: sendResetPasswordEmail,
@@ -294,7 +365,10 @@
 			getRoles: getRoles,
 			getCachedRequests: getCachedRequests,
 			clearCache: clearCache,
-			clearCacheAll: clearCacheAll
+			clearCacheAll: clearCacheAll,
+			checkUserAvailabilty: checkUserAvailabilty,
+			getUsersByDate: getUsersByDate,
+			uploadUserThumbnail: uploadUserThumbnail
 		};
 	};
 

@@ -206,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCode\ApiCache.cs" />
+    <Compile Include="AppCode\ImagesService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ContentsController.cs" />
     <Compile Include="Controllers\ContentTagsController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ResourceBrowserController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="IdentityMigrations\201608280406225_InitialCreate.cs" />
@@ -282,8 +284,13 @@
     <Compile Include="IdentityMigrations\201609031051261_UserProfile_3Props.Designer.cs">
       <DependentUpon>201609031051261_UserProfile_3Props.cs</DependentUpon>
     </Compile>
+    <Compile Include="IdentityMigrations\201704200147409_UserProfile_Social.cs" />
+    <Compile Include="IdentityMigrations\201704200147409_UserProfile_Social.Designer.cs">
+      <DependentUpon>201704200147409_UserProfile_Social.cs</DependentUpon>
+    </Compile>
     <Compile Include="IdentityMigrations\Configuration.cs" />
     <Compile Include="Models\AuthorContentViewModel.cs" />
+    <Compile Include="Models\AuthorViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\ContentResource.cs" />
@@ -427,6 +434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityMigrations\201609031051261_UserProfile_3Props.resx">
       <DependentUpon>201609031051261_UserProfile_3Props.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IdentityMigrations\201704200147409_UserProfile_Social.resx">
+      <DependentUpon>201704200147409_UserProfile_Social.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

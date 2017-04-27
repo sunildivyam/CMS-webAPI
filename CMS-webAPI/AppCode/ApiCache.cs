@@ -82,6 +82,11 @@ namespace CMS_webAPI.AppCode
             }
             
             return Path.Combine(paramArray).Replace('\\', '/');            
-        }
+        }        
+    }
+
+    public class ApiCacheViewModel
+    {
+        public string Key { get; set; }
     }
 }

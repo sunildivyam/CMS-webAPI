@@ -271,6 +271,84 @@ namespace CMS_webAPI.Controllers
             return Ok(tagView);
         }
 
+        // Gets all Published And Live Contents of a User (Author)
+        // GET: api/Contents/GetContentsByUserName/username/pageno/pagesize/sortfield/sortdir
+        [ResponseType(typeof(AuthorViewModel))]
+        public async Task<IHttpActionResult> GetContentsByUserName(string param1, int param2, int param3, string param4, bool param5)
+        {            
+            string userName = param1;
+            int pageNo = param2;
+            int pageSize = param3;
+            string sortField = "c." + param4;
+            bool sortDirAsc = param5;
+            string sortDir = "ASC";
+
+            List<Content> contents = new List<Content>();            
+            int totalCount = 0;
+
+            ApplicationUser user = UserService.getUserByUserName(userName);
+            
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            UserInfoViewModel author = UserService.AppUserToUserInfoViewModel(user);            
+
+            if (pageNo < 1 || pageSize < 1)
+            {
+                return BadRequest();
+            }
+            pageNo = pageNo - 1;
+
+            string searchQuery = @"select c.* from Contents as c                
+                WHERE c.OwnerId=@UserId AND c.IsLive='True'";
+
+            string searchQueryForPagedData = searchQuery + " order by " + sortField + " " + sortDir + " OFFSET @PageStart ROWS FETCH NEXT @PageSize ROWS ONLY";
+            string searchQueryForTotalCount = "Select Count(cc.ContentId) as TotalCount from (" + searchQuery + ") as cc";
+
+            var ParamsPagedData = new[] 
+            {
+                new SqlParameter("UserId", user.Id),                
+                new SqlParameter("SortField", sortField),
+                new SqlParameter("SortDir", sortDir),
+                new SqlParameter("PageStart", pageNo * pageSize),
+                new SqlParameter("PageSize", pageSize)
+            };
+
+            var ParamsTotalCount = new[] 
+            {
+                new SqlParameter("UserId", user.Id),                
+                new SqlParameter("SortField", sortField),
+                new SqlParameter("SortDir", sortDir)
+            };
+
+            try
+            {
+                var TotalCountResult = db.Database.SqlQuery<int>(searchQueryForTotalCount, ParamsTotalCount).ToList();
+
+                totalCount = TotalCountResult[0];
+                if (totalCount > 0)
+                {
+                    contents = db.Database.SqlQuery<Content>(searchQueryForPagedData, ParamsPagedData)
+                    .ToList<Content>();
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            if (contents == null)
+            {
+                return NotFound();
+            }
+
+            AuthorViewModel authorView = new AuthorViewModel(author, contents, totalCount);
+            await Task.Delay(0);
+            return Ok(authorView);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

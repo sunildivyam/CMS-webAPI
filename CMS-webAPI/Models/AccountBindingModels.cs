@@ -39,6 +39,10 @@ namespace CMS_webAPI.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -58,9 +62,9 @@ namespace CMS_webAPI.Models
         [MaxLength(500)]
         public string LastName { get; set; }
         
-        [Display(Name = "Phone")]
+        [Display(Name = "PhoneNumber")]
         [MaxLength(50)]
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
     }
 
     public class RegisterExternalBindingModel

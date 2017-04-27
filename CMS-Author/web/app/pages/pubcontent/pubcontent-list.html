@@ -22,7 +22,7 @@
 					<p ng-bind-html="item.shortDescription" class="small short-description"></p>
 					<span title="Author">
 						<span class="glyphicon glyphicon-user"></span>
-						<span class="label label-info">{{item.owner.lastName?item.owner.lastName + ', ': '' }} {{item.owner.firstName}}</span>
+						<a class="label label-info" ui-sref="pub.myspace({n:item.owner.userName})">{{item.owner.lastName?item.owner.lastName + ', ': '' }} {{item.owner.firstName}}</a>
 					</span>
 					<span title="Publish Date">
 						<span class="glyphicon glyphicon-pencil"></span>

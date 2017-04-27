@@ -145,6 +145,43 @@
             return listConfig.categories;
         }
 
+        function getDateRangePicker() {
+            var dateRangePicker = {
+                "ranges": {
+                    "Today": [
+                        new window.moment(),
+                        new window.moment()
+                    ],
+                    "Yesterday": [
+                        new window.moment().subtract(1, "days"),
+                        new window.moment()
+                    ],
+                    "Last 7 Days": [
+                        new window.moment().subtract(7, "days"),
+                        new window.moment()
+                    ],
+                    "Last 30 Days": [
+                        new window.moment().subtract(30, "days"),
+                        new window.moment()
+                    ],
+                    "Last 2 Months": [
+                        new window.moment().subtract(2, "months"),
+                        new window.moment()
+                    ],
+                    "Last 3 Months": [
+                        new window.moment().subtract(3, "months"),
+                        new window.moment()
+                    ]
+                },
+                "startDate": new window.moment().subtract(7, "days"),
+                "endDate": new window.moment(),
+                "maxDate": new window.moment()
+            };
+
+            listConfig.dateRangePicker = dateRangePicker;
+            return listConfig.dateRangePicker;
+        }
+
         return {
             parseStringExt: parseStringExt,
             filterByKeywords: filterByKeywords,
@@ -157,7 +194,8 @@
             getItemTypeOf: getItemTypeOf,
             getPubContentListTypes: getPubContentListTypes,
             setMetaInfo: setMetaInfo,
-            getCategories: getCategories
+            getCategories: getCategories,
+            getDateRangePicker: getDateRangePicker
         };
     };
 

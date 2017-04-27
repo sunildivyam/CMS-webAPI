@@ -162,6 +162,29 @@
             });
         };
 
+        function setUserNameAvailabilityValidation(isValid) {
+            $scope.registerForm.userName.$setValidity('availibility', isValid);
+            $scope.registerForm.userName.$setValidity('availibilityProgress', isValid);
+        }
+
+        $scope.onUserNameChange = function() {
+            $scope.registerForm.userName.$setValidity('availibilityProgress', false);
+            if (!$scope.newUser.userName) {
+                $scope.isUserNameAvailable = undefined;
+                return;
+            }
+            $scope.isMatchingUser = true;
+            accountService.checkUserAvailabilty($scope.newUser.userName).then(function(response) {
+                $scope.isUserNameAvailable = true;
+                $scope.isMatchingUser = false;
+                setUserNameAvailabilityValidation(true);
+            }, function(rejection) {
+                setUserNameAvailabilityValidation(false);
+                $scope.isUserNameAvailable = false;
+                $scope.isMatchingUser = false;
+            });
+        }
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
             if (toState) {
                 // Sets Meta information for Page

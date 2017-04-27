@@ -17,6 +17,8 @@ using CMS_webAPI.Models;
 using CMS_webAPI.Providers;
 using CMS_webAPI.Results;
 using System.Linq;
+using System.Net;
+using System.IO;
 
 namespace CMS_webAPI.Controllers
 {
@@ -27,7 +29,8 @@ namespace CMS_webAPI.Controllers
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
         private RoleManager<IdentityRole> _roleManager;
-        
+        private int MAX_FILE_SIZE = 1024 * 512; //Size = 512 kb  
+
         public AccountController()
         {
             ApplicationDbContext context = new ApplicationDbContext();
@@ -77,17 +80,14 @@ namespace CMS_webAPI.Controllers
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
             ApplicationUser appuser = UserManager.FindById(User.Identity.GetUserId());
-            return new UserInfoViewModel
-            {
-                Email = appuser.Email,
-                UserName = appuser.UserName,
-                FirstName = appuser.FirstName,
-                LastName = appuser.LastName,
-                Phone = appuser.Phone,
-                Roles = UserManager.GetRoles(appuser.Id),
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
+            UserInfoViewModel userInfoView = new UserInfoViewModel();
+            userInfoView = UserService.AppUserToUserInfoViewModel(appuser);
+            if (userInfoView != null) {
+                userInfoView.Roles = UserManager.GetRoles(appuser.Id);
+                userInfoView.HasRegistered = externalLogin == null;
+                userInfoView.LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null;
+            }
+            return userInfoView;
         }
 
         // POST api/Account/Logout
@@ -591,10 +591,11 @@ namespace CMS_webAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Phone = model.Phone };
+            DateTime createdOn = DateTime.Now;
+            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, CreatedOn = createdOn };
             
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-            
+                        
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -647,7 +648,148 @@ namespace CMS_webAPI.Controllers
             return Ok();
         }
 
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("CheckUserAvailabilty")]
+        public async Task<IHttpActionResult> CheckUserAvailabilty(string userName)
+        {
+            await Task.Delay(0);        
+            if (UserService.IsUserExist(userName) == true)
+            {
+                // If userName exist in system, that mean it (the name) is not avaialable for a new Uer
+                return NotFound();      
+            }
+            else
+            {
+                // If userName does not exist in system, that mean it (the name)  is avaialable for a new Uer
+                return Ok();
+            }            
+        }
         
+        [HttpPost]
+        [Route("SetUserInfo")]
+        public async Task<IHttpActionResult> SetUserInfo(UserInfoViewModel userInfoView)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                user= UserService.LoadUserWithProfileView(user, userInfoView);
+                await UserManager.UpdateAsync(user);                               
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return Ok();
+        }
+
+
+        [Authorize(Roles="Administrators")]
+        [HttpGet]
+        [Route("GetUsersByDate")]        
+        public async Task<IHttpActionResult> GetUsersByDate(DateTime start, DateTime end)
+        {
+            try
+            {
+                await Task.Delay(0);
+                return Ok(UserService.GetUsersByDate(start, end));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }            
+        }
+
+        // GET api/Account/UserInfoByName
+        [Authorize(Roles="Administrators")]
+        [Route("UserInfoByName")]
+        public async Task<IHttpActionResult> GetUserInfoByName(string userName)
+        {            
+            ApplicationUser appuser = UserManager.FindByName(userName);
+            if (appuser == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                UserInfoViewModel userInfoView = new UserInfoViewModel();
+                await Task.Delay(0);
+                userInfoView = UserService.AppUserToUserInfoViewModel(appuser);            
+                return Ok(userInfoView);
+            } catch (Exception ex) {
+                return InternalServerError(ex);
+            }            
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("UploadUserThumbnail")]
+        public async Task<HttpResponseMessage> UploadUserThumbnail()
+        {
+            await Task.Delay(0);
+            if (User.Identity.IsAuthenticated == false)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Unauthorized User ");
+            }
+
+            string userName = User.Identity.Name;
+            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+
+            if (HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                // Get the uploaded image from the Files collection  
+                var httpPostedFile = HttpContext.Current.Request.Files["file"];
+                if (httpPostedFile != null && httpPostedFile.ContentLength > 0)
+                {
+                    try
+                    {
+                        int length = httpPostedFile.ContentLength;
+
+                        var ext = httpPostedFile.FileName.Substring(httpPostedFile.FileName.LastIndexOf('.'));
+                        var extension = ext.ToLower();
+                        if (!ImageHelper.IsImage(httpPostedFile))
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Please Upload image of type .jpg, .jpg, .gif, .png only");
+                        }
+
+                        if (length > MAX_FILE_SIZE)
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Please Upload a file upto " + (MAX_FILE_SIZE / 1024) + "kb only");
+                        }
+
+                        user.Photo = ImageHelper.ConvertToByteArray(httpPostedFile);
+
+                        await UserManager.UpdateAsync(user);
+                        
+                        return Request.CreateResponse(HttpStatusCode.OK, "Image uploaded successfully");                        
+                    }
+                    catch (Exception ex)
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                    }
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No file to upload, Please select a file to upload");
+                }
+            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No file to upload, Please select a file to upload");
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
