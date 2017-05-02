@@ -1,0 +1,42 @@
+{
+	"templateId": "elegant",
+	"title": "Elagant",
+	"dropZones": [
+		{
+			"dropZoneId": "dropZone1",
+			"align": "",
+			"width": "",
+			"sections": [
+				{
+					"sectionId": "skills",
+					"title": "My IT Skills",
+					"content": {}
+				}
+			]
+		},
+		{
+			"dropZoneId": "dropZone2",
+			"align": "",
+			"width": "",
+			"sections": [
+				{
+					"sectionId": "employers",
+					"title": "Employers",
+					"content": {}
+				}
+			]
+		},
+		{
+			"dropZoneId": "dropZone3",
+			"align": "",
+			"width": "",
+			"sections": [
+				{
+					"sectionId": "languages",
+					"title": "Languages Known",
+					"content": {}
+				}
+			]
+		}
+	]
+}

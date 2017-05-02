@@ -1,0 +1,14 @@
+[
+	{
+		"resumeFormatId": "elegant",
+		"title": "Elegant"
+	},
+	{
+		"resumeFormatId": "classic",
+		"title": "Classic"
+	},
+	{
+		"resumeFormatId": "modern",
+		"title": "Modern"
+	}
+]

@@ -1,0 +1,18 @@
+[
+	{
+		"sectionId": "skills",
+		"title": "IT Skills"
+	},
+	{
+		"sectionId": "languages",
+		"title": "Languages Known"
+	},
+	{
+		"sectionId": "Employers",
+		"title": "Employers"
+	},
+	{
+		"sectionId": "Projects",
+		"title": "Peojects"
+	}
+]

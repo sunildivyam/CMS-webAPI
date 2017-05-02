@@ -1,7 +1,9 @@
 <div class="resume-format">
-	<drop-zone 
-		ng-repeat="dropZone in currentFormat.dropZones" 
-		data-zone="dropZone" 
-		data-on-change="onDropZoneChange">
-	<drop-zone>
+	<div class="row">
+		<drop-zone
+			ng-repeat="dropZone in currentFormat.dropZones" 
+			data-zone="dropZone" 
+			data-on-change="onDropZoneChange">
+		</drop-zone>
+	</div>
 </div>

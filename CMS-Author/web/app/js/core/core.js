@@ -246,6 +246,16 @@
             controller: 'searchController',
             isAnonymous: true,
             title: 'Search Articles'
+        })
+        .state({
+            name: 'rbuilder',
+            url: 'build-your-resume',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('rbuilder/landing.html');
+            }],
+            controller: 'rbuilderController',
+            isAnonymous: true,
+            title: 'Build Your Resume'
         });
 
         // Enables html5Mode Urls

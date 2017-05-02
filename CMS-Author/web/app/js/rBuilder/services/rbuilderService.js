@@ -7,12 +7,18 @@
 */
 
 (function() {
-	var rbuilderService = function(EntityMapper) {		
+	var rbuilderService = function($http) {	
+
+		function getResumeFormat() {
+			return $http.get({
+				url: 'data/my-elegant-template.json'
+			});
+		}
 
 		return {
-			
+			getResumeFormat: getResumeFormat
 		};
 	};
-	rbuilderService.$inject = ['EntityMapper'];
+	rbuilderService.$inject = ['$http'];
 	module.exports = rbuilderService;
 })();
