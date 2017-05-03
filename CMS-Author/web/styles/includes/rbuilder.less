@@ -1,0 +1,56 @@
+.resume-format {
+	padding: 15px;
+}
+
+.drop-zone {
+	position: relative;
+	box-sizing: border-box;
+	padding: 10px;	
+	border: 4px solid transparent;
+	.transition(0.5s);
+	
+	&:hover {
+		border-color: yellowgreen;
+
+		.toolbar {
+			display: block;
+		}
+	}
+
+	.toolbar {
+		display: none;
+		position: absolute;
+		top: -2px;
+		right: -2px;	
+		
+		button {
+			background: yellowgreen;
+			color: white;
+
+			&:hover {
+				background: green;
+			}
+		}
+
+		.dropdown-menu {
+			min-width: initial;
+
+			a {
+				background: yellowgreen;
+				color: white;
+
+				&:hover {
+					background: green;
+				}
+			}
+		}
+	}
+}
+
+.resume-section {
+	margin: 5px;
+}
+
+.clear-left {
+	clear: left!important;
+}

@@ -249,7 +249,7 @@
         })
         .state({
             name: 'rbuilder',
-            url: 'build-your-resume',
+            url: '/build-your-resume',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('rbuilder/landing.html');
             }],

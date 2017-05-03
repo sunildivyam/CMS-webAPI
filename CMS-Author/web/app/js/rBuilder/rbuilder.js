@@ -29,7 +29,9 @@
 	
 	.directive('dropZone', require('./directives/dropZone'))
 	.directive('resumeSection', require('./directives/resumeSection'))
-	.directive('resumeFormat', require('./directives/resumeFormat'));
+	.directive('resumeFormat', require('./directives/resumeFormat'))
+	.directive('skills', require('./directives/skills'))
+	.directive('languages', require('./directives/languages'));
 
 	module.exports = angular.module('rbuilder');
 })();

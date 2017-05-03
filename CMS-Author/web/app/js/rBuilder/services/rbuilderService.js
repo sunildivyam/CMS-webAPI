@@ -10,9 +10,7 @@
 	var rbuilderService = function($http) {	
 
 		function getResumeFormat() {
-			return $http.get({
-				url: 'data/my-elegant-template.json'
-			});
+			return $http.get('data/my-elegant-template.json');
 		}
 
 		return {

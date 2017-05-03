@@ -1,7 +1,33 @@
-<div class="drop-zone">
+<div class="drop-zone" ng-class="{'clear-left':zone.forceBreak}">
 	<resume-section 
 		ng-repeat="rSection in zone.sections" 
 		data-section="rSection" 
 		data-on-change="onSectionChange">
 	</resume-section>
+
+	<div class="toolbar">
+		<div class="btn-group btn-group-xs" role="group" aria-label="DropZone Settings">
+			<button type="button" class="btn btn-default" ng-click="onToolbarAlignClick($event, 'left')" title="align left">
+				<i class="fa fa-align-left"></i>
+			</button>
+			<button type="button" class="btn btn-default" ng-click="onToolbarAlignClick($event, 'center')" title="align center">
+				<i class="fa fa-align-center"></i>
+			</button>
+			<button type="button" class="btn btn-default" ng-click="onToolbarAlignClick($event, 'right')" title="align right">
+				<i class="fa fa-align-right"></i>
+			</button>	
+			<button type="button" class="btn btn-default" ng-class="{'active': zone.forceBreak}" ng-click="zone.forceBreak=!zone.forceBreak" title="toggle new row">
+				<i class="fa fa-arrow-down"></i>
+			</button>		
+			<div class="btn-group btn-group-xs" role="group">
+				<button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Width
+				<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+					<li ng-repeat="wSize in widthSizes"><a class="" href="#" ng-click="onWidthSizeClick($event, wSize)">{{wSize}}</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>

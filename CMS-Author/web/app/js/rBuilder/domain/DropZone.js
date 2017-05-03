@@ -18,6 +18,7 @@
 				this.sections=[];
 				this.align = '';
 				this.width = '';
+				this.forceBreak = false;
 			}
 		}
 

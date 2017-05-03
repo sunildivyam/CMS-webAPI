@@ -3,11 +3,12 @@
 	var resumeFormat = function($timeout) {
 		return {
 			restrict: 'E',
+			replace: true,
 			scope: {
 				format: '=',
 				onChange: '='
 			},
-			templateUrl: 'rbuilder/drop-zone.html',
+			templateUrl: 'rbuilder/resume-format.html',
 			link: function($scope, element) {
 				
 			}
