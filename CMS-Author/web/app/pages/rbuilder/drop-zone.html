@@ -1,6 +1,6 @@
 <div class="drop-zone" ng-class="{'clear-left':zone.forceBreak}">
 	<resume-section 
-		ng-repeat="rSection in zone.sections" 
+		ng-repeat="rSection in zone.sections track by $index" 
 		data-section="rSection" 
 		data-on-change="onSectionChange">
 	</resume-section>

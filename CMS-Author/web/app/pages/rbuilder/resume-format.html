@@ -1,7 +1,7 @@
 <div class="resume-format">
 	<div class="row">
 		<drop-zone
-			ng-repeat="dropZone in format.dropZones" 
+			ng-repeat="dropZone in format.dropZones track by $index" 
 			data-zone="dropZone" 
 			data-on-change="onDropZoneChange">
 		</drop-zone>

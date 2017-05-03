@@ -23,10 +23,14 @@
 			var $element = $(element);
 			wSize = wSize || '12x';
 			var size = wSize.substr(0, wSize.length -1);
-			$element.removeClass(function (index, className) {
-			    return (className.match (/(^|\s)col-sm-push-\S+/g) || []).join(' ');
-			});
-			if (size < 11) $element.addClass('col-sm-push-' + ((12 - size)/2));
+			if (size < 11) {
+				$element.removeClass(function (index, className) {
+				    return (className.match (/(^|\s)col-sm-push-\S+/g) || []).join(' ');
+				});
+				$element.addClass('col-sm-push-' + (Math.floor((12 - size)/2)));
+				return true;
+			} 
+			return false;
 		}
 
 		return {
@@ -49,22 +53,7 @@
 				};
 
 				$scope.$watch('zone.align', function(align) {
-					var $element =$(element);
-
-					if (!align || align === 'left') {
-						if ($element.hasClass('pull-right')) $element.removeClass('pull-right');
-						$element.removeClass(function (index, className) {
-						    return (className.match (/(^|\s)col-sm-push-\S+/g) || []).join(' ');
-						});
-					} else if (align === 'center') {
-						if ($element.hasClass('pull-right')) $element.removeClass('pull-right');
-						setAlignCenter(element, $scope.zone.width);
-					} else if (align === 'right') {						
-						$element.removeClass(function (index, className) {
-						    return (className.match (/(^|\s)col-sm-push-\S+/g) || []).join(' ');
-						});
-						$element.addClass('pull-right');
-					}
+					refreshAlign(element, align);
 				});
 
 				$scope.$watch('zone.width', function(widthSize) {
@@ -76,7 +65,27 @@
 					    return (className.match (/(^|\s)col-sm-\S+/g) || []).join(' ');
 					});
 					$element.addClass(className);
+					refreshAlign(element, $scope.zone.align);
 				});
+
+				function refreshAlign(element, align) {
+					var $element =$(element);
+
+					if (!align || align === 'left') {
+						if ($element.hasClass('pull-right')) $element.removeClass('pull-right');
+						$element.removeClass(function (index, className) {
+						    return (className.match (/(^|\s)col-sm-push-\S+/g) || []).join(' ');
+						});
+					} else if (align === 'center') {
+						if ($element.hasClass('pull-right')) $element.removeClass('pull-right');
+						if (!setAlignCenter(element, $scope.zone.width)) $scope.zone.align = '';
+					} else if (align === 'right') {						
+						$element.removeClass(function (index, className) {
+						    return (className.match (/(^|\s)col-sm-push-\S+/g) || []).join(' ');
+						});
+						$element.addClass('pull-right');
+					}
+				}
 			}
 		};
 	};
