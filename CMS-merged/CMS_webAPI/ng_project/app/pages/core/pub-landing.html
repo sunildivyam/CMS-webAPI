@@ -1,0 +1,111 @@
+<div class="container-fluid pub-landing-page">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-3">
+						<brand-logo class="xs" data-logo="appLogo"></brand-logo>
+					</div>
+					<div class="col-sm-6 well text-center">
+						<span class="label">This space is available for Advertisement.</span>
+						</br>
+						<a name="requestadvt" class="btn btn-success" href="mailto:info@learnwiseway.com?Subject=Advertisement Request&body=Please Provide Advertisement Tarrifs. My Details are (Name, Phone, Email, Business etc.):">Advertise Here</a>
+					</div>
+					<div class="col-sm-3">
+						<login-status-bar user="currentUser">
+						</login-status-bar>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-sm-push-2">
+			<pubcontent-search
+				data-categories="searchDropdownCategories"
+				data-on-search="onGlobalSearch"
+				data-search="globalSearch">
+			</pubcontent-search>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<custom-navbar
+				data-items="categories"
+				data-selected-item-name="$stateParams.n"
+				data-title=""
+				data-class-name="navbar-default"
+				data-name="category"
+				data-state-name="pub.articles"
+				data-item-icon-class-name-pre="glyphicon glyphicon-list"
+				data-item-icon-class-name-post=""
+				data-pre-header-icon-class-name="glyphicon glyphicon-pencil"
+				data-post-header-icon-class-name="glyphicon glyphicon-triangle-bottom">
+			</custom-navbar>
+		</div>
+	</div>
+
+	<div class="row" ng-if="$state.$current.name === 'pub'">
+		<div class="col-sm-12">
+			<bootstrap-carousel
+				data-slides="mainCarousel.slides"
+				data-options="mainCarousel.options"
+				data-carousel-name="{{mainCarousel.name}}"
+				data-read-more-url="{{mainCarousel.readMoreUrl}}">
+			</bootstrap-carousel>
+		</div>
+	</div>
+
+
+	<div class="row grid" ng-if="$state.$current.name === 'pub'" isotope-layout="">
+		<!--
+		<loader data-at-body="false" data-is-loading="isCategoriesLoading" data-message="loading articles..."></loader>
+	-->
+		<div class="col-md-4 col-sm-6 col-xs-12 grid-item" ng-repeat="dlCategoryContent in dlListOfContentsOfAllcategories track by $index" on-ng-repeat-item="onLoadCategoryContentList">
+			<generic-list
+			data-items="dlCategoryContent.items"
+			data-items-type="dlCategoryContent.itemsType"
+
+			data-enable-header="dlCategoryContent.enableHeader"
+			data-enable-maximize="dlCategoryContent.enableMaximize"
+			data-enable-search="dlCategoryContent.enableSearch"
+			data-enable-view-modes="dlCategoryContent.enableViewModes"
+			data-enable-scrollbar="dlCategoryContent.enableScrollbar"
+			data-enable-tags="dlCategoryContent.enableTags"
+			data-enable-footer-link="dlCategoryContent.enableFooterLink"
+			data-enable-paging="dlCategoryContent.enablePaging"
+
+			data-header-title="dlCategoryContent.headerTitle"
+			data-header-summary="dlCategoryContent.headerSummary"
+			data-header-right-label="dlCategoryContent.headerRightLabel"
+
+			data-view-mode="dlCategoryContent.viewMode"
+			data-tile-view-class = "dlCategoryContent.tileViewClass"
+
+			data-scroll-height="dlCategoryContent.scrollHeight"
+
+			data-tags="dlCategoryContent.tags"
+
+			data-footer-link-text="dlCategoryContent.footerLinkText"
+			data-footer-link-url="dlCategoryContent.footerLinkUrl"
+			data-on-footer-link-click="dlCategoryContent.onFooterLinkClick"
+
+			data-paging-total-items="dlCategoryContent.pagingTotalItems"
+			data-paging-selected-page="dlCategoryContent.pagingSelectedPage"
+			data-paging-page-size="dlCategoryContent.pagingPageSize"
+			data-paging-pager-size="dlCategoryContent.pagingPagerSize"
+			data-on-paging-page-change="dlCategoryContent.onPagingPageChange"
+
+			data-on-refresh="onListsRefresh"
+			data-is-loading="dlCategoryContent.isLoading">
+			</generic-list>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<ui-view></ui-view>
+		</div>
+	</div>
+</div>
+
+

@@ -1,0 +1,40 @@
+<category-form
+	ng-if="currentCategory"
+	data-category="currentCategory"
+	data-on-save="saveCategory"
+	data-on-update="updateCategory"
+	data-on-delete="deleteCategory"
+	data-on-cancel="cancelCategory"
+	data-on-addnew="addnewCategory"
+	data-is-loading="isLoading"
+	data-loader-msg="loaderMsg">
+</category-form>
+
+<tag-form
+	ng-if="currentTag"
+	data-tag="currentTag"
+	data-on-save="saveTag"
+	data-on-update="updateTag"
+	data-on-delete="deleteTag"
+	data-on-cancel="cancelTag"
+	data-on-addnew="addnewTag"
+	data-is-loading="isLoading"
+	data-loader-msg="loaderMsg">
+</tag-form>
+
+<content-form
+	ng-if="currentContent"
+	data-content="currentContent"
+	data-tags = "tags"
+	data-categories= "categories"
+	data-on-save="saveContent"
+	data-on-update="updateContent"
+	data-on-delete="deleteContent"
+	data-on-cancel="cancelContent"
+	data-on-addnew="addnewContent"
+	data-on-preview="previewContent"
+	data-on-publish="publishContent"
+	data-on-Thumbnail-upload="thumbnailUpload"
+	data-is-loading="isLoading"
+	data-loader-msg="loaderMsg">
+</content-form>

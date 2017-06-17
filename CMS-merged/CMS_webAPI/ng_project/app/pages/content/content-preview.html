@@ -1,0 +1,40 @@
+<div class="panel panel-default content-preview">
+	<div class="panel-heading">
+		<div class="">Publisher Url: <span class="text-info"> /articles/{{content.category.name}}/[ Published Content Id ]/{{content.name}}</span></div>
+
+		<div class="media">
+			<div class="media-left">
+				<div class="media-object">
+					<div class="thumbnail center-block">
+						<img id="content-thumbnail" ng-if="content.authorContentId || content.contentId"
+							src="{{thumbnailUrl}}"
+							onerror="this.style.display = 'none';"
+							onload="this.style.display = 'block';">
+					</div>
+				</div>
+			</div>
+			<div class="media-body">
+				<h1 class="panel-title" ng-bind="content.title"></h1>
+				<div class="small">
+					<span>
+						<span class="glyphicon glyphicon-user"></span>
+						<span class="label label-default" ng-bind="content.author.userName"></span>
+					</span>
+					<span>
+						<span class="glyphicon glyphicon-pencil"></span>
+						<span class="label label-default" ng-bind="content.updatedDate.toLocaleString()"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<p> &nbsp;</p>
+		<p class="content-short-description" ng-bind-html="content.shortDescription"></p>
+		<tags tag-items="content.tags"></tags>
+	</div>
+	<div class="panel-body">
+		<div class="content-description" ng-bind-html="content.description"></div>
+	</div>
+	<div class="panel-footer">
+		<tags tag-items="content.tags"></tags>
+	</div>
+</div>

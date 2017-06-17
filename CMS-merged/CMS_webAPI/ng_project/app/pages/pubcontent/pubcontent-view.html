@@ -1,0 +1,55 @@
+<div class="panel panel-default pubcontent-view">
+	<div class="panel-heading">
+		<h1 class="panel-title" ng-bind="content.title"></h1>
+		<div class="thumbnail visible-xs">
+			<img class="content-thumbnail" ng-if="content.authorContentId || content.contentId"
+				src="{{thumbnailUrl}}"
+				onerror="this.style.display = 'none';"
+				onload="this.style.display = 'block';">
+		</div>
+		<div class="media">
+			<div class="media-left">
+				<div class="media-object">
+					<div class="thumbnail center-block hidden-xs">
+						<img class="content-thumbnail" ng-if="content.authorContentId || content.contentId"
+							src="{{thumbnailUrl}}"
+							onerror="this.style.display = 'none';"
+							onload="this.style.display = 'block';">
+					</div>
+				</div>
+			</div>
+			<div class="media-body">
+				<div class="small">
+					<span class="" title="Author">
+						<span class="glyphicon glyphicon-user"></span>
+						<a class="label label-default" ui-sref="pub.myspace({n:content.owner.userName})">{{content.owner.lastName?content.owner.lastName + ', ': '' }} {{content.owner.firstName}}</a>
+					</span>
+					<span class="" title="Last Updated">
+						<span class="glyphicon glyphicon-pencil"></span>
+						<span class="label label-default" ng-bind="content.publishedDate.toDateString()"></span>
+					</span>
+					<span class="" title="Total Views">
+						<span class="glyphicon glyphicon-eye-open"></span>
+						<span class="label label-default" ng-bind="content.visitCount"></span>
+					</span>
+					<p> &nbsp;</p>
+					<p class="content-short-description" ng-bind-html="content.shortDescription"></p>
+					<tags tag-items="content.tags"></tags>
+					<social-media-share
+						data-header-text="Share this article: "
+						data-share-page-url="{{$location.absUrl()}}"
+						data-share-page-title="{{pageTitleService.getPageTitle()}}"
+						class="pull-right">
+					</social-media-share>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div class="content-description" ng-bind-html="content.description"></div>
+	</div>
+	<div class="panel-footer">
+		<tags tag-items="content.tags"></tags>
+	</div>
+	<loader data-at-body="false" data-is-loading="isLoading"></loader>
+</div>

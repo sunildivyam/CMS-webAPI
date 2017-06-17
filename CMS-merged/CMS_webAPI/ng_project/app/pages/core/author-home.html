@@ -1,0 +1,40 @@
+<div class="container-fluid app-container author-landing-page">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12">
+            <nav class="navbar navbar-default">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-author">
+                  <span class="sr-only">Toggle Navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand">
+                  <brand-logo class="xs" data-logo="appLogo"></brand-logo>
+                </div>
+              </div>
+              <div class="navbar-collapse collapse" id="navbar-collapse-author">
+                <ul class="nav navbar-nav">
+                  <li ui-sref-active="active"><a ui-sref="author.dashboard" data-toggle="collapse" data-target="#navbar-collapse-author.in">Dashboard</a></li>
+                  <li ui-sref-active="active"><a ui-sref="author.content" data-toggle="collapse" data-target="#navbar-collapse-author.in">Manage Contents</a></li>
+                  <li ui-sref-active="active"><a ui-sref="author.category" data-toggle="collapse" data-target="#navbar-collapse-author.in">Manage Categories</a></li>
+                  <li ui-sref-active="active"><a ui-sref="author.tag" data-toggle="collapse" data-target="#navbar-collapse-author.in">Manage Tags</a></li>
+                </ul>
+                <div class="navbar-footer pull-right">
+                <login-status-bar user="currentUser">
+                </login-status-bar>
+              </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="ui-view-contents col-sm-10 col-sm-push-1" ui-view=""></div>
+  </div>
+</div>

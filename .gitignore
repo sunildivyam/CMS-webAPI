@@ -5,3 +5,6 @@ CMS-webAPI.v12.suo
 CMS-Author/node_modules/
 CMS-Author/web/node_modules/
 CMS-Author/web/target/ 
+CMS-merged/CMS_webAPI/obj
+CMS-merged/CMS_webAPI/node_modules
+CMS-merged/CMS_webAPI/wwwroot/

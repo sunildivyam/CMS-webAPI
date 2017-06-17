@@ -1,0 +1,44 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+<html ng-app="raiweb" ng-controller="appController">
+<head>
+    <base href="/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title ng-bind="pageTitleService.getPageTitle()">Learn Wise Way - Wise Learnings</title>
+    <meta name="description" content="{{ metaInformationService.getMetaDescription() }}">
+    <meta name="keywords" content="{{ metaInformationService.getMetaKeywords() }}">
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/styles/main.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/styles/main.min.css"/>
+    </environment>
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body class="raiweb app-body theme-default">
+    <div class="container-fluid">
+        @RenderBody()        
+        <!-- Footer -->
+        <div class="row app-footer">
+            <div class="col-sm-12">
+                <app-footer></app-footer>
+            </div>
+        </div>
+    </div>
+    
+    <environment names="Development">
+        <script type="text/javascript" src="~/index.js"></script>
+        <script type="text/javascript" src="~/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript" src="~/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML-full"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script type="text/javascript" src="~/index.min.js"></script>
+        <script type="text/javascript" src="~/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript" src="~/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML-full"></script>
+    </environment>
+    
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

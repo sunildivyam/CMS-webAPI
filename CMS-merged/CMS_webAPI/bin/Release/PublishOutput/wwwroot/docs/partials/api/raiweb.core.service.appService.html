@@ -1,0 +1,57 @@
+<h1><code ng:non-bindable="">appService</code>
+<div><span class="hint">service in module <code ng:non-bindable="">raiweb.core</code>
+</span>
+</div>
+</h1>
+<div><h2 id="description">Description</h2>
+<div class="description"><div class="raiweb-core-service-page raiweb-core-service-appservice-page"><p>appService provides functionality of
+$http service by exposing GET, POST, PUT, DELETE etc type of methods
+All other serivices in the project should call these methods for all http requests.
+The url should be a relative url to APIs that is passed to this service methods.</p>
+</div></div>
+<div class="member method"><h2 id="methods">Methods</h2>
+<ul class="methods"><li><h3 id="methods_del">del(url, data, headers)</h3>
+<div class="del"><div class="del-page"><p>Executes a DELETE request</p>
+</div><h5 id="methods_del_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>url</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="del-page"><p>request relative url</p>
+</div></td></tr><tr><td>data <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="del-page"><p>request data object</p>
+</div></td></tr><tr><td>headers <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="del-page"><p>request headers object</p>
+</div></td></tr></tbody></table><h5 id="methods_del_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="del-page"><p>returns a promise object.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_get">get(url, params, headers)</h3>
+<div class="get"><div class="get-page"><p>Executes a GET request</p>
+</div><h5 id="methods_get_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>url</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="get-page"><p>request relative url</p>
+</div></td></tr><tr><td>params <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="get-page"><p>request&#39;s GET params object</p>
+</div></td></tr><tr><td>headers <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="get-page"><p>request headers object</p>
+</div></td></tr></tbody></table><h5 id="methods_get_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="get-page"><p>returns a promise object.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_geterrormessage">getErrorMessage(modelState, listHtmlElement)</h3>
+<div class="geterrormessage"><div class="geterrormessage-page"><p>This processes the modelState object returned from the webAPI in response
+to list all error messages.
+    Optionally an html element name can be passed to generate HTML markup for list.
+Then the list can be displayed in HTML.</p>
+</div><h5 id="methods_geterrormessage_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>modelState</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="geterrormessage-page"><p>modelState object from response of web API</p>
+</div></td></tr><tr><td>listHtmlElement <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="geterrormessage-page"><p>html element for list. default is &#39;li&#39;</p>
+</div></td></tr></tbody></table><h5 id="methods_geterrormessage_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="geterrormessage-page"><p>returns list of error messages in HTML format</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_post">post(url, data, headers)</h3>
+<div class="post"><div class="post-page"><p>Executes a POST request</p>
+</div><h5 id="methods_post_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>url</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="post-page"><p>request relative url</p>
+</div></td></tr><tr><td>data <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="post-page"><p>request data object</p>
+</div></td></tr><tr><td>headers <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="post-page"><p>request headers object</p>
+</div></td></tr></tbody></table><h5 id="methods_post_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="post-page"><p>returns a promise object.</p>
+</div></td></tr></table></div>
+</li>
+<li><h3 id="methods_put">put(url, data, headers)</h3>
+<div class="put"><div class="put-page"><p>Executes a PUT request</p>
+</div><h5 id="methods_put_parameters">Parameters</h5><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>url</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="put-page"><p>request relative url</p>
+</div></td></tr><tr><td>data <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="put-page"><p>request data object</p>
+</div></td></tr><tr><td>headers <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="put-page"><p>request headers object</p>
+</div></td></tr></tbody></table><h5 id="methods_put_returns">Returns</h5><table class="variables-matrix"><tr><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="put-page"><p>returns a promise object.</p>
+</div></td></tr></table></div>
+</li>
+</ul>
+</div>
+</div>

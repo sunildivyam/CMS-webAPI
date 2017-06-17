@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h1 class="panel-title" ng-bind="category.title" title="{{category.title}}"></h1>
+	</div>
+	<div class="panel-body">
+		<p class="small" ng-bind-html="category.description"></p>
+		<social-media-share
+			data-header-text="Share this Page: "
+			data-share-page-url="{{$location.absUrl()}}"
+			data-share-page-title="{{pageTitleService.getPageTitle()}}"
+			class="pull-right">
+		</social-media-share>
+	</div>
+	<loader data-at-body="false" data-is-loading="isLoading"></loader>
+</div>
