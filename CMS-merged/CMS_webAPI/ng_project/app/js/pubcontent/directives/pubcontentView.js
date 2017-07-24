@@ -29,7 +29,7 @@
 					if (url === false) {
 						$scope.thumbnailUrl = '';
 					} else {
-						$scope.thumbnailUrl = [appService.getArticleImagesUrl(), ($scope.content.authorContentId || $scope.content.contentId) + '.jpg'].join('/');
+						$scope.thumbnailUrl = [appService.getArticleImagesUrl(), $scope.content.contentId, $scope.content.name].join('/');
 					}
 				}
 			}

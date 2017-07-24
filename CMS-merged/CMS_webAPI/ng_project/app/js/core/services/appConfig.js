@@ -46,9 +46,10 @@
             //     config.appUrls.API_SERVER_URL = 'http://uilwwapi.learnwiseway.com';
             // }
 
-            config.appUrls.ARTICLE_IMAGES_URL = config.appUrls.API_SERVER_URL + '/articleimages';
-            config.appUrls.USER_IMAGES_URL = config.appUrls.API_SERVER_URL + '/userimages';
             config.appUrls.baseApiUrl = config.appUrls.API_SERVER_URL + '/api';
+            config.appUrls.ARTICLE_IMAGES_URL = config.appUrls.baseApiUrl + config.application.articleImages;
+            config.appUrls.AUTHOR_ARTICLE_IMAGES_URL = config.appUrls.baseApiUrl + config.application.authorArticleImages;;
+            config.appUrls.USER_IMAGES_URL = config.appUrls.baseApiUrl + config.application.userImages;;            
         }
 
         return getConfig();

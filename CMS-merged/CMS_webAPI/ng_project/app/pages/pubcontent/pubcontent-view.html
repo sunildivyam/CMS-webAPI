@@ -3,7 +3,7 @@
 		<h1 class="panel-title" ng-bind="content.title"></h1>
 		<div class="thumbnail visible-xs">
 			<img class="content-thumbnail" ng-if="content.authorContentId || content.contentId"
-				src="{{thumbnailUrl}}"
+				ng-src="{{thumbnailUrl}}"
 				onerror="this.style.display = 'none';"
 				onload="this.style.display = 'block';">
 		</div>
@@ -12,7 +12,7 @@
 				<div class="media-object">
 					<div class="thumbnail center-block hidden-xs">
 						<img class="content-thumbnail" ng-if="content.authorContentId || content.contentId"
-							src="{{thumbnailUrl}}"
+							ng-src="{{thumbnailUrl}}"
 							onerror="this.style.display = 'none';"
 							onload="this.style.display = 'block';">
 					</div>

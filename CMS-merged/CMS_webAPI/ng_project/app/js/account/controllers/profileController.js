@@ -265,7 +265,7 @@
             if (url === false) {
                 $scope.userThumbnailUrl = '';
             } else if($scope.myProfile && $scope.myProfile.userName){
-                $scope.userThumbnailUrl = [appService.getUserImagesUrl(), $scope.myProfile.userName + '.jpg?v=' + (new Date()).getTime()].join('/');
+                $scope.userThumbnailUrl = [appService.getUserImagesUrl(), $scope.myProfile.userName + '?cb=' + (new Date()).getTime()].join('/');
             } else {
             	$scope.userThumbnailUrl = '';
             }

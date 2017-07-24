@@ -27,7 +27,7 @@
 					if (url === false) {
 						$scope.thumbnailUrl = '';
 					} else {
-						$scope.thumbnailUrl = [appService.getArticleImagesUrl(), ($scope.content.authorContentId || $scope.content.contentId) + '.jpg?v=' + (new Date()).getTime()].join('/');
+                        $scope.thumbnailUrl = [appService.getAuthorArticleImagesUrl(), $scope.content.authorContentId + '?cb=' + (new Date()).getTime()].join('/');
 					}
 				}
 			}

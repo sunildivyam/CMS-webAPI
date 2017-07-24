@@ -110,8 +110,8 @@
 			return appService.get([urls.authorContents.base, urls.authorContents.getAuthorContent, id].join('/'));
 		}
 
-		function addNewContent(content) {
-			return appService.post([urls.authorContents.base, urls.authorContents.addAuthorContent].join('/'), content, requestHeaders);
+		function addNewContent(content, existingAuthorContentId) {
+			return appService.post([urls.authorContents.base, urls.authorContents.addAuthorContent, existingAuthorContentId || 0].join('/'), content, requestHeaders);
 		}
 
 		function updateContent(content) {

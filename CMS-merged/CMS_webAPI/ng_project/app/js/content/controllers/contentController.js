@@ -103,7 +103,7 @@
             }
         }
 
-        function addContent(content) {
+        function addContent(content, previousAuthorContentId) {
             var defferedObj = $q.defer();
 
             if (content && content.contentId > 0) {
@@ -111,7 +111,7 @@
             }
             var enocdedContent = angular.copy(content);
             enocdedContent.description = Utils.encodeContent(enocdedContent.description);
-            contentService.addNewContent(enocdedContent).then(function(response) {
+            contentService.addNewContent(enocdedContent, previousAuthorContentId).then(function(response) {
                 defferedObj.resolve(response);
             }, function(rejection) {
                 defferedObj.reject(rejection);
@@ -145,11 +145,11 @@
             return defferedObj.promise;
         }
 
-        $scope.saveContent = function(event, content) {
+        $scope.saveContent = function(event, content, previousAuthorContentId) {
             $scope.isLoading = true;
             $scope.loaderMsg = 'Saving Content...';
 
-            addContent(content).then(function(response) {
+            addContent(content, previousAuthorContentId).then(function(response) {
                 var addedContent = new Content(response && response.data);
                 $scope.isLoading = false;
                 $scope.loaderMsg = '';

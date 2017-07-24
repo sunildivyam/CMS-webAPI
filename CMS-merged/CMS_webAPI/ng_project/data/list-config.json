@@ -187,7 +187,8 @@
         "onPagingPageChange": "undefined",
 
         "onRefresh": "undefined",
-        "isLoading": false
+        "isLoading": false,
+        "isAuthorMode": true
     },
     "publishedContent": {
         "items": [],
@@ -263,7 +264,8 @@
         "onPagingPageChange": "undefined",
 
         "onRefresh": "undefined",
-        "isLoading": false
+        "isLoading": false,
+        "isAuthorMode": true
     },
     "pubContent": {
         "items": [],
@@ -506,19 +508,22 @@
             "theme": "default"
         }
     },
-    "application": {
-        "url": "http://www.learnwiseway.com",
-        "apiUrl": "http://uilwwapi.learnwiseway.com",
-        "name": "LearnWiseWay.com",
-        "title": "Wise Learnings",
-        "shortTitle": "Learn Wise Way",
-        "description": "Free Learnings - CBSE Board Study Material for all classes 6-12 and all subjects including Physics, Maths, Chemistry, Biology, English, SST. CBSE syllabus, Free CBSE Sample Papers, CBSE notes, Text book solutions, online tests, guess papers, model question papers, CBSE news and updates on Learnwiseway.com. Get Access to CBSE Solutions, Online Tests, Guess Papers etc for free at Learnwiseway.com. A complete guide for CBSE students from pre-school to class-12. CBSE Board Date Sheet and latest News andfree Study Material for all classes.",
-        "keywords": "CBSE board, CBSE board tutorials, CBSE board study materials, CBSE board online study material, CBSE Board Sample Paper, CBSE Question Papers, CBSE Board Guess Papers, Articles, Maths, Science, Chemistry, Biology, English, SSt ICSE",
-        "copyYear": 2017,
-        "appLogo": {
-            "primaryTitle": "Learn Wise Way",
-            "highCharIndex": 7,
-            "secondaryTitle": "Wise Learnings"
-        }
+  "application": {
+    "url": "http://localhost:55361",
+    "apiUrl": "http://localhost:49192",
+    "articleImages": "/images/getarticleimage",
+    "authorArticleImages": "/images/getauthorarticleimage",
+    "userImages": "/images/getuserimage",
+    "name": "LearnWiseWay.com",
+    "title": "Wise Learnings",
+    "shortTitle": "Learn Wise Way",
+    "description": "Free Learnings - CBSE Board Study Material for all classes 6-12 and all subjects including Physics, Maths, Chemistry, Biology, English, SST. CBSE syllabus, Free CBSE Sample Papers, CBSE notes, Text book solutions, online tests, guess papers, model question papers, CBSE news and updates on Learnwiseway.com. Get Access to CBSE Solutions, Online Tests, Guess Papers etc for free at Learnwiseway.com. A complete guide for CBSE students from pre-school to class-12. CBSE Board Date Sheet and latest News andfree Study Material for all classes.",
+    "keywords": "CBSE board, CBSE board tutorials, CBSE board study materials, CBSE board online study material, CBSE Board Sample Paper, CBSE Question Papers, CBSE Board Guess Papers, Articles, Maths, Science, Chemistry, Biology, English, SSt ICSE",
+    "copyYear": 2017,
+    "appLogo": {
+      "primaryTitle": "Learn Wise Way",
+      "highCharIndex": 7,
+      "secondaryTitle": "Wise Learnings"
     }
+  }
 }
