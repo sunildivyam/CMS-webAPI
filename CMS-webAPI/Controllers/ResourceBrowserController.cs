@@ -13,6 +13,7 @@ using CMS_webAPI.Models;
 using System.Web;
 using System.IO;
 using System.Net.Http.Headers;
+using CMS_webAPI.AppCode;
 
 namespace CMS_webAPI.Controllers
 {
