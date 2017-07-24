@@ -38,7 +38,7 @@
                 $scope.save = function(event) {
                     if ($scope.contentForm.$valid === true) {
                         if (typeof $scope.onSave === 'function') {
-                            $scope.onSave(event, $scope.content);
+                            $scope.onSave(event, $scope.content, $scope.previousAuthorContentId);
                         }
                     } else {
                         //
@@ -103,7 +103,10 @@
 
                 $scope.preview = function(event) {
                     if (typeof $scope.onPreview === 'function') {
-                        $scope.onPreview(event, $scope.content);
+                        var contentToPreview = {};
+                        angular.copy($scope.content, contentToPreview);
+                        contentToPreview.authorContentId = contentToPreview.authorContentId || $scope.previousAuthorContentId;
+                        $scope.onPreview(event, contentToPreview);
                     } else {
                         //
                     }
@@ -151,12 +154,14 @@
                 };
 
                 $scope.$watch('content', function(newContent) {
-                    if (newContent) {
+                    if (newContent) {                        
                         if (newContent.contentId > 0 && typeof newContent.publishedDate !== 'undefined') {
                             $scope.previousPublishedDate = newContent.publishedDate;
+                            $scope.previousAuthorContentId = newContent.authorContentId; 
                             newContent.publishedDate = undefined;
                             newContent.authorContentId = undefined;
                         } else {
+                            $scope.previousAuthorContentId = undefined;
                             $scope.previousPublishedDate = undefined;
                         }
                         setThumbnailUrl();
@@ -166,8 +171,8 @@
                 function setThumbnailUrl(url) {
                     if (url === false) {
                         $scope.thumbnailUrl = '';
-                    } else {
-                        $scope.thumbnailUrl = [appService.getArticleImagesUrl(), ($scope.content.authorContentId || $scope.content.contentId) + '.jpg?v=' + (new Date()).getTime()].join('/');
+                    } else {                       
+                        $scope.thumbnailUrl = [appService.getAuthorArticleImagesUrl(), ($scope.content.authorContentId || $scope.previousAuthorContentId) + '?cb=' + (new Date()).getTime()].join('/');               
                     }
                 }
 

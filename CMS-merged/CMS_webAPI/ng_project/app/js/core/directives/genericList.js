@@ -46,7 +46,8 @@
                 onPagingPageChange: '=',
 
                 onRefresh: '=',     // calls when all list items are rendered or View Mode is changed
-                isLoading: '='  // To display a loader while list items getting loaded
+                isLoading: '=',     // To display a loader while list items getting loaded
+                isAuthorMode: '='   // If List is used on Author Pages, should be true
             },
             controller: 'genericListController',
             link: function($scope, element) {
@@ -158,7 +159,23 @@
                     if (!item) {
                         return '';
                     }
-                    return [appService.getArticleImagesUrl(), (item.authorContentId || item.contentId) + '.jpg'].join('/');
+                    var params = [];                     
+                    // For Published Content
+                    if (item.contentId && item.publishedDate) {  
+                        if ($scope.isAuthorMode) {
+                            params.push(appService.getAuthorArticleImagesUrl());
+                            params.push(item.authorContentId);
+                        } else {                    
+                            params.push(appService.getArticleImagesUrl());
+                            params.push(item.contentId);
+                            params.push(item.name);
+                        }
+                    } else {
+                        params.push(appService.getAuthorArticleImagesUrl());
+                        params.push(item.authorContentId);
+                    }
+
+                    return params.join('/');
                 };
             }
         };

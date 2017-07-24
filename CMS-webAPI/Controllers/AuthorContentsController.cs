@@ -157,16 +157,24 @@ namespace CMS_webAPI.Controllers
         // Adds a new AuthorContent
         // POST: api/AuthorContents/PostAuthorContent
         [ResponseType(typeof(AuthorContentViewModel))]
-        public async Task<IHttpActionResult> PostAuthorContent(AuthorContentViewModel authorContentView)
+        public async Task<IHttpActionResult> PostAuthorContent(int param1, AuthorContentViewModel authorContentView)
         {
+            int previousAuthorContentId = param1;
             // modelstate is invalid or AuthorContent is already published.
             if (!ModelState.IsValid || authorContentView.PublishedDate != null)
             {
                 return BadRequest(ModelState);
             }
-            AuthorContent authorContnet = AddAuthorContent(authorContentView);            
+            AuthorContent authorContent = AddAuthorContent(authorContentView);            
             await db.SaveChangesAsync();
-            AuthorContentViewModel addedAuthorContentView = new AuthorContentViewModel(authorContnet);
+
+            if (authorContent.ContentId > 0 && previousAuthorContentId > 0)
+            {
+                ImageHelper.DuplicateAuthorImageFromPrevious(authorContent.AuthorContentId, previousAuthorContentId);
+                //ImageHelper.AuthorPublishedImage(authorContent.AuthorContentId, (int)authorContent.ContentId);
+            }
+
+            AuthorContentViewModel addedAuthorContentView = new AuthorContentViewModel(authorContent);
 
             return Ok(addedAuthorContentView);
         }
@@ -200,7 +208,7 @@ namespace CMS_webAPI.Controllers
                         {
                             // Content in Pub Should be Updated                            
                             contentToPub = UpdateContent(contentView);
-                            await db.SaveChangesAsync();
+                            await db.SaveChangesAsync();                           
                             //contentToPub = contentView.ToDbModel();
                         }
                         else
@@ -239,6 +247,9 @@ namespace CMS_webAPI.Controllers
                         await db.SaveChangesAsync();
                         dbTransaction.Commit();
 
+                        // Publishes article Thumbnail Image from Author's Folder to Published Folder
+                        ImageHelper.PublishAuthorImage((int)contentToPub.AuthorContentId, contentToPub.ContentId, contentToPub.Name);
+
                         publishedContentView = new ContentViewModel(contentToPub);
                     }
                     catch (Exception ex)
@@ -259,6 +270,9 @@ namespace CMS_webAPI.Controllers
             {
                 //
             }
+            
+            // Delete Existing Thumbnail Image (associated with ContentId) and rename Updated Thumbnail to published content ID
+           
             
             return Ok(publishedContentView);
         }
@@ -303,7 +317,7 @@ namespace CMS_webAPI.Controllers
                     {
                         int length = httpPostedFile.ContentLength;
 
-                        var ext = httpPostedFile.FileName.Substring(httpPostedFile.FileName.LastIndexOf('.'));
+                        var ext = httpPostedFile.FileName.Substring(httpPostedFile.FileName.LastIndexOf('.') + 1);
                         var extension = ext.ToLower();
                         if (!ImageHelper.IsImage(httpPostedFile))
                         {
@@ -313,9 +327,10 @@ namespace CMS_webAPI.Controllers
                         if (length > MAX_FILE_SIZE)
                         {
                             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Please Upload a file upto " + (MAX_FILE_SIZE/1024) +"kb only");
-                        }                        
-
-                        var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/articleimages"), authorContent.AuthorContentId.ToString() + ".jpg");
+                        }
+                        ImageHelper.DeleteAuthorArticleImages(contentId);
+                        var fileSavePath = ImageHelper.GenerateFullAuthorArticleImagePathWithoutExtension(contentId) + "." + extension;
+                        
                         //Save the uploaded file to "articleimages" folder  
                         httpPostedFile.SaveAs(fileSavePath);
                     }

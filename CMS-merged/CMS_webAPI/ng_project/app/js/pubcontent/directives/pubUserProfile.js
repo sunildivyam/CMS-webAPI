@@ -23,7 +23,7 @@
 		            if (url === false) {
 		                $scope.userThumbnailUrl = '';
 		            } else if($scope.user && $scope.user.userName){
-		                $scope.userThumbnailUrl = [appService.getUserImagesUrl(), $scope.user.userName + '.jpg'].join('/');
+		                $scope.userThumbnailUrl = [appService.getUserImagesUrl(), $scope.user.userName].join('/');
 		            } else {
 		            	$scope.userThumbnailUrl = '';
 		            }

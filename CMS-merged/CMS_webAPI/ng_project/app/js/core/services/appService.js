@@ -22,6 +22,7 @@
 		var API_SERVER_URL = appConfig.appUrls.API_SERVER_URL;
 		var JSON_DATA_BASE_URL = appConfig.appUrls.JSON_DATA_BASE_URL;
 		var ARTICLE_IMAGES_URL = appConfig.appUrls.ARTICLE_IMAGES_URL;
+		var AUTHOR_ARTICLE_IMAGES_URL = appConfig.appUrls.AUTHOR_ARTICLE_IMAGES_URL;
 		var USER_IMAGES_URL = appConfig.appUrls.USER_IMAGES_URL;
 		var baseApiUrl = appConfig.appUrls.baseApiUrl;
 
@@ -172,6 +173,10 @@
 			return ARTICLE_IMAGES_URL;
 		}
 
+		function getAuthorArticleImagesUrl() {
+			return AUTHOR_ARTICLE_IMAGES_URL;
+		}
+
 		function getUserImagesUrl() {
 			return USER_IMAGES_URL;
 		}
@@ -185,6 +190,7 @@
 			getApiServerUrl: getApiServerUrl,
 			getApiServerDummyUrl: getApiServerDummyUrl,
 			getArticleImagesUrl: getArticleImagesUrl,
+			getAuthorArticleImagesUrl: getAuthorArticleImagesUrl,
 			getUserImagesUrl: getUserImagesUrl
 		};
 	};

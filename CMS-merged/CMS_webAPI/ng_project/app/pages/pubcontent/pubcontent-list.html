@@ -10,7 +10,7 @@
 						<div class="media-object">
 							<div class="thumbnail center-block">
 								<img class="content-thumbnail" ng-if="item.authorContentId || item.contentId"
-									src="{{getThumbnailUrl(item)}}"
+									ng-src="{{getThumbnailUrl(item)}}"
 									onerror="this.style.display = 'none';"
 									onload="this.style.display = 'block';">
 							</div>
@@ -60,7 +60,7 @@
 					<div class="media-object">
 						<div class="thumbnail center-block">
 							<img class="content-thumbnail" ng-if="item.authorContentId || item.contentId"
-								src="{{getThumbnailUrl(item)}}"
+								ng-src="{{getThumbnailUrl(item)}}"
 								onerror="this.style.display = 'none';"
 								onload="this.style.display = 'block';">
 						</div>
@@ -86,7 +86,7 @@
 				</span>
 				<a href="#" ui-sref="pub.articles.content({n: item.category.name, ci: item.contentId, cn: item.name})" ng-click="itemClick($event, item)">
 					<img class="content-thumbnail" ng-if="item.authorContentId || item.contentId"
-					src="{{getThumbnailUrl(item)}}"
+					ng-src="{{getThumbnailUrl(item)}}"
 					onerror="this.style.display = 'none';"
 					onload="this.style.display = 'block';">
 					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>

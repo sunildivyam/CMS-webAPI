@@ -16,32 +16,38 @@ namespace CMS_webAPI.Controllers
     {        
         private const string DEFAULT_ARTICLE_IMAGE_FILENAME = "article-image.jpg";
 
-        public HttpResponseMessage GetArticleImage(int id)
+        // This is Default Route and should return a BadRequest.
+        // GET: api/Images
+        public IHttpActionResult Get()
         {
-            string fileName = string.Format("{0}.jpg", id);
-            string fullImageUrl = Path.Combine(HttpContext.Current.Server.MapPath("~/articleimages/"), fileName);
-            string DefaultImageFullUrl = Path.Combine(HttpContext.Current.Server.MapPath("~/articleimages/"), DEFAULT_ARTICLE_IMAGE_FILENAME);
+            return BadRequest();
+        }
+
+        // For Published Article Image
+        // Route: api/images/articleimage/5/installing-angular-js
+        public HttpResponseMessage GetArticleImage(int param1, string param2)
+        {   
+            int id = param1;
+            string name = param2;
             FileStream fileStream;
             HttpResponseMessage response;
 
             try
             {
-                if (File.Exists(fullImageUrl))
+                string articleImageFullPath = ImageHelper.IsPublishedArticleImageExist(id, name);
+
+                if (articleImageFullPath != null)
                 {
-                    fileStream = ImagesService.GetImageFromDisk(fullImageUrl);
-                }
-                else if (File.Exists(DefaultImageFullUrl))
-                {
-                    fileStream = ImagesService.GetImageFromDisk(DefaultImageFullUrl);
+                    fileStream = ImageHelper.GetPublishedArticleImage(id, name);
                 }
                 else
                 {
                     response = new HttpResponseMessage(HttpStatusCode.NotFound);
                     return response;
                 }
-
+                
                 response = new HttpResponseMessage { Content = new StreamContent(fileStream) };
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(ImageHelper.GetImageTypeFromExtension(articleImageFullPath.Substring(articleImageFullPath.LastIndexOf(".")+ 1)));
                 response.Content.Headers.ContentLength = fileStream.Length;
             } catch (Exception ex) {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);                
@@ -50,8 +56,43 @@ namespace CMS_webAPI.Controllers
             return response;
         }
 
-        public HttpResponseMessage GetUserImage(string userName)
-        {                           
+        // For Author Article Image
+        // Route: api/images/authorarticleimage/5
+        public HttpResponseMessage GetAuthorArticleImage(int param1)
+        {
+            int id = param1;
+            FileStream fileStream;
+            HttpResponseMessage response;
+
+            try
+            {
+                string articleImageFullPath = ImageHelper.IsAuthorArticleImageExist(id);
+
+                if (articleImageFullPath != null)
+                {
+                    fileStream = ImageHelper.GetAuthorArticleImage(id);
+                }
+                else
+                {
+                    response = new HttpResponseMessage(HttpStatusCode.NotFound);
+                    return response;
+                }
+
+                response = new HttpResponseMessage { Content = new StreamContent(fileStream) };
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(ImageHelper.GetImageTypeFromExtension(articleImageFullPath.Substring(articleImageFullPath.LastIndexOf(".") + 1)));
+                response.Content.Headers.ContentLength = fileStream.Length;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+
+            return response;
+        }
+
+        public HttpResponseMessage GetUserImage(string param1)
+        {
+            string userName = param1;
             HttpResponseMessage response;
                        
             try
