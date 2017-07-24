@@ -496,7 +496,8 @@
         {
             "id": "adminPanel",
             "title": "Admin Panel",
-            "iconClass": "glyphicon-blackboard"
+            "iconClass": "glyphicon-blackboard",
+            "inRoles": ["Administrators"]
         }
      ],
      "mainCarousel": {

@@ -35,7 +35,9 @@
 		};
 
 		function setProfileData() {
-			$scope.toolbarButtons = Utils.getListConfigOf('profileActions');
+			var curentUser = accountService.getLoggedInUser();			
+			$scope.curentUserRoles = curentUser && curentUser.roles;	
+			$scope.toolbarButtons = Utils.getListConfigOf('profileActions');					
 		}
 
 		$scope.changePasswordClick = function(event) {

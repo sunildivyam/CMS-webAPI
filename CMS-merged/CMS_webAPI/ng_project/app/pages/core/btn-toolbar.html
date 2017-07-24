@@ -5,6 +5,7 @@
 		class="btn btn-default {{btn.id}} {{btnSizeClass}}"
 		ng-repeat="btn in buttons"
 		ng-click="onButtonClick($event, btn)"
+		ng-if="isDisplayable(btn)"
 		title="{{btn.id}}">
 			<span class="glyphicon {{btn.iconClass}}"></span>
 			<span ng-bind="btn.title" ng-if="btn.title"></span>
