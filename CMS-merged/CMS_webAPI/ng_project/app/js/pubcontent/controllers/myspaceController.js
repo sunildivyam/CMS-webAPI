@@ -80,7 +80,7 @@
                 Utils.getListConfigs().then(function() {
                     getSearchResults(toParams.n, 1);
                 }, function(rejection) {
-                    console.log(rejection);
+                    //
                 });
             }
         });

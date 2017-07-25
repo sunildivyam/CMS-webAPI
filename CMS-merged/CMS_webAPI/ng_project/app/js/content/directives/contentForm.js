@@ -25,13 +25,11 @@
 
                 $scope.shortDescriptionEditorReadyPromise = $q.defer();
                 $scope.descriptionEditorReadyPromise = $q.defer();
-                //$scope.contentPromise = $q.defer();
-
+                
                 $q.all([$scope.shortDescriptionEditorReadyPromise.promise,
                     $scope.descriptionEditorReadyPromise.promise,
                     $scope.isContentLoadedPromise.promise
                 ]).then(function(responses) {
-                    console.log("All loaded");
                     $timeout(function(){
                         $scope.isLoading = false;
                     });                    

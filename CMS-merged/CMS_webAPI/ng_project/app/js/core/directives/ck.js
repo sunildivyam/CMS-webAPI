@@ -14,8 +14,8 @@
                     ck = CKEDITOR.replace(elm[0], {
                         extraPlugins: 'sourcedialog,mathjax,codesnippet',
                         removePlugins:'sourcearea',
-                        //mathJaxLib: '/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML'
-                        mathJaxLib: '//cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
+                        mathJaxLib: '/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML',
+                        //mathJaxLib: '//cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
                         filebrowserBrowseUrl: '/resourcebrowser',
                         filebrowserUploadUrl: '/browser/upload.php'
                     });
@@ -27,7 +27,6 @@
                         // This updates the ckeditor data when ngmodel is changed
                         ngModel.$render = function () {
                             updateCkEditor();
-                            console.log("updated" + (ngModel.$viewValue && ngModel.$viewValue.length));
                         };
                     });
 

@@ -147,8 +147,7 @@
 			});
 		}
 
-		$scope.getUserRoles = function(event) {
-			console.log("dd");
+		$scope.getUserRoles = function(event) {			
 			$scope.isUserRolesProcessing = true;
 			accountService.getUserRoles($scope.userRolesViewModel.userName).then(function(response) {
 				$scope.userRolesViewModel.roles = response && response.data || [];

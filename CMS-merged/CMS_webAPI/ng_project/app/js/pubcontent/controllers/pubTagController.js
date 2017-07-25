@@ -78,7 +78,7 @@
                 Utils.getListConfigs().then(function() {
                     getSearchResults(toParams.ti, toParams.tn, 1);
                 }, function(rejection) {
-                    console.log(rejection);
+                    //
                 });
             }
         });
