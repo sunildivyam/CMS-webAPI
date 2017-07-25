@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-    var contentForm = function(modalService, Utils, appService, $timeout) {
+    var contentForm = function(modalService, Utils, appService, $timeout, $q) {
         return {
             restrict: 'E',
             scope: {
@@ -16,11 +16,36 @@
                 onPublish: '=',
                 onThumbnailUpload: '=',
                 isLoading: '=',
-                loaderMsg: '='
+                loaderMsg: '=',
+                isContentLoadedPromise: '='
             },
             templateUrl: 'content/content-form.html',
             link: function($scope, element) {
                 $scope.thumbnailUrl = '';
+
+                $scope.shortDescriptionEditorReadyPromise = $q.defer();
+                $scope.descriptionEditorReadyPromise = $q.defer();
+                //$scope.contentPromise = $q.defer();
+
+                $q.all([$scope.shortDescriptionEditorReadyPromise.promise,
+                    $scope.descriptionEditorReadyPromise.promise,
+                    $scope.isContentLoadedPromise.promise
+                ]).then(function(responses) {
+                    console.log("All loaded");
+                    $timeout(function(){
+                        $scope.isLoading = false;
+                    });                    
+                }, function() {
+                    $scope.isLoading = false;
+                    modalService.alert('md',
+                    'Unknown Error Loading Content',
+                    'Unknown Error has occured, loading Content',
+                    'Press F5 to refresh the Page').result.then(function() {
+                        //
+                    }, function() {
+                        //
+                    });
+                });
 
                 $scope.$watch('content.title', function(newValue) {
                     if (newValue) $scope.content.name = Utils.parseStringExt(newValue, '-');
@@ -154,7 +179,7 @@
                 };
 
                 $scope.$watch('content', function(newContent) {
-                    if (newContent) {                        
+                    if (newContent) {
                         if (newContent.contentId > 0 && typeof newContent.publishedDate !== 'undefined') {
                             $scope.previousPublishedDate = newContent.publishedDate;
                             $scope.previousAuthorContentId = newContent.authorContentId; 
@@ -163,9 +188,13 @@
                         } else {
                             $scope.previousAuthorContentId = undefined;
                             $scope.previousPublishedDate = undefined;
-                        }
-                        setThumbnailUrl();
-                    }
+                        } 
+                        if (newContent.authorContentId > 0) {
+                            setThumbnailUrl();                           
+                        } else {
+                            setThumbnailUrl(false);
+                        }                        
+                    }                   
                 });
 
                 function setThumbnailUrl(url) {
@@ -210,6 +239,6 @@
         };
     };
 
-    contentForm.$inject = ['modalService', 'Utils', 'appService', '$timeout'];
+    contentForm.$inject = ['modalService', 'Utils', 'appService', '$timeout', '$q'];
     module.exports = contentForm;
 })();

@@ -61,14 +61,14 @@
         }
 
         function getContent(id) {
-            if (id) {
-                $scope.isLoading = true;
-                $scope.loaderMsg = 'Loading Content...';
+            $scope.isContentLoadedPromise = $q.defer();
+            $scope.isLoading = true;
+            $scope.loaderMsg = 'Loading Form...';
+            if (id) {                
                 var contentId = parseInt(id);
-                contentService.getContentById(contentId).then(function(response) {
-                    var content = new Content(response && response.data);
-                    $scope.isLoading = false;
-                    $scope.loaderMsg = '';
+                 $scope.loaderMsg = 'Loading Content...';
+                contentService.getContentById(contentId).then(function(response) {                    
+                    var content = new Content(response && response.data);                        
                     if (content instanceof Object) {
                         if (content.authorContentId !== contentId) {
                             modalService.alert('md',
@@ -82,14 +82,18 @@
                         }
                         content.description = Utils.decodeContent(content.description);
                         $scope.currentContent = content;
+                        $scope.isContentLoadedPromise.resolve($scope.currentContent);
                     } else {
+                        $scope.isLoading = false;
+                        $scope.loaderMsg = '';
+                        $scope.isContentLoadedPromise.resolve($scope.currentContent);
                         modalService.alert('md',
                         'Content Not Found',
                         'Content with Id: ' + id + ' not found',
                         'Go to Dashboard').result.then(function() {
                             $state.go('author.dashboard');
                         });
-                    }
+                    }                    
                 }, function(rejection) {
                     $scope.isLoading = false;
                     $scope.loaderMsg = '';
@@ -100,6 +104,9 @@
                         $state.go('author.dashboard');
                     });
                 });
+            } else {
+                $scope.currentContent = new Content();
+                $scope.isContentLoadedPromise.resolve($scope.currentContent);
             }
         }
 
@@ -335,7 +342,7 @@
             if (toState && toState.name && toParams && toParams.id) {
                 getContent(toParams.id);
             } else {
-                $scope.currentContent = new Content();
+                getContent();
             }
         });
     };

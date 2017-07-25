@@ -3,7 +3,10 @@
     var ck = function($timeout) {
         return {
             require: '?ngModel',
-            link: function(scope, elm, attr, ngModel) {
+            scope: {
+                onInstanceReady: '='    // should be a promise from parent controller
+            },
+            link: function($scope, elm, attr, ngModel) {
                 $timeout(function() {
                     if (!ngModel) return;
 
@@ -24,15 +27,19 @@
                         // This updates the ckeditor data when ngmodel is changed
                         ngModel.$render = function () {
                             updateCkEditor();
+                            console.log("updated" + (ngModel.$viewValue && ngModel.$viewValue.length));
                         };
                     });
 
-                    ck.on('instanceReady', function () {
+                    ck.on('instanceReady', function () {               
                         updateCkEditor();
+                        if ($scope.onInstanceReady && $scope.onInstanceReady.resolve) {
+                            $scope.onInstanceReady.resolve(ck);
+                        }
                     });
 
                     function updateModel() {
-                        ngModel.$setViewValue(ck.getData());
+                        ngModel.$setViewValue(ck.getData());                        
                     }
 
                     function updateCkEditor() {
