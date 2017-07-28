@@ -6,10 +6,10 @@
 
     <!-- Assign User Roles Section -->
     <div class="panel user-roles-section">
-      <div class="panel-heading">
+      <div class="panel-heading" data-toggle="collapse" href=".user-roles-section>.panel-body">
         <h3 class="panel-title"><i class="fa fa-user"></i>Manage user Roles</h3>
       </div>
-      <div class="panel-body">
+      <div class="panel-body collapse">
         <form name="userRolesForm" class="" role="form">
           <div class="form-group">
             <label class="form-label">User Name or Email Id: </label>
@@ -46,10 +46,10 @@
 
     <!-- Clear API Cache Section -->
     <div class="panel cache-section">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-tasks"></i>Reset Cache</h3>
+      <div class="panel-heading" data-toggle="collapse" href=".cache-section>.panel-body">
+        <h3 class="panel-title"><i class="fa fa-refresh"></i>Reset Cache</h3>
       </div>
-      <div class="panel-body">
+      <div class="panel-body collapse">
         <form name="cacheForm" class="" role="form">
           <div class="form-group">
             <label class="control-label" for="cachedKeys">Cached Requests</label>
@@ -73,10 +73,10 @@
 
     <!-- Users Section -->
     <div class="panel users-section">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-tasks"></i>Users</h3>
+      <div class="panel-heading" data-toggle="collapse" href=".users-section>.panel-body">
+        <h3 class="panel-title"><i class="fa fa-users"></i>Users</h3>
       </div>
-      <div class="panel-body">
+      <div class="panel-body collapse">
         <form name="usersForm" class="" role="form">
             <div class="form-group">
                 <label class="form-label">Recently Signed Up Users (Select Date Range): </label>
@@ -120,6 +120,35 @@
             </div>
         </form>
         <loader data-is-loading="isUsersLoading"></loader>
+      </div>
+    </div>
+
+<!-- Application Config Section  -->
+    <div class="panel app-config-section">
+      <div class="panel-heading" data-toggle="collapse" href=".app-config-section>.panel-body">
+        <h3 class="panel-title"><i class="fa fa-cog"></i>Application Configurations </h3>
+      </div>
+      <div class="panel-body collapse">
+        <form name="appConfigForm" class="" role="form">
+            <!-- Textarea -->
+            <button type="button" class="btn btn-primary" ng-click="reloadAppConfig($event)">Reload Config</button>
+            <div class="form-group">
+              <maximize-control 
+              data-is-maximized=""
+              data-top="28px"
+              data-right="18px"
+              data-left=""
+              data-bottom=""
+              data-on-maximize="onAppConfigMaximizeSection"
+              data-on-restore="onAppConfigRestoreSection">      
+              </maximize-control>
+
+              <label class="control-label" for="app-config-json">Application Config</label>
+              <textarea rows="20" class="form-control" id="app-config-json" name="appConfigJson" ng-model="appConfigSection.appConfigFormatted"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" ng-click="updateAppConfig($event)">Save Config</button>
+        </form>
+        <loader data-is-loading="isAppConfigSaving"></loader>
       </div>
     </div>
 
