@@ -350,7 +350,8 @@
     .directive('tinyScrollbar', require('./directives/tinyScrollbar'))
     .directive('bootstrapCarousel', require('./directives/bootstrapCarousel'))
     .directive('appFooter', require('./directives/appFooter'))
-    .directive('socialMediaShare', require('./directives/socialMediaShare'));
+    .directive('socialMediaShare', require('./directives/socialMediaShare'))
+    .directive('maximizeControl', require('./directives/maximizeControl'));
 
     module.exports = angular.module('raiweb.core');
 })();

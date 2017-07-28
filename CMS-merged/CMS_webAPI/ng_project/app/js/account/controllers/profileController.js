@@ -272,6 +272,89 @@
             }
         }
 
+        $scope.reloadAppConfig = function() {
+        	if ($scope.appConfigSection && $scope.appConfigSection.appConfigFormatted) {
+	        	modalService.alert('md',
+					'Reload Application Configuration',
+					'This will discard any changes you made, and reloads a fresh copy of Application Configuration',
+					'Continue', 'Back').result
+	        	.then(function() {
+					$scope.appConfigSection = $scope.appConfigSection || {};
+	        		$scope.appConfigSection.appConfigFormatted = JSON.stringify(window._appConfig || {}, null, "\t");
+				}, function() {
+					//
+				});   
+			} else {
+				$scope.appConfigSection = $scope.appConfigSection || {};
+        		$scope.appConfigSection.appConfigFormatted = JSON.stringify(window._appConfig || {}, null, "\t");
+			}   	
+        }
+
+		$scope.updateAppConfig = function() {
+        	modalService.alert('md',
+				'Save Application Configuration',
+				'This will Overwrite the Application\'s original Configuration and can not be undone.',
+				'Save and Overwrite', 'Back').result
+        	.then(function() {
+				saveApplicationConfig($scope.appConfigSection.appConfigFormatted);
+			}, function() {
+				//
+			});  
+        }
+
+        function saveApplicationConfig(appConfigFormatted) {
+        	try {
+        		$scope.isAppConfigSaving = true;        		
+        		accountService.saveApplicationConfig(appConfigFormatted).then(function(response) {
+        			$scope.isAppConfigSaving = false;
+        			
+        			if (response && response.data && response.data.appConfigJsonString) {	        			
+	        			modalService.alert('md',
+						'Saved Successfully',
+						'Application Configuration JSON has been saved successfully. You need to Reload the Page to Take new Configs in Effect.',
+						'Ok');
+	        		} else {
+	        			$scope.isAppConfigSaving = false;
+	        			modalService.alert('md',
+						'Save Failure',
+						'Application Configuration JSON has Failed Saving',
+						'Try again');
+	        		}
+        		}, function(rejection) {
+        			$scope.isAppConfigSaving = false;
+        			modalService.alert('md',
+					'Save Failure',
+					'Application Configuration JSON has Failed Saving',
+					'Try again');
+        		});
+        	} catch(ex) {
+        		$scope.isAppConfigSaving = false;
+        		modalService.alert('md',
+				'Invalid JSON:' + ex && ex.name,
+				'Application Configuration JSON is not valid. Please verify again</br><strong>ERROR:</strong> </br>' + (ex && ex.message),
+				'Go Back');
+        	}
+        }
+
+        $scope.onAppConfigMaximizeSection = function(event, parentEl, element) {
+        	var $textArea = $(parentEl.find('#app-config-json'));
+        	$scope.originalTextAreaStyle = $textArea.attr('style') || '';
+        	$textArea.css({
+        		position: 'absolute'
+        	});
+        	$textArea.animate({
+        		top: '0px',
+        		left: '0px',
+        		width: '100%',
+        		height: '100%'
+        	}, 100);
+        };
+
+        $scope.onAppConfigRestoreSection = function(event, parentEl, element) {
+        	var $textArea = $(parentEl.find('#app-config-json'));
+        	$textArea.attr('style', $scope.originalTextAreaStyle);
+        };
+
 		$scope.$on('$stateChangeSuccess', function(event, toState /*, fromState , fromParams*/) {
 			if (toState && toState.name) {
 				if (toState.name === 'author.profile') {

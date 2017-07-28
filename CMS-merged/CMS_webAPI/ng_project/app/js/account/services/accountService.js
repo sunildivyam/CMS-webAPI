@@ -30,7 +30,8 @@
 			clearCacheAll: baseCacheApiUrl + '/PostClearCacheAll',
 			checkUserAvailabilty: baseApiUrl + '/CheckUserAvailabilty',
 			getUsersByDate: baseApiUrl + '/GetUsersByDate',
-			uploadUserThumbnail: baseApiUrl + '/UploadUserThumbnail'
+			uploadUserThumbnail: baseApiUrl + '/UploadUserThumbnail',
+			saveApplicationConfig: '/api/cfg'		// ApI call of UI Web Interface itself.
 		};
 
 
@@ -344,6 +345,17 @@
 			});
 		}
 
+		function saveApplicationConfig(appConfigFormatted) {
+			return $http({
+				method: 'post',
+				url: urls.saveApplicationConfig,
+				data: {"appConfigJsonString": appConfigFormatted},
+				headers: {
+					'Content-Type': 'application/json;charset=utf-8'
+				}
+			});
+		}
+
 		return {
 			register: register,
 			login: login,
@@ -368,7 +380,8 @@
 			clearCacheAll: clearCacheAll,
 			checkUserAvailabilty: checkUserAvailabilty,
 			getUsersByDate: getUsersByDate,
-			uploadUserThumbnail: uploadUserThumbnail
+			uploadUserThumbnail: uploadUserThumbnail,
+			saveApplicationConfig: saveApplicationConfig
 		};
 	};
 

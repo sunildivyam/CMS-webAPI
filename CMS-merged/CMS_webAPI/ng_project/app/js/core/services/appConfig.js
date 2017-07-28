@@ -1,7 +1,7 @@
 'use strict';
 (function() {
     var appConfig = function($location) {
-        var config = window._appConfig || {};
+        var config = angular.copy(window._appConfig) || {};
 
         var uiAppConfig = {
             "application": {

@@ -451,28 +451,28 @@
             "sortField": "VisitCount",
             "sortDirAsc": false,
             "viewMode": "list",
-            "tileViewClass": "col-xs-12 col-sm-6 col-md-4",
+            "tileViewClass": "col-xs-12 col-sm-6 col-md-4"
         },
         "pubContentLatest": {
             "title": "Latest Articles",
             "sortField": "PublishedDate",
             "sortDirAsc": false,
             "viewMode": "inline",
-            "tileViewClass": "col-xs-12",
+            "tileViewClass": "col-xs-12"
         },
         "pubContentRelevant": {
             "title": "Most Relevant Articles",
             "sortField": "Title",
             "sortDirAsc": true,
             "viewMode": "inline",
-            "tileViewClass": "col-xs-12",
+            "tileViewClass": "col-xs-12"
         },
         "pubContentRelated": {
             "title": "Related Articles",
             "sortField": "CategoryId",
             "sortDirAsc": true,
             "viewMode": "inline",
-            "tileViewClass": "col-xs-12",
+            "tileViewClass": "col-xs-12"
         }
     },
     "profileActions": [
