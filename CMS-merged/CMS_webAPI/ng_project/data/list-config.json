@@ -505,7 +505,7 @@
             "ride": "carousel",
             "pause": "hover",
             "wrap": true,
-            "interval": 4000,
+            "interval": 3000,
             "theme": "default"
         }
     },
@@ -525,6 +525,8 @@
       "primaryTitle": "Learn Wise Way",
       "highCharIndex": 7,
       "secondaryTitle": "Wise Learnings"
-    }
+    },
+    "bodyImageUrl": "../images/theme-default/body-background-digital-tyres.jpg",
+    "bodyImageSize":  "cover"
   }
 }

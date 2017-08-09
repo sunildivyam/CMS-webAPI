@@ -17,9 +17,12 @@
     </environment>
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
-<body class="raiweb app-body theme-default">
-    <div class="container-fluid">
-        @RenderBody()        
+
+<body class="raiweb app-body theme-default" style=     
+          @(ViewBag.BodyImageUrl != String.Empty ? "background-image:url('" + @ViewBag.BodyImageUrl +"');background-size:" + @ViewBag.BodyImageSize +";" : String.Empty)
+>
+     <div class="container-fluid">
+        @RenderBody()
         <!-- Footer -->
         <div class="row app-footer">
             <div class="col-sm-12">
@@ -27,7 +30,7 @@
             </div>
         </div>
     </div>
-    
+
     <environment names="Development">
         <script type="text/javascript" src="~/index.js"></script>
         <script type="text/javascript" src="~/ckeditor/ckeditor.js"></script>
@@ -38,7 +41,7 @@
         <script type="text/javascript" src="~/ckeditor/ckeditor.js"></script>
         <script type="text/javascript" src="~/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML-full"></script>
     </environment>
-    
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -9,6 +9,7 @@
 
 @default-border-color: rgba(255, 255, 255, 0.2);
 @default-forestgreen: forestgreen;
+@default-box-shadow-color: #cacaca;
 
 // Mixins
 .default-grad(@opacity: 0.7) {
@@ -51,6 +52,7 @@ body.theme-default {
 
     .panel {
         background: transparent;
+        .box-shadow(@default-box-shadow-color 0px 0px 10px 5px);
 
         .panel-heading {
             .default-grad(0.7);

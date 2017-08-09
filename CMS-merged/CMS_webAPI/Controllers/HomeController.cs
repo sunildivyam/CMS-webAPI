@@ -35,7 +35,8 @@ namespace CMS_webAPI.Controllers
                 configJsonObj.categories = JsonConvert.DeserializeObject(categories);
 
                 ViewData["appConfig"] = configJsonObj;
-
+                ViewBag.BodyImageUrl = configJsonObj.application.bodyImageUrl;
+                ViewBag.BodyImageSize = configJsonObj.application.bodyImageSize;
                 return View();
             } catch(Exception ex)
             {

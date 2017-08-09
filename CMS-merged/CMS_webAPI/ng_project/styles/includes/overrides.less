@@ -103,7 +103,8 @@ body {
             margin-bottom: 15px;
 
             &.slide {
-                height: 200px;
+                height: 300px;
+                .box-shadow(#cacaca 0px 0px 10px 5px);
             }
 
             a {
@@ -112,8 +113,12 @@ body {
 
             .carousel-inner {
                 .item{
-                    height: 200px;
+                    height: 300px;
+                    .transition(opacity 1s);
 
+                    &>img {
+                        height: 100%;
+                    }
                     .carousel-caption {
                         margin: 0px 0px 0px auto;
                         padding: 10px 30px;
@@ -140,7 +145,7 @@ body {
                             padding: 10px;
                         }
                     }
-                }
+                }                
             }
 
             .carousel-control {
@@ -165,6 +170,38 @@ body {
                     &:hover {
                         background-color: #00b7f9;
                     }
+                }
+            }
+
+            &.carousel-fade {
+                .carousel-inner {
+                    .item {
+                        .transition(opacity 1s);
+                    }
+                    
+                    .item,
+                    .active.left,
+                    .active.right {
+                        opacity: 0;
+                    }
+
+                    .active,
+                    .next.left,
+                    .prev.right {
+                        opacity: 1;
+                    }
+
+                    .next,
+                    .prev,
+                    .active.left,
+                    .active.right {
+                        left: 0;
+                        transform: translate3d(0, 0, 0);
+                    }
+                }
+
+                .carousel-control {
+                    z-index: 2;
                 }
             }
         }
