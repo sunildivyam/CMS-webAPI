@@ -5,6 +5,11 @@
 				data-content="currentContent"
 				data-is-loading="isLoading">
 			</pubcontent-view>
+
+			<!-- Content's Comments and Comment Box -->
+			<comment-component 
+				data-content="currentContent">				
+			</comment-component>
 		</div>
 		<div class="col-md-12 grid">
 			<div class="col-sm-6 grid-item" ng-repeat="dlContentList in dlContentLists track by $index">

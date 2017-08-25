@@ -4,21 +4,31 @@
         return {
             require: '?ngModel',
             scope: {
-                onInstanceReady: '='    // should be a promise from parent controller
+                onInstanceReady: '=',    // should be a promise from parent controller
+                mode: '@'
             },
             link: function($scope, elm, attr, ngModel) {
                 $timeout(function() {
                     if (!ngModel) return;
 
                     var ck;
-                    ck = CKEDITOR.replace(elm[0], {
-                        extraPlugins: 'sourcedialog,mathjax,codesnippet',
-                        removePlugins:'sourcearea',
-                        mathJaxLib: '/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML',
-                        //mathJaxLib: '//cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
-                        filebrowserBrowseUrl: '/resourcebrowser',
-                        filebrowserUploadUrl: '/browser/upload.php'
-                    });
+                    if ($scope.mode==='comment') {
+                        ck = CKEDITOR.replace(elm[0], {
+                            extraPlugins: 'mathjax,codesnippet',
+                            removePlugins:'sourcearea',
+                            mathJaxLib: '/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML'
+                        });
+                    } else {
+                        ck = CKEDITOR.replace(elm[0], {
+                            extraPlugins: 'sourcedialog,mathjax,codesnippet',
+                            removePlugins:'sourcearea',
+                            mathJaxLib: '/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML',
+                            //mathJaxLib: '//cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
+                            filebrowserBrowseUrl: '/resourcebrowser',
+                            filebrowserUploadUrl: '/browser/upload.php'
+                        });
+                    }
+                    
 
                     $timeout(function() {
                         // This updates the ngModelwhen ck editor data changes

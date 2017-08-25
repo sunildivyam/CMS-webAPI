@@ -63,7 +63,7 @@
             });
         }
 
-        $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+        $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
             if (toState && toState.name) {
                 Utils.getListConfigs().then(function(response) {
                     $rootScope.application = response && response.application;
@@ -77,6 +77,10 @@
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
                 //Adds Body Class as per currentState
                 $rootScope.bodyClass = toState.name.split('.')[0];
+
+                if (['login', 'register'].includes(toState.name) && fromState.returnable === true) {
+                    accountService.setReturnState(fromState.name, fromParams);
+                }
             }
         });
 

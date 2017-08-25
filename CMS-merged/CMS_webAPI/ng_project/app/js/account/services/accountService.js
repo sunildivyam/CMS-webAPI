@@ -34,6 +34,7 @@
 			saveApplicationConfig: '/api/cfg'		// ApI call of UI Web Interface itself.
 		};
 
+		var _returnState, _returnStateData;
 
 		init();
 
@@ -356,6 +357,26 @@
 			});
 		}
 
+		function getReturnState() {
+			return _returnState;
+		}
+
+		function setReturnState(stateName, stateParams) {
+			if (stateName) {
+				_returnState = {
+					stateName: stateName,
+					stateParams: stateParams,
+					stateData: _returnStateData
+				}
+			} else {
+				_returnState = undefined;
+			}
+		}
+
+		function setReturnStateData(stateData) {
+			_returnStateData = stateData;			
+		}
+
 		return {
 			register: register,
 			login: login,
@@ -381,7 +402,10 @@
 			checkUserAvailabilty: checkUserAvailabilty,
 			getUsersByDate: getUsersByDate,
 			uploadUserThumbnail: uploadUserThumbnail,
-			saveApplicationConfig: saveApplicationConfig
+			saveApplicationConfig: saveApplicationConfig,
+			getReturnState: getReturnState,
+			setReturnState: setReturnState,
+			setReturnStateData: setReturnStateData
 		};
 	};
 

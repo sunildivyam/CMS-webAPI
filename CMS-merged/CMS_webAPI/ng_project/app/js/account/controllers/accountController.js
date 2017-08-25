@@ -19,6 +19,15 @@
         $scope.loginInfo = {};
         $scope.resetPasswordModel = {};
 
+        function navigateToReturnState(defaultState, defaultToParams) {
+            var returnStateInfo = accountService.getReturnState();
+            if (returnStateInfo) {
+                $state.go(returnStateInfo.stateName, returnStateInfo.stateParams);
+            } else {
+                $state.go(defaultState, defaultToParams);
+            }
+        }
+
         $scope.retry = function() {
             $scope.success = false;
         };
@@ -66,8 +75,12 @@
             accountService.login($scope.loginInfo).then(function() {
                 $rootScope.currentUser = accountService.getLoggedInUser();
                 $scope.isSigningIn = false;
-                modalService.alert('sm', 'Login Successful', 'You are successfully logged in.', 'View Dashboard');
-                $state.go('author.dashboard');
+                modalService.alert('sm', 'Login Successful', 'You are successfully logged in.', 'Return Back', 'Go to dashboard')
+                .result.then(function() {
+                    navigateToReturnState('author.dashboard');  
+                }, function() {
+                    $state.go('author.dashboard');  
+                });                              
             }, function(rejection){
                 $rootScope.currentUser = accountService.getLoggedInUser();
                 $scope.isSigningIn = false;

@@ -264,12 +264,17 @@
     <Compile Include="CmsDbMigrations\201701170637127_ResourceBrowser.Designer.cs">
       <DependentUpon>201701170637127_ResourceBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="CmsDbMigrations\201708091031055_ContentComments.cs" />
+    <Compile Include="CmsDbMigrations\201708091031055_ContentComments.Designer.cs">
+      <DependentUpon>201708091031055_ContentComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="CmsDbMigrations\Configuration.cs" />
     <Compile Include="Controllers\AuthorContentsController.cs" />
     <Compile Include="Controllers\AuthorContentTagsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ContentsController.cs" />
     <Compile Include="Controllers\ContentTagsController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
@@ -295,6 +300,8 @@
     <Compile Include="Models\AuthorContentViewModel.cs" />
     <Compile Include="Models\AuthorViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\Content.cs" />
     <Compile Include="Models\ContentResource.cs" />
     <Compile Include="Models\ContentResourceViewModel.cs" />
@@ -432,6 +439,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CmsDbMigrations\201701170637127_ResourceBrowser.resx">
       <DependentUpon>201701170637127_ResourceBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CmsDbMigrations\201708091031055_ContentComments.resx">
+      <DependentUpon>201708091031055_ContentComments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityMigrations\201608280406225_InitialCreate.resx">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>

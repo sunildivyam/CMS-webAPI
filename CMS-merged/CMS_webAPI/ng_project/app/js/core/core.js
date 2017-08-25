@@ -20,7 +20,8 @@
                 return $templateCache.get('core/error.html');
             }],
             isAnonymous: true,
-            title: 'Error'
+            title: 'Error',
+            returnable: false           // The returnable property allows user to return to state from Login or Register Page
         })
         .state({
             name: 'termsandconditions',
@@ -29,7 +30,8 @@
                 return $templateCache.get('core/terms-and-conditions-landing.html');
             }],
             isAnonymous: true,
-            title: 'Terms and Conditions'
+            title: 'Terms and Conditions',
+            returnable: false
         })
         .state({
             name: 'login',
@@ -39,7 +41,8 @@
             }],
             controller: 'accountController',
             isAnonymous: true,
-            title: 'Login'
+            title: 'Login',
+            returnable: false
         })
         .state({
             name: 'register',
@@ -49,7 +52,8 @@
             }],
             controller: 'accountController',
             isAnonymous: true,
-            title: 'Register'
+            title: 'Register',
+            returnable: false
         })
         .state({
             name: 'forgotpassword',
@@ -59,7 +63,8 @@
             }],
             controller: 'accountController',
             isAnonymous: true,
-            title: 'Forgot Password'
+            title: 'Forgot Password',
+            returnable: false
         })
         .state({
             name: 'resetpassword',
@@ -69,7 +74,8 @@
             }],
             controller: 'accountController',
             isAnonymous: true,
-            title: 'Reset Password'
+            title: 'Reset Password',
+            returnable: false
         })
         .state({
             name: 'verifyemail',
@@ -79,7 +85,8 @@
             }],
             controller: 'accountController',
             isAnonymous: true,
-            title: 'Verify Email'
+            title: 'Verify Email',
+            returnable: false
         })
         .state({
             name: 'resendverifyemail',
@@ -89,7 +96,8 @@
             }],
             controller: 'accountController',
             isAnonymous: true,
-            title: 'Resend Confirmation Email'
+            title: 'Resend Confirmation Email',
+            returnable: false
         })
         .state({
             name: 'logout',
@@ -99,7 +107,8 @@
             }],
             controller: 'accountController',
             isAnonymous: false,
-            title: 'Logout'
+            title: 'Logout',
+            returnable: false
         })
         .state({
             name: 'resourcebrowser',
@@ -109,7 +118,8 @@
             }],
             controller: 'resourcebrowserController',
             isAnonymous: false,
-            title: 'File Browser'
+            title: 'File Browser',
+            returnable: true
         })
         .state({
             name: 'author',
@@ -119,7 +129,8 @@
             }],
             controller: 'authorController',
             isAnonymous: false,
-            resolve: {}
+            resolve: {},
+            returnable: true
         })
         .state({
             name: 'author.profile',
@@ -128,7 +139,8 @@
                 return $templateCache.get('account/profile-landing.html');
             }],
             controller: 'profileController',
-            isAnonymous: false
+            isAnonymous: false,
+            returnable: true
         })
         .state({
             name: 'author.profile.myprofile',
@@ -137,7 +149,8 @@
                 return $templateCache.get('account/profile.html');
             }],
             isAnonymous: false,
-            title: 'My Profile'
+            title: 'My Profile',
+            returnable: true
         })
         .state({
             name: 'author.profile.changepassword',
@@ -146,7 +159,8 @@
                 return $templateCache.get('account/change-password.html');
             }],
             isAnonymous: false,
-            title: 'Change Password'
+            title: 'Change Password',
+            returnable: false
         })
         .state({
             name: 'author.profile.adminpanel',
@@ -156,7 +170,8 @@
             }],
             isAnonymous: false,
             inRoles: ['Administrators'],
-            title: 'My Workspace'
+            title: 'My Workspace',
+            returnable: true
         })
         .state({
             name: 'author.content',
@@ -166,7 +181,8 @@
             }],
             controller: 'contentController',
             isAnonymous: false,
-            title: 'Write Article'
+            title: 'Write Article',
+            returnable: true
         })
         .state({
             name: 'author.tag',
@@ -176,7 +192,8 @@
             }],
             controller: 'tagController',
             isAnonymous: false,
-            title: 'Manage Tags'
+            title: 'Manage Tags',
+            returnable: true
         })
         .state({
             name: 'author.category',
@@ -186,7 +203,8 @@
             }],
             controller: 'categoryController',
             isAnonymous: false,
-            title: 'Manage Categories'
+            title: 'Manage Categories',
+            returnable: true
         })
         .state({
             name: 'author.dashboard',
@@ -196,7 +214,8 @@
             }],
             controller: 'dashboardController',
             isAnonymous: false,
-            title: 'Author Dashboard'
+            title: 'Author Dashboard',
+            returnable: true
         })
 
         // Published Contents
@@ -207,7 +226,8 @@
                 return $templateCache.get('core/pub-landing.html');
             }],
             controller: 'pubhomeController',
-            isAnonymous: true
+            isAnonymous: true,
+            returnable: true
         })
         .state({
             name: 'pub.articles',
@@ -216,7 +236,8 @@
                 return $templateCache.get('pubcontent/category-landing.html');
             }],
             controller: 'pubcontentController',
-            isAnonymous: true
+            isAnonymous: true,
+            returnable: true
         })
         .state({
             name: 'pub.articles.content',
@@ -225,7 +246,8 @@
                 return $templateCache.get('pubcontent/content-landing.html');
             }],
             controller: 'pubcontentController',
-            isAnonymous: true
+            isAnonymous: true,
+            returnable: true
         })
         .state({
             name: 'pub.tags',
@@ -235,7 +257,8 @@
             }],
             controller: 'pubTagController',
             isAnonymous: true,
-            title: 'Articles by Tag'
+            title: 'Articles by Tag',
+            returnable: true
         })
         .state({
             name: 'pub.search',
@@ -245,7 +268,8 @@
             }],
             controller: 'searchController',
             isAnonymous: true,
-            title: 'Search Articles'
+            title: 'Search Articles',
+            returnable: true
         })
         .state({
             name: 'pub.myspace',
@@ -255,7 +279,8 @@
             }],
             controller: 'myspaceController',
             isAnonymous: true,
-            title: 'Articles'            // should be "User Name - Articles"
+            title: 'Articles',  // should be "User Name - Articles"
+            returnable: true            
         });
 
         // Enables html5Mode Urls
@@ -333,6 +358,7 @@
     .factory('Tag', require('./domain/Tag'))
     .factory('Content', require('./domain/Content'))
     .factory('ContentResource', require('./domain/ContentResource'))
+    .factory('Comment', require('./domain/Comment'))
 
     .controller('appController', require('./controllers/appController'))
     .controller('genericListController', require('./controllers/genericListController'))

@@ -24,6 +24,11 @@
 				base: 'categories',
 				getCategories: 'getCategories',
 				getCategoryByName: 'GetCategoryByName'
+			},
+			'comments': {
+				base: 'comments',
+				getCommentsByContentId: 'GetCommentsByContentId',
+				postComment: 'PostComment'
 			}
 		};
 
@@ -100,6 +105,14 @@
 				contentName].join('/'), undefined, requestHeaders, CACHE);
 		}
 
+		//Comments
+		function getCommentsByContentId(contentId) {
+			return appService.get([urls.comments.base, urls.comments.getCommentsByContentId, contentId].join('/'));
+		}
+
+		function addComment(comment) {
+			return appService.post([urls.comments.base, urls.comments.postComment].join('/'), comment, requestHeaders);
+		}
 
 		function getUniqueTagsOfContents(contents) {
 			var distinctTags = new EntityMapper(Tag).toEntities();
@@ -144,7 +157,9 @@
 			getContent: getContent,
 			getUniqueTagsOfContents: getUniqueTagsOfContents,
 			getUniqueTagsOfTags: getUniqueTagsOfTags,
-			getContentsByUserName: getContentsByUserName
+			getContentsByUserName: getContentsByUserName,
+			getCommentsByContentId: getCommentsByContentId,
+			addComment: addComment
 		};
 	};
 	pubcontentService.$inject = ['appService', 'EntityMapper', 'Tag'];
