@@ -14,7 +14,7 @@ namespace CMS_webAPI.AppCode
     {
         public static string PUBLISHED_ARTICLE_IMAGES_PATH = "~/publishedarticleimages/";
         public static string AUTHOR_ARTICLE_IMAGES_PATH = "~/articleimages/";
-
+        public static string PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH = "~/publishedarticleimages/default.jpg";
         /// <summary>
         /// Checking whether the image needs to be resized
         /// </summary>
@@ -228,6 +228,19 @@ namespace CMS_webAPI.AppCode
             }
 
             FileStream fileStream = GetImageFromDisk(publishedArticleImageFullPath);
+            return fileStream;
+        }
+
+        public static FileStream GetPublishedArticleDefaultImage()
+        {
+            string publishedArticleDefaultImageFullPath = HttpContext.Current.Server.MapPath(PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH);
+
+            if (publishedArticleDefaultImageFullPath == null)
+            {
+                return null;
+            }
+
+            FileStream fileStream = GetImageFromDisk(publishedArticleDefaultImageFullPath);
             return fileStream;
         }
 

@@ -38,16 +38,16 @@ namespace CMS_webAPI.Controllers
 
                 if (articleImageFullPath != null)
                 {
-                    fileStream = ImageHelper.GetPublishedArticleImage(id, name);
+                    fileStream = ImageHelper.GetPublishedArticleImage(id, name);                    
                 }
                 else
                 {
-                    response = new HttpResponseMessage(HttpStatusCode.NotFound);
-                    return response;
+                    fileStream = ImageHelper.GetPublishedArticleDefaultImage();                    
+                    //response = new HttpResponseMessage(HttpStatusCode.NotFound);
+                    //return response;
                 }
-                
                 response = new HttpResponseMessage { Content = new StreamContent(fileStream) };
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(ImageHelper.GetImageTypeFromExtension(articleImageFullPath.Substring(articleImageFullPath.LastIndexOf(".")+ 1)));
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(ImageHelper.GetImageTypeFromExtension("jpg"));
                 response.Content.Headers.ContentLength = fileStream.Length;
             } catch (Exception ex) {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);                
