@@ -12,7 +12,8 @@
 		// Re Scans the Page for Equation Processing,
 		// updates if finds any modified but unprocessed equations
 		// It does not reprocess already processed equations
-		function updateMathJax() {
+		function updateMathJax(elm) {
+			var element = $(elm);
 			if (MathJax && MathJax.Hub) {
 				if (MathJax.Hub.config) {
 					MathJax.Hub.config.showMathMenu = false;
@@ -21,7 +22,13 @@
 					}
 				}
 				if (MathJax.Hub.Queue) {
-					MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+					if (element && element.length) {
+						MathJax.Hub.Reprocess(element[0], function() {							
+							MathJax.Hub.Queue(["Typeset",MathJax.Hub], element[0]);
+						});						
+					} else {
+						MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+					}
 				}
 			}
 		}

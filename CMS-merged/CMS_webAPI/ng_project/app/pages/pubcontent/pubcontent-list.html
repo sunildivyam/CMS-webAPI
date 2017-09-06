@@ -85,10 +85,12 @@
 					<span class="glyphicon glyphicon-pushpin"></span>
 				</span>
 				<a href="#" ui-sref="pub.articles.content({n: item.category.name, ci: item.contentId, cn: item.name})" ng-click="itemClick($event, item)">
-					<img class="content-thumbnail" ng-if="item.authorContentId || item.contentId"
-					ng-src="{{getThumbnailUrl(item)}}"
-					onerror="this.style.display = 'none';"
-					onload="this.style.display = 'block';">
+					<div class="content-thumbnail">
+						<img class="" ng-if="item.authorContentId || item.contentId"
+						ng-src="{{getThumbnailUrl(item)}}"
+						onerror="this.style.display = 'none';"
+						onload="this.style.display = 'block';">
+					</div>
 					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
 				</a>
 				<p ng-bind-html="item.shortDescription" class="small short-description"></p>

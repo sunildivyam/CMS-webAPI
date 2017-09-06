@@ -52,7 +52,7 @@
                     }
 
                     function updateCkEditor() {
-                        ck.setData(ngModel.$viewValue);
+                        ck.setData(ngModel.$viewValue || '');
                     }
                 });
             }

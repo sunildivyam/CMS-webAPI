@@ -51,6 +51,7 @@
             },
             controller: 'genericListController',
             link: function($scope, element) {
+                $scope.$el = $(element);
                 $scope.updateEllipsis = function() {
                     $timeout(function() {
                         var $element = $(element);
@@ -81,9 +82,12 @@
                 };
 
                 $scope.$on("onRepeatItemsLoaded", function(event) {
+                    var listElem = element.find('.' + $scope.viewMode + '-view');
+
+                    $scope.updateMathJax(listElem);
                     $scope.updateEllipsis();
                     $scope.updateScrollbar();
-
+                    
                     if (typeof $scope.onRefresh === 'function' && !$scope.enableScrollbar) {
                         $scope.onRefresh(event);
                     }

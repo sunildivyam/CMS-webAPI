@@ -47,8 +47,10 @@
 				$scope.currentComments.push(addedComment);
 
 				//reset
-				$scope.comment.description = '';
-				$scope.comment = new Comment();												
+				$timeout(function(){
+					$scope.comment = new Comment();	
+				});
+															
 			}, function(rejection) {
 				$scope.isLoading = false;
 				$scope.loaderMsg = '';

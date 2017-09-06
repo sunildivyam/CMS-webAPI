@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var genericListController = function($scope, $timeout, Utils) {
+    var genericListController = function($scope, $timeout, Utils, CkEditorService) {
         var DEFAULT_ITEMS_TYPE = 'pubContent';
         var INLINE_SEARCH_UPDATE_SCROLLBAR_DELAY = 500;
 
@@ -32,8 +32,10 @@
                     $scope.onRefresh(event);
                 }
             }, 50);
+            var listElem = $scope.$el.find('.' + btn.id + '-view');
+            $scope.updateMathJax(listElem);
             $scope.updateEllipsis();
-            $scope.updateScrollbar();
+            $scope.updateScrollbar();            
         };
 
         $scope.footerLinkClick = function(event) {
@@ -102,8 +104,12 @@
                 $scope.updateScrollbar();
             }, INLINE_SEARCH_UPDATE_SCROLLBAR_DELAY);
         }
+
+        $scope.updateMathJax = function(elem) {
+            CkEditorService.updateMathJax(elem);
+        };
     };
 
-    genericListController.$inject = ['$scope', '$timeout', 'Utils'];
+    genericListController.$inject = ['$scope', '$timeout', 'Utils', 'CkEditorService'];
     module.exports = genericListController;
 })();

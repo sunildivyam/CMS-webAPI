@@ -29,7 +29,7 @@
       </div>
     </li>
   </ul> 
-
+  <div ng-show="" class="label label-info">Be the first to post a comment </div>
   <div class="container-fluid"  ng-show="!isLoading">
     <div class="row">
       <div class="col-sm-8">
@@ -70,8 +70,8 @@
             </div>
           </div>
         </form>
-        <div class="well" ng-show="!isAnonymous()">
-          Please be responsible, posting comments.          
+        <div class="panel comment-box-info" ng-show="!isAnonymous()">
+          <span class="">You are here, means that you can post, contribute, and share your valuable knowledge with rest of the world. You can also leave a question or query for the author or other participating readers like you. Enjoy reading!</span>         
         </div>
       </div>
     </div>

@@ -28,6 +28,14 @@
             }
         }
 
+        function isReturnStateAvailable() {
+            var returnStateInfo = accountService.getReturnState();
+            if (returnStateInfo && returnStateInfo.stateName) {
+                return true;
+            }
+            return false;
+        }
+
         $scope.retry = function() {
             $scope.success = false;
         };

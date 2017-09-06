@@ -95,13 +95,14 @@
 				}
 
 				&.grid-view {
-					li {
+					&>li {
 						position: relative;
 						margin: 5px;
 						padding: 8px;
 						display: inline-block;
 						width: 120px;
 						height: 200px;
+						list-style: none;
 						.border-radius(10px);
 
 						.media-left {
@@ -137,20 +138,29 @@
 				}
 
 				&.tile-view {
-					li {
+					&>li {
 						border: none;
-						box-shadow: none;
-
+						box-shadow: none;						
+						list-style: none;
+						
 						.thumbnail{
 							width: 100%;
 							height: 100%;
 							text-align: center;
 							padding: 15px;
 							background: none;
+							position: relative;
+
+							.content-thumbnail {
+								width: 100%;
+								height: auto;
+								max-height: 200px;
+								overflow: hidden;
+							}
 
 							img {
 								outline: none;
-								max-height: 200px;
+								margin: auto;								
 							}
 
 							.media-heading {
