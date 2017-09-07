@@ -39,7 +39,7 @@ gulp.task('package', function() {
 gulp.task('default', ['package']);
 
 gulp.task('ckeditor', function() {
-	return runSequence('ckeditor-clean', ['ckeditor-self', 'mathjax']);
+	return runSequence('ckeditor-clean', ['ckeditor-self', 'mathjax'],'ckeditor-youtube');
 });
 
 gulp.task('watch', function() {

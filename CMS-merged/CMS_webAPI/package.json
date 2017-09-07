@@ -44,7 +44,8 @@
     "mathjax": "^2.7.0",
     "roboto-fontface": "^0.7.0",
     "tinyscrollbar": "^2.4.2",
-    "ui-select": "^0.19.8"
+    "ui-select": "^0.19.8",
+    "ckeditor-youtube-plugin": "^2.1.5"
   },
   "config": {
     "targetRoot": "wwwroot",

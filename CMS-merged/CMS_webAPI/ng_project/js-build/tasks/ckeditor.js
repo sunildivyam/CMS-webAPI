@@ -14,7 +14,8 @@ module.exports = function(gulp, config) {
       "target": "ckeditor",
       "libTarget": "ckeditor/libs",
       "mathJaxSrc": "./node_modules/mathjax/**/*",
-      "mathJax": "mathjax"
+      "mathJax": "mathjax",
+      "youtube": "./node_modules/ckeditor-youtube-plugin/youtube/**/*"
     };
 
 	gulp.task('ckeditor-clean', function() {
@@ -30,5 +31,10 @@ module.exports = function(gulp, config) {
 		// MathJax
 		return gulp.src([ckConfig.mathJaxSrc])
             .pipe(gulp.dest([config.targetRoot, ckConfig.libTarget, ckConfig.mathJax].join('/')));
+	});
+
+	gulp.task('ckeditor-youtube', function() {
+		return gulp.src([ckConfig.youtube])
+		.pipe(gulp.dest(config.targetRoot + '/' + ckConfig.target + '/plugins/youtube/'));
 	});
 };

@@ -18,9 +18,15 @@
                             removePlugins:'sourcearea',
                             mathJaxLib: '/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML'
                         });
-                    } else {
+                    } else if ($scope.mode==='shortDescription') {
                         ck = CKEDITOR.replace(elm[0], {
                             extraPlugins: 'sourcedialog,mathjax,codesnippet',
+                            removePlugins:'sourcearea',
+                            mathJaxLib: '/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML'
+                        });
+                    } else {
+                        ck = CKEDITOR.replace(elm[0], {
+                            extraPlugins: 'sourcedialog,mathjax,codesnippet,youtube',
                             removePlugins:'sourcearea',
                             mathJaxLib: '/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML',
                             //mathJaxLib: '//cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
