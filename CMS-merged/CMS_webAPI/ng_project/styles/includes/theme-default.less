@@ -500,4 +500,46 @@ body.theme-default {
             }
         }
     }
+
+    .pubcontent-view, .content-preview {
+        h1,h2,h3,h4,h5,h6 {
+            margin: 15px;
+            color: @default-forestgreen;
+        }
+
+        ul,ol {
+            margin: 15px;
+            padding: 0 40px;
+
+            li {
+                padding: 10px;
+            }
+        }
+
+        p {
+            margin: 15px;
+        }
+
+        a,a:active,a:visited {           
+            text-decoration: none;
+            cursor: pointer;
+
+            &:hover {
+                color: @default-forestgreen;;
+                text-decoration: underline;
+            }
+        }
+
+        table {
+            margin: 15px;
+
+            th, td {
+                padding: 10px;
+            }
+
+            caption {
+                text-align: center;
+            }
+        }
+    }
 }
