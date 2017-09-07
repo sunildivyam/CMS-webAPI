@@ -264,7 +264,7 @@ namespace CMS_webAPI.Controllers
             try
             {
                 ApiCache.Remove(ApiCache.GenerateKey("Contents", "GetContent", new string[] { publishedContentView.Category.Name, publishedContentView.ContentId.ToString() }));
-                ApiCache.Remove(ApiCache.GenerateKey("Contents", "GetContentsByCategoryName", new string[] { publishedContentView.Category.Name}));
+                ApiCache.Remove(ApiCache.GenerateKey("Contents", "GetContentsByCategoryName", new string[] { publishedContentView.Category.Name}), true);
             } 
             catch(Exception) 
             {

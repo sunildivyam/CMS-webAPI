@@ -208,7 +208,7 @@ namespace CMS_webAPI.AppCode
         /// <returns></returns>
         public static FileStream GetImageFromDisk(string imageFullUrl)
         {
-            FileStream fileStream = File.Open(imageFullUrl, FileMode.Open, FileAccess.Read);
+            FileStream fileStream = File.Open(imageFullUrl, FileMode.Open, FileAccess.Read, FileShare.Read);
             return fileStream;            
         }
 
@@ -231,17 +231,30 @@ namespace CMS_webAPI.AppCode
             return fileStream;
         }
 
-        public static FileStream GetPublishedArticleDefaultImage()
+        public static MemoryStream GetPublishedArticleDefaultImage()
         {
             string publishedArticleDefaultImageFullPath = HttpContext.Current.Server.MapPath(PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH);
-
+            
             if (publishedArticleDefaultImageFullPath == null)
             {
                 return null;
             }
 
-            FileStream fileStream = GetImageFromDisk(publishedArticleDefaultImageFullPath);
-            return fileStream;
+            byte[] streamBytes = (byte[])ApiCache.Get(PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH);
+            if (streamBytes == null)
+            {
+                FileStream fileStream = GetImageFromDisk(publishedArticleDefaultImageFullPath);
+            
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    fileStream.CopyTo(ms);
+                    streamBytes = ms.ToArray();
+                    ApiCache.Add(PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH, streamBytes);
+                }
+            }
+            
+            MemoryStream  fileMem = new MemoryStream(streamBytes);
+            return fileMem;
         }
 
         /// <summary>

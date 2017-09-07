@@ -28,8 +28,7 @@ namespace CMS_webAPI.Controllers
         public HttpResponseMessage GetArticleImage(int param1, string param2)
         {   
             int id = param1;
-            string name = param2;
-            FileStream fileStream;
+            string name = param2;            
             HttpResponseMessage response;
 
             try
@@ -38,17 +37,21 @@ namespace CMS_webAPI.Controllers
 
                 if (articleImageFullPath != null)
                 {
-                    fileStream = ImageHelper.GetPublishedArticleImage(id, name);                    
+                    FileStream fileStream;
+                    fileStream = ImageHelper.GetPublishedArticleImage(id, name);
+                    response = new HttpResponseMessage { Content = new StreamContent(fileStream) };
+                    response.Content.Headers.ContentLength = fileStream.Length;
                 }
                 else
                 {
-                    fileStream = ImageHelper.GetPublishedArticleDefaultImage();                    
+                    MemoryStream fileStream = ImageHelper.GetPublishedArticleDefaultImage();
+                    response = new HttpResponseMessage { Content = new StreamContent(fileStream) };
+                    response.Content.Headers.ContentLength = fileStream.Length;
                     //response = new HttpResponseMessage(HttpStatusCode.NotFound);
                     //return response;
                 }
-                response = new HttpResponseMessage { Content = new StreamContent(fileStream) };
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue(ImageHelper.GetImageTypeFromExtension("jpg"));
-                response.Content.Headers.ContentLength = fileStream.Length;
+                
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(ImageHelper.GetImageTypeFromExtension("jpg"));                
             } catch (Exception ex) {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);                
             }
