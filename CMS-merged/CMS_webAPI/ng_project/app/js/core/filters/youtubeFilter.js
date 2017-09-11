@@ -8,6 +8,15 @@
 
 (function() {
     var youtubeFilter = function($sce, $sanitize) {
+
+    	/*
+		*	This method, parses the youtube iframe by following few steps:
+		*	1) Finds all youtube Iframes and replaces them with temporary string "///YOUTUBE_IFRAME///"
+		*	2) Sanitizes the truncated text.
+		*	3) Replaces back all youtube instances with the iframe code.
+		*	Commenting out as of now, because CKEditor itself uses out of the box Sanitization.
+    	*/
+    /*
     	function pasrseForYoutube(text, cb) {				
 			var foundIndex = text.indexOf('<iframe');
 			var str = text;
@@ -28,8 +37,9 @@
 			return text;
 		}
 
-
+	*/
         return function(text) {
+    	/*
 	        if (text) {        	
 	        	var foundYoutubeVideos = []; 
 	        	text = pasrseForYoutube(text, function(foundYoutubeVideoIframe, name) {
@@ -47,6 +57,9 @@
 	            return $sce.trustAsHtml(text);
 	        }
 	        return text;
+        */
+        	return $sce.trustAsHtml(text);	// This allows all CKEditor inline styling and all Tags which are included in toolbar.
+        	
         };
     };
 
