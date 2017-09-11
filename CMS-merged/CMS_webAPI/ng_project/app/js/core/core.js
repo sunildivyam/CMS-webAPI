@@ -359,6 +359,8 @@
     .factory('Content', require('./domain/Content'))
     .factory('ContentResource', require('./domain/ContentResource'))
     .factory('Comment', require('./domain/Comment'))
+    
+    .filter('youtubeFilter', require('./filters/youtubeFilter'))
 
     .controller('appController', require('./controllers/appController'))
     .controller('genericListController', require('./controllers/genericListController'))

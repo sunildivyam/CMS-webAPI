@@ -46,7 +46,7 @@
 		</div>
 	</div>
 	<div class="panel-body">
-		<div class="content-description" ng-bind-html="content.description"></div>
+		<div class="content-description" ng-bind-html="content.description | youtubeFilter"></div>
 	</div>
 	<div class="panel-footer">
 		<tags tag-items="content.tags"></tags>
