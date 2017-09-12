@@ -263,7 +263,7 @@ namespace CMS_webAPI.Controllers
             //ContentViewModel publishedContentView = new ContentViewModel(contentToPub);
             try
             {
-                ApiCache.Remove(ApiCache.GenerateKey("Contents", "GetContent", new string[] { publishedContentView.Category.Name, publishedContentView.ContentId.ToString() }));
+                ApiCache.Remove(ApiCache.GenerateKey("Contents", "GetContent", new string[] { publishedContentView.Category.Name, publishedContentView.ContentId.ToString() }), true);
                 ApiCache.Remove(ApiCache.GenerateKey("Contents", "GetContentsByCategoryName", new string[] { publishedContentView.Category.Name}), true);
             } 
             catch(Exception) 
