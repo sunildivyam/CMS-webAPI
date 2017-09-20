@@ -24,5 +24,10 @@ namespace CMS_webAPI.Models
         public virtual DbSet<AuthorContentTag> AuthorContentTags { get; set; }
         public virtual DbSet<ContentResource> ContentResources { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<Quiz> Quizzes { get; set; }
+        public virtual DbSet<QuestionTag> QuestionTags { get; set; }
+        public virtual DbSet<QuizTag> QuizTags { get; set; }
     }
 }

@@ -268,6 +268,10 @@
     <Compile Include="CmsDbMigrations\201708091031055_ContentComments.Designer.cs">
       <DependentUpon>201708091031055_ContentComments.cs</DependentUpon>
     </Compile>
+    <Compile Include="CmsDbMigrations\201709191224389_QuizAndQuestions.cs" />
+    <Compile Include="CmsDbMigrations\201709191224389_QuizAndQuestions.Designer.cs">
+      <DependentUpon>201709191224389_QuizAndQuestions.cs</DependentUpon>
+    </Compile>
     <Compile Include="CmsDbMigrations\Configuration.cs" />
     <Compile Include="Controllers\AuthorContentsController.cs" />
     <Compile Include="Controllers\AuthorContentTagsController.cs" />
@@ -278,6 +282,7 @@
     <Compile Include="Controllers\ContentsController.cs" />
     <Compile Include="Controllers\ContentTagsController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Controllers\QuizzesController.cs" />
     <Compile Include="Controllers\ResourceBrowserController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="IdentityMigrations\201608280406225_InitialCreate.cs" />
@@ -298,6 +303,7 @@
     </Compile>
     <Compile Include="IdentityMigrations\Configuration.cs" />
     <Compile Include="Models\AuthorContentViewModel.cs" />
+    <Compile Include="Models\AuthorQuizzesViewModel.cs" />
     <Compile Include="Models\AuthorViewModel.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -321,6 +327,12 @@
     <Compile Include="AppCode\EmailService.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="AppCode\ImageHelper.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\QuestionTag.cs" />
+    <Compile Include="Models\QuestionViewModel.cs" />
+    <Compile Include="Models\Quiz.cs" />
+    <Compile Include="Models\QuizTag.cs" />
+    <Compile Include="Models\QuizViewModel.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\TagViewModel.cs" />
@@ -442,6 +454,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CmsDbMigrations\201708091031055_ContentComments.resx">
       <DependentUpon>201708091031055_ContentComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CmsDbMigrations\201709191224389_QuizAndQuestions.resx">
+      <DependentUpon>201709191224389_QuizAndQuestions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityMigrations\201608280406225_InitialCreate.resx">
       <DependentUpon>201608280406225_InitialCreate.cs</DependentUpon>

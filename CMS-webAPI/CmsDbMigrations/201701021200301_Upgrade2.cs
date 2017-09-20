@@ -30,8 +30,8 @@ namespace CMS_webAPI.CmsDbMigrations
 
         public override void Down()
         {
-            Sql("DROP Trigger IF EXIST updateUpdateCountOnAuthorContents");
-            Sql("DROP Procedure IF EXIST proc_UpdateVisitCountOnContents");
+            Sql("IF OBJECT_ID ('updateUpdateCountOnAuthorContents', 'TR') IS NOT NULL  DROP TRIGGER updateUpdateCountOnAuthorContents");
+            Sql("IF OBJECT_ID ('proc_UpdateVisitCountOnContents', 'P') IS NOT NULL  DROP PROCEDURE proc_UpdateVisitCountOnContents");
         }
     }
 }
