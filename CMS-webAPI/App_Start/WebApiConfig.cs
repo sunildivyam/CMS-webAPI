@@ -35,7 +35,11 @@ namespace CMS_webAPI
                     param6 = RouteParameter.Optional,
                     action = "Get"
                 }
-            );            
+            );     
+       
+            // JSON Serialize Settings
+            //config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; 
         }
     }
 }

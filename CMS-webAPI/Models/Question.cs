@@ -7,9 +7,14 @@ namespace CMS_webAPI.Models
 {
     public class Question
     {
+        private string _AuthorId;
+        
         public Question()
         {
-
+            this.Quizs = new HashSet<Quiz>();
+            this.Comments = new HashSet<QuestionComment>();
+            this.Tags = new HashSet<Tag>();
+            this.Author = UserService.GetUserViewModelById(this.AuthorId);
         }
 
         [Key]
@@ -23,11 +28,9 @@ namespace CMS_webAPI.Models
 
         [Required]
         public string OptionB { get; set; }
-
-        [Required]
+                
         public string OptionC { get; set; }
-
-        [Required]
+                
         public string OptionD { get; set; }
 
         [Required]
@@ -40,7 +43,10 @@ namespace CMS_webAPI.Models
 
         [Required]
         [StringLength(500)]
-        public string AuthorId { get; set; }
+        public string AuthorId {
+            get { return _AuthorId; }
+            set { _AuthorId = value;  this.Author = UserService.GetUserViewModelById(value); }
+        }
 
         [Required]
         public DateTime CreatedDate { get; set; }
@@ -51,6 +57,17 @@ namespace CMS_webAPI.Models
         public int UpdateCount { get; set; }
 
         [Required]
-        public int VisitCount { get; set; } 
+        public int VisitCount { get; set; }
+
+
+        //Navigation Properties        
+        public virtual ICollection<Quiz> Quizs { get; set; }
+        public ICollection<QuestionComment> Comments { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
+
+        //Not Mapped Properties
+        [NotMapped]
+        public UserInfoViewModel Author { get; set; }
+
     }
 }

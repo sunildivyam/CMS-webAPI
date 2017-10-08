@@ -26,6 +26,12 @@ namespace CMS_webAPI.Models
         public static UserInfoViewModel GetUserViewModelById(string id)
         {
             UserInfoViewModel userViewModel = new UserInfoViewModel();
+
+            if (id == null)
+            {
+                return userViewModel;
+            }
+
             ApplicationDbContext _appDB = new ApplicationDbContext();
             ApplicationUser user = _appDB.Users.Find(id);
 

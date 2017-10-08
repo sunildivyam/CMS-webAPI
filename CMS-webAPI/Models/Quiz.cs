@@ -7,9 +7,14 @@ namespace CMS_webAPI.Models
 {
     public class Quiz
     {
+        private string _AuthorId;
+
         public Quiz()
         {
-
+            this.Questions = new HashSet<Question>();
+            this.Comments = new HashSet<QuizComment>();
+            this.Tags = new HashSet<Tag>();
+            this.Author = UserService.GetUserViewModelById(this.AuthorId);
         }
 
         [Key]
@@ -26,12 +31,17 @@ namespace CMS_webAPI.Models
         [Required]
         public string Description { get; set; }
 
+        public string QuestionIds { get; set; }
+
         [Required]
         public bool IsLive { get; set; }
 
         [Required]
         [StringLength(500)]
-        public string AuthorId { get; set; }
+        public string AuthorId {
+            get { return _AuthorId; }
+            set { _AuthorId = value;  this.Author = UserService.GetUserViewModelById(value); }
+        }
 
         [Required]
         public DateTime CreatedDate { get; set; }
@@ -45,6 +55,20 @@ namespace CMS_webAPI.Models
         [Required]
         public int VisitCount { get; set; }
         
-        public string QuestionIds { get; set; }
+
+        //Navigation Properties        
+        public virtual ICollection<Question> Questions { get; set; }
+        public ICollection<QuizComment> Comments { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
+
+        //Not Mapped Properties
+        [NotMapped]
+        public UserInfoViewModel Author { get; set; }
+
+
+        public Quiz Clone()
+        {
+            return (Quiz)this.MemberwiseClone();
+        }
     }
 }

@@ -9,7 +9,8 @@ namespace CMS_webAPI.Models
     {
         public Tag()
         {
-
+            this.Quizs = new HashSet<Quiz>();
+            this.Questions = new HashSet<Question>();
         }
 
         [Key]        
@@ -24,6 +25,11 @@ namespace CMS_webAPI.Models
         [StringLength(500)]        
         public string Title { get; set; }   // Tag title with no Special characters
                 
-        public string Description { get; set; }   // Tag Name with no Special characters        
+        public string Description { get; set; }   // Tag Name with no Special characters 
+
+        
+        // Navigation Properties
+        public  ICollection<Quiz> Quizs { get; set; }
+        public  ICollection<Question> Questions { get; set; }
     }
 }

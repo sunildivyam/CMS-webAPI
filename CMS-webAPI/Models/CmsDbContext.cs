@@ -26,8 +26,8 @@ namespace CMS_webAPI.Models
         public virtual DbSet<Comment> Comments { get; set; }
 
         public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<Quiz> Quizzes { get; set; }
-        public virtual DbSet<QuestionTag> QuestionTags { get; set; }
-        public virtual DbSet<QuizTag> QuizTags { get; set; }
+        public virtual DbSet<Quiz> Quizs { get; set; }
+        public virtual DbSet<QuizComment> QuizComments { get; set; }
+        public virtual DbSet<QuestionComment> QuestionComments { get; set; }
     }
 }
