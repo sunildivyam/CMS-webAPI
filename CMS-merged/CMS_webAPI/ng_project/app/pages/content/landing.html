@@ -39,3 +39,20 @@
 	data-loader-msg="loaderMsg"
 	is-content-loaded-promise="isContentLoadedPromise">
 </content-form>
+
+<quiz-form
+	ng-if="currentQuiz"
+	data-quiz="currentQuiz"
+	data-tags = "tags"
+	data-on-save-basic-info="saveQuizBasicInfo"
+	data-on-save-tags="saveQuizTags"
+	data-on-save-questions="saveQuizQuestions"	
+	data-on-save-question="saveQuizQuestion"
+	data-on-preview="previewQuiz"
+	data-on-publish="publishQuiz"
+	data-on-Thumbnail-upload="thumbnailUpload"
+	data-on-get-questions-lib="getPublishedQuestionsList"
+	data-is-loading="isLoading"
+	data-loader-msg="loaderMsg"
+	is-quiz-loaded-promise="isQuizLoadedPromise">
+</quiz-form>

@@ -38,6 +38,18 @@
 				addCategory: 'PostCategory',
 				updateCategory: 'PutCategory',
 				deleteCategory: 'DeleteCategory'
+			},
+			'quizs': {
+				base: 'quizs',
+				getQuizById: 'GetQuiz',
+				postQuizBasicInfo: "PostQuizBasicInfo",
+				postQuizTags: "PostQuizTags",
+				postQuizQuestions: "PostQuizQuestions",
+				postQuestion: "PostQuestion",
+				postPublishQuiz: "PostPublishQuiz",
+				getDraftedQuizs: 'GetDraftedQuizs',
+				getPublishedQuizs: 'GetPublishedQuizs',
+				getPublishedQuestions: 'GetPublishedQuestions'
 			}
 		};
 
@@ -144,6 +156,43 @@
 			requestOptions);
 		}
 
+		///// QUIZZES
+		function getQuizById(id) {
+			return appService.get([urls.quizs.base, urls.quizs.getQuizById, id].join('/'));
+		}
+
+		function addQuizBasicInfo(quiz) {
+			return appService.post([urls.quizs.base, urls.quizs.postQuizBasicInfo].join('/'), quiz, requestHeaders);
+		}
+
+		function updateQuizTags(quiz) {
+			return appService.post([urls.quizs.base, urls.quizs.postQuizTags].join('/'), quiz, requestHeaders);
+		}
+
+		function updateQuizQuestions(quiz) {
+			return appService.post([urls.quizs.base, urls.quizs.postQuizQuestions].join('/'), quiz, requestHeaders);
+		}
+		
+		function updateQuestion(quiz) {
+			return appService.post([urls.quizs.base, urls.quizs.postQuestion].join('/'), quiz, requestHeaders);
+		}
+
+		function publishQuiz(quiz) {
+			return appService.post([urls.quizs.base, urls.quizs.postPublishQuiz].join('/'), quiz, requestHeaders);
+		}
+
+		function getDraftedQuizs() {
+			return appService.get([urls.quizs.base, urls.quizs.getDraftedQuizs].join('/'));
+		}
+
+		function getPublishedQuizs() {
+			return appService.get([urls.quizs.base, urls.quizs.getPublishedQuizs].join('/'));
+		}
+		
+		function getPublishedQuestions() {
+			return appService.get([urls.quizs.base, urls.quizs.getPublishedQuestions].join('/'));
+		}
+
 		return {
 			getTags: getTags,
 			getTagById: getTagById,
@@ -164,7 +213,16 @@
 			updateContent: updateContent,
 			deleteContent: deleteContent,
 			publishContent: publishContent,
-			uploadContentThumbnail: uploadContentThumbnail
+			uploadContentThumbnail: uploadContentThumbnail,
+			getQuizById: getQuizById,
+			addQuizBasicInfo: addQuizBasicInfo,
+			updateQuizTags: updateQuizTags,
+			updateQuizQuestions: updateQuizQuestions,
+			updateQuestion: updateQuestion,
+			publishQuiz: publishQuiz,
+			getDraftedQuizs: getDraftedQuizs,
+			getPublishedQuizs: getPublishedQuizs,
+			getPublishedQuestions: getPublishedQuestions
 		};
 	};
 	contentService.$inject = ['appService'];

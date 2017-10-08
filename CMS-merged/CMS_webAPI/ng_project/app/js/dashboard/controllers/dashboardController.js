@@ -6,12 +6,52 @@
 */
 
 (function() {
-    var dashboardController = function($rootScope, $scope, $state, $timeout, metaInformationService, pageTitleService, contentService, EntityMapper, Content, Category, Tag, modalService, Utils) {
+    var dashboardController = function($rootScope, $scope, $state, $timeout, metaInformationService, pageTitleService, contentService, EntityMapper, Content, Category, Tag, Quiz, modalService, Utils) {
         $scope.dlCategories = {};
         $scope.dlTags = {};
         $scope.dlDraftedContents = {};
         $scope.dlPublishedContents = {};
+        $scope.dlDraftedQuizs = {};
+        $scope.dlPublishedQuizs = {};
         $scope.dlContentHistory= {};
+
+
+        $scope.getDraftedQuizs = function() {
+            $scope.dlDraftedQuizs.isLoading = true;
+            $scope.dlDraftedQuizs = angular.extend(Utils.getListConfigOf('draftedQuiz'), $scope.dlDraftedQuizs);
+
+            contentService.getDraftedQuizs().then(function(response) {
+                var quizs = new EntityMapper(Quiz).toEntities(response.data);
+                $scope.dlDraftedQuizs.items = quizs;
+                $scope.dlDraftedQuizs.pagingTotalItems = quizs.length;
+                $scope.dlDraftedQuizs.headerRightLabel = quizs.length + ' results';
+                $scope.dlDraftedQuizs.isLoading = false;
+            }, function() {
+                $scope.dlDraftedQuizs.items = new EntityMapper(Quiz).toEntities([]);
+                $scope.dlDraftedQuizs.pagingTotalItems = 0;
+                $scope.dlDraftedQuizs.headerRightLabel = '0 results';
+                $scope.dlDraftedQuizs.isLoading = false;
+            });
+        };
+
+
+        $scope.getPublishedQuizs = function() {
+            $scope.dlPublishedQuizs.isLoading = true;
+            $scope.dlPublishedQuizs = angular.extend(Utils.getListConfigOf('publishedQuiz'), $scope.dlPublishedQuizs);
+            contentService.getPublishedQuizs().then(function(response) {
+                var quizs = new EntityMapper(Quiz).toEntities(response.data);
+                $scope.dlPublishedQuizs.items = quizs;
+                $scope.dlPublishedQuizs.pagingTotalItems = quizs.length;
+                $scope.dlPublishedQuizs.headerRightLabel = quizs.length + ' results';
+                $scope.dlPublishedQuizs.isLoading = false;
+            }, function() {
+                $scope.dlPublishedQuizs.items = new EntityMapper(Quiz).toEntities([]);
+                $scope.dlPublishedQuizs.pagingTotalItems = 0;
+                $scope.dlPublishedQuizs.headerRightLabel = '0 results';
+                $scope.dlPublishedQuizs.isLoading = false;
+            });
+        };
+
 
         $scope.getDraftedContents = function() {
             $scope.dlDraftedContents.isLoading = true;
@@ -82,6 +122,20 @@
                 $scope.dlPublishedContents.isLoading = false;
             });
         };
+
+
+        $scope.dlDraftedQuizs.onItemSelect = function(event, quiz) {
+            if(quiz instanceof Object) {
+                $state.go('author.quiz', {id: quiz.quizId});
+            }
+        };
+
+        $scope.dlPublishedQuizs.onItemSelect = function(event, quiz) {
+            if(quiz instanceof Object) {
+                $state.go('author.quiz', {id: quiz.quizId});
+            }
+        };
+
 
         $scope.dlDraftedContents.onItemSelect = function(event, content) {
             if(content instanceof Object) {
@@ -157,11 +211,13 @@
                     $scope.getAvailableCategories();
                     $scope.getAvailableTags();
                     $scope.getAvailablePublishedContents();
+                    $scope.getDraftedQuizs();
+                    $scope.getPublishedQuizs();
                 });
             }
         });
     };
 
-    dashboardController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'metaInformationService', 'pageTitleService', 'contentService', 'EntityMapper', 'Content', 'Category', 'Tag', 'modalService', 'Utils'];
+    dashboardController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'metaInformationService', 'pageTitleService', 'contentService', 'EntityMapper', 'Content', 'Category', 'Tag', 'Quiz', 'modalService', 'Utils'];
     module.exports = dashboardController;
 })();

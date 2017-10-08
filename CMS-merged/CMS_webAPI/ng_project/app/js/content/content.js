@@ -26,13 +26,16 @@
 	.controller('tagController', require('./controllers/tagController'))
 	.controller('categoryController', require('./controllers/categoryController'))
 	.controller('authorController', require('./controllers/authorController'))
+	.controller('quizController', require('./controllers/quizController'))
 
 	.directive('categoryForm', require('./directives/categoryForm'))
 	.directive('tagForm', require('./directives/tagForm'))
 	.directive('contentForm', require('./directives/contentForm'))
 	.directive('inlineSearch', require('./directives/inlineSearch'))
 	.directive('contentPreview', require('./directives/contentPreview'))
-	.directive('addTagsForm', require('./directives/addTagsForm'));
+	.directive('addTagsForm', require('./directives/addTagsForm'))
+	.directive('quizForm', require('./directives/quizForm'))
+	.directive('questionForm', require('./directives/questionForm'));
 
 	module.exports = angular.module('raiweb.content');
 })();

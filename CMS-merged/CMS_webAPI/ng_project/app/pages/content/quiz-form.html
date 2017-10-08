@@ -1,0 +1,356 @@
+<article class="quiz-form">
+	<div class="panel">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-tasks"></i>Manage Quiz: {{quiz.title}}</h3>
+		</div>
+		<div class="panel-body">
+			<uib-tabset active="active">
+				<!-- Tab Basic Info -->
+				<uib-tab index="0" heading="Quiz Basic Info">
+					<h1>Basic Info</h1>					
+					<form class="" role="form" name="quizFormBasicInfo">
+						<div class="container-fluid">
+							<div class="row button-panel text-right">
+								<button type="submit" id="quiz-save-basic-info" name="quizSaveBasicInfo" class="btn btn-success" ng-click="saveBasicInfo($event)" ng-disabled="quizFormBasicInfo.$invalid">Save Basic Info</button>								
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<div class="input-group">
+											<label class="input-group-addon" for="isLive">Quiz Status?</label>
+											<span class="form-control {{quiz.isLive? 'label-success': 'label-warning'}}">{{quiz.isLive?'Quiz is LIVE': 'Quiz is NOT LIVE'}}</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="input-group">
+											<label class="input-group-addon" for="last-updated">Last Updated</label>
+											<input id="last-updated" name="last-updated" type="text" placeholder="" ng-disabled="true" value="{{quiz.updatedDate? quiz.updatedDate.toUTCString() : 'Never'}}" class="form-control"></input>
+										</div>
+									</div>
+									<!-- Text input-->
+									<div class="form-group">
+										<div class="input-group">
+											<label class="input-group-addon" for="quizTitle">Quiz Title</label>
+											<input id="quiz-title" name="quizTitle" type="text" placeholder="" class="form-control" required="" ng-model="quiz.title">
+											<span class="help-block input-group-addon" ng-if="quizFormBasicInfo.quizTitle.$invalid">*</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<div class="thumbnail center-block">
+											<img id="quiz-thumbnail" ng-if="quiz.quizId"
+												ng-src="{{thumbnailUrl}}"
+												onerror="this.style.display = 'none';"
+												onload="this.style.display = 'block';">
+										</div>
+										<div class="text-center" ng-show="quiz.quizId"><span>Recommended Dimensions: 100 X 100 (px)</span></div>
+										<div class="text-center" ng-show="!quiz.quizId"><span>To Enable Thumbnail Upload, Save Your Quiz atleast once.</span></div>
+										<button  ng-disabled="!quiz.quizId" class="btn btn-primary center-block" ng-click="addThumbnail($event)">Upload Thumbnail</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">						
+								<div class="col-sm-12">	
+									<div class="form-group">
+										<div class="input-group">
+											<span class="input-group-addon">
+												<span class="option-head">Quiz Description</span>										
+											</span>
+											<textarea data-on-instance-ready="quizDescriptionEditorReadyPromise" class="form-control" id="quiz-description" name="quizDescription" ng-model="quiz.description"></textarea>
+											<span class="input-group-addon extend-input-btn" ng-click="extendInput($event, '#quiz-description')">
+												<i class="fa fa-font" aria-hidden="true"></i>										
+											</span>
+										</div>
+									</div>
+								</div>					
+							</div>	
+							
+							<div class="row button-panel text-right">
+								<button type="submit" id="quiz-save-basic-info" name="quizSaveBasicInfo" class="btn btn-success" ng-click="saveBasicInfo($event)" ng-disabled="quizFormBasicInfo.$invalid">Save Basic Info</button>								
+							</div>
+						</div>
+					</form>
+				</uib-tab>
+
+				<!-- Tab Tags -->
+				<uib-tab index="1" heading="Quiz Tags"  disable="!quiz.quizId">
+					<div class="jumbotron">
+						<h1>Quiz Tags</h1>		
+						<p>
+							Tags are a way to make your Quiz Searcheable in Search engines, like google, yahoo and others. Tags (keywords) should be well related to your Quiz content & Questions.
+						</p>
+					</div>	
+					<form class="" role="form" name="quizFormTags">
+						<div class="container-fluid">
+							<div class="row button-panel text-right">
+								<button type="submit" id="quiz-save-tags" name="quizSaveTags" class="btn btn-success" ng-click="saveTags($event)" ng-disabled="quizFormTags.$invalid">Save Tags</button>								
+							</div>
+							<br>
+
+							<div class="row">	
+								<div class="col-sm-6">
+									<!-- Quiz Tags -->							
+									<div class="form-group">
+											<div class="input-group">
+											<span class="input-group-addon">
+												<span class="option-head">Quiz Tags</span>										
+											</span>
+											<span class="">
+												<ui-select id="quiz-tag-id" name="quizTags" class="" ng-model="quiz.tags" close-on-select="false" sortable="true" required multiple>
+													<ui-select-match placeholder="Select Tags...">
+														<span ng-bind="$item.title"></span>
+													</ui-select-match>
+													<ui-select-choices repeat="tag in (tags | filter: $select.search) track by tag.tagId">
+														<span ng-bind="tag.title"></span>
+													</ui-select-choices>
+												</ui-select>
+											</span>
+											<span class="help-block input-group-addon" ng-if="quizFormBasicInfo.quizTags.$invalid">*</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="well">Select from List. OR Create & Add your own Tags, just click <button type="button" id="quiz-add-tags" name="quizAddtags" class="btn btn-success" ng-click="showAddTags($event)">Add New Tags</button>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="hide-not-imp add-tags-form">
+										<add-tags-form data-on-save="onAddNewTagsSave" data-on-cancel="onAddNewTagsCancel" ng-if="isAddNewTagsVisible"></add-tags-form>
+									</div>
+								</div>
+							</div>
+
+							<div class="row button-panel text-right">
+								<button type="submit" id="quiz-save-tags" name="quizSaveTags" class="btn btn-success" ng-click="saveTags($event)" ng-disabled="quizFormTags.$invalid">Save Tags</button>								
+							</div>
+						</div>
+					</form>
+				</uib-tab>
+
+				<!-- Tab Questions -->
+				<uib-tab index="2" disable="!quiz.quizId">	
+					<uib-tab-heading>Quiz Questions <span class="badge">{{quiz.questions.length || 0}}</span></uib-tab-heading>
+					<div class="jumbotron">
+						<h1>Quiz Questions</h1>		
+						<p>
+							We recommend, that your Quiz should have atleast 10 Question. Too many questions in a Quiz may also lose reading interest.
+						</p>
+					</div>
+
+					<form class="" role="form" name="quizFormQuestions">
+						<div class="container-fluid">
+							<div class="row button-panel text-right">
+								<button type="button" 
+									id="quiz-save-questions" 
+									name="quizSaveQuestions" 
+									class="btn btn-success btn-lg" 
+									ng-click="saveQuestions($event)">Save Added Quiz Questions</button>								
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-sm-12">
+									<!-- Quiz Questions-->
+									<div class="form-group">										
+										<div class="questions-list">
+											<div ng-repeat="question in quiz.questions" class="question-item">					
+												<question-form
+													data-question="question"
+													data-serial-number="($index + 1)"
+													data-is-Edit-mode="false"
+													data-tags = "tags"
+													data-enable-save="true"
+													data-on-save="saveQuestion"
+													data-on-cancel="cancelQuestion"
+													data-on-preview="previewQuestion"
+													data-is-loading="isLoading"
+													data-loader-msg="loaderMsg"
+													is-question-loaded-promise="isQuestionLoadedPromise">
+												</question-form>
+												<div class="quiz-question-controls text-right">											
+													<button id="question-remove-btn" type="button" name="questionRemoveBtn" class="btn btn-danger" ng-click="removeQuestionFromQuiz($event, $index)" title="Remove Question from Quiz">
+														<i class="fa fa-close fa-xs" aria-hidden="true"></i>
+													</button>
+													<button id="question-moveup-btn" type="button" name="questionMoveupBtn" class="btn btn-primary" ng-click="moveQuestionInQuiz($event, $index, true)" title="Move Question Up in Quiz">
+														<i class="fa fa-arrow-up fa-xs" aria-hidden="true"></i>
+													</button>
+													<button id="question-movedown-btn" type="button" name="questionMovedownBtn" class="btn btn-primary" ng-click="moveQuestionInQuiz($event, $index, false)" title="Move Question Down in Quiz">
+														<i class="fa fa-arrow-down fa-xs" aria-hidden="true"></i>
+													</button>											
+												</div>
+											</div>
+											
+											<div class="new-question bg-info container-fluid hide-not-imp">
+												<div class="row">
+													<div class="col-sm-12 button-panel text-center">
+														<button type="submit" 
+															id="add-question-to-quiz" 
+															name="addQuestionToQuiz" 
+															class="btn btn-success" 
+															ng-click="addQuestionToQuiz($event)">
+																<span class="fa fa-arrow-up"></span> Add Question to Quiz <span class="fa fa-arrow-up"></span>
+														</button>							
+													</div>
+												</div>
+												<div class="row">
+													<question-form
+														data-question="newQuestion"
+														data-serial-number=""
+														data-is-Edit-mode="true"
+														data-tags = "tags"
+														data-enable-save="false"
+														data-on-save="saveQuestion"
+														data-on-cancel="cancelQuestion"
+														data-on-preview="previewQuestion"
+														data-is-loading="isLoading"
+														data-loader-msg="loaderMsg"
+														is-question-loaded-promise="isQuestionLoadedPromise"
+														class="col-sm-12">
+													</question-form>
+												</div>
+											</div>
+
+											<div class="new-questions-from-list bg-info container-fluid hide-not-imp">
+												<div class="row">
+													<div class="col-sm-12 button-panel text-center">
+														<button type="button" 
+															id="add-question-to-quiz" 
+															name="addQuestionToQuiz" 
+															class="btn btn-success" 
+															ng-click="addSelectedQuestionsToQuiz($event)">
+																<span class="fa fa-arrow-up"></span> Add Selected Questions to Quiz <span class="fa fa-arrow-up"></span>
+														</button>							
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-12">
+														<div class="jumbotron">
+															<h2>Select Questions from List Below:</h2>
+															<p>Please Select any number of Questions from the list below. Select relavent questions only.</p>
+															<p>
+																<strong>Total of <span class="badge" ng-bind="selectedQuestionsList.length"></span> Selected Questions</strong> 
+																<div>
+																	<strong>Selected Questions: </strong>
+																	<span ng-repeat="question in selectedQuestionsList" class="badge"> Q: {{question.questionId}} </span>
+																</div>																
+															</p>
+															<button id="refresh-questions-list" 
+																type="button"
+																name="refreshQuestionsList" 
+																class="btn btn-primary" 
+																ng-click="refreshQuestionsList($event)">
+																<i class="fa fa-refresh fa-lg"></i>
+																Refresh Question's List
+															</button>
+														</div>
+														<generic-list
+															data-items="dlQuestions.items"
+															data-items-type="dlQuestions.itemsType"
+															data-on-item-select="dlQuestions.onItemSelect"
+
+															data-enable-header="dlQuestions.enableHeader"
+															data-enable-maximize="dlQuestions.enableMaximize"
+															data-enable-search="dlQuestions.enableSearch"
+															data-enable-view-modes="dlQuestions.enableViewModes"
+															data-enable-scrollbar="dlQuestions.enableScrollbar"
+															data-enable-tags="dlQuestions.enableTags"
+															data-enable-footer-link="dlQuestions.enableFooterLink"
+															data-enable-paging="dlQuestions.enablePaging"
+
+															data-header-title="dlQuestions.headerTitle"
+															data-header-summary="dlQuestions.headerSummary"
+															data-header-right-label="dlQuestions.headerRightLabel"
+
+															data-view-mode="dlQuestions.viewMode"
+															data-tile-view-class = "dlQuestions.tileViewClass"
+
+															data-scroll-height="dlQuestions.scrollHeight"
+
+															data-tags="dlQuestions.tags"
+
+															data-footer-link-text="dlQuestions.footerLinkText"
+															data-footer-link-url="dlQuestions.footerLinkUrl"
+															data-on-footer-link-click="dlQuestions.onFooterLinkClick"
+
+															data-paging-total-items="dlQuestions.pagingTotalItems"
+															data-paging-selected-page="dlQuestions.pagingSelectedPage"
+															data-paging-page-size="dlQuestions.pagingPageSize"
+															data-paging-pager-size="dlQuestions.pagingPagerSize"
+															data-on-paging-page-change="dlQuestions.onPagingPageChange"
+
+															data-on-refresh="onListsRefresh"
+															data-is-loading="dlQuestions.isLoading"
+															data-is-author-mode="dlQuestions.isAuthorMode"
+															>
+														</generic-list>
+													</div>
+												</div>
+											</div>
+										</div>	
+										<span class="pull-right">
+											<button id="quiz-question-add-from-list" 
+												type="button"
+												name="quizQuestionAddFromList" 
+												class="btn btn-primary" 
+												ng-click="addQuestionFromList($event)"
+												>Add Questions from List</button>
+											<button id="quiz-question-addnew"
+												type="button"
+												name="quizQuestionAddnew" 
+												class="btn btn-primary" 
+												ng-click="addnewQuestion($event)" 
+												>Add New Question</button>
+										</span>			  
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</uib-tab>
+
+				<!-- Tab Preview -->
+				<uib-tab index="3" heading="Preview Quiz"  disable="!quiz.quizId" select="previewQuiz($event)">
+					<div class="jumbotron">
+						<h1>Your Quiz Preview</h1>		
+						<p>
+							This is how your Quiz will look to the world, when you make it Live.
+						</p>
+					</div>		
+					<quiz-view data-quiz="quiz" data-is-loading=""></quiz-view>
+				</uib-tab>
+
+				<!-- Tab Publish -->
+				<uib-tab index="4" heading="Publish Quiz"  disable="!quiz.quizId" select="onPublishQuizSelect($event)">
+					<div class="jumbotron">
+						<h1>Publishing Quiz</h1>
+						<p>This action will post your Quiz Live on Web. This is advised to review your quiz yourself as well as get it reviewed from someone else as well, atleast once. This is expected you have followed all ethics of publishing contents online.</p>
+						<div class="well">
+							<h2>Please Ensure you have no Unsaved Data on any of the Tabs</h2>							
+						</div>
+
+						<h2>Quiz Content Validation Status:</h2>
+						<ul class="list-group">
+							<li class="list-group-item list-group-item-{{rule.status}}"
+								ng-repeat="rule in publishRules">
+								<i class="fa fa-close" ng-if="rule.status==='danger'"></i>
+								<i class="fa fa-warning" ng-if="rule.status==='warning'"></i>
+								<i class="fa fa-check" ng-if="rule.status==='success'"></i>
+								<span ng-bind-html="rule.message[rule.status]"></span>
+							</li>
+						</ul>
+						<p>
+							<button id="quiz-publish" 
+								name="quizPublish" 
+								class="btn btn-primary center-block btn-lg" 
+								ng-disabled="!isReadyToPublishQuiz"
+								ng-click="publish($event)">Publish Quiz</button>
+						</p>
+					</div>
+				</uib-tab>
+			</uib-tabset>			
+			<loader data-at-body="true" data-is-loading="isLoading" data-message="{{loaderMsg || ''}}"></loader>
+		</div>
+	</div>
+</article>

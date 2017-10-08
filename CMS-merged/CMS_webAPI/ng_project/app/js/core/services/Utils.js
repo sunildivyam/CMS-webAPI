@@ -59,7 +59,7 @@
         function filterByKeywords(content, searchKeywords) {
             if (!searchKeywords) return true;
 
-            if (content && ((content.title && content.title.toLowerCase().search(searchKeywords.toLowerCase()) >= 0) || (content.name && content.name.toLowerCase().search(searchKeywords.toLowerCase()) >= 0))) {
+            if (content && ((content.title && content.title.toLowerCase().search(searchKeywords.toLowerCase()) >= 0) || (content.name && content.name.toLowerCase().search(searchKeywords.toLowerCase()) >= 0) || (content.description && content.description.toLowerCase().search(searchKeywords.toLowerCase()) >= 0))) {
                 return true;
             } else {
                 return false;

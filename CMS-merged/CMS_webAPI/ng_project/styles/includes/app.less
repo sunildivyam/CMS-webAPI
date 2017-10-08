@@ -29,7 +29,7 @@
 		}
 	}
 
-	.content-form, .content-preview, .content-list, .pub-content-list, .pubcontent-view {
+	.content-form, .content-preview, .content-list, .pub-content-list, .pubcontent-view, .quiz-form, .quiz-list {
 		.thumbnail {
 			padding: 0px;
 			//background-image: @grid-thumbnail-image;
@@ -191,5 +191,103 @@
 			margin-top: 53px;
 			color: @body-text-white-color;
 		}
+	}
+
+	.quiz-form {
+		.quiz-question-controls {
+			margin-top: -17px;
+		    margin-bottom: 15px;
+		    margin-right: 55px;
+			
+			.btn {
+				padding: 2px 4px;
+
+				.fa {
+					padding: 0px;
+					margin: 0px;
+				}
+			}
+		}			
+	}
+
+	.question-form {
+		.description-preview {
+			&.form-control {
+				height: auto;
+			}				
+		}
+	}
+
+	.quiz-view {
+
+	}
+
+	.question-view {
+		.question-head {
+			white-space: nowrap;
+			font-size: 16px;
+		}
+
+		.answer-head {
+			white-space: nowrap;
+			font-size: 16px;
+		}
+
+		.question-body {
+			
+		}
+
+		.answer-body {
+			&.form-control {
+				height: auto;
+				border: none;	
+				box-shadow: none
+			}
+
+			&>p {
+				font-size: inherit;
+				line-height: inherit;
+				color: inherit;
+				font-family: inherit;
+			}
+		}
+
+		.answer-option {
+			margin-bottom: 30px;
+			cursor: pointer;
+
+			.input-group-addon {
+				.border-radius(10px);
+				border:none;
+				vertical-align: top;
+				background: transparent;
+				color: deepskyblue;
+			}
+
+			&.correct {
+				.input-group {
+					padding: 10px;
+					.border-radius(10px);
+					background: forestgreen!important;
+				}
+			}
+
+			&.incorrect {
+				.input-group {
+					padding: 10px;
+					.border-radius(10px);
+					background: red!important;
+				}
+			}
+		}
+
+		.correct-answer-section {
+
+		}
+	}
+
+	.badge-label {
+		margin: 10px 5px;
+		padding: 10px 15px;
 	}
 }

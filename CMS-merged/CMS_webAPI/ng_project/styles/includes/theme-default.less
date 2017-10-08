@@ -56,6 +56,10 @@ body.theme-default {
 
         .panel-heading {
             .default-grad(0.7);
+
+            .panel-title {
+                color: @default-hover-text-color;
+            }
         }
 
         .panel-body {
@@ -71,6 +75,19 @@ body.theme-default {
             padding: 15px;
             color: @default-hover-text-color;
             .default-orange-grad-h(0.9);
+        }
+
+        &.question-view {
+            margin-top: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+
+            .panel-heading {
+                .default-grad(0.2);
+            }
+            .panel-body {
+                overflow: hidden;
+            }
         }
     }
 
@@ -312,6 +329,48 @@ body.theme-default {
 
         &.panel-maximized {
         }
+
+        &.draftedContent {
+            .panel-heading {
+                .default-orange-grad();
+                color: @default-hover-text-color;
+            }
+        }
+
+        &.publishedContent {
+            .panel-heading {
+                .default-orange-grad();
+                color: @default-hover-text-color;
+            }
+        }
+
+        &.draftedQuiz {
+            .panel-heading {
+                .default-black-grad(0.9);
+                color: @default-hover-text-color;
+            }
+        }
+
+        &.publishedQuiz {
+            .panel-heading {
+                .default-black-grad(0.9);
+                color: @default-hover-text-color;
+            }
+        }
+
+        &.category {
+            .panel-heading {
+                .default-grad(0.9);
+                color: @default-hover-text-color;
+            }
+        }
+
+        &.tag {
+            .panel-heading {
+                .default-grad(0.9);
+                color: @default-hover-text-color;
+            }
+        }
     }
 
     btn-toolbar {
@@ -539,6 +598,41 @@ body.theme-default {
 
             caption {
                 text-align: center;
+            }
+        }
+    }
+
+    .quiz-form {    
+        ul.nav-tabs {   
+            padding: 0px;
+            border: none;
+
+            .uib-tab {
+                &>a {                    
+                    font-size: 16px;
+                    font-weight: bold;
+                    .default-grad();                                        
+                }
+                &.active {
+                    &>a {
+                        .default-grad(0.3);
+                    }
+                }
+            }
+        }
+
+        .tab-content {
+            padding: 10px;
+            .default-grad(0.3);
+        }
+    }
+
+    .question-view {
+        .answer-option {
+            &:hover, &.hover {
+                .input-group {
+                    .default-orange-grad-h();
+                }                
             }
         }
     }

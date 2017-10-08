@@ -33,7 +33,9 @@
 	.directive('pubcontentSearch', require('./directives/pubcontentSearch'))
 	.directive('pubtagView', require('./directives/pubtagView'))
 	.directive('pubUserProfile', require('./directives/pubUserProfile'))
-	.directive('commentComponent', require('./directives/commentComponent'));
+	.directive('commentComponent', require('./directives/commentComponent'))
+	.directive('quizView', require('./directives/quizView'))
+	.directive('questionView', require('./directives/questionView'));
 
 	module.exports = angular.module('raiweb.pubcontent');
 })();

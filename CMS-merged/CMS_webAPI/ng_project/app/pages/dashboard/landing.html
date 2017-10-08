@@ -1,12 +1,17 @@
-<div class="well">
-  <h4>Welcome: {{currentUser.lastName?currentUser.lastName + ', ': '' }} {{currentUser.firstName}}</h4>
+<div class="well text-center center-block">
+  <p class="label label-success">Welcome: {{currentUser.lastName?currentUser.lastName + ', ': '' }} {{currentUser.firstName}}</p>
   <div class="well">
-      <span class="btn btn-warning">Articles in Draft: <span class="label label-success">{{dlDraftedContents.pagingTotalItems || 0}}</span></span> |
-      <span class="btn btn-warning">Published Articles: <span class="label label-success">{{dlPublishedContents.pagingTotalItems || 0}}</span></span>
+      <p class="badge-label label label-warning">Articles in Draft: <span class="label label-success">{{dlDraftedContents.pagingTotalItems || 0}}</span></p>
+      <p class="badge-label label label-warning">Published Articles: <span class="label label-success">{{dlPublishedContents.pagingTotalItems || 0}}</span></p>
+      <p class="badge-label label label-default">Quizs in Draft: <span class="label label-success">{{dlDraftedQuizs.pagingTotalItems || 0}}</span></p>
+      <p class="badge-label label label-default">Published Quizs: <span class="label label-success">{{dlPublishedQuizs.pagingTotalItems || 0}}</span></p>
+      <p class="badge-label label label-info">Available Categories: <span class="label label-success">{{dlCategories.pagingTotalItems || 0}}</span></p>
+      <p class="badge-label label label-info">Available Tags: <span class="label label-success">{{dlTags.pagingTotalItems || 0}}</span></p>
   </div>
 </div>
 <div class="row grid" isotope-layout="">
-    <div class="col-sm-6 grid-item">
+    <!--Content (Article) Drafted -->
+    <div class="col-md-6 grid-item">
         <generic-list
         data-items="dlDraftedContents.items"
         data-items-type="dlDraftedContents.itemsType"
@@ -48,8 +53,8 @@
         >
         </generic-list>
     </div>
-
-    <div class="col-sm-6 grid-item">
+    <!--Content (Article) Published -->
+    <div class="col-md-6 grid-item">
         <generic-list
         data-items="dlPublishedContents.items"
         data-items-type="dlPublishedContents.itemsType"
@@ -90,7 +95,95 @@
         </generic-list>
     </div>
 
-    <div class="col-sm-6 grid-item">
+
+    <!--Quiz Drafted -->
+    <div class="col-md-6 grid-item">
+        <generic-list
+        data-items="dlDraftedQuizs.items"
+        data-items-type="dlDraftedQuizs.itemsType"
+        data-on-item-select="dlDraftedQuizs.onItemSelect"
+
+        data-enable-header="dlDraftedQuizs.enableHeader"
+        data-enable-maximize="dlDraftedQuizs.enableMaximize"
+        data-enable-search="dlDraftedQuizs.enableSearch"
+        data-enable-view-modes="dlDraftedQuizs.enableViewModes"
+        data-enable-scrollbar="dlDraftedQuizs.enableScrollbar"
+        data-enable-tags="dlDraftedQuizs.enableTags"
+        data-enable-footer-link="dlDraftedQuizs.enableFooterLink"
+        data-enable-paging="dlDraftedQuizs.enablePaging"
+
+        data-header-title="dlDraftedQuizs.headerTitle"
+        data-header-summary="dlDraftedQuizs.headerSummary"
+        data-header-right-label="dlDraftedQuizs.headerRightLabel"
+
+        data-view-mode="dlDraftedQuizs.viewMode"
+        data-tile-view-class = "dlDraftedQuizs.tileViewClass"
+
+        data-scroll-height="dlDraftedQuizs.scrollHeight"
+
+        data-tags="dlDraftedQuizs.tags"
+
+        data-footer-link-text="dlDraftedQuizs.footerLinkText"
+        data-footer-link-url="dlDraftedQuizs.footerLinkUrl"
+        data-on-footer-link-click="dlDraftedQuizs.onFooterLinkClick"
+
+        data-paging-total-items="dlDraftedQuizs.pagingTotalItems"
+        data-paging-selected-page="dlDraftedQuizs.pagingSelectedPage"
+        data-paging-page-size="dlDraftedQuizs.pagingPageSize"
+        data-paging-pager-size="dlDraftedQuizs.pagingPagerSize"
+        data-on-paging-page-change="dlDraftedQuizs.onPagingPageChange"
+
+        data-on-refresh="onListsRefresh"
+        data-is-loading="dlDraftedQuizs.isLoading"
+        data-is-author-mode="dlDraftedQuizs.isAuthorMode"
+        >
+        </generic-list>
+    </div>
+
+
+    <!--Quiz Published -->
+    <div class="col-md-6 grid-item">
+        <generic-list
+        data-items="dlPublishedQuizs.items"
+        data-items-type="dlPublishedQuizs.itemsType"
+        data-on-item-select="dlPublishedQuizs.onItemSelect"
+
+        data-enable-header="dlPublishedQuizs.enableHeader"
+        data-enable-maximize="dlPublishedQuizs.enableMaximize"
+        data-enable-search="dlPublishedQuizs.enableSearch"
+        data-enable-view-modes="dlPublishedQuizs.enableViewModes"
+        data-enable-scrollbar="dlPublishedQuizs.enableScrollbar"
+        data-enable-tags="dlPublishedQuizs.enableTags"
+        data-enable-footer-link="dlPublishedQuizs.enableFooterLink"
+        data-enable-paging="dlPublishedQuizs.enablePaging"
+
+        data-header-title="dlPublishedQuizs.headerTitle"
+        data-header-summary="dlPublishedQuizs.headerSummary"
+        data-header-right-label="dlPublishedQuizs.headerRightLabel"
+
+        data-view-mode="dlPublishedQuizs.viewMode"
+
+        data-scroll-height="dlPublishedQuizs.scrollHeight"
+
+        data-tags="dlPublishedQuizs.tags"
+
+        data-footer-link-text="dlPublishedQuizs.footerLinkText"
+        data-footer-link-url="dlPublishedQuizs.footerLinkUrl"
+        data-on-footer-link-click="dlPublishedQuizs.onFooterLinkClick"
+
+        data-paging-total-items="dlPublishedQuizs.pagingTotalItems"
+        data-paging-selected-page="dlPublishedQuizs.pagingSelectedPage"
+        data-paging-page-size="dlPublishedQuizs.pagingPageSize"
+        data-paging-pager-size="dlPublishedQuizs.pagingPagerSize"
+        data-on-paging-page-change="dlPublishedQuizs.onPagingPageChange"
+
+        data-on-refresh="onListsRefresh"
+        data-is-loading="dlPublishedQuizs.isLoading"
+        >
+        </generic-list>
+    </div>
+
+    <div class="col-md-6 grid-item">
         <generic-list
         data-items="dlCategories.items"
         data-items-type="dlCategories.itemsType"
@@ -131,7 +224,7 @@
         </generic-list>
     </div>
 
-    <div class="col-sm-6 grid-item">
+    <div class="col-md-6 grid-item">
         <generic-list
         data-items="dlTags.items"
         data-items-type="dlTags.itemsType"

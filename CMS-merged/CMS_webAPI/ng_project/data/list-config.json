@@ -86,7 +86,7 @@
         "enableViewModes": true,
         "enableScrollbar": true,
         "enableTags": false,
-        "enableFooterLink": false,
+        "enableFooterLink": true,
         "enablePaging": false,
 
         "headerTitle": "Available Categories",
@@ -100,8 +100,8 @@
 
         "tags": [],
 
-        "footerLinkText": "",
-        "footerLinkUrl": "",
+        "footerLinkText": "Add New Category",
+        "footerLinkUrl": "/category",
         "onFooterLinkClick": "undefined",
 
         "pagingTotalItems": 0,
@@ -124,7 +124,7 @@
         "enableViewModes": true,
         "enableScrollbar": true,
         "enableTags": false,
-        "enableFooterLink": false,
+        "enableFooterLink": true,
         "enablePaging": false,
 
         "headerTitle": "Available Tags",
@@ -138,8 +138,8 @@
 
         "tags": [],
 
-        "footerLinkText": "",
-        "footerLinkUrl": "",
+        "footerLinkText": "Add New Tag",
+        "footerLinkUrl": "/tag",
         "onFooterLinkClick": "undefined",
 
         "pagingTotalItems": 0,
@@ -162,11 +162,11 @@
         "enableViewModes": true,
         "enableScrollbar": true,
         "enableTags": false,
-        "enableFooterLink": false,
+        "enableFooterLink": true,
         "enablePaging": false,
 
-        "headerTitle": "Your Drafted Contents",
-        "headerSummary": "These are in draft Contents, You can publish them, once done with it.",
+        "headerTitle": "Your Drafted Articles",
+        "headerSummary": "These are in draft Articles, You can publish them, once done with it.",
         "headerRightLabel": "0 results.",
 
         "viewMode": "list",
@@ -176,8 +176,8 @@
 
         "tags": [],
 
-        "footerLinkText": "",
-        "footerLinkUrl": "",
+        "footerLinkText": "Add New Article",
+        "footerLinkUrl": "/content",
         "onFooterLinkClick": "undefined",
 
         "pagingTotalItems": 0,
@@ -201,11 +201,11 @@
         "enableViewModes": true,
         "enableScrollbar": true,
         "enableTags": false,
-        "enableFooterLink": false,
+        "enableFooterLink": true,
         "enablePaging": false,
 
-        "headerTitle": "Your Published Contents",
-        "headerSummary": "Your Published contents till date. Select one, to view its Authoriing History",
+        "headerTitle": "Your Published Articles",
+        "headerSummary": "Your Published Articles till date. Select one, to view its Authoriing History",
         "headerRightLabel": "0 results.",
 
         "viewMode": "list",
@@ -215,8 +215,8 @@
 
         "tags": [],
 
-        "footerLinkText": "",
-        "footerLinkUrl": "",
+        "footerLinkText": "Add New Article",
+        "footerLinkUrl": "/content",
         "onFooterLinkClick": "undefined",
 
         "pagingTotalItems": 0,
@@ -381,25 +381,140 @@
         "onRefresh": "undefined",
         "isLoading": false
     },
-  "viewModes": [
-    {
-      "id": "list",
-      "iconClass": "glyphicon-list"
+    "draftedQuiz": {
+        "items": [],
+        "itemsType": "draftedQuiz",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": true,
+        "enableTags": false,
+        "enableFooterLink": true,
+        "enablePaging": false,
+
+        "headerTitle": "Your Drafted Quizs",
+        "headerSummary": "These are in draft Quizs, You can publish them, once done with it.",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 600,
+
+        "tags": [],
+
+        "footerLinkText": "Add New Quiz",
+        "footerLinkUrl": "/quiz",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false,
+        "isAuthorMode": true
     },
-    {
-      "id": "inline",
-      "iconClass": "glyphicon-th-list"
+    "publishedQuiz": {
+        "items": [],
+        "itemsType": "publishedQuiz",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": true,
+        "enableTags": false,
+        "enableFooterLink": true,
+        "enablePaging": false,
+
+        "headerTitle": "Your Published Quizs",
+        "headerSummary": "Your Published quizs till date. Select one, to author it again.",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 600,
+
+        "tags": [],
+
+        "footerLinkText": "Add New Quiz",
+        "footerLinkUrl": "/quiz",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
     },
-    {
-      "id": "grid",
-      "iconClass": "glyphicon-th"
+    "question": {
+        "items": [],
+        "itemsType": "question",
+        "onItemSelect": "undefined",
+
+        "enableHeader": false,
+        "enableMaximize": false,
+        "enableSearch": true,
+        "enableViewModes": false,
+        "enableScrollbar": false,
+        "enableTags": false,
+        "enableFooterLink": false,
+        "enablePaging": false,
+
+        "headerTitle": "Questions",
+        "headerSummary": "Your Questions",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "inline",
+        "tileViewClass": "",
+
+        "scrollHeight": 600,
+
+        "tags": [],
+
+        "footerLinkText": "",
+        "footerLinkUrl": "",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
     },
-    {
-      "id": "tile",
-      "iconClass": "glyphicon-th-large"
-    }
-  ],
-     "itemsTypes": {
+    "viewModes": [
+        {
+          "id": "list",
+          "iconClass": "glyphicon-list"
+        },
+        {
+          "id": "inline",
+          "iconClass": "glyphicon-th-list"
+        },
+        {
+          "id": "grid",
+          "iconClass": "glyphicon-th"
+        },
+        {
+          "id": "tile",
+          "iconClass": "glyphicon-th-large"
+        }
+    ],
+    "itemsTypes": {
         "category": {
             "name": "category",
             "templateUrl": "content/category-list.html"
@@ -443,6 +558,18 @@
         "pubtag": {
             "name": "pubtag",
             "templateUrl": "pubcontent/pubcontent-list.html"
+        },
+        "draftedQuiz": {
+            "name": "draftedQuiz",
+            "templateUrl": "content/quiz-list.html"
+        },        
+        "publishedQuiz": {
+            "name": "publishedQuiz",
+            "templateUrl": "content/quiz-list.html"
+        },        
+        "question": {
+            "name": "question",
+            "templateUrl": "content/question-list.html"
         }
     },
     "pubContentListTypes": {
@@ -509,24 +636,24 @@
             "theme": "default"
         }
     },
-  "application": {
-    "url": "http://localhost:55361",
-    "apiUrl": "http://localhost:49192",
-    "articleImages": "/images/getarticleimage",
-    "authorArticleImages": "/images/getauthorarticleimage",
-    "userImages": "/images/getuserimage",
-    "name": "LearnWiseWay.com",
-    "title": "Wise Learnings",
-    "shortTitle": "Learn Wise Way",
-    "description": "Free Learnings - CBSE Board Study Material for all classes 6-12 and all subjects including Physics, Maths, Chemistry, Biology, English, SST. CBSE syllabus, Free CBSE Sample Papers, CBSE notes, Text book solutions, online tests, guess papers, model question papers, CBSE news and updates on Learnwiseway.com. Get Access to CBSE Solutions, Online Tests, Guess Papers etc for free at Learnwiseway.com. A complete guide for CBSE students from pre-school to class-12. CBSE Board Date Sheet and latest News andfree Study Material for all classes.",
-    "keywords": "CBSE board, CBSE board tutorials, CBSE board study materials, CBSE board online study material, CBSE Board Sample Paper, CBSE Question Papers, CBSE Board Guess Papers, Articles, Maths, Science, Chemistry, Biology, English, SSt ICSE",
-    "copyYear": 2017,
-    "appLogo": {
-      "primaryTitle": "Learn Wise Way",
-      "highCharIndex": 7,
-      "secondaryTitle": "Wise Learnings"
-    },
-    "bodyImageUrl": "../images/theme-default/body-background-digital-tyres.jpg",
-    "bodyImageSize":  "cover"
-  }
+    "application": {
+        "url": "http://localhost:55361",
+        "apiUrl": "http://localhost:49192",
+        "articleImages": "/images/getarticleimage",
+        "authorArticleImages": "/images/getauthorarticleimage",
+        "userImages": "/images/getuserimage",
+        "name": "LearnWiseWay.com",
+        "title": "Wise Learnings",
+        "shortTitle": "Learn Wise Way",
+        "description": "Free Learnings - CBSE Board Study Material for all classes 6-12 and all subjects including Physics, Maths, Chemistry, Biology, English, SST. CBSE syllabus, Free CBSE Sample Papers, CBSE notes, Text book solutions, online tests, guess papers, model question papers, CBSE news and updates on Learnwiseway.com. Get Access to CBSE Solutions, Online Tests, Guess Papers etc for free at Learnwiseway.com. A complete guide for CBSE students from pre-school to class-12. CBSE Board Date Sheet and latest News andfree Study Material for all classes.",
+        "keywords": "CBSE board, CBSE board tutorials, CBSE board study materials, CBSE board online study material, CBSE Board Sample Paper, CBSE Question Papers, CBSE Board Guess Papers, Articles, Maths, Science, Chemistry, Biology, English, SSt ICSE",
+        "copyYear": 2017,
+        "appLogo": {
+          "primaryTitle": "Learn Wise Way",
+          "highCharIndex": 7,
+          "secondaryTitle": "Wise Learnings"
+        },
+        "bodyImageUrl": "../images/theme-default/body-background-digital-tyres.jpg",
+        "bodyImageSize":  "cover"
+    }
 }

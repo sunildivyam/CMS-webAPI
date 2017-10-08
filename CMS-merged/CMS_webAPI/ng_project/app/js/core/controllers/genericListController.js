@@ -18,10 +18,15 @@
         };
 
         $scope.itemClick = function(event, item) {
-            $scope.selectedItem = item;
-            if (typeof $scope.onItemSelect === 'function') {
-                event.preventDefault();
-                $scope.onItemSelect(event, item);
+            $scope.selectedItem = item;            
+            if (typeof $scope.onItemSelect === 'function') {                
+                var $targetEl = $(event.target);
+                if ($targetEl.context && $targetEl.context.type==='checkbox') {
+                    $scope.onItemSelect(event, item, $targetEl.context.checked);
+                } else {
+                    event.preventDefault();
+                    $scope.onItemSelect(event, item);
+                }
             }
         };
 

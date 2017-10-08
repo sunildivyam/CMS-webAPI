@@ -185,6 +185,17 @@
             returnable: true
         })
         .state({
+            name: 'author.quiz',
+            url: '/quiz?id',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('content/landing.html');
+            }],
+            controller: 'quizController',
+            isAnonymous: false,
+            title: 'Manage Quizzes',
+            returnable: true
+        })
+        .state({
             name: 'author.tag',
             url: '/tag?id',
             templateProvider: ['$templateCache', function($templateCache) {
@@ -281,6 +292,17 @@
             isAnonymous: true,
             title: 'Articles',  // should be "User Name - Articles"
             returnable: true            
+        })
+        .state({
+            name: 'pub.quiz',
+            url: 'quiz//:qi/:qn',      // where qi is Quiz ID and qn is Quiz Name
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('pubcontent/quiz-landing.html');
+            }],
+            controller: 'quizController',
+            isAnonymous: true,
+            title: 'Quiz', 
+            returnable: true            
         });
 
         // Enables html5Mode Urls
@@ -359,7 +381,11 @@
     .factory('Content', require('./domain/Content'))
     .factory('ContentResource', require('./domain/ContentResource'))
     .factory('Comment', require('./domain/Comment'))
-    
+    .factory('QuizComment', require('./domain/QuizComment'))
+    .factory('QuestionComment', require('./domain/QuestionComment'))
+    .factory('Question', require('./domain/Question'))
+    .factory('Quiz', require('./domain/Quiz'))
+
     .filter('youtubeFilter', require('./filters/youtubeFilter'))
 
     .controller('appController', require('./controllers/appController'))

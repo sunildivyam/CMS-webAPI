@@ -13,6 +13,10 @@
 				this.name = raw.Name;
 				this.title = raw.Title;
 				this.description = raw.Description;
+
+				//Navigation properties
+				this.questions = [];	
+				this.quizs = [];	
 			}
 		}
 

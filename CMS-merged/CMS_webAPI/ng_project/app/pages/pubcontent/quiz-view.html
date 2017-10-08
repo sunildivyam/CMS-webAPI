@@ -1,0 +1,27 @@
+<div class="panel panel-default quiz-view">
+	<div class="panel-heading">	
+		<div class="jumbotron">
+			<h1 ng-bind="quiz.title"></h1>		
+			<p ng-bind-html="quiz.description"></p>
+		</div>	
+	</div>
+	<div class="panel-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12" ng-repeat="question in quiz.questions">
+					<question-view 
+						data-question="question"
+						data-on-attempt-answer=""
+						data-serial-number="$index + 1"
+						data-is-inline-mode="false"
+						data-is-loading="">
+					</question-view>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel-footer">
+		<tags tag-items="quiz.tags"></tags>
+	</div>
+	<loader data-at-body="false" data-is-loading="isLoading"></loader>
+</div>
