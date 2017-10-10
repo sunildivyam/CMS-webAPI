@@ -331,6 +331,7 @@
     <Compile Include="Models\QuestionComment.cs" />
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\QuizComment.cs" />
+    <Compile Include="Models\QuizsViewModel.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\TagViewModel.cs" />

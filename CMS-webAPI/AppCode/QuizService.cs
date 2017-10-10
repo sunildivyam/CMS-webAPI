@@ -226,6 +226,37 @@ namespace CMS_webAPI.AppCode
                 question.VisitCount = 1;                
             }            
         }
+
+
+        /// GET LIVE Methods
+        /// 
+
+        public static List<Quiz> GetPagedData(IEnumerable<Quiz> quizsEnums, int pageNo, int pageSize, string sortField, bool sortDirAsc)
+        {
+            List<Quiz> quizs = new List<Quiz>();
+            if (quizsEnums == null)
+            {
+                return quizs;
+            }
+
+            int skipSize = ((pageNo) * pageSize);
+
+            if (sortDirAsc == true)
+            {
+                quizs = quizsEnums.OrderBy(c => c.GetType().GetProperty(sortField).GetValue(c, null))
+                .Skip(skipSize)
+                .Take(pageSize)
+                .ToList();
+            }
+            else
+            {
+                quizs = quizsEnums.OrderByDescending(c => c.GetType().GetProperty(sortField).GetValue(c, null))
+                .Skip(skipSize)
+                .Take(pageSize)
+                .ToList();
+            }
+            return quizs;
+        }
                 
     }
 }

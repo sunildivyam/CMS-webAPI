@@ -247,7 +247,82 @@ namespace CMS_webAPI.Controllers
         }
 
         
+        /// LIVE Quizes GET Methods
+        /// 
         
+        [ResponseType(typeof(QuizsViewModel))]
+        public async Task<IHttpActionResult> GetLiveQuizsWithTags(int param1, int param2, string param3, bool param4)
+        {
+            string cacheKey = ApiCache.GenerateKey("Quizs", "GetLiveQuizsWithTags", new string[] { param1.ToString(), param2.ToString(), param3, param4.ToString() });
+            QuizsViewModel quizsViewFromCache = (QuizsViewModel)ApiCache.Get(cacheKey);
+
+            if (quizsViewFromCache != null)
+            {
+                return Ok(quizsViewFromCache);
+            }
+           
+            int pageNo = param1;
+            int pageSize = param2;
+            string sortField = param3;
+            bool sortDirAsc = param4;
+
+            if (pageNo < 1 || pageSize < 1)
+            {
+                return BadRequest();
+            }
+
+            pageNo = pageNo - 1;            
+           
+            List<Quiz> quizs;
+            IEnumerable<Quiz> quizsEnums;
+            try
+            {
+                quizsEnums = await Task.Run(()=> db.Quizs.Include("Tags").Where(q => q.IsLive == true)
+                    .AsEnumerable());
+                quizs = QuizService.GetPagedData(quizsEnums, pageNo, pageSize, sortField, sortDirAsc);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            if (quizs == null)
+            {
+                return NotFound();
+            }
+
+            QuizsViewModel quizsView = new QuizsViewModel(quizs, quizsEnums.Count());
+
+            ApiCache.Add(cacheKey, quizsView);
+            return Ok(quizsView);
+        }
+
+        [ResponseType(typeof(Quiz))]
+        public async Task<IHttpActionResult> GetLiveQuizWithTagsAndQuestions(int param1, string param2)
+        {
+            string cacheKey = ApiCache.GenerateKey("Quizs", "GetLiveQuizWithTagsAndQuestions", new string[] { param1.ToString(), param2 });
+            Quiz quizFromCache = (Quiz)ApiCache.Get(cacheKey);
+
+            if (quizFromCache != null)
+            {
+                return Ok(quizFromCache);
+            }
+
+            var quizId = param1;
+            var quizName = param2;
+
+            Quiz quiz = await db.Quizs.Include("Tags").Include("Questions").Where(q => q.QuizId == quizId && q.Name == quizName && q.IsLive == true).FirstOrDefaultAsync();
+            if (quiz == null)
+            {
+                return NotFound();
+            }
+            
+            //db.Database.ExecuteSqlCommand("exec proc_UpdateVisitCountOnQuizs " + quiz.QuizId);
+            // Update and increment the VisitCount By 1
+            // Code goes here
+            ApiCache.Add(cacheKey, quiz);
+            return Ok(quiz);
+        }
 
         protected override void Dispose(bool disposing)
         {
