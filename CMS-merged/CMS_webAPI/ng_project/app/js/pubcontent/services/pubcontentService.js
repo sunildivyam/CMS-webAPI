@@ -29,7 +29,12 @@
 				base: 'comments',
 				getCommentsByContentId: 'GetCommentsByContentId',
 				postComment: 'PostComment'
-			}
+			},
+			'quizs': {
+				base: 'quizs',
+				getQuizs: 'GetLiveQuizsWithTags',
+				getQuiz: 'GetLiveQuizWithTagsAndQuestions'
+			},
 		};
 
 		// Default Values
@@ -114,6 +119,27 @@
 			return appService.post([urls.comments.base, urls.comments.postComment].join('/'), comment, requestHeaders);
 		}
 
+
+
+		// Quizs
+
+		function getQuizs(sortField, sortDireAsc, pageSize, pageNo) {
+			if (typeof sortDireAsc === 'undefined') {
+				sortDireAsc = SORT_DIR_ASC;
+			}
+			return appService.get([urls.quizs.base,
+				urls.quizs.getQuizs,
+				pageNo || PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
+		}
+
+		function getQuiz(quizId, quizName) {
+			return appService.get([urls.quizs.base,
+				urls.quizs.getQuiz,
+				quizId,
+				quizName].join('/'), undefined, requestHeaders, CACHE);
+		}
+
+
 		function getUniqueTagsOfContents(contents) {
 			var distinctTags = new EntityMapper(Tag).toEntities();
 			if (contents instanceof Array) {
@@ -159,7 +185,9 @@
 			getUniqueTagsOfTags: getUniqueTagsOfTags,
 			getContentsByUserName: getContentsByUserName,
 			getCommentsByContentId: getCommentsByContentId,
-			addComment: addComment
+			addComment: addComment,
+			getQuizs: getQuizs,
+			getQuiz: getQuiz
 		};
 	};
 	pubcontentService.$inject = ['appService', 'EntityMapper', 'Tag'];

@@ -125,6 +125,10 @@
             return angular.copy(listConfig && listConfig.pubContentListTypes);
         }
 
+        function getPubQuizListTypes() {
+            return angular.copy(listConfig && listConfig.pubQuizListTypes);
+        }
+
         function setMetaInfo(pageTitle, description, keywords) {
             if (!description) {
                 metaInformationService.resetMetaDescription();
@@ -195,7 +199,8 @@
             getPubContentListTypes: getPubContentListTypes,
             setMetaInfo: setMetaInfo,
             getCategories: getCategories,
-            getDateRangePicker: getDateRangePicker
+            getDateRangePicker: getDateRangePicker,
+            getPubQuizListTypes: getPubQuizListTypes
         };
     };
 

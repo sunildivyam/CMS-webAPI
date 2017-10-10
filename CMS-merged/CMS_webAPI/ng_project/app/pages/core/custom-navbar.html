@@ -26,6 +26,18 @@
 					<span class="{{itemIconClassNamePost}}"></span>
 				</a>
 			</li>
+			<li class="{{selectedItemName==='quizs'? 'active': ''}}">
+				<a href="#"
+					title="Test your Knowledge"
+					ui-sref="pub.quizs()"
+					ng-click="onItemClick($event, {name: 'quizs', title: 'Test your Knowledge'})"
+					data-toggle="collapse"
+					data-target="#navbar-collapse-quizs.in">
+					<span class="fa fa-quora"></span>
+					<span>Test your Knowledge</span>
+					<span class="{{itemIconClassNamePost}}"></span>
+				</a>
+			</li>
 		</ul>
 		<loader data-at-body="false" data-is-loading="isLoading"></loader>
 	</div>

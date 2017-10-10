@@ -262,7 +262,7 @@
         })
         .state({
             name: 'pub.tags',
-            url: 'tags/articles/:ti/:tn',
+            url: 'tags/:tt/:ti/:tn',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('pubcontent/tag-landing.html');
             }],
@@ -294,15 +294,25 @@
             returnable: true            
         })
         .state({
-            name: 'pub.quiz',
-            url: 'quiz//:qi/:qn',      // where qi is Quiz ID and qn is Quiz Name
+            name: 'pub.quizs',
+            url: 'quizzes',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('pubcontent/quizs-landing.html');
+            }],
+            controller: 'pubquizController',
+            title: 'Quizzes',
+            isAnonymous: true,
+            returnable: true
+        })
+        .state({
+            name: 'pub.quizs.quiz',
+            url: '/quiz/:qi/:qn',
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('pubcontent/quiz-landing.html');
             }],
-            controller: 'quizController',
+            controller: 'pubquizController',
             isAnonymous: true,
-            title: 'Quiz', 
-            returnable: true            
+            returnable: true
         });
 
         // Enables html5Mode Urls

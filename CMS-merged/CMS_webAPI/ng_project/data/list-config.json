@@ -305,6 +305,44 @@
         "onRefresh": "undefined",
         "isLoading": false
     },
+    "pubQuiz": {
+        "items": [],
+        "itemsType": "pubQuiz",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": false,
+        "enableViewModes": true,
+        "enableScrollbar": false,
+        "enableTags": true,
+        "enableFooterLink": true,
+        "enablePaging": true,
+
+        "headerTitle": "Quizzes",
+        "headerSummary": "Explore quizzes and Test enhance & Test your Knowledge",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 0,
+
+        "tags": [],
+
+        "footerLinkText": "Click here to read more...",
+        "footerLinkUrl": "/quizzes",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 1,
+        "pagingPageSize": 10,
+        "pagingPagerSize": 10,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
     "contentResource": {
         "items": [],
         "itemsType": "contentResource",
@@ -570,6 +608,10 @@
         "question": {
             "name": "question",
             "templateUrl": "content/question-list.html"
+        },      
+        "pubQuiz": {
+            "name": "pubQuiz",
+            "templateUrl": "pubcontent/quiz-list.html"
         }
     },
     "pubContentListTypes": {
@@ -597,6 +639,36 @@
         "pubContentRelated": {
             "title": "Related Articles",
             "sortField": "CategoryId",
+            "sortDirAsc": true,
+            "viewMode": "inline",
+            "tileViewClass": "col-xs-12"
+        }
+    },
+    "pubQuizListTypes": {
+        "pubQuizPopular": {
+            "title": "Most Popular Quizzes",
+            "sortField": "VisitCount",
+            "sortDirAsc": false,
+            "viewMode": "list",
+            "tileViewClass": "col-xs-12 col-sm-6 col-md-4"
+        },
+        "pubQuizLatest": {
+            "title": "Latest Quizzes",
+            "sortField": "UpdatedDate",
+            "sortDirAsc": false,
+            "viewMode": "inline",
+            "tileViewClass": "col-xs-12"
+        },
+        "pubQuizRelevant": {
+            "title": "Most Relevant Quizzes",
+            "sortField": "Title",
+            "sortDirAsc": true,
+            "viewMode": "inline",
+            "tileViewClass": "col-xs-12"
+        },
+        "pubQuizRelated": {
+            "title": "Related Quizzes",
+            "sortField": "CreatedDate",
             "sortDirAsc": true,
             "viewMode": "inline",
             "tileViewClass": "col-xs-12"

@@ -52,7 +52,7 @@
 			<span class="label label-danger">No data available</span>
 		</section>
 		<!-- Tags -->
-		<tags data-tag-items="tags" ng-if="enableTags"></tags>
+		<tags data-tag-items="tags" ng-if="enableTags" data-tag-type="{{itemsType === 'pubQuiz'?'quizzes': itemsType==='question'?'questions':''}}"></tags>
 
 		<!-- Footer Link-->
 		<a

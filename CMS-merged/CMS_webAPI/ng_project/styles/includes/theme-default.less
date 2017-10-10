@@ -12,6 +12,10 @@
 @default-box-shadow-color: #cacaca;
 
 // Mixins
+.default-grad-both-color-opacity(@opacity1: 0.7, @opacity2: 0.7) {
+	.gradient(rgba(178, 227, 255, @opacity1), rgba(91, 195, 255, @opacity2));
+}
+
 .default-grad(@opacity: 0.7) {
 	.gradient(rgba(178, 227, 255, @opacity), rgba(91, 195, 255, @opacity));
 }
@@ -150,7 +154,8 @@ body.theme-default {
 
     custom-navbar {
         .navbar {
-            .default-dark-grad(0.7);
+            .default-grad-both-color-opacity(0.8, 0);
+            border: none;
 
             .navbar-nav {
                 & > li {
@@ -169,7 +174,7 @@ body.theme-default {
                         a {
                             background-color: @default-body-bg-color;
                             margin-bottom: -5px;
-                            border-bottom: solid 5px @default-body-bg-color;
+                            border-bottom: solid 5px @default-border-color;
                             color: @default-text-color;
                             .border-radiuses(5px, 0px, 0px, 5px);
                         }
@@ -179,7 +184,7 @@ body.theme-default {
                         a {
                             .default-grad(0.4);
                             margin-bottom: -5px;
-                            border-bottom: solid 5px @default-body-bg-color;
+                            border-bottom: solid 5px @default-border-color;
                             color: @default-text-color;
                             .border-radiuses(5px, 0px, 0px, 5px);
                         }

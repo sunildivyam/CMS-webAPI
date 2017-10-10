@@ -27,7 +27,7 @@
 	.controller('pubTagController', require('./controllers/pubTagController'))
 	.controller('myspaceController', require('./controllers/myspaceController'))
 	.controller('commentController', require('./controllers/commentController'))
-
+    .controller('pubquizController', require('./controllers/pubquizController'))
 	.directive('pubcategoryView', require('./directives/pubcategoryView'))
 	.directive('pubcontentView', require('./directives/pubcontentView'))
 	.directive('pubcontentSearch', require('./directives/pubcontentSearch'))
