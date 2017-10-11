@@ -29,7 +29,9 @@
       </div>
     </li>
   </ul> 
-  <div ng-show="" class="label label-info">Be the first to post a comment </div>
+  <div ng-show="!currentComments || !currentComments.length">
+      <p class="label label-info center-block">Be the first to post a comment</p>
+  </div>
   <div class="container-fluid"  ng-show="!isLoading">
     <div class="row">
       <div class="col-sm-8">
