@@ -37,7 +37,7 @@ namespace CMS_webAPI.Models
 
 
         // Navigation Properties
-        public virtual Quiz Quiz {get; set;}
+        public Quiz Quiz {get; set;}
 
         //Not Mapped Properties
         [NotMapped]

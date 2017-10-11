@@ -23,6 +23,8 @@ namespace CMS_webAPI.Controllers
             return BadRequest();
         }
 
+        //// GET METHODS
+
         // GET: api/Comments/GetCommentsByContentId/5
         [ResponseType(typeof(List<CommentViewModel>))]
         public async Task<IHttpActionResult> GetCommentsByContentId(int param1)
@@ -42,6 +44,39 @@ namespace CMS_webAPI.Controllers
             return Ok(commentViewModels);
         }
 
+
+        // GET: api/Comments/GetCommentsByQuizId/5
+        [ResponseType(typeof(List<QuizComment>))]
+        public async Task<IHttpActionResult> GetCommentsByQuizId(int param1)
+        {
+            int quizId = param1;
+            
+            List<QuizComment> comments = await db.QuizComments.Where(c=>c.QuizId==quizId).ToListAsync();
+            if (comments == null)
+            {
+                comments = new List<QuizComment>();
+            }
+
+            return Ok(comments);
+        }
+
+        // GET: api/Comments/GetCommentsByQuestionId/5
+        [ResponseType(typeof(List<QuestionComment>))]
+        public async Task<IHttpActionResult> GetCommentsByQuestionId(int param1)
+        {
+            int questionId = param1;
+            
+            List<QuestionComment> comments = await db.QuestionComments.Where(c=>c.QuestionId==questionId).ToListAsync();
+            if (comments == null)
+            {
+                comments = new List<QuestionComment>();
+            }
+
+            return Ok(comments);
+        }
+
+
+        /////////// POST METHODS
         // POST: api/Comments/PostComment
         [Authorize(Roles = "Readers, Administrators, Authors")]
         [ResponseType(typeof(CommentViewModel))]
@@ -68,6 +103,58 @@ namespace CMS_webAPI.Controllers
             CommentViewModel savedCommentViewModel = new CommentViewModel(comment);
             return Ok(savedCommentViewModel);
         }
+
+
+        // POST: api/Comments/PostQuizComment
+        [Authorize(Roles = "Readers, Administrators, Authors")]
+        [ResponseType(typeof(QuizComment))]
+        public async Task<IHttpActionResult> PostQuizComment(QuizComment quizComment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Quiz quiz = await db.Quizs.FindAsync(quizComment.QuizId);
+            if (quiz == null)
+            {
+                return NotFound();
+            }
+           
+            quizComment.OwnerId = UserService.getUserByUserName(User.Identity.Name).Id;
+            quizComment.PostedDate = DateTime.Now;
+
+            db.QuizComments.Add(quizComment);
+            await db.SaveChangesAsync();
+            
+            return Ok(quizComment);
+        }
+
+        // POST: api/Comments/PostQuestionComment
+        [Authorize(Roles = "Readers, Administrators, Authors")]
+        [ResponseType(typeof(QuestionComment))]
+        public async Task<IHttpActionResult> PostQuestionComment(QuestionComment questionComment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Question question = await db.Questions.FindAsync(questionComment.QuestionId);
+            if (question == null)
+            {
+                return NotFound();
+            }
+           
+            questionComment.OwnerId = UserService.getUserByUserName(User.Identity.Name).Id;
+            questionComment.PostedDate = DateTime.Now;
+
+            db.QuestionComments.Add(questionComment);
+            await db.SaveChangesAsync();
+            
+            return Ok(questionComment);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

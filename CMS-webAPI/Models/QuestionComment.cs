@@ -37,7 +37,7 @@ namespace CMS_webAPI.Models
 
 
         // Navigation Properties
-        public virtual Question Question { get; set; }
+        public Question Question { get; set; }
 
         //Not Mapped Properties
         [NotMapped]

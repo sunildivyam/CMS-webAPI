@@ -297,6 +297,63 @@ namespace CMS_webAPI.Controllers
             return Ok(quizsView);
         }
 
+        [ResponseType(typeof(QuizsViewModel))]
+        public async Task<IHttpActionResult> GetLiveQuizsWithTagsByTag(int param1, string param2, int param3, int param4, string param5, bool param6)
+        {
+            string cacheKey = ApiCache.GenerateKey("Quizs", "GetLiveQuizsWithTagsByTag", new string[] { param1.ToString(), param2, param3.ToString(), param4.ToString(), param5, param6.ToString() });
+            QuizsViewModel quizsViewFromCache = (QuizsViewModel)ApiCache.Get(cacheKey);
+
+            if (quizsViewFromCache != null)
+            {
+                return Ok(quizsViewFromCache);
+            }
+
+            int tagId = param1;
+            string tagName = param2;
+            int pageNo = param3;
+            int pageSize = param4;
+            string sortField = param5;
+            bool sortDirAsc = param6;
+
+            if (pageNo < 1 || pageSize < 1)
+            {
+                return BadRequest();
+            }
+
+            pageNo = pageNo - 1;
+
+            List<Quiz> quizs;
+            IEnumerable<Quiz> quizsEnums;
+            Tag tag;
+            try
+            {
+                tag = await db.Tags.Where(t=> t.TagId == tagId && t.Name == tagName).FirstOrDefaultAsync();
+                if (tag == null)
+                {
+                    return NotFound();
+                }
+
+                quizsEnums = db.Quizs.Include("Tags").Where(q => q.IsLive == true && q.Tags.Any(t => t.TagId == tagId))
+                    .AsEnumerable();
+                quizs = QuizService.GetPagedData(quizsEnums, pageNo, pageSize, sortField, sortDirAsc);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            if (quizs == null)
+            {
+                return NotFound();
+            }
+            int quizCount =  quizsEnums.Count();
+            tag.Quizs = new List<Quiz>();
+            QuizsViewModel quizsView = new QuizsViewModel(quizs, quizCount, tag);
+
+            ApiCache.Add(cacheKey, quizsView);
+            return Ok(quizsView);
+        }
+
         [ResponseType(typeof(Quiz))]
         public async Task<IHttpActionResult> GetLiveQuizWithTagsAndQuestions(int param1, string param2)
         {

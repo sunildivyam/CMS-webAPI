@@ -61,9 +61,9 @@ namespace CMS_webAPI.Models
 
 
         //Navigation Properties        
-        public virtual ICollection<Quiz> Quizs { get; set; }
+        public ICollection<Quiz> Quizs { get; set; }
         public ICollection<QuestionComment> Comments { get; set; }
-        public virtual ICollection<Tag> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
 
         //Not Mapped Properties
         [NotMapped]
