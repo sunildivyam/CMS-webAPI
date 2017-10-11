@@ -40,7 +40,8 @@
             $scope.success = false;
         };
 
-        $scope.registerSubmit = function() {
+        $scope.registerSubmit = function(event) {
+            event.preventDefault();
             $scope.isRegistering = true;
             accountService.register($scope.newUser).then(function(response) {
                 var userName = $scope.newUser.Email;
@@ -78,7 +79,8 @@
             });
         };
 
-        $scope.loginSubmit = function() {
+        $scope.loginSubmit = function(event) {
+            event.preventDefault();
             $scope.isSigningIn = true;
             accountService.login($scope.loginInfo).then(function() {
                 $rootScope.currentUser = accountService.getLoggedInUser();
