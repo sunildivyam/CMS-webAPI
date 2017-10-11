@@ -28,12 +28,18 @@
 			'comments': {
 				base: 'comments',
 				getCommentsByContentId: 'GetCommentsByContentId',
-				postComment: 'PostComment'
+				getCommentsByQuizId: 'GetCommentsByQuizId',
+				getCommentsByQuestionId: 'GetCommentsByQuestionId',
+				postComment: 'PostComment',
+				postQuizComment: 'PostQuizComment',
+				postQuestionComment: 'PostQuestionComment'
 			},
 			'quizs': {
 				base: 'quizs',
 				getQuizs: 'GetLiveQuizsWithTags',
-				getQuiz: 'GetLiveQuizWithTagsAndQuestions'
+				getQuiz: 'GetLiveQuizWithTagsAndQuestions',
+				getQuizsByTag: 'GetLiveQuizsWithTagsByTag',
+				getQuestionsByTag: 'GetLiveQuestionsWithTagsByTag'	
 			},
 		};
 
@@ -115,10 +121,25 @@
 			return appService.get([urls.comments.base, urls.comments.getCommentsByContentId, contentId].join('/'));
 		}
 
+		function getCommentsByQuizId(quizId) {
+			return appService.get([urls.comments.base, urls.comments.getCommentsByQuizId, quizId].join('/'));
+		}
+
+		function getCommentsByQuestionId(questionId) {
+			return appService.get([urls.comments.base, urls.comments.getCommentsByQuestionId, questionId].join('/'));
+		}
+
 		function addComment(comment) {
 			return appService.post([urls.comments.base, urls.comments.postComment].join('/'), comment, requestHeaders);
 		}
 
+		function addQuizComment(comment) {
+			return appService.post([urls.comments.base, urls.comments.postQuizComment].join('/'), comment, requestHeaders);
+		}
+
+		function addQuestionComment(comment) {
+			return appService.post([urls.comments.base, urls.comments.postQuestionComment].join('/'), comment, requestHeaders);
+		}
 
 
 		// Quizs
@@ -139,6 +160,28 @@
 				quizName].join('/'), undefined, requestHeaders, CACHE);
 		}
 
+
+		function getQuizsByTag(tagId, tagName, pageNo, pageSize) {
+			var sortDireAsc = false;
+			var sortField = 'UpdatedDate';
+
+			return appService.get([urls.quizs.base,
+				urls.quizs.getQuizsByTag,
+				tagId,
+				tagName,
+				pageNo || PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
+		}
+
+		function getQuestionsByTag(tagId, tagName, pageNo, pageSize) {
+			var sortDireAsc = false;
+			var sortField = 'UpdatedDate';
+
+			return appService.get([urls.quizs.base,
+				urls.quizs.getQuestionsByTag,
+				tagId,
+				tagName,
+				pageNo || PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
+		}
 
 		function getUniqueTagsOfContents(contents) {
 			var distinctTags = new EntityMapper(Tag).toEntities();
@@ -180,12 +223,18 @@
 			getCategoryByName: getCategoryByName,
 			getContentsByCategoryName: getContentsByCategoryName,
 			getContentsByTag: getContentsByTag,
+			getQuizsByTag: getQuizsByTag,
+			getQuestionsByTag: getQuestionsByTag,
 			getContent: getContent,
 			getUniqueTagsOfContents: getUniqueTagsOfContents,
 			getUniqueTagsOfTags: getUniqueTagsOfTags,
 			getContentsByUserName: getContentsByUserName,
 			getCommentsByContentId: getCommentsByContentId,
+			getCommentsByQuizId: getCommentsByQuizId,
+			getCommentsByQuestionId: getCommentsByQuestionId,
 			addComment: addComment,
+			addQuizComment: addQuizComment,
+			addQuestionComment: addQuestionComment,
 			getQuizs: getQuizs,
 			getQuiz: getQuiz
 		};

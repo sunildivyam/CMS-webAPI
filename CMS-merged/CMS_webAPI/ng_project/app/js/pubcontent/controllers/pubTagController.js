@@ -6,9 +6,44 @@
 */
 
 (function() {
-    var pubTagController = function($rootScope, $scope, pubcontentService, metaInformationService, pageTitleService, EntityMapper, Content, Tag, Utils) {
+    var pubTagController = function($rootScope, $scope, pubcontentService, metaInformationService, pageTitleService, EntityMapper, Content, Tag, Utils, Quiz, Question) {
         $scope.dlContentsListOfTag = {};
         $scope.currentTag = new Tag();
+        $scope.tagEntityName = getTagEntityType('quizzes');
+        $scope.tagType = 'articles';
+
+        function getConfigName(tagType) {
+            if (tagType === 'articles') {
+                return 'pubtag';
+            } else if (tagType === 'quizzes') {
+                return 'pubQuiz';
+            } else if (tagType === 'questions') {
+                return 'question';
+            }
+            return 'pubtag';
+        }
+
+        function getTagEntityType(tagType) {
+            if (tagType === 'articles') {
+                return 'Content';
+            } else if (tagType === 'quizzes') {
+                return 'Quiz';
+            } else if (tagType === 'questions') {
+                return 'Question';
+            }
+            return 'Content';
+        }
+
+        function getTagEntityTypeObject(tagEntityTypeName) {
+            if (tagEntityTypeName === 'Content') {
+                return Content;
+            } if (tagEntityTypeName === 'Quiz') {
+                return Quiz;
+            } else if (tagEntityTypeName === 'Question') {
+                return Question;
+            }
+            return Content;
+        }
 
         function getSearchResultsTags(searchResults) {
             var tags = [];
@@ -23,9 +58,11 @@
         function  initTagContentListWithResults(searchResults) {
             if(searchResults instanceof Object) {
                 $scope.currentTag = new Tag(searchResults.Tag);
-                $scope.dlContentsListOfTag.items = new EntityMapper(Content).toEntities(searchResults.Contents);
+                $scope.dlContentsListOfTag.items = new EntityMapper(getTagEntityTypeObject($scope.tagEntityName)).toEntities(searchResults[$scope.tagEntityName + 's']);
                 $scope.dlContentsListOfTag.pagingTotalItems = searchResults.TotalCount;
                 $scope.dlContentsListOfTag.headerRightLabel = searchResults.TotalCount + " results";
+                $scope.dlContentsListOfTag.headerTitle = $scope.tagType + '-' + $scope.currentTag.title;
+                $scope.dlContentsListOfTag.headerSummary = $scope.tagType + ' related to keyword "' + $scope.currentTag.title +'"';
                 // Sets Meta information for Page
                 Utils.setMetaInfo(
                     [$scope.baseTitle, $scope.currentTag.title].join(' '),
@@ -42,9 +79,11 @@
         function getSearchResults(tagId, tagName, pageNo) {
             $scope.isTagLoading = true;
             $scope.dlContentsListOfTag.isLoading = true;
-            $scope.dlContentsListOfTag = angular.extend(Utils.getListConfigOf('pubtag'), $scope.dlContentsListOfTag);
+            $scope.dlContentsListOfTag = angular.extend(Utils.getListConfigOf(getConfigName($scope.tagType)), $scope.dlContentsListOfTag);
 
-            pubcontentService.getContentsByTag(tagId, tagName, pageNo, $scope.dlContentsListOfTag.pagingPageSize).then(function(response) {
+            var tagContentListFn = pubcontentService['get' + $scope.tagEntityName + 'sByTag'];
+
+            tagContentListFn(tagId, tagName, pageNo, $scope.dlContentsListOfTag.pagingPageSize).then(function(response) {
                 if (response && response.data) {
                     initTagContentListWithResults(response.data);
                 } else {
@@ -76,6 +115,8 @@
 
             if (toState && toState.name && toParams && toParams.ti && toParams.tn) {
                 Utils.getListConfigs().then(function() {
+                    $scope.tagEntityName = getTagEntityType(toParams.tt);
+                    $scope.tagType = toParams.tt;
                     getSearchResults(toParams.ti, toParams.tn, 1);
                 }, function(rejection) {
                     //
@@ -84,6 +125,6 @@
         });
     };
 
-    pubTagController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'metaInformationService', 'pageTitleService', 'EntityMapper', 'Content', 'Tag', 'Utils'];
+    pubTagController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'metaInformationService', 'pageTitleService', 'EntityMapper', 'Content', 'Tag', 'Utils', 'Quiz', 'Question'];
     module.exports = pubTagController;
 })();
