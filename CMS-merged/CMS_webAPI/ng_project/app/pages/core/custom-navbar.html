@@ -14,9 +14,9 @@
 	</div>
 	<div class="navbar-collapse collapse" id="navbar-collapse-{{name}}">
 		<ul class="nav navbar-nav">
-			<li class="{{selectedItemName===item.name? 'active': ''}}" ng-repeat="item in items">
+			<li class="" ui-sref-active="active" ng-repeat="item in items">
 				<a href="#"
-					title="{{item.title}}"
+					title="{{item.title}}"					
 					ui-sref="{{stateName}}({n: '{{item.name}}'})"
 					ng-click="onItemClick($event, item)"
 					data-toggle="collapse"
@@ -26,13 +26,13 @@
 					<span class="{{itemIconClassNamePost}}"></span>
 				</a>
 			</li>
-			<li class="{{selectedItemName==='quizs'? 'active': ''}}">
+			<li class="" ui-sref-active="active">
 				<a href="#"
 					title="Test your Knowledge"
 					ui-sref="pub.quizs()"
 					ng-click="onItemClick($event, {name: 'quizs', title: 'Test your Knowledge'})"
 					data-toggle="collapse"
-					data-target="#navbar-collapse-quizs.in">
+					data-target="#navbar-collapse-{{name}}.in">
 					<span class="fa fa-quora"></span>
 					<span>Test your Knowledge</span>
 					<span class="{{itemIconClassNamePost}}"></span>

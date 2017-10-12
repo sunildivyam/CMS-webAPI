@@ -49,7 +49,8 @@
 				postPublishQuiz: "PostPublishQuiz",
 				getDraftedQuizs: 'GetDraftedQuizs',
 				getPublishedQuizs: 'GetPublishedQuizs',
-				getPublishedQuestions: 'GetPublishedQuestions'
+				getPublishedQuestions: 'GetPublishedQuestions',
+				uploadQuizThumbnail: 'postQuizThumbnail'
 			}
 		};
 
@@ -193,6 +194,23 @@
 			return appService.get([urls.quizs.base, urls.quizs.getPublishedQuestions].join('/'));
 		}
 
+		function uploadQuizThumbnail(quizId, thumbnailData) {
+			var requestHeaders = {
+				'Content-Type': undefined
+			};
+
+			var requestOptions = {
+				transformRequest: angular.identity
+			};
+
+			var fd = new FormData();
+			fd.append('file', thumbnailData);
+			return appService.post([urls.quizs.base, urls.quizs.uploadQuizThumbnail, quizId].join('/'),
+			fd,
+			requestHeaders,
+			requestOptions);
+		}
+
 		return {
 			getTags: getTags,
 			getTagById: getTagById,
@@ -222,7 +240,8 @@
 			publishQuiz: publishQuiz,
 			getDraftedQuizs: getDraftedQuizs,
 			getPublishedQuizs: getPublishedQuizs,
-			getPublishedQuestions: getPublishedQuestions
+			getPublishedQuestions: getPublishedQuestions,
+			uploadQuizThumbnail: uploadQuizThumbnail
 		};
 	};
 	contentService.$inject = ['appService'];

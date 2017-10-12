@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-	var quizView = function($timeout, $location, $interval, CkEditorService, Question, pageTitleService, modalService) {
+	var quizView = function($timeout, $location, $interval, CkEditorService, Question, pageTitleService, modalService, appService) {
 		var MAX_QUESTION_ATTEMPT_DURATION = 20;
 		var originalQuiz;
 		return {
@@ -93,12 +93,17 @@
 				};
 
 				$scope.$watch('quiz', function(quiz) {
-					if (quiz && quiz.description) {
-						originalQuiz = angular.copy(quiz);
-						$timeout(function() {
-							CkEditorService.updateMathJax();
-							CkEditorService.updateCodeHighlight($(element));
-						}, 100);
+					if (quiz) {
+						setThumbnailUrl();
+						if (quiz.description) {
+							originalQuiz = angular.copy(quiz);
+							$timeout(function() {
+								CkEditorService.updateMathJax();
+								CkEditorService.updateCodeHighlight($(element));
+							}, 100);
+						}
+					} else {
+						setThumbnailUrl(false);
 					}
 				});
 
@@ -121,10 +126,18 @@
 					var secs = parseInt((seconds%60));
 					return ('- ' + (mins || '00') + ':' + (secs || '00'));
 				}
+
+				function setThumbnailUrl(url) {
+					if (url === false) {
+						$scope.thumbnailUrl = '';
+					} else {
+						$scope.thumbnailUrl = [appService.getQuizImagesUrl(), $scope.quiz.quizId, $scope.quiz.name].join('/');
+					}
+				}
 			}
 		};
 	};
 
-	quizView.$inject = ['$timeout', '$location', '$interval', 'CkEditorService', 'Question', 'pageTitleService', 'modalService'];
+	quizView.$inject = ['$timeout', '$location', '$interval', 'CkEditorService', 'Question', 'pageTitleService', 'modalService', 'appService'];
 	module.exports = quizView;
 })();

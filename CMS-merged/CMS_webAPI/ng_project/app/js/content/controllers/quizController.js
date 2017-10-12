@@ -154,10 +154,11 @@
         };
 
         $scope.saveQuizQuestions = function(event, quiz, successCallback) {
+            quiz.questionIds = generateQuestionIdsForQuiz(quiz.questions);
             saveQuizContents(quiz, 'updateQuizQuestions', successCallback);
         };
 
-        $scope.saveQuizQuestion = function(event, question) {
+        $scope.saveQuizQuestion = function(event, question, successCallback) {
             $scope.isLoading = true;
             $scope.loaderMsg = 'Saving Question...';
 
@@ -178,6 +179,8 @@
                 'Question Saved',
                 'Question saved successfully',
                 'Ok');
+                
+                typeof successCallback === 'function' && successCallback(addedQuestion);
             }, function(rejection) {
                 $scope.isLoading = false;
                 $scope.loaderMsg = '';
@@ -185,6 +188,7 @@
                 'Question Saving Failed',
                 'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li'),
                 'try Again');
+                typeof successCallback === 'function' && successCallback();
             });
         };
 
@@ -219,6 +223,10 @@
                 'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
                 'try Again');
             });
+        };
+
+        $scope.newQuiz = function(event) {
+            $state.go('.', {}, {inherit: false});
         };
 
         $scope.thumbnailUpload = function(event, resourceData, completeCallback) {

@@ -181,7 +181,7 @@
             }],
             controller: 'contentController',
             isAnonymous: false,
-            title: 'Write Article',
+            title: 'Write an Article',
             returnable: true
         })
         .state({
@@ -192,7 +192,7 @@
             }],
             controller: 'quizController',
             isAnonymous: false,
-            title: 'Manage Quizzes',
+            title: 'Write a Quiz',
             returnable: true
         })
         .state({
@@ -225,7 +225,7 @@
             }],
             controller: 'dashboardController',
             isAnonymous: false,
-            title: 'Author Dashboard',
+            title: 'My Dashboard - Articles, Quizzes and Questions',
             returnable: true
         })
 
@@ -300,7 +300,7 @@
                 return $templateCache.get('pubcontent/quizs-landing.html');
             }],
             controller: 'pubquizController',
-            title: 'Quizzes',
+            title: 'Quizzes - Test your knowledge',
             isAnonymous: true,
             returnable: true
         })

@@ -1,21 +1,9 @@
 <div class="panel panel-default pubcontent-view">
 	<div class="panel-heading">
-		<h1 class="panel-title" ng-bind="content.title"></h1>
-		<div class="thumbnail visible-xs">
-			<img class="content-thumbnail" ng-if="content.authorContentId || content.contentId"
-				ng-src="{{thumbnailUrl}}"
-				onerror="this.style.display = 'none';"
-				onload="this.style.display = 'block';">
-		</div>
+		<h1 class="panel-title" ng-bind="content.title"></h1>		
 		<div class="media">
 			<div class="media-left">
-				<div class="media-object">
-					<div class="thumbnail center-block hidden-xs">
-						<img class="content-thumbnail" ng-if="content.authorContentId || content.contentId"
-							ng-src="{{thumbnailUrl}}"
-							onerror="this.style.display = 'none';"
-							onload="this.style.display = 'block';">
-					</div>
+				<div class="media-object">					
 				</div>
 			</div>
 			<div class="media-body">
@@ -33,6 +21,12 @@
 						<span class="label label-default" ng-bind="content.visitCount"></span>
 					</span>
 					<p> &nbsp;</p>
+					<div class="thumbnail center-block">
+						<img class="content-thumbnail" ng-if="content.authorContentId || content.contentId"
+							ng-src="{{thumbnailUrl}}"
+							onerror="this.style.display = 'none';"
+							onload="this.style.display = 'block';">
+					</div>
 					<p class="content-short-description" ng-bind-html="content.shortDescription"></p>
 					<tags tag-items="content.tags"></tags>
 					<social-media-share

@@ -2,6 +2,13 @@
 	<div class="panel">
 		<div class="panel-heading">
 			<h3 class="panel-title"><i class="fa fa-tasks"></i>Manage Quiz: {{quiz.title}}</h3>
+			<div class="row button-panel text-right">
+				<button type="button" id="quiz-add-new" name="quizAddNew" class="btn btn-warning" 
+					ng-click="addNewQuiz($event)" 
+					ng-disabled="!quiz.quizId">
+					Add New Quiz <i class="fa fa-plus"></i>
+				</button>								
+			</div>
 		</div>
 		<div class="panel-body">
 			<uib-tabset active="active">

@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var pubhomeController = function($rootScope, $scope, $state, $timeout, $q, pubcontentService, EntityMapper, Category, Tag, Content, Utils, searchService) {
+    var pubhomeController = function($rootScope, $scope, $state, $timeout, $q, pubcontentService, EntityMapper, Category, Tag, Content, Utils, searchService, Quiz) {
         $scope.globalSearch = {
             searchString: '',
             category: searchService.getDefaultCategory()
@@ -42,6 +42,56 @@
             } else {
                 return searchService.getDefaultCategory();
             }
+        }
+        
+        function getLatestQuizs() {
+            var quizListTypes = Utils.getPubQuizListTypes();
+            var key = "pubQuizPopular";
+            (function() {
+                var dlQuizList = {};
+                    dlQuizList.isLoading = true;
+                    dlQuizList.enableFooterLink = false;
+                    dlQuizList.headerTitle = quizListTypes[key].title;
+                    dlQuizList.viewMode = quizListTypes[key].viewMode;
+                    dlQuizList.tileViewClass = 'col-sm-12';
+                    dlQuizList = angular.extend(Utils.getListConfigOf('pubQuiz'), dlQuizList);
+
+                $scope.dlListOfContentsOfAllcategories.push(dlQuizList);
+                getQuizs(dlQuizList, quizListTypes[key].sortField, quizListTypes[key].sortDirAsc, dlQuizList.pagingPageSize, dlQuizList.pagingSelectedPage);                    
+            })();
+        }
+
+        function getQuizs(dlQuizList, sortField, sortDirAsc, pagingPageSize, pagingSelectedPage) {
+            pubcontentService.getQuizs(sortField, sortDirAsc, pagingPageSize, pagingSelectedPage).then(function(response) {
+                if (response && response.data) {
+                    var quizs = new EntityMapper(Quiz).toEntities(response.data.Quizs);
+                    
+                    dlQuizList.items = quizs;
+                    dlQuizList.tags = pubcontentService.getUniqueTagsOfContents(quizs);
+                    dlQuizList.pagingTotalItems = response.data.TotalCount;
+                    dlQuizList.headerRightLabel = response.data.TotalCount + '+ quizzes';
+                    dlQuizList.headerTitle = dlQuizList.headerTitle;
+                    dlQuizList.footerLinkUrl = ['/search', 'quizzes'].join('/');
+                    dlQuizList.enablePaging = false;
+                    dlQuizList.tags = pubcontentService.getUniqueTagsOfContents(quizs);
+                    dlQuizList.onPagingPageChange = function(event, pageNo) {
+                        getQuizs(dlQuizList, sortField, sortDirAsc, pagingPageSize, pageNo);
+                    };
+                } else {
+                    dlQuizList.items = new EntityMapper(Quiz).toEntities([]);
+                    dlQuizList.tags = [];
+                    dlQuizList.pagingTotalItems = 0;
+                    dlQuizList.headerRightLabel = '0 quizzes';
+                }
+
+                dlQuizList.isLoading = false;
+            }, function() {
+                dlQuizList.items = new EntityMapper(Content).toEntities([]);
+                dlQuizList.tags = [];
+                dlQuizList.pagingTotalItems = 0;
+                dlQuizList.headerRightLabel = '0 quizzes';
+                dlQuizList.isLoading = false;
+            });
         }
 
         // gets all Lists of contents for all categories
@@ -151,6 +201,7 @@
             Utils.setMetaInfo(); // this sets application level meta data
             initMainCarousel($scope.categories);
             getListOfContentsOfAllcategories($scope.categories);
+            getLatestQuizs();
         }
 
         function initGlobalSearch(toParams) {
@@ -187,6 +238,6 @@
         });
     };
 
-    pubhomeController.$inject = ['$rootScope', '$scope', '$state', '$timeout', '$q', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils', 'searchService'];
+    pubhomeController.$inject = ['$rootScope', '$scope', '$state', '$timeout', '$q', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils', 'searchService', 'Quiz'];
     module.exports = pubhomeController;
 })();

@@ -1,7 +1,13 @@
 <div class="panel panel-default quiz-view">
 	<div class="panel-heading">	
 		<div class="jumbotron">
-			<h1 ng-bind="quiz.title"></h1>		
+			<h1 ng-bind="quiz.title"></h1>
+			<div class="thumbnail center-block pull-left">
+				<img class="quiz-thumbnail" ng-if="quiz.quizId"
+					ng-src="{{thumbnailUrl}}"
+					onerror="this.style.display = 'none';"
+					onload="this.style.display = 'block';">
+			</div>		
 			<p ng-bind-html="quiz.description"></p>
 			<div class="small">
 				<span class="" title="Author">

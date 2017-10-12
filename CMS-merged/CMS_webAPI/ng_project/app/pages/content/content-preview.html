@@ -5,12 +5,6 @@
 		<div class="media">
 			<div class="media-left">
 				<div class="media-object">
-					<div class="thumbnail center-block">
-						<img id="content-thumbnail" ng-if="content.authorContentId || content.contentId"
-							ng-src="{{thumbnailUrl}}"
-							onerror="this.style.display = 'none';"
-							onload="this.style.display = 'block';">
-					</div>
 				</div>
 			</div>
 			<div class="media-body">
@@ -28,6 +22,12 @@
 			</div>
 		</div>
 		<p> &nbsp;</p>
+		<div class="thumbnail center-block">
+			<img id="content-thumbnail" ng-if="content.authorContentId || content.contentId"
+				ng-src="{{thumbnailUrl}}"
+				onerror="this.style.display = 'none';"
+				onload="this.style.display = 'block';">
+		</div>
 		<p class="content-short-description" ng-bind-html="content.shortDescription"></p>
 		<tags tag-items="content.tags"></tags>
 	</div>

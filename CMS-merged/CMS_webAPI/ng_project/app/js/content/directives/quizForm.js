@@ -74,6 +74,7 @@
                 onSaveQuestion: '=',
                 onPreview: '=',
                 onPublish: '=',
+                onNewQuiz: '=',
                 onThumbnailUpload: '=',
                 onGetQuestionsLib: '=',
                 isLoading: '=',
@@ -164,11 +165,12 @@
                                 that.quizFormQuestions.$dirty = false;
                                 $scope.quiz.updatedDate = quiz.updatedDate;
                                 $scope.quiz.isLive = quiz.isLive;
-                                $scope.quiz.questions.filter(function(question, index) {
-                                    if (!question.questionId) {
-                                        question.questionId = quiz.questions[index].questionId;
-                                    }
-                                });
+                                $scope.quiz.questionIds = quiz.questionIds;
+                                
+                                // Sort Quiz Questions
+                                if ($scope.quiz.questionIds != quiz.questionIds) {
+                                    sortQuizQuestions(quiz.questionIds);
+                                }                                
                             });
                         }
                     }, function() {
@@ -222,7 +224,7 @@
                     if (url === false) {
                         $scope.thumbnailUrl = '';
                     } else {                       
-                        $scope.thumbnailUrl = [appService.getAuthorArticleImagesUrl(), ($scope.content.authorContentId || $scope.previousAuthorContentId) + '?cb=' + (new Date()).getTime()].join('/');               
+                        $scope.thumbnailUrl = [appService.getQuizImagesUrl(), $scope.quiz.quizId + '?cb=' + (new Date()).getTime()].join('/');               
                     }
                 }
 
@@ -298,10 +300,16 @@
 
                 $scope.addQuestionToQuiz = function(event) {
                     if (isQuestionValid($scope.newQuestion) === true) {
-                        $scope.quiz.questions.push($scope.newQuestion); 
-                        $scope.newQuestion = new Question();                       
-                        $scope.isNewQuestion = false;
-                        toggleSection('.new-question',$scope.isNewQuestion);                          
+                        if (typeof $scope.onSaveQuestion === 'function') {
+                            $scope.onSaveQuestion(event, $scope.newQuestion, function(addedQuestion) {
+                                if (addedQuestion) {
+                                    $scope.quiz.questions.push(addedQuestion); 
+                                    $scope.newQuestion = new Question();                       
+                                    $scope.isNewQuestion = false;
+                                    toggleSection('.new-question',$scope.isNewQuestion);
+                                }
+                            });
+                        }                         
                     } else {
                         modalService.alert('md',
                         'Question Validation',
@@ -507,17 +515,48 @@
                     return intersectedQuestions;
                 }
 
-                $scope.$watch('quiz.questions', function(questions) {
-                    if (!questions || !questions.length) {
-                        $scope.quiz.questionIds = '';                        
+                $scope.$watch('quiz', function(quiz) {
+                    if (quiz.quizId) {
+                        setThumbnailUrl();
+                        sortQuizQuestions(quiz.questionIds);
+                    } else {
+                        setThumbnailUrl(false);
+                    }
+                });
+
+                function sortQuizQuestions(questionIds) {
+                    if (!questionIds) {
                         return;
                     }
-                    var questionIds = [];
-                    questions.filter(function(question) {
-                        questionIds.push(question.questionId || 0);
+                    var questionIdsArray = questionIds.split(',');
+                    var questions = angular.copy($scope.quiz.questions);
+                    $scope.quiz.questions = [];
+                    questionIdsArray.filter(function(qId) {
+                        $scope.quiz.questions.push(getQuestionById(qId));
                     });
-                    $scope.quiz.questionIds = questionIds.join(',');
-                });
+
+                    function getQuestionById(questionId) {
+                        var matchedQuestion;
+                        for (var i =0; i <questions.length; i++){
+                            if (questions[i].questionId == questionId) {
+                                matchedQuestion = questions[i];
+                                break;
+                            }
+                        }
+                        return matchedQuestion;
+                    }
+                }
+
+                $scope.addNewQuiz = function(event) {
+                    modalService.alert('md',
+                    'New Quiz',
+                    'You are already authoring Quiz:<br>"' + $scope.quiz.title + '"<p class="text-danger">This will discard any Unsaved Quiz data.</p> Do you want to continue?',
+                    'Continue...', 'Cancel').result.then(function() {
+                        typeof $scope.onNewQuiz === 'function' && $scope.onNewQuiz();
+                    }, function() {
+                        //
+                    });
+                }
             }
         };
     };

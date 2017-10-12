@@ -85,7 +85,7 @@
                         dlContentList.enableGooterLink = false;
                         dlContentList.headerTitle = contentListTypes[key].title;
                         dlContentList.viewMode = contentListTypes[key].viewMode;
-                        dlContentList.tileViewClass = contentListTypes[key].tileViewClass;
+                        dlContentList.tileViewClass = $state.$current.name==="pub.articles.content" ? 'col-md-6' : contentListTypes[key].tileViewClass;
                         dlContentList = angular.extend(Utils.getListConfigOf('pubContent'), dlContentList);
 
                     $scope.dlContentLists.push(dlContentList);

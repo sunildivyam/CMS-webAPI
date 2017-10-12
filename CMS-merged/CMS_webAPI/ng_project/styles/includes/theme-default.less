@@ -389,15 +389,17 @@ body.theme-default {
 
     .tags-list {
         .tag {
-            padding: 7px;
+            padding: 0px;
             margin: 2px;
             background: @default-body-bg-color;
             color: @default-forestgreen;
             .border-radius(5px);
 
-            a {
+            a { 
+                display: inline-block;
+                padding: 7px;
                 font-size: 12px;
-                color: @default-text-color;
+                color: @default-forestgreen;
             }
 
             &:hover, &.hover {

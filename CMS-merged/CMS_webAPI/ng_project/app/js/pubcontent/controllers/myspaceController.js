@@ -6,8 +6,9 @@
 */
 
 (function() {
-    var myspaceController = function($rootScope, $scope, pubcontentService, EntityMapper, Content, User, Utils) {
+    var myspaceController = function($rootScope, $scope, pubcontentService, EntityMapper, Content, User, Utils, Quiz) {
         $scope.dlContentsListOfAuthor = {};
+        $scope.dlQuizsListOfAuthor = {};
         $scope.currentAuthor = new User();
 
         function getSearchResultsTags(searchResults) {
@@ -29,6 +30,7 @@
                 $scope.dlContentsListOfAuthor.headerRightLabel = searchResults.TotalCount + " results";
                 $scope.dlContentsListOfAuthor.headerTitle = pageTitle;
                 $scope.dlContentsListOfAuthor.headerSummary = 'Explore articles authored by ' + $scope.currentAuthor.userName;
+                $scope.dlQuizsListOfAuthor.headerTitle = 'Quizzes by ' + ($scope.currentAuthor && $scope.currentAuthor.userName);
                 // Sets Meta information for Page
                 Utils.setMetaInfo(
                     pageTitle,
@@ -69,16 +71,68 @@
             }
         };
 
+
+        function getLatestQuizs() {
+            var quizListTypes = Utils.getPubQuizListTypes();
+            var key = "pubQuizPopular";
+            (function() {
+                var dlQuizList = {};
+                    dlQuizList.isLoading = true;
+                    dlQuizList.enableFooterLink = false;
+                    dlQuizList.headerTitle = quizListTypes[key].title;
+                    dlQuizList.viewMode = quizListTypes[key].viewMode;
+                    dlQuizList.tileViewClass = 'col-sm-12';
+                    dlQuizList = angular.extend(Utils.getListConfigOf('pubQuiz'), dlQuizList);
+
+                $scope.dlQuizsListOfAuthor = dlQuizList;
+                getQuizs(dlQuizList, quizListTypes[key].sortField, quizListTypes[key].sortDirAsc, dlQuizList.pagingPageSize, dlQuizList.pagingSelectedPage);                    
+            })();
+        }
+
+        function getQuizs(dlQuizList, sortField, sortDirAsc, pagingPageSize, pagingSelectedPage) {
+            pubcontentService.getQuizs(sortField, sortDirAsc, pagingPageSize, pagingSelectedPage).then(function(response) {
+                if (response && response.data) {
+                    var quizs = new EntityMapper(Quiz).toEntities(response.data.Quizs);
+                    
+                    dlQuizList.items = quizs;
+                    dlQuizList.tags = pubcontentService.getUniqueTagsOfContents(quizs);
+                    dlQuizList.pagingTotalItems = response.data.TotalCount;
+                    dlQuizList.headerRightLabel = response.data.TotalCount + '+ quizzes';
+                    dlQuizList.headerTitle = 'Quizzes by ' + ($scope.currentAuthor && $scope.currentAuthor.userName);
+                    dlQuizList.footerLinkUrl = ['/search', 'quizzes'].join('/');
+                    dlQuizList.enablePaging = true;
+                    dlQuizList.tags = pubcontentService.getUniqueTagsOfContents(quizs);
+                    dlQuizList.onPagingPageChange = function(event, pageNo) {
+                        getQuizs(dlQuizList, sortField, sortDirAsc, pagingPageSize, pageNo);
+                    };
+                } else {
+                    dlQuizList.items = new EntityMapper(Quiz).toEntities([]);
+                    dlQuizList.tags = [];
+                    dlQuizList.pagingTotalItems = 0;
+                    dlQuizList.headerRightLabel = '0 quizzes';
+                }
+
+                dlQuizList.isLoading = false;
+            }, function() {
+                dlQuizList.items = new EntityMapper(Content).toEntities([]);
+                dlQuizList.tags = [];
+                dlQuizList.pagingTotalItems = 0;
+                dlQuizList.headerRightLabel = '0 quizzes';
+                dlQuizList.isLoading = false;
+            });
+        }
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
             if (toState) {
                 // Sets Meta information for Page
                 Utils.setMetaInfo(toState.title);
-                $scope.baseTitle = toState.title;
+                $scope.baseTitle = "Articles, Quizzes and Questions";
             }
 
             if (toState && toState.name && toParams && toParams.n) {
                 Utils.getListConfigs().then(function() {
                     getSearchResults(toParams.n, 1);
+                    getLatestQuizs();
                 }, function(rejection) {
                     //
                 });
@@ -86,6 +140,6 @@
         });
     };
 
-    myspaceController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'EntityMapper', 'Content', 'User', 'Utils'];
+    myspaceController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'EntityMapper', 'Content', 'User', 'Utils', 'Quiz'];
     module.exports = myspaceController;
 })();

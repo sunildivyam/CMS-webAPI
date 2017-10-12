@@ -174,7 +174,15 @@
                             params.push(item.contentId);
                             params.push(item.name);
                         }
+                    } else if (item.quizId) {
+                        // For Quiz
+                        params.push(appService.getQuizImagesUrl());
+                        params.push(item.quizId);
+                        if (!$scope.isAuthorMode) {
+                            params.push(item.name);
+                        } 
                     } else {
+                        //For Author Content
                         params.push(appService.getAuthorArticleImagesUrl());
                         params.push(item.authorContentId);
                     }

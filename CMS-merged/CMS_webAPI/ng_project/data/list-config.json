@@ -285,7 +285,7 @@
         "headerSummary": "Click on the Link at the bottom of List to view more articles",
         "headerRightLabel": "0 results.",
 
-        "viewMode": "list",
+        "viewMode": "tile",
         "tileViewClass": "col-xs-12",
 
         "scrollHeight": 0,
@@ -619,7 +619,7 @@
             "title": "Most Popular Articles",
             "sortField": "VisitCount",
             "sortDirAsc": false,
-            "viewMode": "list",
+            "viewMode": "tile",
             "tileViewClass": "col-xs-12 col-sm-6 col-md-4"
         },
         "pubContentLatest": {
@@ -649,7 +649,7 @@
             "title": "Most Popular Quizzes",
             "sortField": "VisitCount",
             "sortDirAsc": false,
-            "viewMode": "list",
+            "viewMode": "tile",
             "tileViewClass": "col-xs-12 col-sm-6 col-md-4"
         },
         "pubQuizLatest": {
@@ -712,6 +712,7 @@
         "url": "http://localhost:55361",
         "apiUrl": "http://localhost:49192",
         "articleImages": "/images/getarticleimage",
+        "quizImages": "/images/getquizimage",
         "authorArticleImages": "/images/getauthorarticleimage",
         "userImages": "/images/getuserimage",
         "name": "LearnWiseWay.com",

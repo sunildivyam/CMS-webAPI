@@ -26,12 +26,39 @@
         $scope.dlRelated = {};
         $scope.allQuizTags = []; // For Meta information
 
+        function sortQuizQuestions(quiz) {
+            if (!quiz.questionIds) {
+                return quiz;
+            }
+            var questionIdsArray = quiz.questionIds.split(',');
+            var questions = angular.copy(quiz.questions);
+            quiz.questions = [];
+            questionIdsArray.filter(function(qId) {
+                quiz.questions.push(getQuestionById(qId));
+            });
+
+            return quiz;
+
+            function getQuestionById(questionId) {
+                var matchedQuestion;
+                for (var i =0; i <questions.length; i++){
+                    if (questions[i].questionId == questionId) {
+                        matchedQuestion = questions[i];
+                        break;
+                    }
+                }
+                return matchedQuestion;
+            }
+        }
+        
+
         function getQuiz(quizId, quizName) {
             $scope.isLoading = true;
             if (quizId && quizName) {
                 pubcontentService.getQuiz(quizId, quizName).then(function(response) {
                     var quiz = new Quiz(response && response.data);
                     quiz.description = Utils.decodeContent(quiz.description);
+                    quiz = sortQuizQuestions(quiz);
                     $scope.currentQuiz = quiz;
                     $scope.isLoading = false;
                     // Sets Meta information for Page
@@ -64,7 +91,7 @@
                         dlQuizList.enableFooterLink = false;
                         dlQuizList.headerTitle = quizListTypes[key].title;
                         dlQuizList.viewMode = quizListTypes[key].viewMode;
-                        dlQuizList.tileViewClass = quizListTypes[key].tileViewClass;
+                        dlQuizList.tileViewClass = $state.$current.name==="pub.quizs.quiz" ? 'col-md-6' : quizListTypes[key].tileViewClass;
                         dlQuizList = angular.extend(Utils.getListConfigOf('pubQuiz'), dlQuizList);
 
                     $scope.dlQuizLists.push(dlQuizList);
