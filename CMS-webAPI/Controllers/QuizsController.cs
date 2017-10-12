@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CMS_webAPI.Models;
 using CMS_webAPI.AppCode;
+using System.Web;
 
 namespace CMS_webAPI.Controllers
 {
@@ -25,7 +26,7 @@ namespace CMS_webAPI.Controllers
         public async Task<IHttpActionResult> GetQuiz(int param1)
         {
             // Quiz quiz = await db.Quizs.FindAsync(param1);
-            Quiz quiz = await db.Quizs.Where(q=> q.QuizId == param1).SingleOrDefaultAsync();
+            Quiz quiz = await db.Quizs.Include("Tags").Include("Questions").Where(q=> q.QuizId == param1).SingleOrDefaultAsync();
 
             if (quiz == null)
             {
@@ -246,6 +247,20 @@ namespace CMS_webAPI.Controllers
             return Ok(originalQuiz);
         }
 
+        // POST: 
+        [Authorize(Roles = "Administrators, Authors")]
+        public async Task<HttpResponseMessage> PostQuizThumbnail(int param1)
+        {
+            var quizId = param1;
+            Quiz quiz = await db.Quizs.FindAsync(quizId);
+
+            if (quiz == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Quiz not Found: " + quizId);
+            }
+
+            return ImageHelper.UploadImageRequestToDisk(Request, quizId, quiz.Name, "quiz");
+        }
         
         /// LIVE Quizes GET Methods
         /// 

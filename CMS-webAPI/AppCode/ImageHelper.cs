@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net;
 
 namespace CMS_webAPI.AppCode
 {
@@ -14,7 +17,14 @@ namespace CMS_webAPI.AppCode
     {
         public static string PUBLISHED_ARTICLE_IMAGES_PATH = "~/publishedarticleimages/";
         public static string AUTHOR_ARTICLE_IMAGES_PATH = "~/articleimages/";
+        public static string QUIZ_IMAGES_PATH = "~/quizimages/";
+
         public static string PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH = "~/publishedarticleimages/default.jpg";
+        public static string AUTHOR_ARTICLE_IMAGES_DEFAULT_FILEPATH = "~/articleimages/default.jpg";
+        public static string QUIZ_IMAGES_DEFAULT_FILEPATH = "~/quizimages/default.jpg";                
+
+        public static int MAX_FILE_SIZE = 1024 * 512; //Size = 512 kb 
+
         /// <summary>
         /// Checking whether the image needs to be resized
         /// </summary>
@@ -23,7 +33,7 @@ namespace CMS_webAPI.AppCode
         /// <param name="width"></param>
         /// <returns>true or false depending on the size</returns>
         private static bool IsResizeNeeded(Image uploadImage, int width, int height)
-        {
+        {             
             var originalWidth = uploadImage.Width;
             var originalHeight = uploadImage.Height;
             return (originalHeight != height) || (originalWidth != width);
@@ -212,69 +222,7 @@ namespace CMS_webAPI.AppCode
             return fileStream;            
         }
 
-        /// <summary>
-        /// Gets the Image File for published Article
-        /// </summary>
-        /// <param name="publishedArticleId"></param>
-        /// <param name="publishedArticleName"></param>
-        /// <returns></returns>
-        public static FileStream GetPublishedArticleImage(int publishedArticleId, string publishedArticleName)
-        {
-            string publishedArticleImageFullPath = IsPublishedArticleImageExist(publishedArticleId, publishedArticleName);
-
-            if (publishedArticleImageFullPath == null)
-            {
-                return null;
-            }
-
-            FileStream fileStream = GetImageFromDisk(publishedArticleImageFullPath);
-            return fileStream;
-        }
-
-        public static MemoryStream GetPublishedArticleDefaultImage()
-        {
-            string publishedArticleDefaultImageFullPath = HttpContext.Current.Server.MapPath(PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH);
-            
-            if (publishedArticleDefaultImageFullPath == null)
-            {
-                return null;
-            }
-
-            byte[] streamBytes = (byte[])ApiCache.Get(PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH);
-            if (streamBytes == null)
-            {
-                FileStream fileStream = GetImageFromDisk(publishedArticleDefaultImageFullPath);
-            
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    fileStream.CopyTo(ms);
-                    streamBytes = ms.ToArray();
-                    ApiCache.Add(PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH, streamBytes);
-                }
-            }
-            
-            MemoryStream  fileMem = new MemoryStream(streamBytes);
-            return fileMem;
-        }
-
-        /// <summary>
-        /// Gets the Image File for Author Article
-        /// </summary>
-        /// <param name="authorArticleId"></param>
-        /// <returns></returns>
-        public static FileStream GetAuthorArticleImage(int authorArticleId)
-        {
-            string authorArticleImageFullPath = IsAuthorArticleImageExist(authorArticleId);
-
-            if (authorArticleImageFullPath == null)
-            {
-                return null;
-            }
-
-            FileStream fileStream = GetImageFromDisk(authorArticleImageFullPath);
-            return fileStream;
-        }
-
+   
         /// <summary>
         /// Gets Published ArticleImage Name, excluding extension
         /// </summary>
@@ -485,6 +433,180 @@ namespace CMS_webAPI.AppCode
             {
                 return false;
             }
+        }
+
+
+        ////////////// Generic GetImageResponseFromDisk()
+
+        public static string GetImageFolderPath(string contentType, bool isDefaultImageFolder = false)
+        {
+            switch (contentType)
+            {
+                case "quiz":
+                    return isDefaultImageFolder == false? QUIZ_IMAGES_PATH : QUIZ_IMAGES_DEFAULT_FILEPATH;
+                case "question":
+                    return isDefaultImageFolder == false? QUIZ_IMAGES_PATH : QUIZ_IMAGES_DEFAULT_FILEPATH;
+                case "authorcontent":
+                    return isDefaultImageFolder == false ? AUTHOR_ARTICLE_IMAGES_PATH : AUTHOR_ARTICLE_IMAGES_DEFAULT_FILEPATH;
+                case "content":   // Content (Article)
+                    return isDefaultImageFolder == false ? PUBLISHED_ARTICLE_IMAGES_PATH : PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH;
+            }
+            return isDefaultImageFolder == false ? PUBLISHED_ARTICLE_IMAGES_PATH : PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH;
+        } 
+
+        public static HttpResponseMessage GetImageResponseFromDisk(HttpRequestMessage Request, int id, string name, string contentType) 
+        {   
+            //1) Create a Wildcard Search Path based on contentType and id or Name
+            string fileNameSearch = "";
+            string fullFilePathSearch = HttpContext.Current.Server.MapPath(GetImageFolderPath(contentType));
+            string imageFullPath;
+            bool isDefaultImage = false;
+            HttpResponseMessage response;
+            try
+            {
+                if (name != null)
+                {
+                    fileNameSearch = id + "-" + name + ".*";
+                }
+                else
+                {
+                    fileNameSearch = id + ".*";
+                    if (contentType == "quiz")
+                    {
+                        fileNameSearch = id + "-*.*";
+                    }
+                }
+
+                // 2) Search with wildcards and Check if Image Exists and Gets its full path and filename with extension
+                string[] foundFiles = Directory.GetFiles(fullFilePathSearch, fileNameSearch);
+                if (foundFiles != null && foundFiles.Length > 0)
+                {
+                    imageFullPath = foundFiles[0];
+                }
+                else
+                {
+                    isDefaultImage = true;
+                    imageFullPath = HttpContext.Current.Server.MapPath(GetImageFolderPath(contentType, true));
+                }
+
+                // Reads the Image from DISK, Original One or the DEFAULT IMAGE
+                if (isDefaultImage == true)
+                {
+                    // Reads the Dfeualt Image from CACHE, if EXISTS else reads from DISK and set CACHE
+                    string CACHE_KEY = GetImageFolderPath(contentType, true);
+                    byte[] streamBytes = (byte[])ApiCache.Get(CACHE_KEY);
+                    if (streamBytes == null)
+                    {
+                        FileStream fileStream = GetImageFromDisk(imageFullPath);
+
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            fileStream.CopyTo(ms);
+                            streamBytes = ms.ToArray();
+                            ApiCache.Add(CACHE_KEY, streamBytes);
+                        }
+                    }
+                    MemoryStream fileMem = new MemoryStream(streamBytes);
+                    response = new HttpResponseMessage { Content = new StreamContent(fileMem) };
+                    response.Content.Headers.ContentLength = fileMem.Length;
+                }
+                else
+                {
+                    // Reads Original Image from DISK and should not be cached.
+                    FileStream fileStream = GetImageFromDisk(imageFullPath);
+                    response = new HttpResponseMessage { Content = new StreamContent(fileStream) };
+                    response.Content.Headers.ContentLength = fileStream.Length;
+                }
+
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(GetImageTypeFromExtension("jpg"));
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+
+            return response;
+        }
+
+        public static HttpResponseMessage UploadImageRequestToDisk(HttpRequestMessage Request, int id, string name, string contentType)
+        {
+            string fileName;
+            string extensionName;
+            string fileNameSearch;
+            string fullImageFilePath;
+            int fileContentLength;
+            HttpPostedFile httpPostedFile;
+            HttpResponseMessage response;
+            
+            // 1) Get the File with Contents from Request Object
+            httpPostedFile = HttpContext.Current.Request.Files["file"];
+            // 1.1) if No File to Upload create Response Error
+            if (httpPostedFile == null || (httpPostedFile != null && httpPostedFile.ContentLength <= 0))
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.NoContent, "No file to upload, Please select a file to upload");
+                return response;
+            }
+
+            extensionName = httpPostedFile.FileName.Substring(httpPostedFile.FileName.LastIndexOf('.') + 1).ToLower();
+            fileContentLength = httpPostedFile.ContentLength;
+
+
+            // 2) create Full target imageFile Path using id, name and contentType
+            if (name != null)
+            {
+                fileName =  id + "-" + name + "." + extensionName;
+                fileNameSearch = id + "-" + name + ".*";
+
+                if (contentType == "quiz")
+                {
+                    fileNameSearch = id + "-*.*";
+                }
+            }
+            else
+            {
+                fileName =  id +  "." + extensionName;
+                fileNameSearch = id + ".*";                
+            }
+
+            fullImageFilePath = HttpContext.Current.Server.MapPath(GetImageFolderPath(contentType) + fileName);            
+            
+            
+            // 3) Validate Image for Its TYPE, SIZE or any other rules
+            if (!ImageHelper.IsImage(httpPostedFile))
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Please Upload image of type .jpg, .jpg, .gif, .png only");
+                return response;
+            }
+
+            if (fileContentLength > MAX_FILE_SIZE)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Please Upload a file upto " + (MAX_FILE_SIZE / 1024) + "kb only");                
+                return response;
+            }
+
+            try
+            {
+                // 4) Delete Image File if already Exists for this ContentType. This ensures, there is only one Image exist for Content/Quiz.
+                string[] foundFiles = Directory.GetFiles(HttpContext.Current.Server.MapPath(GetImageFolderPath(contentType)), fileNameSearch);
+                if (foundFiles != null && foundFiles.Length > 0)
+                {
+                    foreach (string file in foundFiles)
+                    {
+                        File.Delete(foundFiles[0]);
+                    }
+                }
+
+                // 5) Save the Image File to target Folder
+                httpPostedFile.SaveAs(fullImageFilePath);
+                response = Request.CreateResponse(HttpStatusCode.OK, "Image Successfully Uploaded");
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                return response;
+            }
+
+            return response;
         }
     }
 }

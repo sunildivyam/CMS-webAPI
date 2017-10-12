@@ -386,6 +386,8 @@
     <None Include="Properties\PublishProfiles\FileFolder.pubxml" />
     <None Include="Properties\PublishProfiles\Publish to Local Folder.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="publishedarticleimages\default.jpg" />
+    <Content Include="quizimages\default.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
@@ -425,7 +427,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="articleimages\" />
-    <Folder Include="publishedarticleimages\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>
