@@ -26,7 +26,7 @@ namespace CMS_webAPI.Controllers
         public async Task<IHttpActionResult> GetQuiz(int param1)
         {
             // Quiz quiz = await db.Quizs.FindAsync(param1);
-            Quiz quiz = await db.Quizs.Include("Tags").Include("Questions").Where(q=> q.QuizId == param1).SingleOrDefaultAsync();
+            Quiz quiz = await db.Quizs.Include("Tags").Include("Questions").Include("Questions.Tags").Where(q=> q.QuizId == param1).SingleOrDefaultAsync();
 
             if (quiz == null)
             {
@@ -490,7 +490,7 @@ namespace CMS_webAPI.Controllers
         {
             if (question != null)
             {
-                List<Quiz> allReferedQuizs = db.Quizs.Where(qz => qz.Questions.Contains(question)).ToList();
+                List<Quiz> allReferedQuizs = db.Quizs.Where(qz => qz.Questions.Select<Question,int>(q=> q.QuestionId).ToList<int>().Contains(question.QuestionId)).ToList();
                 if (allReferedQuizs != null)
                 {
                     foreach (Quiz quiz in allReferedQuizs)
