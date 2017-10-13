@@ -12,12 +12,14 @@ namespace CMS_webAPI.Models
         public List<Quiz> Quizs { get; set; }
         public int TotalCount { get; set; }
         public Tag Tag { get; set; }
+        public UserInfoViewModel Author { get; set; }
 
         public QuizsViewModel()
         {
             this.Quizs = new List<Quiz>();
             this.TotalCount = 0;
             this.Tag = null;
+            this.Author = null;
         }
 
         public QuizsViewModel(List<Quiz> quizs, int totalCount)
@@ -31,6 +33,13 @@ namespace CMS_webAPI.Models
             this.Quizs = quizs;
             this.TotalCount = totalCount;
             this.Tag = tag;
+        }
+        
+        public QuizsViewModel(List<Quiz> quizs, int totalCount, UserInfoViewModel author)
+        {
+            this.Quizs = quizs;
+            this.TotalCount = totalCount;
+            this.Author = author;
         }
     }
 }

@@ -113,10 +113,15 @@ namespace CMS_webAPI.Controllers
             catch (Exception ex) {
                 return InternalServerError(ex);
             }
+            
+            
+            // Clears the API cache 
+            ClearApiCache(true, originalQuiz.QuizId);
 
             return Ok(originalQuiz);
         }
 
+        
         public async Task<IHttpActionResult> PostQuizTags(Quiz quiz)
         {
             string authorId = UserService.getUserByUserName(User.Identity.Name).Id;
@@ -146,6 +151,10 @@ namespace CMS_webAPI.Controllers
             {
                 return InternalServerError(ex);
             }
+
+
+            // Clears the API cache 
+            ClearApiCache(true, originalQuiz.QuizId);
 
             return Ok(originalQuiz);
         }
@@ -180,6 +189,8 @@ namespace CMS_webAPI.Controllers
                 return InternalServerError(ex);
             }
 
+            // Clear Cache 
+            ClearApiCache(true, originalQuiz.QuizId);
             return Ok(originalQuiz);
         }
 
@@ -213,6 +224,9 @@ namespace CMS_webAPI.Controllers
                 return InternalServerError(ex);
             }
 
+            // Clears the API cache 
+            ClearApiCache(false, 0, originalQuestion);
+
             return Ok(originalQuestion);
         }
 
@@ -243,6 +257,9 @@ namespace CMS_webAPI.Controllers
             {
                 return InternalServerError(ex);
             }
+
+            // Clears the API cache 
+            ClearApiCache(true, originalQuiz.QuizId);
 
             return Ok(originalQuiz);
         }
@@ -369,6 +386,63 @@ namespace CMS_webAPI.Controllers
             return Ok(quizsView);
         }
 
+        [ResponseType(typeof(QuizsViewModel))]
+        public async Task<IHttpActionResult> GetLiveQuizsWithTagsByAuthorName(string param1, int param2, int param3, string param4, bool param5)
+        {
+            string cacheKey = ApiCache.GenerateKey("Quizs", "GetLiveQuizsWithTagsByAuthorName", new string[] { param1, param2.ToString(), param3.ToString(), param4, param5.ToString() });
+            QuizsViewModel quizsViewFromCache = (QuizsViewModel)ApiCache.Get(cacheKey);
+            
+            if (quizsViewFromCache != null)
+            {
+                return Ok(quizsViewFromCache);
+            }
+                        
+            string userName = param1;
+            int pageNo = param2;
+            int pageSize = param3;
+            string sortField = param4;
+            bool sortDirAsc = param5;
+
+            if (pageNo < 1 || pageSize < 1)
+            {
+                return BadRequest();
+            }
+
+            pageNo = pageNo - 1;
+
+            List<Quiz> quizs;
+            IEnumerable<Quiz> quizsEnums;                
+            ApplicationUser user;
+            try
+            {
+                user = UserService.getUserByUserName(userName);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                quizsEnums = await Task.Run(()=> db.Quizs.Include("Tags").Where(q => q.IsLive == true && q.AuthorId == user.Id)
+                    .AsEnumerable());
+                quizs = QuizService.GetPagedData(quizsEnums, pageNo, pageSize, sortField, sortDirAsc);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            if (quizs == null)
+            {
+                return NotFound();
+            }
+            int quizCount = quizsEnums.Count();
+            
+            QuizsViewModel quizsView = new QuizsViewModel(quizs, quizCount, UserService.GetUserViewModelById(user.Id));
+
+            ApiCache.Add(cacheKey, quizsView);
+            return Ok(quizsView);
+        }
+
+
         [ResponseType(typeof(Quiz))]
         public async Task<IHttpActionResult> GetLiveQuizWithTagsAndQuestions(int param1, string param2)
         {
@@ -408,6 +482,33 @@ namespace CMS_webAPI.Controllers
         private bool QuizExists(int id)
         {
             return db.Quizs.Count(e => e.QuizId == id) > 0;
+        }
+
+        /*Quiz Id removes cache for Single QUIZ apis*/
+        /*question removes cache for all referenced QUIZ apis*/
+        private void ClearApiCache(bool isMultipleQuizsApi = true, int quizId = 0, Question question = null)
+        {
+            if (question != null)
+            {
+                List<Quiz> allReferedQuizs = db.Quizs.Where(qz => qz.Questions.Contains(question)).ToList();
+                if (allReferedQuizs != null)
+                {
+                    foreach (Quiz quiz in allReferedQuizs)
+                    {
+                        ApiCache.Remove("GetLiveQuizWithTagsAndQuestions/" + quiz.QuizId + "/", true);
+                    }
+                }
+            }
+
+            if (isMultipleQuizsApi == true)
+            {
+                ApiCache.Remove("GetLiveQuizsWithTags", true);
+            }
+
+            if (quizId > 0)
+            {
+                ApiCache.Remove("GetLiveQuizWithTagsAndQuestions/" + quizId + "/", true);
+            }
         }
     }
 }

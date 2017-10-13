@@ -37,6 +37,7 @@
 			'quizs': {
 				base: 'quizs',
 				getQuizs: 'GetLiveQuizsWithTags',
+				getQuizsByAuthorName: 'GetLiveQuizsWithTagsByAuthorName',
 				getQuiz: 'GetLiveQuizWithTagsAndQuestions',
 				getQuizsByTag: 'GetLiveQuizsWithTagsByTag',
 				getQuestionsByTag: 'GetLiveQuestionsWithTagsByTag'	
@@ -171,7 +172,14 @@
 				tagName,
 				pageNo || PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
 		}
-
+		
+		function getQuizsByAuthorName(userName, sortField, sortDireAsc, pageSize, pageNo) {			
+			return appService.get([urls.quizs.base,
+				urls.quizs.getQuizsByAuthorName,
+				userName,
+				pageNo || PAGE_NO, pageSize || PAGE_SIZE, sortField || SORT_FIELD, sortDireAsc].join('/'), undefined, requestHeaders, CACHE);
+		}
+		
 		function getQuestionsByTag(tagId, tagName, pageNo, pageSize) {
 			var sortDireAsc = false;
 			var sortField = 'UpdatedDate';
@@ -236,6 +244,7 @@
 			addQuizComment: addQuizComment,
 			addQuestionComment: addQuestionComment,
 			getQuizs: getQuizs,
+			getQuizsByAuthorName: getQuizsByAuthorName,
 			getQuiz: getQuiz
 		};
 	};

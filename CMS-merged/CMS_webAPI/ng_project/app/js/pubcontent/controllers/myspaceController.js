@@ -72,7 +72,7 @@
         };
 
 
-        function getLatestQuizs() {
+        function getLatestQuizs(userName, pageNo) {
             var quizListTypes = Utils.getPubQuizListTypes();
             var key = "pubQuizPopular";
             (function() {
@@ -85,15 +85,15 @@
                     dlQuizList = angular.extend(Utils.getListConfigOf('pubQuiz'), dlQuizList);
 
                 $scope.dlQuizsListOfAuthor = dlQuizList;
-                getQuizs(dlQuizList, quizListTypes[key].sortField, quizListTypes[key].sortDirAsc, dlQuizList.pagingPageSize, dlQuizList.pagingSelectedPage);                    
+                getQuizs(dlQuizList, userName, quizListTypes[key].sortField, quizListTypes[key].sortDirAsc, dlQuizList.pagingPageSize, pageNo);                    
             })();
         }
 
-        function getQuizs(dlQuizList, sortField, sortDirAsc, pagingPageSize, pagingSelectedPage) {
-            pubcontentService.getQuizs(sortField, sortDirAsc, pagingPageSize, pagingSelectedPage).then(function(response) {
+        function getQuizs(dlQuizList, userName, sortField, sortDirAsc, pagingPageSize, pagingSelectedPage) {
+            pubcontentService.getQuizsByAuthorName(userName, sortField, sortDirAsc, pagingPageSize, pagingSelectedPage).then(function(response) {
                 if (response && response.data) {
                     var quizs = new EntityMapper(Quiz).toEntities(response.data.Quizs);
-                    
+                    $scope.currentAuthor = new User(response.data.Author);
                     dlQuizList.items = quizs;
                     dlQuizList.tags = pubcontentService.getUniqueTagsOfContents(quizs);
                     dlQuizList.pagingTotalItems = response.data.TotalCount;
@@ -102,6 +102,7 @@
                     dlQuizList.footerLinkUrl = ['/search', 'quizzes'].join('/');
                     dlQuizList.enablePaging = true;
                     dlQuizList.tags = pubcontentService.getUniqueTagsOfContents(quizs);
+                    $scope.dlQuizsListOfAuthor.headerTitle = 'Quizzes by ' + ($scope.currentAuthor && $scope.currentAuthor.userName);
                     dlQuizList.onPagingPageChange = function(event, pageNo) {
                         getQuizs(dlQuizList, sortField, sortDirAsc, pagingPageSize, pageNo);
                     };
@@ -132,7 +133,7 @@
             if (toState && toState.name && toParams && toParams.n) {
                 Utils.getListConfigs().then(function() {
                     getSearchResults(toParams.n, 1);
-                    getLatestQuizs();
+                    getLatestQuizs(toParams.n, 1);
                 }, function(rejection) {
                     //
                 });
