@@ -6,8 +6,10 @@
 */
 
 (function() {
-    var pubquizController = function($rootScope, $scope, $state, $timeout, appService, pubcontentService, modalService, Quiz, Tag, EntityMapper, metaInformationService, pageTitleService, Utils) {
+    var pubquizController = function($rootScope, $scope, $state, $timeout, appService, pubcontentService, modalService, Quiz, Question, Tag, EntityMapper, metaInformationService, pageTitleService, Utils) {
         $scope.currentQuiz = new Quiz();
+        $scope.questionInDiscussion = null;
+
         $scope.pageDescription = [
             'Retrieval aids later retention. There is clear evidence from psychological experiments that practicing retrieval of something after learning it, for instance by taking a quiz or test, makes you more likely to retain it for the long term.',
             'Quizzes identifies gaps in knowledge.',
@@ -56,8 +58,9 @@
             $scope.isLoading = true;
             if (quizId && quizName) {
                 pubcontentService.getQuiz(quizId, quizName).then(function(response) {
-                    var quiz = new Quiz(response && response.data);
-                    quiz.description = Utils.decodeContent(quiz.description);
+                    var quiz = new Quiz(response && response.data);                    
+                    quiz = Utils.decodeQuiz(quiz);
+
                     quiz = sortQuizQuestions(quiz);
                     $scope.currentQuiz = quiz;
                     $scope.isLoading = false;
@@ -104,7 +107,8 @@
             pubcontentService.getQuizs(sortField, sortDirAsc, pagingPageSize, pagingSelectedPage).then(function(response) {
                 if (response && response.data) {
                     var quizs = new EntityMapper(Quiz).toEntities(response.data.Quizs);
-                    
+                    quizs = Utils.decodeQuizs(quizs);
+
                     dlQuizList.items = quizs;
                     dlQuizList.tags = pubcontentService.getUniqueTagsOfContents(quizs);
                     dlQuizList.pagingTotalItems = response.data.TotalCount;
@@ -138,14 +142,47 @@
             });
         }
 
+
+        function getQuestion(questionId) {
+            pubcontentService.getQuestion(questionId).then(function(response) {
+                var question = new Question(response.data);
+                question = Utils.decodeQuestion(question);
+                $scope.questionInDiscussion = question;
+
+                // This should be set only for quizs state, and not for quizs.quiz state
+                if ($state.$current.name === 'pub.quizs') {
+                    // Sets Meta information for Page
+                    var title = "Quiz Question - " + $scope.questionInDiscussion.title;
+                    var description = $scope.questionInDiscussion.description;
+                    Utils.setMetaInfo(title, description, $scope.questionInDiscussion.tags);
+                }
+                $scope.isLoading = false;
+            }, function() {
+                $scope.isLoading = false;
+                modalService.alert('md',
+                'No Question found',
+                'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Question Not Found.') ,
+                "Go Home", 'Go Back to Quizzes').result.then(function() {                    
+                    $state.go('pub');
+                }, function() {
+                    $state.go('pub.quizs');
+                });
+            });
+        }
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
             if (toState && toState.name) {
+                $scope.questionInDiscussion = null;
+
                 Utils.getListConfigs().then(function() {
                     getAllQuizLists();
                     Utils.setMetaInfo();
                     if(toState.name === 'pub.quizs.quiz' && toParams.qi && toParams.qn) {
                         Utils.setMetaInfo();
                         getQuiz(toParams.qi, toParams.qn);
+                    } else if(toState.name === 'pub.quizs.question' && toParams.qi) {
+                        Utils.setMetaInfo();
+                        getQuestion(toParams.qi);
                     } else {
                         //
                     }
@@ -156,6 +193,6 @@
         });
     };
 
-    pubquizController.$inject = ['$rootScope', '$scope', '$state', '$timeout','appService', 'pubcontentService', 'modalService', 'Quiz', 'Tag', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils'];
+    pubquizController.$inject = ['$rootScope', '$scope', '$state', '$timeout','appService', 'pubcontentService', 'modalService', 'Quiz', 'Question', 'Tag', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils'];
     module.exports = pubquizController;
 })();

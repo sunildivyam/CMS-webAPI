@@ -186,6 +186,84 @@
             return listConfig.dateRangePicker;
         }
 
+
+        function encodeQuestion(question) {            
+            question.description = encodeContent(question.description);
+            question.optionA = encodeContent(question.optionA);
+            question.optionB = encodeContent(question.optionB);
+            question.optionC = encodeContent(question.optionC);
+            question.optionD = encodeContent(question.optionD);
+            question.answerDescription = encodeContent(question.answerDescription);
+            return question;
+        }
+
+        function decodeQuestion(question) {
+            question.description = decodeContent(question.description);
+            question.optionA = decodeContent(question.optionA);
+            question.optionB = decodeContent(question.optionB);
+            question.optionC = decodeContent(question.optionC);
+            question.optionD = decodeContent(question.optionD);
+            question.answerDescription = decodeContent(question.answerDescription);
+            return question;
+        }
+
+        function encodeQuiz(quiz) {
+            quiz.description = encodeContent(quiz.description);
+            if (quiz.questions && quiz.questions.length) {
+                quiz.questions.filter(function(question) {
+                    question = encodeQuestion(question);
+                });                
+            }
+            return quiz;
+        }
+
+        function decodeQuiz(quiz) {
+            quiz.description = decodeContent(quiz.description);
+            if (quiz.questions && quiz.questions.length) {
+                quiz.questions.filter(function(question) {
+                    question = decodeQuestion(question);
+                });                
+            }
+            return quiz;
+        }
+
+        function encodeQuizs(quizs) {
+            if (quizs instanceof Array && quizs.length) {
+                quizs.filter(function(quiz) {
+                    quiz = encodeQuiz(quiz);
+                });
+            }
+            return quizs;
+        }
+
+        function decodeQuizs(quizs) {
+            if (quizs instanceof Array && quizs.length) {
+                quizs.filter(function(quiz) {
+                    quiz = decodeQuiz(quiz);
+                });
+            }
+            return quizs;
+        }
+
+        function encodeQuestions(questions) {
+            if (questions instanceof Array && questions.length) {
+                questions.filter(function(question) {
+                    question = encodeQuestion(question);
+                });
+            }
+            return questions;
+        }
+
+        function decodeQuestions(questions) {
+            if (questions instanceof Array && questions.length) {
+                questions.filter(function(question) {
+                    question = decodeQuestion(question);
+                });
+            }
+            return questions;
+        }
+
+
         return {
             parseStringExt: parseStringExt,
             filterByKeywords: filterByKeywords,
@@ -200,7 +278,15 @@
             setMetaInfo: setMetaInfo,
             getCategories: getCategories,
             getDateRangePicker: getDateRangePicker,
-            getPubQuizListTypes: getPubQuizListTypes
+            getPubQuizListTypes: getPubQuizListTypes,
+            encodeQuiz: encodeQuiz,
+            decodeQuiz: decodeQuiz,
+            encodeQuestion: encodeQuestion,
+            decodeQuestion: decodeQuestion,
+            encodeQuizs: encodeQuizs,
+            decodeQuizs: decodeQuizs,
+            encodeQuestions: encodeQuestions,
+            decodeQuestions: decodeQuestions
         };
     };
 

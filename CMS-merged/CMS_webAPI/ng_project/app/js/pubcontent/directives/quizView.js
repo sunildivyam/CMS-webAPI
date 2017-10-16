@@ -27,6 +27,7 @@
 				$scope.isQuizTimerCollapsed = true;
 				
 				$scope.startQuiz = function(event) {
+					$scope.quiz = originalQuiz;
 					var questionsCount = $scope.quiz.questions.length || 0;
 					$scope.score = {
 						attemptedQuestionsCount: 0,
@@ -86,8 +87,7 @@
 					});
 				}
 				$scope.reStartQuiz = function(event) {
-					if ($scope.score.inProgress === false) {
-						$scope.quiz = originalQuiz;
+					if ($scope.score.inProgress === false) {						
 						$scope.startQuiz();
 					}
 				};

@@ -313,6 +313,16 @@
             controller: 'pubquizController',
             isAnonymous: true,
             returnable: true
+        })
+        .state({
+            name: 'pub.quizs.question',
+            url: '/discuss-question/:qi',
+            templateProvider: ['$templateCache', function($templateCache) {
+                return $templateCache.get('pubcontent/quiz-landing.html');
+            }],
+            controller: 'pubquizController',
+            isAnonymous: true,
+            returnable: true
         });
 
         // Enables html5Mode Urls

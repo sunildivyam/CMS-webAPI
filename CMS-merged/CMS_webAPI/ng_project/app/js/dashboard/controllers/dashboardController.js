@@ -22,6 +22,8 @@
 
             contentService.getDraftedQuizs().then(function(response) {
                 var quizs = new EntityMapper(Quiz).toEntities(response.data);
+                quizs = Utils.decodeQuizs(quizs);
+                
                 $scope.dlDraftedQuizs.items = quizs;
                 $scope.dlDraftedQuizs.pagingTotalItems = quizs.length;
                 $scope.dlDraftedQuizs.headerRightLabel = quizs.length + ' results';
@@ -40,6 +42,8 @@
             $scope.dlPublishedQuizs = angular.extend(Utils.getListConfigOf('publishedQuiz'), $scope.dlPublishedQuizs);
             contentService.getPublishedQuizs().then(function(response) {
                 var quizs = new EntityMapper(Quiz).toEntities(response.data);
+                quizs = Utils.decodeQuizs(quizs);
+
                 $scope.dlPublishedQuizs.items = quizs;
                 $scope.dlPublishedQuizs.pagingTotalItems = quizs.length;
                 $scope.dlPublishedQuizs.headerRightLabel = quizs.length + ' results';

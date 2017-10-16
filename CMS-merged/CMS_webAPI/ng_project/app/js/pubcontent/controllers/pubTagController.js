@@ -58,7 +58,12 @@
         function  initTagContentListWithResults(searchResults) {
             if(searchResults instanceof Object) {
                 $scope.currentTag = new Tag(searchResults.Tag);
-                $scope.dlContentsListOfTag.items = new EntityMapper(getTagEntityTypeObject($scope.tagEntityName)).toEntities(searchResults[$scope.tagEntityName + 's']);
+                var items = new EntityMapper(getTagEntityTypeObject($scope.tagEntityName)).toEntities(searchResults[$scope.tagEntityName + 's']);
+                if ($scope.tagEntityName === "Quiz" || $scope.tagEntityName === "Question") {
+                    items = Utils['decode' + $scope.tagEntityName + 's'](items);
+                }
+                
+                $scope.dlContentsListOfTag.items = items;
                 $scope.dlContentsListOfTag.pagingTotalItems = searchResults.TotalCount;
                 $scope.dlContentsListOfTag.headerRightLabel = searchResults.TotalCount + " results";
                 $scope.dlContentsListOfTag.headerTitle = $scope.tagType + '-' + $scope.currentTag.title;

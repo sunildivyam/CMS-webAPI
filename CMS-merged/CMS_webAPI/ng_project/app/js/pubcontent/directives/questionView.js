@@ -8,7 +8,8 @@
 				serialNumber: '=',
 				isInlineMode: '=',
 				isLoading: '=',
-				onAttemptAnswer: '='
+				onAttemptAnswer: '=',
+				isAnswerSectionVisible: '='
 			},
 			templateUrl: 'pubcontent/question-view.html',
 			link: function($scope, element) {
@@ -21,6 +22,10 @@
 						$($element.find('.correct-answer-section')).slideDown(500);
 					});
                 }
+
+				if ($scope.isAnswerSectionVisible === true) {
+					showCorrectAnswerSection();
+				}
 
 				$scope.attemptAnswer = function(event) {
 					var that = this;

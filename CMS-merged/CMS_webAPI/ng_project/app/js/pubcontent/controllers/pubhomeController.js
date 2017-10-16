@@ -65,6 +65,7 @@
             pubcontentService.getQuizs(sortField, sortDirAsc, pagingPageSize, pagingSelectedPage).then(function(response) {
                 if (response && response.data) {
                     var quizs = new EntityMapper(Quiz).toEntities(response.data.Quizs);
+                    quizs = Utils.decodeQuizs(quizs);
                     
                     dlQuizList.items = quizs;
                     dlQuizList.tags = pubcontentService.getUniqueTagsOfContents(quizs);

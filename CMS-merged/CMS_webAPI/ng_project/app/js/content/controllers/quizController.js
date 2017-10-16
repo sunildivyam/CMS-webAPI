@@ -39,9 +39,11 @@
             var dlQuestions = {};
             dlQuestions.isLoading = true;
             dlQuestions = angular.extend(Utils.getListConfigOf('question'), dlQuestions);
-
+            
             contentService.getPublishedQuestions().then(function(response) {
                 var questions = new EntityMapper(Question).toEntities(response.data);
+                questions = Utils.decodeQuestions(questions);
+
                 dlQuestions.items = questions;
                 dlQuestions.pagingTotalItems = questions.length;
                 dlQuestions.headerRightLabel = questions.length + ' results';
@@ -56,7 +58,7 @@
             });
         }
 
-
+        
         function getQuiz(id) {
             $scope.isQuizLoadedPromise = $q.defer();
             $scope.isLoading = true;
@@ -65,9 +67,10 @@
                 var quizId = parseInt(id);
                  $scope.loaderMsg = 'Loading Quiz...';
                 contentService.getQuizById(quizId).then(function(response) {                    
-                    var quiz = new Quiz(response && response.data);                        
+                    var quiz = new Quiz(response && response.data);      
+
                     if (quiz instanceof Object) {                        
-                        quiz.description = Utils.decodeContent(quiz.description);
+                        quiz = Utils.decodeQuiz(quiz);
                         $scope.currentQuiz = quiz;                        
                     } else {
                         modalService.alert('md',
@@ -103,10 +106,11 @@
             $scope.loaderMsg = 'Saving Quiz...';
 
             var enocdedQuiz = angular.copy(quiz);
-            enocdedQuiz.description = Utils.encodeContent(enocdedQuiz.description);
+            enocdedQuiz = Utils.encodeQuiz(enocdedQuiz);
 
             contentService[saveQuizFn](enocdedQuiz).then(function(response) {
                 var addedQuiz = new Quiz(response && response.data);
+                addedQuiz = Utils.decodeQuiz(addedQuiz);
                 $scope.isLoading = false;
                 $scope.loaderMsg = '';
 
@@ -163,15 +167,11 @@
             $scope.loaderMsg = 'Saving Question...';
 
             var enocdedQuestion = angular.copy(question);            
-            enocdedQuestion.description = Utils.encodeContent(enocdedQuestion.description);
-            enocdedQuestion.optionA = Utils.encodeContent(enocdedQuestion.optionA);
-            enocdedQuestion.optionB = Utils.encodeContent(enocdedQuestion.optionB);
-            enocdedQuestion.optionC = Utils.encodeContent(enocdedQuestion.optionC);
-            enocdedQuestion.optionD = Utils.encodeContent(enocdedQuestion.optionD);
-            enocdedQuestion.answerDescription = Utils.encodeContent(enocdedQuestion.answerDescription);
+            enocdedQuestion = Utils.encodeQuestion(enocdedQuestion);
 
             contentService.updateQuestion(enocdedQuestion).then(function(response) {
                 var addedQuestion = new Question(response && response.data);
+                addedQuestion = Utils.decodeQuestion(addedQuestion);
                 $scope.isLoading = false;
                 $scope.loaderMsg = '';
 
@@ -192,22 +192,18 @@
             });
         };
 
-        $scope.cancelQuiz = function(event, quiz) {
-            $state.go('.', {id: quiz && quiz.quizId}, {reload: true});
-        };
-        
-        $scope.previewQuiz = function(event, quiz) {
-            modalService.showQuizPreviewModal(quiz);
-        };
-
         $scope.publishQuiz = function(event, quiz, successCallback) {
             $scope.isLoading = true;
-            $scope.loaderMsg = 'Publishing Quiz...';            
-            contentService.publishQuiz(quiz).then(function(response) {
+            $scope.loaderMsg = 'Publishing Quiz...'; 
+            var encodedQuiz = angular.copy(quiz);
+            encodedQuiz = Utils.encodeQuiz(encodedQuiz);
+
+            contentService.publishQuiz(encodedQuiz).then(function(response) {
                 $scope.isLoading = false;
                 $scope.loaderMsg = ''; 
 
                 var publishedQuiz = new Quiz(response.data);
+                publishedQuiz = Utils.decodeQuiz(publishedQuiz);
 
                 typeof successCallback === 'function' && successCallback(publishedQuiz);
 
@@ -244,6 +240,17 @@
                 completeCallback(false, 'Image data or Quiz Id Missing.');
             }
         };
+
+        function generateQuestionIdsForQuiz(questions) {            
+            if (!questions || !questions.length) {
+                return '';
+            }
+            var idsArray = [];
+            questions.filter(function(question) {
+                idsArray.push(question.questionId);
+            });
+            return idsArray.join(',');
+        }
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
             if (toState && toState.name && toParams && toParams.id) {

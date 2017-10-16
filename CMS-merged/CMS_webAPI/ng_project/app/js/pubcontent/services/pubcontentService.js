@@ -40,7 +40,8 @@
 				getQuizsByAuthorName: 'GetLiveQuizsWithTagsByAuthorName',
 				getQuiz: 'GetLiveQuizWithTagsAndQuestions',
 				getQuizsByTag: 'GetLiveQuizsWithTagsByTag',
-				getQuestionsByTag: 'GetLiveQuestionsWithTagsByTag'	
+				getQuestionsByTag: 'GetLiveQuestionsWithTagsByTag',
+				getQuestion: 'getLiveQuestionWithTags'
 			},
 		};
 
@@ -161,6 +162,11 @@
 				quizName].join('/'), undefined, requestHeaders, CACHE);
 		}
 
+		function getQuestion(questionId) {
+			return appService.get([urls.quizs.base,
+				urls.quizs.getQuestion,
+				questionId].join('/'), undefined, requestHeaders, CACHE);
+		}
 
 		function getQuizsByTag(tagId, tagName, pageNo, pageSize) {
 			var sortDireAsc = false;
@@ -245,7 +251,8 @@
 			addQuestionComment: addQuestionComment,
 			getQuizs: getQuizs,
 			getQuizsByAuthorName: getQuizsByAuthorName,
-			getQuiz: getQuiz
+			getQuiz: getQuiz,
+			getQuestion: getQuestion
 		};
 	};
 	pubcontentService.$inject = ['appService', 'EntityMapper', 'Tag'];
