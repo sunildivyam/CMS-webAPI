@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using CMS_webAPI.Models;
 using CMS_webAPI.AppCode;
 using System.Web;
+using System.Data.SqlClient;
 
 namespace CMS_webAPI.Controllers
 {
@@ -22,21 +23,41 @@ namespace CMS_webAPI.Controllers
         /////// ALL GET METHODS
 
         // GET: api/Quizs/5
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(Quiz))]
         public async Task<IHttpActionResult> GetQuiz(int param1)
         {
-            // Quiz quiz = await db.Quizs.FindAsync(param1);
-            Quiz quiz = await db.Quizs.Include("Tags").Include("Questions").Include("Questions.Tags").Where(q=> q.QuizId == param1).SingleOrDefaultAsync();
-
-            if (quiz == null)
+            Quiz quiz;
+            try
             {
-                return NotFound();
+                // Quiz quiz = await db.Quizs.FindAsync(param1);
+                quiz = await db.Quizs.Include("Tags").Include("Questions.Tags").Where(q => q.QuizId == param1).SingleOrDefaultAsync();
+
+                if (quiz == null)
+                {
+                    return NotFound();
+                }
+                //Clears Infinite references
+                foreach (Question q in quiz.Questions)
+                {
+                    q.Quizs = new List<Quiz>();
+                    foreach (Tag tag in q.Tags)
+                    {
+                        tag.Questions = new List<Question>();
+                        tag.Quizs = new List<Quiz>();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
             }
 
             return Ok(quiz);
         }
 
         // GET: api/Quizs/GetDraftedQuiz
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(List<Quiz>))]
         public async Task<IHttpActionResult> GetDraftedQuizs()
         {
@@ -53,6 +74,7 @@ namespace CMS_webAPI.Controllers
         }
 
         // GET: api/Quizs/GetPublishedQuiz
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(List<Quiz>))]
         public async Task<IHttpActionResult> GetPublishedQuizs()
         {
@@ -69,6 +91,7 @@ namespace CMS_webAPI.Controllers
         }
 
       // GET: api/Quizs/GetPublishedQuiz
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(List<Question>))]
         public async Task<IHttpActionResult> GetPublishedQuestions()
         {
@@ -87,6 +110,7 @@ namespace CMS_webAPI.Controllers
         
         /////// ALL POST METHODS
         // POST: api/Quizs
+        [Authorize(Roles = "Administrators, Authors")]
         [ResponseType(typeof(Quiz))]
         public async Task<IHttpActionResult> PostQuizBasicInfo(Quiz quiz)
         {            
@@ -121,7 +145,7 @@ namespace CMS_webAPI.Controllers
             return Ok(originalQuiz);
         }
 
-        
+        [Authorize(Roles = "Administrators, Authors")]
         public async Task<IHttpActionResult> PostQuizTags(Quiz quiz)
         {
             string authorId = UserService.getUserByUserName(User.Identity.Name).Id;
@@ -159,6 +183,7 @@ namespace CMS_webAPI.Controllers
             return Ok(originalQuiz);
         }
 
+        [Authorize(Roles = "Administrators, Authors")]
         public async Task<IHttpActionResult> PostQuizQuestions(Quiz quiz)
         {
             string authorId = UserService.getUserByUserName(User.Identity.Name).Id;
@@ -194,6 +219,7 @@ namespace CMS_webAPI.Controllers
             return Ok(originalQuiz);
         }
 
+        [Authorize(Roles = "Administrators, Authors")]
         public async Task<IHttpActionResult> PostQuestion(Question question)
         {
             string authorId = UserService.getUserByUserName(User.Identity.Name).Id;
@@ -230,6 +256,7 @@ namespace CMS_webAPI.Controllers
             return Ok(originalQuestion);
         }
 
+        [Authorize(Roles = "Administrators, Authors")]
         public async Task<IHttpActionResult> PostPublishQuiz(Quiz quiz)
         {
             string authorId = UserService.getUserByUserName(User.Identity.Name).Id;
@@ -451,25 +478,60 @@ namespace CMS_webAPI.Controllers
 
             if (quizFromCache != null)
             {
+                quizFromCache.VisitCount = QuizService.UpdateQuizWithVisitCount(quizFromCache.QuizId);
                 return Ok(quizFromCache);
             }
 
             var quizId = param1;
             var quizName = param2;
 
-            Quiz quiz = await db.Quizs.Include("Tags").Include("Questions").Where(q => q.QuizId == quizId && q.Name == quizName && q.IsLive == true).FirstOrDefaultAsync();
+            Quiz quiz = await db.Quizs.Include("Tags").Include("Questions.Tags")
+                .Where(q => q.QuizId == quizId && q.Name == quizName && q.IsLive == true).FirstOrDefaultAsync();
             if (quiz == null)
             {
                 return NotFound();
             }
-            
-            //db.Database.ExecuteSqlCommand("exec proc_UpdateVisitCountOnQuizs " + quiz.QuizId);
-            // Update and increment the VisitCount By 1
-            // Code goes here
+
+            //Clears Infinite references
+            foreach (Question q in quiz.Questions)
+            {
+                q.Quizs = new List<Quiz>();
+                foreach (Tag tag in q.Tags)
+                {
+                    tag.Questions = new List<Question>();
+                    tag.Quizs = new List<Quiz>();
+                }
+            }
+
+            quiz.VisitCount = QuizService.UpdateQuizWithVisitCount(quiz.QuizId);
+
             ApiCache.Add(cacheKey, quiz);
             return Ok(quiz);
         }
 
+
+        [ResponseType(typeof(Question))]
+        public async Task<IHttpActionResult> getLiveQuestionWithTags(int param1)
+        {
+            //string cacheKey = ApiCache.GenerateKey("Quizs", "GetLiveQuizWithTagsAndQuestions", new string[] { param1.ToString(), param2 });
+            //Quiz quizFromCache = (Quiz)ApiCache.Get(cacheKey);
+
+            //if (quizFromCache != null)
+            //{
+            //    return Ok(quizFromCache);
+            //}
+
+            var questionId = param1;
+
+            Question question = await db.Questions.Include("Tags").Where(q => q.QuestionId == questionId && q.IsLive == true).FirstOrDefaultAsync();
+            if (question == null)
+            {
+                return NotFound();
+            }
+
+            question.VisitCount = QuizService.UpdateQuestionWithVisitCount(question.QuestionId);
+            return Ok(question);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

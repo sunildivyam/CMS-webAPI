@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -198,7 +200,32 @@ namespace CMS_webAPI.AppCode
             quizEntry.Property(x => x.AuthorId).IsModified = true;
         }
 
-        
+        public static int UpdateQuizWithVisitCount(int quizId)
+        {
+            using (var db = new CmsDbContext())
+            {
+                SqlParameter outParam = new SqlParameter("@visitCount", SqlDbType.Int);
+                outParam.Direction = ParameterDirection.Output;
+                SqlParameter quizIdParam = new SqlParameter("@QuizId", SqlDbType.Int);
+                quizIdParam.SqlValue = quizId;
+                int visitCount = db.Database.SqlQuery<int>("exec proc_UpdateVisitCountOnQuiz @QuizId, @visitCount OUT", quizIdParam, outParam).SingleOrDefault();
+                return visitCount;
+            }
+        }
+
+        public static int UpdateQuestionWithVisitCount(int questionId)
+        {
+            using (var db = new CmsDbContext())
+            {
+                SqlParameter outParam = new SqlParameter("@VisitCount", SqlDbType.Int);
+                outParam.Direction = ParameterDirection.Output;
+                SqlParameter questionIdParam = new SqlParameter("@QuestionId", SqlDbType.Int);
+                questionIdParam.SqlValue = questionId;
+                int visitCount = db.Database.SqlQuery<int>("exec proc_UpdateVisitCountOnQuestion @QuestionId, @visitCount OUT", questionIdParam, outParam).SingleOrDefault();
+                return visitCount;
+            }
+        }
+
         public static void setQuizDefaults(Quiz quiz, string authorId)
         {
             quiz.AuthorId = authorId;

@@ -128,8 +128,30 @@ namespace CMS_webAPI.CmsDbMigrations
                 Update Questions set UpdateCount = @updateCount Where QuestionId = (SELECT QuestionId from INSERTED);
             END";
 
+            string proc_UpdateVisitCountOnQuiz = @"Create Procedure proc_updateVisitCountOnQuiz @QuizId INT, @VisitCount INT OUT AS
+            BEGIN
+                SET @VisitCount = ISNULL((Select VisitCount from Quizs WHERE QuizId = @QuizId), 0);
+                SET @VisitCount = @VisitCount + 1;
+
+                UPDATE Quizs SET VisitCount = @VisitCount WHERE QuizId = @QuizId;
+                SELECT @VisitCount;
+            END";
+
+
+            string proc_UpdateVisitCountOnQuestion = @"Create Procedure proc_updateVisitCountOnQuestion @QuestionId INT, @VisitCount INT OUT AS
+            BEGIN
+                SET @VisitCount = ISNULL((Select VisitCount from Questions WHERE QuestionId = @QuestionId), 0);
+                SET @VisitCount = @VisitCount + 1;
+
+                UPDATE Questions SET VisitCount = @VisitCount WHERE QuestionId = @QuestionId;
+                SELECT @VisitCount;
+            END";
+
+
             Sql(trigger_UpdateCountOnQuestions);
-            Sql(trigger_UpdateCountOnQuizs); 
+            Sql(trigger_UpdateCountOnQuizs);
+            Sql(proc_UpdateVisitCountOnQuiz);
+            Sql(proc_UpdateVisitCountOnQuestion);
             
         }
         
@@ -137,7 +159,9 @@ namespace CMS_webAPI.CmsDbMigrations
         {
             Sql("IF OBJECT_ID ('trigger_UpdateCountOnQuestions', 'TR') IS NOT NULL  DROP TRIGGER trigger_UpdateCountOnQuestions");
             Sql("IF OBJECT_ID ('trigger_UpdateCountOnQuizs', 'TR') IS NOT NULL  DROP TRIGGER trigger_UpdateCountOnQuizs");
-
+            Sql("DROP PROCEDURE proc_UpdateVisitCountOnQuiz");
+            Sql("DROP PROCEDURE proc_UpdateVisitCountOnQuestion");
+            
             DropForeignKey("dbo.QuestionTags", "Tag_TagId", "dbo.Tags");
             DropForeignKey("dbo.QuestionTags", "Question_QuestionId", "dbo.Questions");
             DropForeignKey("dbo.QuizTags", "Tag_TagId", "dbo.Tags");

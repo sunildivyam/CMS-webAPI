@@ -34,6 +34,7 @@ namespace CMS_webAPI.Controllers
 
         // For Author Article Image
         // Route: api/images/authorarticleimage/5
+        
         public HttpResponseMessage GetAuthorArticleImage(int param1)
         {
             int id = param1;

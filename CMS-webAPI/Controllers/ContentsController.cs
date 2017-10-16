@@ -34,6 +34,7 @@ namespace CMS_webAPI.Controllers
 
             if (contentViewFromCache != null)
             {
+                db.Database.ExecuteSqlCommand("exec proc_UpdateVisitCountOnContents " + contentViewFromCache.ContentId);
                 return Ok(contentViewFromCache);
             }
 
