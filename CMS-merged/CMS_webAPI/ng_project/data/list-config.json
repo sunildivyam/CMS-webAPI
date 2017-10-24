@@ -727,6 +727,7 @@
           "secondaryTitle": "Wise Learnings"
         },
         "bodyImageUrl": "../images/theme-default/body-background-digital-tyres.jpg",
-        "bodyImageSize":  "cover"
+        "bodyImageSize":  "cover",
+        "twitterSiteHandle": "@learnwiseway"
     }
 }

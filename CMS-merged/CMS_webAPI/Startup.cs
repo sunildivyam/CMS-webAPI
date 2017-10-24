@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,11 +45,32 @@ namespace CMS_webAPI
 
             app.UseStaticFiles();
 
+            
             app.UseMvc(routes =>
-            {
+            {                
+                routes.MapRoute("Articles",
+                    "articles/{param1}/{param2}/{param3}", 
+                    defaults: new {
+                        controller = "Articles",
+                        action = "Index",
+                        param1 = "",
+                        param2 = "",
+                        param3 = ""
+                    });
+                routes.MapRoute("Quizzes",
+                    "quizzes/{param1}/{param2}/{param3}",
+                    defaults: new
+                    {
+                        controller = "Quizzes",
+                        action = "Index",
+                        param1 = "",
+                        param2 = "",
+                        param3 = ""
+                    });
+
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    name: "Default",
+                    template: "{controller=Home}/{action=Index}");
             });
         }
     }
