@@ -24,10 +24,14 @@
 
 	.controller('pubhomeController', require('./controllers/pubhomeController'))
 	.controller('pubcontentController', require('./controllers/pubcontentController'))
+	.controller('pubcategoryController', require('./controllers/pubcategoryController'))
 	.controller('pubTagController', require('./controllers/pubTagController'))
 	.controller('myspaceController', require('./controllers/myspaceController'))
 	.controller('commentController', require('./controllers/commentController'))
-    .controller('pubquizController', require('./controllers/pubquizController'))
+	.controller('pubquizsController', require('./controllers/pubquizsController'))
+	.controller('pubquizController', require('./controllers/pubquizController'))
+	.controller('pubquestionController', require('./controllers/pubquestionController'))
+	
 	.directive('pubcategoryView', require('./directives/pubcategoryView'))
 	.directive('pubcontentView', require('./directives/pubcontentView'))
 	.directive('pubcontentSearch', require('./directives/pubcontentSearch'))
@@ -35,6 +39,7 @@
 	.directive('pubUserProfile', require('./directives/pubUserProfile'))
 	.directive('commentComponent', require('./directives/commentComponent'))
 	.directive('quizView', require('./directives/quizView'))
+	.directive('discussQuestionView', require('./directives/discussQuestionView'))
 	.directive('questionView', require('./directives/questionView'));
 
 	module.exports = angular.module('raiweb.pubcontent');

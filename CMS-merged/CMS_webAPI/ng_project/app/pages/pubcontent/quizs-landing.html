@@ -1,15 +1,18 @@
 
-<div class="category-page container-fluid" ng-if="$state.$current.name ==='pub.quizs'">
-	<div class="jumbotron">
+<div class="category-page container-fluid">
+	<div class="jumbotron" ng-if="currentPageName=='pubquizsPage'">
 		<h2>Why you should take Quizzes?</h2>
         <p ng-bind-html="pageDescription"></p>
         <tags
 		data-tag-type="quizzes"	
-		data-tag-items="currentTags">
+		data-tag-items="allQuizTags">
         </tags>
-    </div>	
+	</div>	
+	<!-- View for Quiz and Discuss Question-->
+	<div ui-view=""></div>
+
 	<div class="row grid>">
-		<div class="{{$first ? 'col-md-8' : 'col-md-4'}} grid-item" ng-repeat="dlQuizList in dlQuizLists track by $index">
+		<div class="{{currentPageName=='pubquizsPage'?($first ? 'col-md-8' : 'col-md-4'):'col-sm-6'}} grid-item" ng-repeat="dlQuizList in dlQuizLists track by $index">
 			<generic-list
 			data-items="dlQuizList.items"
 			data-items-type="dlQuizList.itemsType"
@@ -50,5 +53,3 @@
 		</div>
 	</div>
 </div>
-
-<div ui-view=""></div>

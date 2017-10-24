@@ -220,6 +220,10 @@
             }
         }
 
+        $scope.setPageName =function(pageName) {
+            $scope.currentPageName = pageName;
+        };
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
             if (toState && toState.name) {
                 Utils.getListConfigs().then(function() {

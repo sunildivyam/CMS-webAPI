@@ -8,7 +8,7 @@
 */
 
 (function() {
-	var pubcontentService = function(appService, EntityMapper, Tag) {
+	var pubcontentService = function(appService, EntityMapper, Tag, $q, $timeout) {
 		var urls = {
 			'tags': {
 				base: 'tags'
@@ -72,9 +72,18 @@
 
 		function getCategoryById(id) {
 			return appService.get([urls.categories, id].join('/'), undefined, requestHeaders);
-		}
+		}		
 
 		function getCategoryByName(name) {
+			var copy = {data: window._currentCategory};
+			if (window._currentCategory && window._currentCategory.Name == name) {
+				var deferredObj = $q.defer();
+				$timeout(function() {
+					deferredObj.resolve(angular.copy(copy));
+				});		
+				window._currentCategory = undefined;		
+				return deferredObj.promise;
+			}
 			return appService.get([urls.categories.base, urls.categories.getCategoryByName, name].join('/'), undefined, requestHeaders);
 		}
 
@@ -111,6 +120,16 @@
 		}
 
 		function getContent(categoryName, contentId, contentName) {
+			var copy ={data: window._currentArticle};
+			if (window._currentArticle && window._currentArticle.Name == contentName && window._currentArticle.ContentId == contentId) {
+				var deferredObj = $q.defer();
+				$timeout(function() {
+					deferredObj.resolve(angular.copy(copy));					
+				});
+				window._currentArticle = undefined;				
+				return deferredObj.promise;
+			}
+
 			return appService.get([urls.contents.base,
 				urls.contents.getContent,
 				categoryName,
@@ -156,6 +175,15 @@
 		}
 
 		function getQuiz(quizId, quizName) {
+			var copy = angular.copy({data: window._currentQuiz});
+			if (window._currentQuiz && window._currentQuiz.Name == quizName && window._currentQuiz.QuizId == quizId) {
+				var deferredObj = $q.defer();
+				$timeout(function() {
+					deferredObj.resolve(copy);					
+				});	
+				window._currentQuiz = undefined;			
+				return deferredObj.promise;
+			}
 			return appService.get([urls.quizs.base,
 				urls.quizs.getQuiz,
 				quizId,
@@ -255,6 +283,6 @@
 			getQuestion: getQuestion
 		};
 	};
-	pubcontentService.$inject = ['appService', 'EntityMapper', 'Tag'];
+	pubcontentService.$inject = ['appService', 'EntityMapper', 'Tag',  '$q', '$timeout'];
 	module.exports = pubcontentService;
 })();

@@ -246,7 +246,7 @@
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('pubcontent/category-landing.html');
             }],
-            controller: 'pubcontentController',
+            controller: 'pubcategoryController',
             isAnonymous: true,
             returnable: true
         })
@@ -299,7 +299,7 @@
             templateProvider: ['$templateCache', function($templateCache) {
                 return $templateCache.get('pubcontent/quizs-landing.html');
             }],
-            controller: 'pubquizController',
+            controller: 'pubquizsController',
             title: 'Quizzes - Test your knowledge',
             isAnonymous: true,
             returnable: true
@@ -318,9 +318,9 @@
             name: 'pub.quizs.question',
             url: '/discuss-question/:qi',
             templateProvider: ['$templateCache', function($templateCache) {
-                return $templateCache.get('pubcontent/quiz-landing.html');
+                return $templateCache.get('pubcontent/question-landing.html');
             }],
-            controller: 'pubquizController',
+            controller: 'pubquestionController',
             isAnonymous: true,
             returnable: true
         });

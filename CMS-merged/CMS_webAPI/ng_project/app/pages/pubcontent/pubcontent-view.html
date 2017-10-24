@@ -24,6 +24,7 @@
 					<div class="thumbnail center-block">
 						<img class="content-thumbnail" ng-if="content.authorContentId || content.contentId"
 							ng-src="{{thumbnailUrl}}"
+							alt="{{content.title}}"
 							onerror="this.style.display = 'none';"
 							onload="this.style.display = 'block';">
 					</div>

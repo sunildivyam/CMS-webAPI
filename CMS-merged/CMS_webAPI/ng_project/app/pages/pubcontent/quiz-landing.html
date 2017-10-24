@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-10 col-sm-push-1" ng-show="!questionInDiscussion">			
+		<div class="col-sm-10 col-sm-push-1">			
 			<quiz-view
 				data-quiz="currentQuiz"
 				data-is-loading="isLoading">
@@ -10,66 +10,6 @@
 			<comment-component 
 				data-content="currentQuiz">				
 			</comment-component>
-		</div>
-
-		<div class="col-sm-10 col-sm-push-1" ng-show="questionInDiscussion">
-			<div class="jumbotron">
-				<div class="well">
-					<h1>Discuss Question here</h1>
-				</div>
-				<p>A healthier Discussion is a biggest tool to add to your knowledge. So Please colloborate with the author and other Readers like you. Your comments may of a great value and help for others.</p>
-				<question-view
-					data-question="questionInDiscussion"
-					data-is-answer-section-visible="true"
-					data-is-loading="isLoading">
-				</question-view>
-			</div>
-			<!-- Quiz's Comments and Comment Box -->
-			<comment-component 
-				data-content="questionInDiscussion">				
-			</comment-component>
-		</div>
-
-		<div class="col-md-12 grid">
-			<div class="col-sm-6 grid-item" ng-repeat="dlQuizList in dlQuizLists track by $index">
-				<generic-list
-				data-items="dlQuizList.items"
-				data-items-type="dlQuizList.itemsType"
-
-				data-enable-header="dlQuizList.enableHeader"
-				data-enable-maximize="dlQuizList.enableMaximize"
-				data-enable-search="dlQuizList.enableSearch"
-				data-enable-view-modes="dlQuizList.enableViewModes"
-				data-enable-scrollbar="dlQuizList.enableScrollbar"
-				data-enable-tags="dlQuizList.enableTags"
-				data-enable-footer-link="dlQuizList.enableFooterLink"
-				data-enable-paging="dlQuizList.enablePaging"
-
-				data-header-title="dlQuizList.headerTitle"
-				data-header-summary="dlQuizList.headerSummary"
-				data-header-right-label="dlQuizList.headerRightLabel"
-
-				data-view-mode="dlQuizList.viewMode"
-				data-tile-view-class = "dlQuizList.tileViewClass"
-
-				data-scroll-height="dlQuizList.scrollHeight"
-
-				data-tags="dlQuizList.tags"
-
-				data-footer-link-text="dlQuizList.footerLinkText"
-				data-footer-link-url="dlQuizList.footerLinkUrl"
-				data-on-footer-link-click="dlQuizList.onFooterLinkClick"
-
-				data-paging-total-items="dlQuizList.pagingTotalItems"
-				data-paging-selected-page="dlQuizList.pagingSelectedPage"
-				data-paging-page-size="dlQuizList.pagingPageSize"
-				data-paging-pager-size="dlQuizList.pagingPagerSize"
-				data-on-paging-page-change="dlQuizList.onPagingPageChange"
-
-				data-on-refresh="dlQuizList.onRefresh"
-				data-is-loading="dlQuizList.isLoading">
-				</generic-list>
-			</div>
 		</div>
 	</div>
 </div>

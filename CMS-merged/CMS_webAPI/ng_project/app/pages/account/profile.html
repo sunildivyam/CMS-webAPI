@@ -56,8 +56,7 @@
       <div class="form-group col-lg-6">
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i>Twitter</span>
-          <input ng-maxlength="500" ng-model="myProfile.twitter" type="url" class="form-control" name="twitter" id="twitter"  placeholder="Twitter link"/>
-          <p ng-show="profileUpdate.twitter.$invalid && !profileUpdate.twitter.$pristine" class="help-block">Invalid Url</p>
+          <input ng-maxlength="500" ng-model="myProfile.twitter" type="text" class="form-control" name="twitter" id="twitter"  placeholder="Twitter link"/>          
           <p ng-show="profileUpdate.twitter.$error.maxlength && !profileUpdate.twitter.$pristine" class="help-block">Too long. (maximum 500 characters allowed)</p>
         </div>
       </div>

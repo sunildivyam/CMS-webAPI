@@ -5,6 +5,7 @@
 			<div class="thumbnail center-block pull-left">
 				<img class="quiz-thumbnail" ng-if="quiz.quizId"
 					ng-src="{{thumbnailUrl}}"
+					alt="{{quiz.title}}"
 					onerror="this.style.display = 'none';"
 					onload="this.style.display = 'block';">
 			</div>		
