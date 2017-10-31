@@ -1,10 +1,15 @@
 <div class="dynamic-form">
     <form name="dynamicForm{{name}}" class="" role="form">
         <div class="col-sm-12" ng-show="!isPreviewMode">
-            <a class="link" href="#" ng-click="toggleExpand($event)">
+            <a href="#" class="link" ng-click="onSaveClick($event)" ng-hide="!schemaObj.properties">
+                <span class="fa fa-save"></span>
+                Save
+            </a> | 
+            <a class="link" href="#" ng-click="toggleExpand($event)" ng-hide="!schemaObj.properties">
                 <span class="fa fa-{{isExpandAll?'compress': 'expand'}}"></span>
                 {{isExpandAll?'Collapse All': 'Expand All'}}
             </a>
+            <p ng-show="!schemaObj.properties">No Config Available</p>
             <div class="root-node">
                 <div class="node" ng-repeat="(key, node) in schemaObj.properties">
                     <span class="expand-icon fa fa-{{node.properties?'plus' : 'cog'}}" data-target="{{node.properties?'.node-container#' + key : ''}}" data-toggle="collapse"></span> 
@@ -31,6 +36,11 @@
                     </div>
                 </div>
             </div> 
+
+            <a href="#" class="link" ng-click="onSaveClick($event)" ng-hide="!schemaObj.properties">
+                <span class="fa fa-save"></span>
+                Save
+            </a>
         </div>
         <div class="form-group" ng-show="isPreviewMode">
             <maximize-control 
@@ -44,12 +54,8 @@
             </maximize-control>
 
             <label class="control-label" for="outputJson">Output JSON</label>
-            <textarea rows="20" class="form-control" name="outputJson" ng-model="outPutJsonString"></textarea>
-        </div>
-        <button type="button" class="btn btn-primary" ng-click="onSaveClick($event)">
-            <span class="fa fa-save"></span>
-            Save
-        </button>
+            <textarea id="app-config-json" class="form-control" name="outputJson" ng-model="outPutJsonString"></textarea>
+        </div>        
         <button type="button" class="btn btn-primary" ng-click="onPreviewClick($event)">
                 <span class="fa fa-{{isPreviewMode?'wpforms': 'television'}}"></span>
             {{isPreviewMode?'Form View': 'JSON View'}}

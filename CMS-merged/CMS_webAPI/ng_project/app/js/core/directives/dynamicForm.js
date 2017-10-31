@@ -57,6 +57,31 @@
                     
                 };
 
+                $scope.onSaveClick = function(event) {
+                    typeof $scope.onSave === 'function' && $scope.onSave(event, outputJson, $scope.schemaObj, $scope.formJson);
+                };
+
+
+                $scope.onAppConfigMaximizeSection = function(event, parentEl, element) {
+                    var $textArea = $(parentEl.find('#app-config-json'));
+                    $scope.originalTextAreaStyle = $textArea.attr('style') || '';
+                    $textArea.css({
+                        position: 'absolute'
+                    });
+                    $textArea.animate({
+                        top: '0px',
+                        left: '0px',
+                        width: '100%',
+                        height: '100%'
+                    }, 100);
+                };
+        
+                $scope.onAppConfigRestoreSection = function(event, parentEl, element) {
+                    var $textArea = $(parentEl.find('#app-config-json'));
+                    $textArea.attr('style', $scope.originalTextAreaStyle);
+                };
+
+
                 function jsonToSchema(jsonObj, propName) {
                     var schemaObj = {};
                     schemaObj.name = propName;                     
