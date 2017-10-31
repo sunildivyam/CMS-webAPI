@@ -152,6 +152,20 @@
       </div>
     </div>
 
+<!-- Config Dynamic Form -->
+    <div class="panel dynamic-config-section">
+      <div class="panel-heading" data-toggle="collapse" href=".dynamic-config-section>.panel-body">
+        <h3 class="panel-title"><i class="fa fa-tasks"></i>Dynamic Form</h3>
+      </div>
+      <div class="panel-body collapse">
+          <button type="button" class="btn btn-primary" ng-click="reloadAppConfig($event)">Reload Config</button>
+        <dynamic-form data-form-json="appConfigSection.appConfig" data-name="appConfig" data-on-save="">
+        </dynamic-form>
+      </div>
+    </div>
+  
+
+
 <!-- Another Section
     <div class="panel another-section">
       <div class="panel-heading">

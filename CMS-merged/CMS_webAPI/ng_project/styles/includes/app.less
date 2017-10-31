@@ -360,4 +360,40 @@
 			}
 		}
 	}
+
+	.dynamic-form {
+		.node {
+			padding: 10px 10px 10px 30px;
+			vertical-align: top;
+
+			.node-container {
+				border-left: 1px solid lightgray;
+				padding: 10px;
+				vertical-align: top;
+
+				&.collapse {
+					&.in {
+						&.inline {
+							display: inline-block;
+							border: none;
+							padding: 0px;
+						}						
+					}
+				}				
+			}
+
+			input, textarea {
+				border: 1px solid transparent;
+				
+				&:hover, &:focus {
+					border: 1px solid greenyellow;
+				}
+			}
+
+			.expand-icon {
+				vertical-align: top;
+				margin-top: 6px;
+			}
+		}
+	}
 }
