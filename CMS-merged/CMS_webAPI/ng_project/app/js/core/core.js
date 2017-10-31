@@ -8,10 +8,19 @@
     */
 
     angular.module('raiweb.core', [])
-    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider','$qProvider',
-        function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $qProvider) {
-        // Error Page State Definition. All other states are created in Run section of this module
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider','$qProvider','$compileProvider',
+        function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $qProvider, $compileProvider) {
+        
+            // Error Page State Definition. All other states are created in Run section of this module
         $qProvider.errorOnUnhandledRejections(false);
+        
+        // ***** PRODUCTION DEBUG INFO SETTINGS
+        $compileProvider.debugInfoEnabled(false);
+            // to enable it in browser, run angular.reloadWithDebugInfo()
+        $compileProvider.commentDirectivesEnabled(false);
+        $compileProvider.cssClassDirectivesEnabled(false);
+        // ***** 
+
         $urlRouterProvider.otherwise('/');
         $stateProvider.state({
             name: 'error',

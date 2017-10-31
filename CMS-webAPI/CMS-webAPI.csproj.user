@@ -8,7 +8,7 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>CMS_webAPI.Models.CmsDbContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>True</WebStackScaffolding_IsAsyncSelected>
-    <NameOfLastUsedPublishProfile>Publish to Local Folder</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>FileSystem</NameOfLastUsedPublishProfile>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44302</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
