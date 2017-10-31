@@ -50,7 +50,7 @@ namespace CMS_webAPI.AppCode
 
                 MetaInfoModel metaInfo = new MetaInfoModel();
                 metaInfo.Title = article.Title + " | " + article.Category.Title + " | " + ViewData["baseTitle"];
-                metaInfo.Description = article.ShortDescription;
+                metaInfo.Description = AppService.StripHtml((string)article.ShortDescription);
                 metaInfo.Keywords = AppService.GetKeywordsFromTags(article.Tags);
                 metaInfo.Tags = AppService.GetMetaTagsFromTags(article.Tags);
                 metaInfo.Type = "Article";

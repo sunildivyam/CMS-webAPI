@@ -23,7 +23,7 @@ namespace CMS_webAPI.AppCode
 
                 MetaInfoModel metaInfo = new MetaInfoModel();
                 metaInfo.Title = quiz.Title + " | Quiz | "+ ViewData["baseTitle"];
-                metaInfo.Description = quiz.Description;
+                metaInfo.Description = AppService.StripHtml((string)quiz.Description);
                 metaInfo.Keywords = AppService.GetKeywordsFromTags(quiz.Tags);
                 metaInfo.Tags = AppService.GetMetaTagsFromTags(quiz.Tags);
                 metaInfo.Type = "Quiz";

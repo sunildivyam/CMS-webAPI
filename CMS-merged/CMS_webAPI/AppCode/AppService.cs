@@ -1,4 +1,5 @@
 ﻿using CMS_webAPI.Models;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using System;
@@ -117,6 +118,18 @@ namespace CMS_webAPI
                 }
             }
             return keywords.ToArray();
+        }
+
+        public static string StripHtml(string html)
+        {
+            if (String.IsNullOrEmpty(html))
+            {
+                return "";
+            }
+            html.Replace("&nbsp;", " ");
+            HtmlDocument htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(html);            
+            return htmlDoc.DocumentNode.InnerText;
         }
     }
 }
