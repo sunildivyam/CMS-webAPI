@@ -19,6 +19,7 @@
 			} else {
 				pageTitle = [application.shortTitle || '',  application.title || ''].join(' - ');
 			}
+			return pageTitle;
 		}
 
 		return {

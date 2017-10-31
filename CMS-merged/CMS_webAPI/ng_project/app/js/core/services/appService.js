@@ -145,21 +145,35 @@
 		*
 		* @returns {string} returns list of error messages in HTML format
 		*/
-		function getErrorMessage(modelState, listHtmlElement) {
-			var errorMessage = [];
-			var listHtmlElem = listHtmlElement;
-			if (!listHtmlElement) {
-				listHtmlElem = 'li';
-			}
+		
+		function getErrorMessage(errorOrRejection) {
+			var errorMsg = '';
+			if (typeof errorOrRejection === 'string') {
+				errorMsg = errorOrRejection;
+			} else if (errorOrRejection && errorOrRejection.data && errorOrRejection.data.ModelState instanceof Object) {
+				var modelState = errorOrRejection.data.ModelState;
+				var errorMessage = [];
+				var listHtmlElem = 'li';
 
-			if (modelState instanceof Object) {
 				for (var key in modelState) {
 					modelState[key].filter(function(msg) {
 						errorMessage.push('<' + listHtmlElem + '>' + msg + '</' + listHtmlElem + '>');
 					});
 				}
+				errorMsg = errorMessage.join('');
+			} else if(errorOrRejection && errorOrRejection.status && errorOrRejection.statusText) {
+				errorMsg = [
+					'<h3>',
+					errorOrRejection.status,
+					'</h3><p>',
+					errorOrRejection.statusText,
+					'</p>'
+				].join('');
+			} else {
+				errorMsg = 'UNKNOWN';
 			}
-			return errorMessage.join('');
+
+			return errorMsg;
 		}
 
 		function getApiServerUrl() {

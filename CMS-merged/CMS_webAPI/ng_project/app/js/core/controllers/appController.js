@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService, Utils, modalService, EntityMapper, Category, pubcontentService) {
+    var appController = function($rootScope, $scope, $window, responsiveDetectionService, accountService, Utils, modalService, EntityMapper, Category, pubcontentService, pageMetaTagsService) {
         $rootScope.bodyClass = '';
         $rootScope.appLogo = {
             primaryTitle: 'LearnWiseWay',
@@ -67,10 +67,9 @@
             if (toState && toState.name) {
                 Utils.getListConfigs().then(function(response) {
                     $rootScope.application = response && response.application;
-                    $rootScope.appLogo = $rootScope.application && $rootScope.application.appLogo;
-                    if (toState && toState.title) {
-                        // Sets Meta information for Page
-                        Utils.setMetaInfo(toState.title);
+                    $rootScope.appLogo = $rootScope.application && $rootScope.application.appLogo;                    
+                    if (toState.name === 'termsandconditions') {
+                        pageMetaTagsService.setPageMetaInfo(toState.title, undefined,'Terms and Conditions, Learn Wise Way, Wise Learnings, LearnWiseWay');
                     }
                 });
                 // Scrolls to Top on State Change
@@ -109,6 +108,6 @@
         });
     };
 
-    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService', 'Utils', 'modalService', 'EntityMapper', 'Category', 'pubcontentService'];
+    appController.$inject = ['$rootScope', '$scope', '$window', 'responsiveDetectionService', 'accountService', 'Utils', 'modalService', 'EntityMapper', 'Category', 'pubcontentService', 'pageMetaTagsService'];
     module.exports = appController;
 })();

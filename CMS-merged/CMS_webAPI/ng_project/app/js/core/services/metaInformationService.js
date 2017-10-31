@@ -41,13 +41,14 @@
 					keywords.filter(function(item) {
 						kws.push(item.title);
 					});
-					metaKeywords = kws.join(', ');
+					metaKeywords = kws.join(',');
 				} else {
-					metaKeywords = keywords.join(', ');
+					metaKeywords = keywords.join(',');
 				}
 			} else {
 				metaKeywords = '';
 			}
+			return keywords;
 		}
 
 		/*
@@ -61,6 +62,7 @@
 			} else {
 				metaDescription = '';
 			}
+			return metaDescription;
 		}
 
 		/*
@@ -68,7 +70,7 @@
 		*/
 
 		function resetMetaKeywords() {
-			setMetaKeywords($rootScope.application.keywords);
+			return setMetaKeywords($rootScope.application.keywords);
 		}
 
 		/*
@@ -76,7 +78,7 @@
 		*/
 
 		function resetMetaDescription() {
-			setMetaDescription($rootScope.application.description);
+			return setMetaDescription($rootScope.application.description);
 		}
 
 		/*

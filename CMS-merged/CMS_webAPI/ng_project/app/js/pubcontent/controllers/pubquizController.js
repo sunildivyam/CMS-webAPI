@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var pubquizController = function($rootScope, $scope, $state, $timeout, appService, pubcontentService, modalService, Quiz, Question, Tag, EntityMapper, metaInformationService, pageTitleService, Utils) {
+    var pubquizController = function($rootScope, $scope, $state, $timeout, appService, pubcontentService, modalService, Quiz, Question, Tag, EntityMapper, metaInformationService, pageTitleService, Utils, pageMetaTagsService) {
         $scope.currentQuiz = new Quiz();
        
         function sortQuizQuestions(quiz) {
@@ -46,12 +46,12 @@
                     $scope.currentQuiz = quiz;
                     $scope.isLoading = false;
                     // Sets Meta information for Page
-                    Utils.setMetaInfo(quiz.title, quiz.description, quiz.tags);
+                    pageMetaTagsService.setPubQuizPageMetaInfo(quiz);
                 }, function(rejection) {
                     $scope.isLoading = false;
                     modalService.alert('md',
                     'No Quiz found',
-                    'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Quiz Not Found.') ,
+                    'Reason/s: ' + (appService.getErrorMessage(rejection) || 'Quiz Not Found.') ,
                     'Go Back').result.then(function() {
                         $state.go('pub.quizs');
                     }, function() {
@@ -67,8 +67,7 @@
             if (toState && toState.name) {               
                 Utils.getListConfigs().then(function() {
                    
-                    if(toState.name === 'pub.quizs.quiz' && toParams.qi && toParams.qn) {
-                        Utils.setMetaInfo();
+                    if(toState.name === 'pub.quizs.quiz' && toParams.qi && toParams.qn) {                        
                         $scope.setPageName('pubquizPage');
                         getQuiz(toParams.qi, toParams.qn);
                     } 
@@ -79,6 +78,6 @@
         });
     };
 
-    pubquizController.$inject = ['$rootScope', '$scope', '$state', '$timeout','appService', 'pubcontentService', 'modalService', 'Quiz', 'Question', 'Tag', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils'];
+    pubquizController.$inject = ['$rootScope', '$scope', '$state', '$timeout','appService', 'pubcontentService', 'modalService', 'Quiz', 'Question', 'Tag', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils', 'pageMetaTagsService'];
     module.exports = pubquizController;
 })();

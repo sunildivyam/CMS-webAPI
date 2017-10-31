@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var pubTagController = function($rootScope, $scope, pubcontentService, metaInformationService, pageTitleService, EntityMapper, Content, Tag, Utils, Quiz, Question) {
+    var pubTagController = function($rootScope, $scope, pubcontentService, metaInformationService, pageTitleService, EntityMapper, Content, Tag, Utils, Quiz, Question, pageMetaTagsService) {
         $scope.dlContentsListOfTag = {};
         $scope.currentTag = new Tag();
         $scope.tagEntityName = getTagEntityType('quizzes');
@@ -69,7 +69,7 @@
                 $scope.dlContentsListOfTag.headerTitle = $scope.tagType + '-' + $scope.currentTag.title;
                 $scope.dlContentsListOfTag.headerSummary = $scope.tagType + ' related to keyword "' + $scope.currentTag.title +'"';
                 // Sets Meta information for Page
-                Utils.setMetaInfo(
+                pageMetaTagsService.setPageMetaInfo(
                     [$scope.baseTitle, $scope.currentTag.title].join(' '),
                     $scope.currentTag.description,
                     pubcontentService.getUniqueTagsOfTags(getSearchResultsTags($scope.dlContentsListOfTag.items)));
@@ -113,8 +113,7 @@
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
             if (toState) {
-                // Sets Meta information for Page
-                Utils.setMetaInfo(toState.title);
+                // Sets Meta information for Page                
                 $scope.baseTitle = toState.title;
             }
 
@@ -130,6 +129,6 @@
         });
     };
 
-    pubTagController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'metaInformationService', 'pageTitleService', 'EntityMapper', 'Content', 'Tag', 'Utils', 'Quiz', 'Question'];
+    pubTagController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'metaInformationService', 'pageTitleService', 'EntityMapper', 'Content', 'Tag', 'Utils', 'Quiz', 'Question', 'pageMetaTagsService'];
     module.exports = pubTagController;
 })();

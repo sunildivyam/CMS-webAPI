@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var dashboardController = function($rootScope, $scope, $state, $timeout, metaInformationService, pageTitleService, contentService, EntityMapper, Content, Category, Tag, Quiz, modalService, Utils) {
+    var dashboardController = function($rootScope, $scope, $state, $timeout, contentService, EntityMapper, Content, Category, Tag, Quiz, modalService, Utils, pageMetaTagsService) {
         $scope.dlCategories = {};
         $scope.dlTags = {};
         $scope.dlDraftedContents = {};
@@ -209,6 +209,7 @@
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState /*, fromParams*/) {
             if (toState && toState.name && (fromState && fromState.name !== toState.name)) {
+                pageMetaTagsService.setPageMetaInfo(toState.title, "Author's Dashboard, Create, manage and publish your content, articles, quizzesm questions and much more. Keep and save your content, articles in draft, the ones being authored.");
                 Utils.getListConfigs().then(function() {
                     $scope.iso = undefined;
                     $scope.getDraftedContents();
@@ -222,6 +223,6 @@
         });
     };
 
-    dashboardController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'metaInformationService', 'pageTitleService', 'contentService', 'EntityMapper', 'Content', 'Category', 'Tag', 'Quiz', 'modalService', 'Utils'];
+    dashboardController.$inject = ['$rootScope', '$scope', '$state', '$timeout', 'contentService', 'EntityMapper', 'Content', 'Category', 'Tag', 'Quiz', 'modalService', 'Utils', 'pageMetaTagsService'];
     module.exports = dashboardController;
 })();

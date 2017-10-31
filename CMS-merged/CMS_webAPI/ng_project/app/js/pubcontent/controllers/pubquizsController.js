@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var pubquizsController = function($rootScope, $scope, $state, $timeout, appService, pubcontentService, modalService, Quiz, Question, Tag, EntityMapper, metaInformationService, pageTitleService, Utils) {        
+    var pubquizsController = function($rootScope, $scope, $state, $timeout, appService, pubcontentService, modalService, Quiz, Question, Tag, EntityMapper, metaInformationService, pageTitleService, Utils, pageMetaTagsService) {        
         $scope.pageDescription = [
             'Retrieval aids later retention. There is clear evidence from psychological experiments that practicing retrieval of something after learning it, for instance by taking a quiz or test, makes you more likely to retain it for the long term.',
             'Quizzes identifies gaps in knowledge.',
@@ -72,7 +72,7 @@
                 // This should be set only for quizs state, and not for quizs.quiz state
                 if ($state.$current.name === 'pub.quizs') {
                     // Sets Meta information for Page
-                    Utils.setMetaInfo($state.$current.title, $scope.pageDescription, pubcontentService.getUniqueTagsOfTags($scope.allQuizTags));
+                    pageMetaTagsService.setPageMetaInfo($state.$current.title, $scope.pageDescription, pubcontentService.getUniqueTagsOfTags($scope.allQuizTags));
                 }
 
                 dlQuizList.isLoading = false;
@@ -99,6 +99,6 @@
         });
     };
 
-    pubquizsController.$inject = ['$rootScope', '$scope', '$state', '$timeout','appService', 'pubcontentService', 'modalService', 'Quiz', 'Question', 'Tag', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils'];
+    pubquizsController.$inject = ['$rootScope', '$scope', '$state', '$timeout','appService', 'pubcontentService', 'modalService', 'Quiz', 'Question', 'Tag', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils', 'pageMetaTagsService'];
     module.exports = pubquizsController;
 })();

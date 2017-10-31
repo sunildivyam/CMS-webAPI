@@ -55,7 +55,7 @@
 				$scope.isChangingPassword = false;
 				modalService.alert('md',
 					'Password Change Failed',
-					'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+					'Reason/s: ' + appService.getErrorMessage(rejection) ,
 					'Try again');
 			});
 
@@ -280,13 +280,15 @@
 					'Continue', 'Back').result
 	        	.then(function() {
 					$scope.appConfigSection = $scope.appConfigSection || {};
-	        		$scope.appConfigSection.appConfigFormatted = JSON.stringify(window._appConfig || {}, null, "\t");
+					$scope.appConfigSection.appConfigFormatted = JSON.stringify(window._appConfig || {}, null, "\t");
+					$scope.appConfigSection.appConfig = window._appConfig || {};
 				}, function() {
 					//
 				});   
 			} else {
 				$scope.appConfigSection = $scope.appConfigSection || {};
-        		$scope.appConfigSection.appConfigFormatted = JSON.stringify(window._appConfig || {}, null, "\t");
+				$scope.appConfigSection.appConfigFormatted = JSON.stringify(window._appConfig || {}, null, "\t");
+				$scope.appConfigSection.appConfig = window._appConfig || {};
 			}   	
         }
 

@@ -14,7 +14,7 @@
 */
 
 (function() {
-    var accountController = function($rootScope, $scope, $state, appService, accountService, User, modalService, Utils) {
+    var accountController = function($rootScope, $scope, $state, appService, accountService, User, modalService, Utils,pageMetaTagsService) {
         $scope.newUser = new User();
         $scope.loginInfo = {};
         $scope.resetPasswordModel = {};
@@ -74,7 +74,7 @@
                 $scope.isRegistering = false;
                 modalService.alert('md',
                     'Registeration Failed',
-                    'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+                    'Reason/s: ' + appService.getErrorMessage(rejection) ,
                     'Try again');
             });
         };
@@ -210,8 +210,10 @@
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams /*, fromState , fromParams*/) {
             if (toState) {
-                // Sets Meta information for Page
-                Utils.setMetaInfo(toState.title);
+                Utils.getListConfigs().then(function() {
+					// Sets Meta information for Page
+                    pageMetaTagsService.setPageMetaInfo(toState.title);
+				});                
             }
 
             if (toState && (toState.name === 'verifyemail' || toState.name === 'resetpassword')) {
@@ -234,6 +236,6 @@
         });
     };
 
-    accountController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'modalService', 'Utils'];
+    accountController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'accountService', 'User', 'modalService', 'Utils', 'pageMetaTagsService'];
     module.exports = accountController;
 })();

@@ -6,7 +6,7 @@
 */
 
 (function() {
-	var categoryController = function($rootScope, $scope, $state, appService, contentService, modalService, Category) {
+	var categoryController = function($rootScope, $scope, $state, appService, contentService, modalService, Category, pageMetaTagsService) {
 		$scope.currentCategory = new Category();
 
 		function getCategory(id) {
@@ -33,7 +33,7 @@
 					$scope.loaderMsg = '';
 					modalService.alert('md',
 					'Category loading Failed',
-					'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Category Not Found.') ,
+					'Reason/s: ' + (appService.getErrorMessage(rejection) || 'Category Not Found.') ,
 					'Go to Dashboard').result.then(function() {
 						$state.go('author.dashboard');
 					});
@@ -62,7 +62,7 @@
 				$scope.loaderMsg = '';
 				modalService.alert('md',
 				'Category Saving Failed',
-				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'Reason/s: ' + appService.getErrorMessage(rejection) ,
 				'try Again');
 			});
 		};
@@ -88,7 +88,7 @@
 				$scope.loaderMsg = '';
 				modalService.alert('md',
 				'Category Update Failed',
-				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'Reason/s: ' + appService.getErrorMessage(rejection) ,
 				'try Again');
 			});
 		};
@@ -111,7 +111,7 @@
 				$scope.loaderMsg = '';
 				modalService.alert('md',
 				'Category Delete Failed',
-				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'Reason/s: ' + appService.getErrorMessage(rejection) ,
 				'try Again');
 			});
 		};
@@ -125,6 +125,7 @@
 		};
 
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
+			pageMetaTagsService.setPageMetaInfo(toState.title, 'Create and Update categories', 'add category,update category,article category');
 			if (toState && toState.name && toParams && toParams.id) {
 				getCategory(toParams.id);
 			} else {
@@ -133,6 +134,6 @@
 		});
 	};
 
-	categoryController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Category'];
+	categoryController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Category', 'pageMetaTagsService'];
 	module.exports = categoryController;
 })();

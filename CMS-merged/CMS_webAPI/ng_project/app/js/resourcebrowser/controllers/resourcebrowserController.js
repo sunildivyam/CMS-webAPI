@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var resourcebrowserController = function($rootScope, $scope, $state, $q, appService, resourcebrowserService, modalService, EntityMapper, ContentResource, Category, pageTitleService, contentService, CkEditorService, Utils) {
+    var resourcebrowserController = function($rootScope, $scope, $state, $q, appService, resourcebrowserService, modalService, EntityMapper, ContentResource, Category, contentService, CkEditorService, Utils, pageMetaTagsService) {
         $scope.resourceToolbarButtons = resourcebrowserService.getToolbarButtons();
         $scope.dlCategories = {};
         $scope.dlResourceList = {};
@@ -142,12 +142,11 @@
         });
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
-            if (toState) {
-                // Sets Meta information for Page
-                Utils.setMetaInfo(toState.title);
-            }
+            
             if (toState && toState.name && toParams) {
                 Utils.getListConfigs().then(function() {
+                    // Sets Meta information for Page
+                    pageMetaTagsService.setPageMetaInfo(toState.title, "Resource Browser, upload and manage Picture, Images and put them in your content, articles, quizzes, questions and anywhere in your writeups. You can keep Images, grouped in categories.");
                     if (toParams.CKEditorFuncNum) {
                         $scope.ckFunctionNumber = toParams.CKEditorFuncNum;
                     } else {
@@ -165,6 +164,6 @@
         });
     };
 
-    resourcebrowserController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'resourcebrowserService',  'modalService', 'EntityMapper', 'ContentResource', 'Category', 'pageTitleService', 'contentService', 'CkEditorService', 'Utils'];
+    resourcebrowserController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'resourcebrowserService',  'modalService', 'EntityMapper', 'ContentResource', 'Category', 'contentService', 'CkEditorService', 'Utils', 'pageMetaTagsService'];
     module.exports = resourcebrowserController;
 })();

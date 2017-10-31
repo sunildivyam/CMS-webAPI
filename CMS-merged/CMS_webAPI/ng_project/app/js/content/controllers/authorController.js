@@ -14,8 +14,7 @@
                         $state.go('author.dashboard');
                         break;
                     default:
-                        // Sets Meta information for Page
-                        Utils.setMetaInfo(toState.title);
+                        // Sets Meta information for Page                        
                 }
             }
         });

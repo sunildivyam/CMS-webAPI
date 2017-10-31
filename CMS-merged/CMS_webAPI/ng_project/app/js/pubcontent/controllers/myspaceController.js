@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var myspaceController = function($rootScope, $scope, pubcontentService, EntityMapper, Content, User, Utils, Quiz) {
+    var myspaceController = function($rootScope, $scope, pubcontentService, EntityMapper, Content, User, Utils, Quiz, pageMetaTagsService) {
         $scope.dlContentsListOfAuthor = {};
         $scope.dlQuizsListOfAuthor = {};
         $scope.currentAuthor = new User();
@@ -34,10 +34,10 @@
                 $scope.dlContentsListOfAuthor.tags = pubcontentService.getUniqueTagsOfContents($scope.dlContentsListOfAuthor.items);
                
                 // Sets Meta information for Page
-                Utils.setMetaInfo(
-                    pageTitle,
+                pageMetaTagsService.setPageMetaInfo(pageTitle,
                     $scope.currentAuthor.description,
                     pubcontentService.getUniqueTagsOfTags(getSearchResultsTags($scope.dlContentsListOfAuthor.items)));
+                
             } else {
                 $scope.currentAuthor = new User();
                 $scope.dlContentsListOfAuthor.items = undefined;
@@ -128,10 +128,9 @@
         }
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
-            if (toState) {
-                // Sets Meta information for Page
-                Utils.setMetaInfo(toState.title);
+            if (toState) {                                
                 $scope.baseTitle = "Articles, Quizzes and Questions";
+                pageMetaTagsService.setPageMetaInfo($scope.baseTitle + 'by ' + (toParams.n || 'Author'), "Author's Articles, Quizzes and Questions, Latest Articles, Recent Articles andexplore Quizzes and questions.");
             }
 
             if (toState && toState.name && toParams && toParams.n) {
@@ -145,6 +144,6 @@
         });
     };
 
-    myspaceController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'EntityMapper', 'Content', 'User', 'Utils', 'Quiz'];
+    myspaceController.$inject = ['$rootScope', '$scope', 'pubcontentService', 'EntityMapper', 'Content', 'User', 'Utils', 'Quiz', 'pageMetaTagsService'];
     module.exports = myspaceController;
 })();

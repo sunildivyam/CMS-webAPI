@@ -67,7 +67,7 @@
 				$scope.loaderMsg = '';
 				modalService.alert('md',
 				'Posting Comment Failed',
-				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'Reason/s: ' + appService.getErrorMessage(rejection) ,
 				'Try Again');
 			});
 		};

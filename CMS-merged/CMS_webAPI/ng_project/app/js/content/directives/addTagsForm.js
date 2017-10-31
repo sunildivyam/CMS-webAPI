@@ -49,6 +49,7 @@
 						if (typeof $scope.onCancel === 'function') {
 							$scope.onCancel(event, $scope.tags);
 						}
+						$scope.tags =[];
 					}, function() {
 
 					});

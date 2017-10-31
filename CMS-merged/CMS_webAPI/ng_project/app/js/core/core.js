@@ -393,6 +393,7 @@
     .factory('Utils', require('./services/Utils'))
     .factory('CkEditorService', require('./services/CkEditorService'))
     .factory('appConfig', require('./services/appConfig'))
+    .factory('pageMetaTagsService', require('./services/pageMetaTagsService'))
 
     .factory('EntityMapper', require('./domain/EntityMapper'))
     .factory('User', require('./domain/User'))
@@ -405,6 +406,7 @@
     .factory('QuestionComment', require('./domain/QuestionComment'))
     .factory('Question', require('./domain/Question'))
     .factory('Quiz', require('./domain/Quiz'))
+    .factory('MetaInfo', require('./domain/MetaInfo'))
 
     .filter('youtubeFilter', require('./filters/youtubeFilter'))
 
@@ -425,7 +427,8 @@
     .directive('bootstrapCarousel', require('./directives/bootstrapCarousel'))
     .directive('appFooter', require('./directives/appFooter'))
     .directive('socialMediaShare', require('./directives/socialMediaShare'))
-    .directive('maximizeControl', require('./directives/maximizeControl'));
+    .directive('maximizeControl', require('./directives/maximizeControl'))
+    .directive('dynamicForm', require('./directives/dynamicForm'));
 
     module.exports = angular.module('raiweb.core');
 })();

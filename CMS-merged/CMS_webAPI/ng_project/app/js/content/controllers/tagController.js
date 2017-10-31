@@ -6,7 +6,7 @@
 */
 
 (function() {
-	var tagController = function($rootScope, $scope, $state, appService, contentService, modalService, Tag) {
+	var tagController = function($rootScope, $scope, $state, appService, contentService, modalService, Tag, pageMetaTagsService) {
 		$scope.currentTag = new Tag();
 
 		function getTag(id) {
@@ -33,7 +33,7 @@
 					$scope.loaderMsg = '';
 					modalService.alert('md',
 					'Tag loading Failed',
-					'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Tag Not Found.') ,
+					'Reason/s: ' + (appService.getErrorMessage(rejection) || 'Tag Not Found.') ,
 					'Go to Dashboard').result.then(function() {
 						$state.go('author.dashboard');
 					});
@@ -62,7 +62,7 @@
 				$scope.loaderMsg = '';
 				modalService.alert('md',
 				'Tag Saving Failed',
-				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'Reason/s: ' + appService.getErrorMessage(rejection) ,
 				'try Again');
 			});
 		};
@@ -88,7 +88,7 @@
 				$scope.loaderMsg = '';
 				modalService.alert('md',
 				'Tag Update Failed',
-				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'Reason/s: ' + appService.getErrorMessage(rejection) ,
 				'try Again');
 			});
 		};
@@ -111,7 +111,7 @@
 				$scope.loaderMsg = '';
 				modalService.alert('md',
 				'Tag Delete Failed',
-				'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+				'Reason/s: ' + appService.getErrorMessage(rejection) ,
 				'try Again');
 			});
 		};
@@ -125,6 +125,7 @@
 		};
 
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
+			pageMetaTagsService.setPageMetaInfo(toState.title, 'Create and Update Content Article tags', 'add tag,update tag, article tag');
 			if (toState && toState.name && toParams && toParams.id) {
 				getTag(toParams.id);
 			} else {
@@ -133,6 +134,6 @@
 		});
 	};
 
-	tagController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Tag'];
+	tagController.$inject = ['$rootScope', '$scope', '$state', 'appService', 'contentService', 'modalService', 'Tag', 'pageMetaTagsService'];
 	module.exports = tagController;
 })();

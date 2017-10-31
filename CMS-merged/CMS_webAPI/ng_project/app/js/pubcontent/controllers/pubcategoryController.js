@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var pubcategoryController = function($rootScope, $scope, $state, $timeout, appService, pubcontentService, modalService, Content, Tag, Category, EntityMapper, metaInformationService, pageTitleService, Utils) {        
+    var pubcategoryController = function($rootScope, $scope, $state, $timeout, appService, pubcontentService, modalService, Content, Tag, Category, EntityMapper, metaInformationService, pageTitleService, Utils, pageMetaTagsService) {        
         $scope.currentCategory = new Category();
 
         $scope.dlPopular = {};
@@ -25,7 +25,7 @@
                     }
                     $scope.isCategoryLoading = false;
                     // Sets Meta information for Page
-                    Utils.setMetaInfo($scope.currentCategory.title, $scope.currentCategory.description, pubcontentService.getUniqueTagsOfTags($scope.allCategoryContentTags));
+                    pageMetaTagsService.setPubCategoryPageMetaInfo($scope.currentCategory, pubcontentService.getUniqueTagsOfTags($scope.allCategoryContentTags));                    
                 }, function(rejection) {
                     onNoCategory(rejection);
                 });
@@ -37,7 +37,7 @@
                 $scope.isCategoryLoading = false;
                 modalService.alert('md',
                 'No Category found',
-                'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Content Not Found.') ,
+                'Reason/s: ' + (appService.getErrorMessage(rejection) || 'Content Not Found.') ,
                 'Go to Home').result.then(function() {
                     $state.go('pub');
                 }, function() {
@@ -85,7 +85,7 @@
                         // This should be set only for Category (articles) state, and not for content state
                         if ($state.$current.name === 'pub.articles') {
                             // Sets Meta information for Page
-                            Utils.setMetaInfo($scope.currentCategory.title, $scope.currentCategory.description, pubcontentService.getUniqueTagsOfTags($scope.allCategoryContentTags));
+                            pageMetaTagsService.setPubCategoryPageMetaInfo($scope.currentCategory, pubcontentService.getUniqueTagsOfTags($scope.allCategoryContentTags));
                         }
 
                         dlContentList.isLoading = false;
@@ -104,7 +104,6 @@
             if (toState && toState.name && toParams && toParams.n) {
                 Utils.getListConfigs().then(function() {
                     getAllContentLists(toParams.n);
-                    Utils.setMetaInfo(toParams.n);
                     if(toState.name === "pub.articles") {
                         $scope.setPageName('pubcategoryPage');
                         getCategoryByName(toParams.n);  
@@ -116,6 +115,6 @@
         });
     };
 
-    pubcategoryController.$inject = ['$rootScope', '$scope', '$state', '$timeout','appService', 'pubcontentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils'];
+    pubcategoryController.$inject = ['$rootScope', '$scope', '$state', '$timeout','appService', 'pubcontentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'metaInformationService', 'pageTitleService', 'Utils', 'pageMetaTagsService'];
     module.exports = pubcategoryController;
 })();

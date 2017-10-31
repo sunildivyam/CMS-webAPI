@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var pubhomeController = function($rootScope, $scope, $state, $timeout, $q, pubcontentService, EntityMapper, Category, Tag, Content, Utils, searchService, Quiz) {
+    var pubhomeController = function($rootScope, $scope, $state, $timeout, $q, pubcontentService, EntityMapper, Category, Tag, Content, Utils, searchService, Quiz, pageMetaTagsService) {
         $scope.globalSearch = {
             searchString: '',
             category: searchService.getDefaultCategory()
@@ -199,7 +199,7 @@
 
         function initPageData() {
             // Sets Meta information for Page
-            Utils.setMetaInfo(); // this sets application level meta data
+            pageMetaTagsService.setPageMetaInfo();
             initMainCarousel($scope.categories);
             getListOfContentsOfAllcategories($scope.categories);
             getLatestQuizs();
@@ -243,6 +243,6 @@
         });
     };
 
-    pubhomeController.$inject = ['$rootScope', '$scope', '$state', '$timeout', '$q', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils', 'searchService', 'Quiz'];
+    pubhomeController.$inject = ['$rootScope', '$scope', '$state', '$timeout', '$q', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils', 'searchService', 'Quiz','pageMetaTagsService'];
     module.exports = pubhomeController;
 })();

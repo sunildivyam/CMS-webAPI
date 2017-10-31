@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var contentController = function($rootScope, $scope, $state, $q, appService, contentService, modalService, Content, Tag, Category, EntityMapper, Utils) {
+    var contentController = function($rootScope, $scope, $state, $q, appService, contentService, modalService, Content, Tag, Category, EntityMapper, Utils, pageMetaTagsService) {
         $scope.currentContent = new Content();
 
         getTags();
@@ -29,7 +29,7 @@
             }, function(rejection) {
                 modalService.alert('md',
                 'Content Tags Load Failed',
-                'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Unknown') ,
+                'Reason/s: ' + (appService.getErrorMessage(rejection) || 'Unknown') ,
                 'Go to Dashboard').result.then(function() {
                     $state.go('author.dashboard');
                 });
@@ -53,7 +53,7 @@
             }, function(rejection) {
                 modalService.alert('md',
                 'Content Categories Load Failed',
-                'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Unknown') ,
+                'Reason/s: ' + (appService.getErrorMessage(rejection) || 'Unknown') ,
                 'Go to Dashboard').result.then(function() {
                     $state.go('author.dashboard');
                 });
@@ -99,7 +99,7 @@
                     $scope.loaderMsg = '';
                     modalService.alert('md',
                     'Content loading Failed',
-                    'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Content Not Found.') ,
+                    'Reason/s: ' + (appService.getErrorMessage(rejection) || 'Content Not Found.') ,
                     'Go to Dashboard').result.then(function() {
                         $state.go('author.dashboard');
                     });
@@ -174,7 +174,7 @@
                 $scope.loaderMsg = '';
                 modalService.alert('md',
                 'Content Saving Failed',
-                'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li'),
+                'Reason/s: ' + appService.getErrorMessage(rejection),
                 'try Again');
             });
         };
@@ -203,7 +203,7 @@
                 $scope.loaderMsg = '';
                 modalService.alert('md',
                 'Content Update Failed',
-                'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+                'Reason/s: ' + appService.getErrorMessage(rejection) ,
                 'try Again');
             });
         };
@@ -226,7 +226,7 @@
                 $scope.loaderMsg = '';
                 modalService.alert('md',
                 'Content Delete Failed',
-                'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+                'Reason/s: ' + appService.getErrorMessage(rejection) ,
                 'try Again');
             });
         };
@@ -286,7 +286,7 @@
                 $scope.loaderMsg = '';
                 modalService.alert('md',
                 'Saving new Draft Failed. Hence Publishing content Failed.',
-                'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+                'Reason/s: ' + appService.getErrorMessage(rejection) ,
                 'try Again');
             }
 
@@ -295,7 +295,7 @@
                 $scope.loaderMsg = '';
                 modalService.alert('md',
                 'Saving Draft Failed. Hence Publishing content Failed.',
-                'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+                'Reason/s: ' + appService.getErrorMessage(rejection) ,
                 'try Again');
             }
 
@@ -317,7 +317,7 @@
                 $scope.loaderMsg = '';
                 modalService.alert('md',
                 'Content Publish Failed',
-                'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+                'Reason/s: ' + appService.getErrorMessage(rejection) ,
                 'try Again');
             }
         };
@@ -339,6 +339,7 @@
         };
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
+            pageMetaTagsService.setPageMetaInfo(toState.title, 'Create and Update COntent Articles', 'add article,update article,manage article');
             if (toState && toState.name && toParams && toParams.id) {
                 getContent(toParams.id);
             } else {
@@ -347,6 +348,6 @@
         });
     };
 
-    contentController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'contentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'Utils'];
+    contentController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'contentService', 'modalService', 'Content', 'Tag', 'Category', 'EntityMapper', 'Utils', 'pageMetaTagsService'];
     module.exports = contentController;
 })();

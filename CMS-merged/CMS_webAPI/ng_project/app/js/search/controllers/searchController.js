@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var searchController = function($rootScope, $scope, searchService, metaInformationService, pageTitleService, EntityMapper, Content, Utils) {
+    var searchController = function($rootScope, $scope, searchService, metaInformationService, pageTitleService, EntityMapper, Content, Utils, pageMetaTagsService) {
         $scope.itemsPerPage = searchService.getPageSize();
         $scope.maxPageSize = 10; // page numbers to be displayed on page Bar
         $scope.dlSearch = {};
@@ -51,7 +51,7 @@
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams) {
             if (toState) {
                 // Sets Meta information for Page
-                Utils.setMetaInfo(toState.title);
+                pageMetaTagsService.setPageMetaInfo(toState.title, "Search, faster and relevant content, articles, quizzes, questions and many more on web. Filter out searches by categories, tags");
             }
 
             if (toState && toState.name && toParams) {
@@ -64,6 +64,6 @@
         });
     };
 
-    searchController.$inject = ['$rootScope', '$scope', 'searchService', 'metaInformationService', 'pageTitleService', 'EntityMapper', 'Content', 'Utils'];
+    searchController.$inject = ['$rootScope', '$scope', 'searchService', 'metaInformationService', 'pageTitleService', 'EntityMapper', 'Content', 'Utils', 'pageMetaTagsService'];
     module.exports = searchController;
 })();

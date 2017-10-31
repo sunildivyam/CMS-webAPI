@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var quizController = function($rootScope, $scope, $state, $q, appService, contentService, modalService, Quiz, Question, Tag, EntityMapper, Utils) {
+    var quizController = function($rootScope, $scope, $state, $q, appService, contentService, modalService, Quiz, Question, Tag, EntityMapper, Utils, pageMetaTagsService) {
         $scope.currentQuiz = new Quiz();
 
         getTags();
@@ -28,7 +28,7 @@
             }, function(rejection) {
                 modalService.alert('md',
                 'Quiz Tags Load Failed',
-                'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Unknown') ,
+                'Reason/s: ' + (appService.getErrorMessage(rejection) || 'Unknown') ,
                 'Go to Dashboard').result.then(function() {
                     $state.go('author.dashboard');
                 });
@@ -88,7 +88,7 @@
                     $scope.loaderMsg = '';
                     modalService.alert('md',
                     'Quiz loading Failed',
-                    'Reason/s: ' + (appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') || 'Quiz Not Found.') ,
+                    'Reason/s: ' + (appService.getErrorMessage(rejection) || 'Quiz Not Found.') ,
                     'Go to Dashboard').result.then(function() {
                         $state.go('author.dashboard');
                     });
@@ -126,7 +126,7 @@
                 $scope.loaderMsg = '';
                 modalService.alert('md',
                 'Quiz Saving Failed',
-                'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li'),
+                'Reason/s: ' + appService.getErrorMessage(rejection),
                 'try Again');
             });
         }
@@ -186,7 +186,7 @@
                 $scope.loaderMsg = '';
                 modalService.alert('md',
                 'Question Saving Failed',
-                'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li'),
+                'Reason/s: ' + appService.getErrorMessage(rejection),
                 'try Again');
                 typeof successCallback === 'function' && successCallback();
             });
@@ -216,7 +216,7 @@
                 $scope.loaderMsg = ''; 
                 modalService.alert('md',
                 'Quiz Publishing Failed',
-                'Reason/s: ' + appService.getErrorMessage(rejection && rejection.data && rejection.data.ModelState, 'li') ,
+                'Reason/s: ' + appService.getErrorMessage(rejection) ,
                 'try Again');
             });
         };
@@ -253,6 +253,7 @@
         }
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
+            pageMetaTagsService.setPageMetaInfo(toState.title, 'Create and Update Quizzes', 'add Quiz,update Quiz,article Quiz,add question,update question');
             if (toState && toState.name && toParams && toParams.id) {
                 getQuiz(toParams.id);
             } else {
@@ -261,6 +262,6 @@
         });
     };
 
-    quizController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'contentService', 'modalService', 'Quiz', 'Question', 'Tag', 'EntityMapper', 'Utils'];
+    quizController.$inject = ['$rootScope', '$scope', '$state', '$q', 'appService', 'contentService', 'modalService', 'Quiz', 'Question', 'Tag', 'EntityMapper', 'Utils', 'pageMetaTagsService'];
     module.exports = quizController;
 })();

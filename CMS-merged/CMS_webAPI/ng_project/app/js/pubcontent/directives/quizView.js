@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 	var quizView = function($timeout, $location, $interval, CkEditorService, Question, pageTitleService, modalService, appService) {
-		var MAX_QUESTION_ATTEMPT_DURATION = 20;
+		var MAX_QUESTION_ATTEMPT_DURATION = 45;
 		var originalQuiz;
 		return {
 			restrict: 'E',

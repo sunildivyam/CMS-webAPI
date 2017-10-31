@@ -6,10 +6,12 @@
 					<div class="col-sm-3">
 						<brand-logo class="xs" data-logo="appLogo"></brand-logo>
 					</div>
-					<div class="col-sm-6 well text-center">
-						<span class="label">This space is available for Advertisement.</span>
-						</br>
-						<a name="requestadvt" class="btn btn-success" href="mailto:info@learnwiseway.com?Subject=Advertisement Request&body=Please Provide Advertisement Tarrifs. My Details are (Name, Phone, Email, Business etc.):">Advertise Here</a>
+					<div class="col-sm-6">
+						<pubcontent-search
+							data-categories="searchDropdownCategories"
+							data-on-search="onGlobalSearch"
+							data-search="globalSearch">
+						</pubcontent-search>						
 					</div>
 					<div class="col-sm-3">
 						<login-status-bar user="currentUser">
@@ -20,12 +22,12 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-8 col-sm-push-2">
-			<pubcontent-search
-				data-categories="searchDropdownCategories"
-				data-on-search="onGlobalSearch"
-				data-search="globalSearch">
-			</pubcontent-search>
+		<div class="col-sm-12">
+			<!--
+			<span class="label">This space is available for Advertisement.</span>
+			</br>
+			<a name="requestadvt" class="btn btn-success" href="mailto:info@learnwiseway.com?Subject=Advertisement Request&body=Please Provide Advertisement Tarrifs. My Details are (Name, Phone, Email, Business etc.):">Advertise Here</a>			
+			-->
 		</div>
 	</div>
 	<div class="row">
