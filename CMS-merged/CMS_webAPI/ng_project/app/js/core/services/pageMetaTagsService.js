@@ -108,7 +108,7 @@
 			var tmp = document.createElement("DIV");
 			tmp.innerHTML = htmlStr;
 			//remove math-tex elements, code
-			$(tmp).find('.math-tex, code').remove();
+			$(tmp).find('.math-tex').remove();
 			var strippedHtml = tmp.textContent || tmp.innerText;
 			strippedHtml = strippedHtml.replace(/\s+/g, ' ');
 			return strippedHtml;

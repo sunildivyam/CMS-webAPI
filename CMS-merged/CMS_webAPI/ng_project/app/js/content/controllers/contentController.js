@@ -338,6 +338,16 @@
             }
         };
 
+        $scope.onContentLoadComplete = function() {
+            $scope.isLoading = false;
+        };
+
+        
+
+        $scope.onQuestionLoadComplete = function() {
+            $scope.isLoading = false;
+        };
+
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
             pageMetaTagsService.setPageMetaInfo(toState.title, 'Create and Update COntent Articles', 'add article,update article,manage article');
             if (toState && toState.name && toParams && toParams.id) {

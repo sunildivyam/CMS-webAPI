@@ -17,7 +17,7 @@
 								    <span ng-bind="$select.selected.title"></span>
 								</ui-select-match>
 								<ui-select-choices repeat="category in (categories | filter: $select.search) track by category.categoryId">
-								    <span ng-bind="category.title"></span>
+								    <span title="category.title" ng-bind="category.title"></span>
 								</ui-select-choices>
 							</ui-select>
 						</div>

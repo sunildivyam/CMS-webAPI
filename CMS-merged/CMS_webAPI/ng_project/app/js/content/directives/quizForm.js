@@ -79,7 +79,8 @@
                 onGetQuestionsLib: '=',
                 isLoading: '=',
                 loaderMsg: '=',
-                isQuizLoadedPromise: '='
+                isQuizLoadedPromise: '=',
+                onLoadComplete: '='
             },
             templateUrl: 'content/quiz-form.html',
             link: function($scope, element) {
@@ -96,10 +97,10 @@
                     $scope.isQuizLoadedPromise.promise
                 ]).then(function(responses) {
                     $timeout(function(){
-                        $scope.isLoading = false;
+                        typeof $scope.onLoadComplete === 'function' && $scope.onLoadComplete();
                     });                    
                 }, function() {
-                    $scope.isLoading = false;
+                    typeof $scope.onLoadComplete === 'function' && $scope.onLoadComplete();
                     modalService.alert('md',
                     'Unknown Error Loading Quiz',
                     'Unknown Error has occured, loading Quiz',

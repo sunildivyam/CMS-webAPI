@@ -17,7 +17,8 @@
                 onThumbnailUpload: '=',
                 isLoading: '=',
                 loaderMsg: '=',
-                isContentLoadedPromise: '='
+                isContentLoadedPromise: '=',
+                onLoadComplete: '='
             },
             templateUrl: 'content/content-form.html',
             link: function($scope, element) {
@@ -31,10 +32,10 @@
                     $scope.isContentLoadedPromise.promise
                 ]).then(function(responses) {
                     $timeout(function(){
-                        $scope.isLoading = false;
+                        typeof $scope.onLoadComplete === 'function' && $scope.onLoadComplete();
                     });                    
                 }, function() {
-                    $scope.isLoading = false;
+                    typeof $scope.onLoadComplete === 'function' && $scope.onLoadComplete();
                     modalService.alert('md',
                     'Unknown Error Loading Content',
                     'Unknown Error has occured, loading Content',

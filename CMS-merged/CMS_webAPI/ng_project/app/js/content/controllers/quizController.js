@@ -252,6 +252,10 @@
             return idsArray.join(',');
         }
 
+        $scope.onQuizLoadComplete = function() {
+            $scope.isLoading = false;
+        };
+        
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
             pageMetaTagsService.setPageMetaInfo(toState.title, 'Create and Update Quizzes', 'add Quiz,update Quiz,article Quiz,add question,update question');
             if (toState && toState.name && toParams && toParams.id) {
