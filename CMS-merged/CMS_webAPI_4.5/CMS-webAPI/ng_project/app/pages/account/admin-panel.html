@@ -1,0 +1,181 @@
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-tasks"></i>Administrator Panel</h3>
+  </div>
+  <div class="panel-body">
+
+    <!-- Assign User Roles Section -->
+    <div class="panel user-roles-section">
+      <div class="panel-heading" data-toggle="collapse" href=".user-roles-section>.panel-body">
+        <h3 class="panel-title"><i class="fa fa-user"></i>Manage user Roles</h3>
+      </div>
+      <div class="panel-body collapse">
+        <form name="userRolesForm" class="" role="form">
+          <div class="form-group">
+            <label class="form-label">User Name or Email Id: </label>
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="userRolesViewModel.userName" name="userName" id="userName" required/>
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-primary" ng-disabled="!userRolesViewModel.userName" ng-click="getUserRoles($event)">
+                    <i class="fa fa-search fa-lg" aria-hidden="true"></i>
+                    <span>Get Roles</span>
+                  </button>
+                </span>
+            </div>
+            <p ng-show="userRolesForm.userName.$invalid && !userRolesForm.userName.$pristine && userRolesForm.userName.$error.required" class="help-block">User Name/Email is required.</p>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="userRoles">Selected Roles</label>
+            <ui-select id="user-roles-id" name="userRoles" class="" ng-model="userRolesViewModel.roles" close-on-select="false" sortable="true" required multiple>
+              <ui-select-match placeholder="Select Roles...">
+                <span ng-bind="$item"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="role in (availableRoles | filter: $select.search) track by role">
+                <span ng-bind="role"></span>
+              </ui-select-choices>
+            </ui-select>
+            <span class="help-block" ng-if="userRolesForm.userRoles.$invalid">* required. Select atleast one role</span>
+          </div>
+
+          <button ng-disabled="!userRolesViewModel.userName || !userRolesViewModel.roles.length" type="button" class="btn btn-primary" ng-click="setUserRoles($event)">Assign Roles</button>
+        </form>
+        <loader data-is-loading="isUserRolesProcessing"></loader>
+      </div>
+    </div>
+
+    <!-- Clear API Cache Section -->
+    <div class="panel cache-section">
+      <div class="panel-heading" data-toggle="collapse" href=".cache-section>.panel-body">
+        <h3 class="panel-title"><i class="fa fa-refresh"></i>Reset Cache</h3>
+      </div>
+      <div class="panel-body collapse">
+        <form name="cacheForm" class="" role="form">
+          <div class="form-group">
+            <label class="control-label" for="cachedKeys">Cached Requests</label>
+            <ui-select id="cached-keys" name="cachedKeys" class="" ng-model="selectedCachedkey.name" sortable="true" required>
+              <ui-select-match placeholder="Select a key...">
+                <span ng-bind="$select.selected"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="cacheKey in (cachedRequestKeys | filter: $select.search) track by cacheKey">
+                <span ng-bind="cacheKey"></span>
+              </ui-select-choices>
+            </ui-select>
+            <span class="help-block" ng-if="cacheForm.cachedKeys.$invalid">* required. Select a key.</span>
+          </div>
+
+          <button ng-disabled="!selectedCachedkey.name" type="button" class="btn btn-primary" ng-click="clearCache($event)">Clear Cache</button>
+          <button ng-disabled="!cachedRequestKeys || (cachedRequestKeys && cachedRequestKeys.length <=0)" type="button" class="btn btn-primary" ng-click="clearCacheAll($event)">Clear Cache All</button>
+        </form>
+        <loader data-is-loading="isCacheProcessing"></loader>
+      </div>
+    </div>
+
+    <!-- Users Section -->
+    <div class="panel users-section">
+      <div class="panel-heading" data-toggle="collapse" href=".users-section>.panel-body">
+        <h3 class="panel-title"><i class="fa fa-users"></i>Users</h3>
+      </div>
+      <div class="panel-body collapse">
+        <form name="usersForm" class="" role="form">
+            <div class="form-group">
+                <label class="form-label">Recently Signed Up Users (Select Date Range): </label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="usersDateRange" id="usersDateRange" required
+                    date-range-picker=""
+                    ng-model="usersViewModel.dateRange"
+                    data-options="usersViewModel.rangeOptions"/>
+                    <span class="input-group-btn">
+                      <button type="submit" class="btn btn-primary" ng-click="getUsersByDate($event)">
+                          <i class="fa fa-search fa-lg" aria-hidden="true"></i>
+                          <span> Get Users</span>
+                      </button>
+                    </span>
+                </div>
+                <p ng-show="usersForm.usersDateRange.$invalid && !usersForm.usersDateRange.$pristine && usersForm.usersDateRange.$error.required" class="help-block">Date Range is required.</p>
+            </div>
+
+            <!-- Users table -->
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>User Name</th>
+                            <th>Frist Name</th>
+                            <th>Last Name</th>
+                            <th>Sign Up Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in usersViewModel.users">
+                            <td ng-bind="$index + 1"></td>
+                            <td ng-bind="user.userName"></td>
+                            <td ng-bind="user.firstName"></td>
+                            <td ng-bind="user.lastName"></td>
+                            <td ng-bind="user.createdOn.toLocaleString()"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        <loader data-is-loading="isUsersLoading"></loader>
+      </div>
+    </div>
+
+<!-- Application Config Section  -->
+    <div class="panel app-config-section">
+      <div class="panel-heading" data-toggle="collapse" href=".app-config-section>.panel-body">
+        <h3 class="panel-title"><i class="fa fa-cog"></i>Application Configurations </h3>
+      </div>
+      <div class="panel-body collapse">
+        <form name="appConfigForm" class="" role="form">
+            <!-- Textarea -->
+            <button type="button" class="btn btn-primary" ng-click="reloadAppConfig($event)">Reload Config</button>
+            <div class="form-group">
+              <maximize-control 
+              data-is-maximized=""
+              data-top="28px"
+              data-right="18px"
+              data-left=""
+              data-bottom=""
+              data-on-maximize="onAppConfigMaximizeSection"
+              data-on-restore="onAppConfigRestoreSection">      
+              </maximize-control>
+
+              <label class="control-label" for="app-config-json">Application Config</label>
+              <textarea rows="20" class="form-control" id="app-config-json" name="appConfigJson" ng-model="appConfigSection.appConfigFormatted"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" ng-click="updateAppConfig($event)">Save Config</button>
+        </form>
+        <loader data-is-loading="isAppConfigSaving"></loader>
+      </div>
+    </div>
+
+<!-- Config Dynamic Form 
+    <div class="panel dynamic-config-section">
+      <div class="panel-heading" data-toggle="collapse" href=".dynamic-config-section>.panel-body">
+        <h3 class="panel-title"><i class="fa fa-tasks"></i>Dynamic Form</h3>
+      </div>
+      <div class="panel-body collapse">
+          <button type="button" class="btn btn-primary" ng-click="reloadAppConfig($event)">Reload Config</button>
+        <dynamic-form data-form-json="appConfigSection.appConfig" data-name="appConfig" data-on-save="">
+        </dynamic-form>
+      </div>
+    </div>
+  -->
+
+
+<!-- Another Section
+    <div class="panel another-section">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-tasks"></i>Another section to be added</h3>
+      </div>
+      <div class="panel-body">
+        <p> Another Section to be added </p>
+      </div>
+    </div>
+  -->
+    <loader data-is-loading="isPageLoading"></loader>
+  </div>
+</div>

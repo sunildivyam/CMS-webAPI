@@ -1,0 +1,34 @@
+<form class="input-group pubcontent-search well" role="form" name="pubContentSearchForm">
+	<input type="text" placeholder="keywords..." class="form-control" ng-model="search.searchString"/>
+	<span class="input-group-addon hidden-xs selected-category-separator">in</span>
+	<span class="input-group-addon hidden-xs selected-category" ng-bind="search.category.title"></span>
+	<span class="input-group-btn">
+		<div class="btn-group" role="group">
+            <div class="dropdown dropdown-lg">
+				<button type="button" class="btn btn-default dropdown-toggle btn-categories-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+				</button>
+				<div class="dropdown-menu dropdown-menu-right category-dropdown-panel" role="menu">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="searchCategory" class="">Filter By:</label>
+							<ui-select id="search-category" name="searchCategory" ng-model="search.category">
+								<ui-select-match placeholder="Select a category...">
+								    <span ng-bind="$select.selected.title"></span>
+								</ui-select-match>
+								<ui-select-choices repeat="category in (categories | filter: $select.search) track by category.categoryId">
+								    <span title="category.title" ng-bind="category.title"></span>
+								</ui-select-choices>
+							</ui-select>
+						</div>
+					</form>
+				</div>
+				<button type="submit" class="btn btn-primary btn-search" ng-click="onSearchClick($event)">
+					<span class="fa fa-search"></span>
+				</button>
+			</div>
+		</div>
+	</span>
+</form>
+
+

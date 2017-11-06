@@ -1,0 +1,61 @@
+<category-form
+	ng-if="currentCategory"
+	data-category="currentCategory"
+	data-on-save="saveCategory"
+	data-on-update="updateCategory"
+	data-on-delete="deleteCategory"
+	data-on-cancel="cancelCategory"
+	data-on-addnew="addnewCategory"
+	data-is-loading="isLoading"
+	data-loader-msg="loaderMsg">
+</category-form>
+
+<tag-form
+	ng-if="currentTag"
+	data-tag="currentTag"
+	data-on-save="saveTag"
+	data-on-update="updateTag"
+	data-on-delete="deleteTag"
+	data-on-cancel="cancelTag"
+	data-on-addnew="addnewTag"
+	data-is-loading="isLoading"
+	data-loader-msg="loaderMsg">
+</tag-form>
+
+<content-form
+	ng-if="currentContent"
+	data-content="currentContent"
+	data-tags = "tags"
+	data-categories= "categories"
+	data-on-save="saveContent"
+	data-on-update="updateContent"
+	data-on-delete="deleteContent"
+	data-on-cancel="cancelContent"
+	data-on-addnew="addnewContent"
+	data-on-preview="previewContent"
+	data-on-publish="publishContent"
+	data-on-Thumbnail-upload="thumbnailUpload"
+	data-is-loading="isLoading"
+	data-loader-msg="loaderMsg"
+	data-is-content-loaded-promise="isContentLoadedPromise",
+	data-on-load-complete = "onContentLoadComplete">
+</content-form>
+
+<quiz-form
+	ng-if="currentQuiz"
+	data-quiz="currentQuiz"
+	data-tags = "tags"
+	data-on-save-basic-info="saveQuizBasicInfo"
+	data-on-save-tags="saveQuizTags"
+	data-on-save-questions="saveQuizQuestions"	
+	data-on-save-question="saveQuizQuestion"
+	data-on-preview="previewQuiz"
+	data-on-publish="publishQuiz"
+	data-on-new-quiz="newQuiz"
+	data-on-Thumbnail-upload="thumbnailUpload"
+	data-on-get-questions-lib="getPublishedQuestionsList"
+	data-is-loading="isLoading"
+	data-loader-msg="loaderMsg"
+	data-is-quiz-loaded-promise="isQuizLoadedPromise"
+	data-on-load-complete = "onQuizLoadComplete">
+</quiz-form>

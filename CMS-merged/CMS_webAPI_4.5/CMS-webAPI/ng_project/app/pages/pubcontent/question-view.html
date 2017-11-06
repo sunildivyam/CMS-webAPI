@@ -1,0 +1,92 @@
+<div class="panel panel-default question-view">
+	<div class="panel-heading" data-toggle="collapse" data-target="{{isInlineMode?'#answer-options-' + serialNumber : ''}}">	
+		<div class="media">
+			<div class="media-left media-top">
+				<div class="media-object question-head">				
+					<i class="fa fa-quora fa-lg" aria-hidden="true"></i>
+					<strong class="">{{serialNumber || ''}}: </strong>				
+				</div>
+			</div>
+			<div class="media-body question-body">
+				<h4 class="media-heading" ng-bind-html="question.description"></h4>
+			</div>
+		</div>
+	</div>
+	<div class="panel-body {{isInlineMode?'collapse':''}}" id="answer-options-{{serialNumber}}">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group answer-option" ng-click="attemptAnswer($event)">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="radio-inline answer-head">
+									<span><input type="radio" name="answer-{{serialNumber || '0'}}" value="A" ng-model="attemptedAnswerModel">A:</span>
+								</span>									
+							</span>
+							<div class="form-control answer-body" ng-bind-html="question.optionA"></div>							
+						</div>				  
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group answer-option" ng-click="attemptAnswer($event)">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="radio-inline answer-head">
+									<span><input type="radio" name="answer-{{serialNumber || '0'}}" value="B" ng-model="attemptedAnswerModel">B:</span>
+								</span>									
+							</span>
+							<div class="form-control answer-body" ng-bind-html="question.optionB"></div>							
+						</div>				  
+					</div>
+				</div>
+			</div>
+			<div class="row">	
+				<div class="col-sm-6" ng-hide="!question.optionC">
+					<div class="form-group answer-option" ng-click="attemptAnswer($event)">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="radio-inline answer-head">
+									<span><input type="radio" name="answer-{{serialNumber || '0'}}" value="C" ng-model="attemptedAnswerModel">C:</span>
+								</span>									
+							</span>
+							<div class="form-control answer-body" ng-bind-html="question.optionC"></div>							
+						</div>				  
+					</div>
+				</div>
+				<div class="col-sm-6"  ng-hide="!question.optionC || !question.optionD">
+					<div class="form-group answer-option" ng-click="attemptAnswer($event)">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="radio-inline answer-head">
+									<span><input type="radio" name="answer-{{serialNumber || '0'}}" value="D" ng-model="attemptedAnswerModel">D:</span>
+								</span>									
+							</span>
+							<div class="form-control answer-body" ng-bind-html="question.optionD"></div>							
+						</div>				  
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="jumbotron hide-not-imp correct-answer-section">
+						<h2>
+							<span class="label label-success">Correct Answer is: </span>
+							<span class="label-success label">{{question.answer}}</span>
+						</h2>
+						<h2>Explaination:</h2>
+						<p class="answer-description" ng-bind-html="question.answerDescription || 'No explaination available'"></p>	
+						<a title="Discuss Question" class="btn btn-success" ui-sref="pub.quizs.question({qi: question.questionId})">
+							<span class="fa fa-group"></span>Discuss
+						</a>	
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 text-right">
+					<tags tag-type="questions" tag-items="question.tags"></tags>
+				</div>
+			</div>
+		</div>
+	</div>
+	<loader data-at-body="false" data-is-loading="isLoading"></loader>
+</div>

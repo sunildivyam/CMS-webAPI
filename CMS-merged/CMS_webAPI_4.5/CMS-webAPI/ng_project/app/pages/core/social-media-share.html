@@ -1,0 +1,28 @@
+<div class="container-fluid social-media-share">
+	<ul>
+		<li ng-bind="headerText"></li>
+		<li title="Google Plus">
+			<!-- Google share button code -->
+			<a class="btn btn-social-icon btn-google fb-xfbml-parse-ignore" target="_blank" href="https://plus.google.com/share?url={{sharePageUrl}}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+				<span class="fa fa-google"></span>
+			</a></li>
+		<li title="Facebook">
+			<!-- Facebook share button code -->
+			<a class="btn btn-social-icon btn-facebook fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{sharePageUrl}}&src=sdkpreparse">
+				<span class="fa fa-facebook"></span>
+			</a>
+		</li>
+		<li title="Twitter">
+			<!-- Twitter share button code -->
+			<a class="btn btn-social-icon btn-twitter fb-xfbml-parse-ignore" target="_blank" href="http://twitter.com/share?text={{sharePageTitle}}&url={{sharePageUrl}}">
+				<span class="fa fa-twitter"></span>
+			</a>
+		</li>
+		<li title="Github">
+			<!-- GitHub share button code -->
+			<a class="btn btn-social-icon btn-github fb-xfbml-parse-ignore" target="_blank" href="https://github.com/learnwiseway">
+				<span class="fa fa-github"></span>
+			</a>
+		</li>
+	</ul>
+</div>

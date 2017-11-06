@@ -1,0 +1,55 @@
+
+<div class="category-page container-fluid">
+	<div class="jumbotron" ng-if="currentPageName=='pubquizsPage'">
+		<h2>Why you should take Quizzes?</h2>
+        <p ng-bind-html="pageDescription"></p>
+        <tags
+		data-tag-type="quizzes"	
+		data-tag-items="allQuizTags">
+        </tags>
+	</div>	
+	<!-- View for Quiz and Discuss Question-->
+	<div ui-view=""></div>
+
+	<div class="row grid>">
+		<div class="{{currentPageName=='pubquizsPage'?($first ? 'col-md-8' : 'col-md-4'):'col-sm-6'}} grid-item" ng-repeat="dlQuizList in dlQuizLists track by $index">
+			<generic-list
+			data-items="dlQuizList.items"
+			data-items-type="dlQuizList.itemsType"
+
+			data-enable-header="dlQuizList.enableHeader"
+			data-enable-maximize="dlQuizList.enableMaximize"
+			data-enable-search="dlQuizList.enableSearch"
+			data-enable-view-modes="dlQuizList.enableViewModes"
+			data-enable-scrollbar="dlQuizList.enableScrollbar"
+			data-enable-tags="dlQuizList.enableTags"
+			data-enable-footer-link="dlQuizList.enableFooterLink"
+			data-enable-paging="dlQuizList.enablePaging"
+
+			data-header-title="dlQuizList.headerTitle"
+			data-header-summary="dlQuizList.headerSummary"
+			data-header-right-label="dlQuizList.headerRightLabel"
+
+			data-view-mode="dlQuizList.viewMode"
+			data-tile-view-class = "dlQuizList.tileViewClass"
+
+			data-scroll-height="dlQuizList.scrollHeight"
+
+			data-tags="dlQuizList.tags"
+
+			data-footer-link-text="dlQuizList.footerLinkText"
+			data-footer-link-url="dlQuizList.footerLinkUrl"
+			data-on-footer-link-click="dlQuizList.onFooterLinkClick"
+
+			data-paging-total-items="dlQuizList.pagingTotalItems"
+			data-paging-selected-page="dlQuizList.pagingSelectedPage"
+			data-paging-page-size="dlQuizList.pagingPageSize"
+			data-paging-pager-size="dlQuizList.pagingPagerSize"
+			data-on-paging-page-change="dlQuizList.onPagingPageChange"
+
+			data-on-refresh="dlQuizList.onRefresh"
+			data-is-loading="dlQuizList.isLoading">
+			</generic-list>
+		</div>
+	</div>
+</div>
