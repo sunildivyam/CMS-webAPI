@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="modalData.title"></h3>
+</div>
+
+<div class="modal-body">
+   <generic-list
+    data-items="modalData.dlContentHistory.items"
+    data-items-type="modalData.dlContentHistory.itemsType"
+    data-on-item-select="modalData.dlContentHistory.onItemSelect"
+
+    data-enable-header="modalData.dlContentHistory.enableHeader"
+    data-enable-maximize="modalData.dlContentHistory.enableMaximize"
+    data-enable-search="modalData.dlContentHistory.enableSearch"
+    data-enable-view-modes="modalData.dlContentHistory.enableViewModes"
+    data-enable-scrollbar="modalData.dlContentHistory.enableScrollbar"
+    data-enable-tags="modalData.dlContentHistory.enableTags"
+    data-enable-footer-link="modalData.dlContentHistory.enableFooterLink"
+    data-enable-paging="modalData.dlContentHistory.enablePaging"
+
+    data-header-title="modalData.dlContentHistory.headerTitle"
+    data-header-summary="modalData.dlContentHistory.headerSummary"
+    data-header-right-label="modalData.dlContentHistory.headerRightLabel"
+
+    data-view-mode="modalData.dlContentHistory.viewMode"
+    data-tile-view-class = "modalData.dlContentHistory.tileViewClass"
+
+    data-scroll-height="modalData.dlContentHistory.scrollHeight"
+
+    data-tags="modalData.dlContentHistory.tags"
+
+    data-footer-link-text="modalData.dlContentHistory.footerLinkText"
+    data-footer-link-url="modalData.dlContentHistory.footerLinkUrl"
+    data-on-footer-link-click="modalData.dlContentHistory.onFooterLinkClick"
+
+    data-paging-total-items="modalData.dlContentHistory.pagingTotalItems"
+    data-paging-selected-page="modalData.dlContentHistory.pagingSelectedPage"
+    data-paging-page-size="modalData.dlContentHistory.pagingPageSize"
+    data-paging-pager-size="modalData.dlContentHistory.pagingPagerSize"
+    data-on-paging-page-change="modalData.dlContentHistory.onPagingPageChange"
+
+    data-on-refresh="onListsRefresh"
+    data-is-author-mode="modalData.dlContentHistory.isAuthorMode"
+    >
+    </generic-list>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$close()" ng-bind="modalData.okLabel" ng-show="modalData.okLabel"></button>
+    <button class="btn btn-warning" type="button" ng-click="$dismiss()" ng-bind="modalData.cancelLabel" ng-show="modalData.cancelLabel"></button>
+</div>

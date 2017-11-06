@@ -1,0 +1,86 @@
+<div class="panel panel-default quiz-view">
+	<div class="panel-heading">	
+		<div class="jumbotron">
+			<h1 ng-bind="quiz.title"></h1>
+			<div class="thumbnail center-block pull-left">
+				<img class="quiz-thumbnail" ng-if="quiz.quizId"
+					ng-src="{{thumbnailUrl}}"
+					alt="{{quiz.title}}"
+					onerror="this.style.display = 'none';"
+					onload="this.style.display = 'block';">
+			</div>		
+			<p ng-bind-html="quiz.description"></p>
+			<div class="small">
+				<span class="" title="Author">
+					<span class="glyphicon glyphicon-user"></span>
+					<a class="label label-default" ui-sref="pub.myspace({n:quiz.author.userName})">{{quiz.author.lastName?quiz.author.lastName + ', ': '' }} {{quiz.author.firstName}}</a>
+				</span>
+				<span class="" title="Last Updated">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span class="label label-default" ng-bind="quiz.updatedDate.toDateString()"></span>
+				</span>
+				<span class="" title="Total Views">
+					<span class="glyphicon glyphicon-eye-open"></span>
+					<span class="label label-default" ng-bind="quiz.visitCount"></span>
+				</span>
+				<p> &nbsp;</p>
+				
+				<tags tag-type="quizzes" tag-items="quiz.tags"></tags>
+				<social-media-share
+					data-header-text="Share this Quiz: "
+					data-share-page-url="{{$location.absUrl()}}"
+					data-share-page-title="{{pageTitleService.getPageTitle()}}"
+					class="pull-right">
+				</social-media-share>
+			</div>
+		</div>	
+	</div>
+	<div class="panel-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12" ng-repeat="question in quiz.questions">
+					<question-view 
+						data-question="question"
+						data-on-attempt-answer="onQuestionAttempt"
+						data-serial-number="$index + 1"
+						data-is-inline-mode="false"
+						data-is-loading="">
+					</question-view>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel-footer">
+			<button type="button" title="Submit Quiz" class="btn btn-success center-block" ng-click="stopQuiz($event)" ng-disabled="score.inProgress!==true">
+				<span class="fa fa-stop-circle"></span>Finish Quiz
+			</button>
+		<tags tag-type="quizzes" tag-items="quiz.tags"></tags>
+	</div>
+
+	<div class="quiz-timer">
+		<div class="btn btn-success toggle-quiz-timer-btn" ng-click="onQuizTimerClick($event)" data-toggle="collapse" data-target="#quiz-timer-section">
+			<span class="fa {{isQuizTimerCollapsed?'fa-clock-o':'fa-toggle-right'}}"></span>
+		</div>
+		<div class="collapse" id="quiz-timer-section">
+			<div class="text-center">
+				<button type="button" title="Re-Attempt Quiz" class="btn btn-primary" ng-click="reStartQuiz($event)" ng-show="score.inProgress===false">
+					<span class="fa fa-refresh"></span>
+				</button>
+				<button type="button" title="Start Quiz Timer" class="btn btn-primary" ng-click="startQuiz($event)"  ng-show="score.inProgress===null">
+					<span class="fa fa-clock-o"></span>
+				</button>
+			</div>
+			<div class="text-center well progress-section">
+				<span class="label label-info center-block">mm:ss</span>
+				<span class="label label-info center-block">{{score.progressStr}}</span>
+				<div class="progress">
+					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{score.progressPercent}}" aria-valuemin="0" aria-valuemax="100">
+						{{score.progressPercent}}%
+					</div>
+				</div>
+				<span ng-show="score.inProgress===false" class="label label-{{score.scorePercent>=80?'success':'danger'}} center-block">Score: {{score.scorePercent}}%</span>
+			</div>
+		</div>
+	</div>
+	<loader data-at-body="false" data-is-loading="isLoading"></loader>
+</div>

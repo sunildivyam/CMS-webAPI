@@ -1,0 +1,115 @@
+<div class="pub-quiz-list">
+	<ul class="media-list list-view" ng-show="!viewMode || viewMode === 'list'">
+		<li class="{{selectedItem && selectedItem.quizId === item.quizId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<a href="#" ui-sref="pub.quizs.quiz({qi: item.quizId, qn: item.name})" ng-click="itemClick($event, item)">
+				<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
+			</a>
+			<div class="media">
+				<div class="media-left">
+					<a href="#" ui-sref="pub.quizs.quiz({qi: item.quizId, qn: item.name})" ng-click="itemClick($event, item)">
+						<div class="media-object">
+							<div class="thumbnail center-block">
+								<img class="quiz-thumbnail" ng-if="item.quizId"
+									ng-src="{{getThumbnailUrl(item)}}"
+									onerror="this.style.display = 'none';"
+									onload="this.style.display = 'block';">
+							</div>
+						</div>
+					</a>
+
+				</div>
+				<div class="media-body">
+					<p ng-bind-html="item.description" class="small description"></p>
+					<span title="Author">
+						<span class="glyphicon glyphicon-user"></span>
+						<a class="label label-info" ui-sref="pub.myspace({n:item.author.userName})">{{item.author.lastName?item.author.lastName + ', ': '' }} {{item.author.firstName}}</a>
+					</span>
+					<span title="Publish Date">
+						<span class="glyphicon glyphicon-pencil"></span>
+						<span class="label label-info" ng-bind="item.createdDate.toDateString()"></span>
+					</span>
+					<span class="label label-info" title="Total Views">
+						<span class="" ng-bind="item.visitCount"></span>
+						<span class="glyphicon glyphicon-eye-open"></span>
+					</span>
+					
+				</div>
+			</div>
+		</li>
+	</ul>
+<!-- inline Mode-->
+	<ul class="media-list inline-view" ng-show="viewMode === 'inline'">
+		<li class="media {{selectedItem && selectedItem.quizId === item.quizId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ui-sref="pub.quizs.quiz({qi: item.quizId, qn: item.name})" ng-click="itemClick($event, item)">
+					<span class="media-object label label-info"></span>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ui-sref="pub.quizs.quiz({qi: item.quizId, qn: item.name})" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
+				</a>
+			</div>
+		</li>
+	</ul>
+<!-- Grid Mode-->
+	<ul class="row grid-view" ng-show="viewMode === 'grid'">
+		<li class="col-sm-3 thumbnail {{selectedItem && selectedItem.quizId === item.quizId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<a href="#" ui-sref="pub.quizs.quiz({qi: item.quizId, qn: item.name})" ng-click="itemClick($event, item)">
+					<div class="media-object">
+						<div class="thumbnail center-block">
+							<img class="quiz-thumbnail" ng-if="item.quizId"
+								ng-src="{{getThumbnailUrl(item)}}"
+								onerror="this.style.display = 'none';"
+								onload="this.style.display = 'block';">
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="media-body">
+				<a href="#" ui-sref="pub.quizs.quiz({qi: item.quizId, qn: item.name})" ng-click="itemClick($event, item)">
+					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
+				</a>
+			</div>
+		</li>
+	</ul>
+
+
+	<!-- Tile Mode-->
+	<ul class="row tile-view" ng-show="viewMode === 'tile'">
+		<li class="{{tileViewClass}} {{selectedItem && selectedItem.quizId === item.quizId ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="thumbnail">
+				<span class="bg-success category" title="Category">
+					
+					<span class="glyphicon glyphicon-pushpin"></span>
+				</span>
+				<a href="#" ui-sref="pub.quizs.quiz({qi: item.quizId, qn: item.name})" ng-click="itemClick($event, item)">
+					<div class="quiz-thumbnail">
+						<img class="" ng-if="item.quizId"
+						ng-src="{{getThumbnailUrl(item)}}"
+						onerror="this.style.display = 'none';"
+						onload="this.style.display = 'block';">
+					</div>
+					<h5 class="media-heading text-primary" ng-bind="item.title"></h5>
+				</a>
+				<p ng-bind-html="item.description" class="small description"></p>
+
+				
+                
+				<span title="Author">
+					<span class="glyphicon glyphicon-user"></span>
+					<a class="label label-info" ui-sref="pub.myspace({n:item.author.userName})">{{item.author.lastName?item.author.lastName + ', ': '' }} {{item.author.firstName}}</a>
+				</span>
+				<span title="Publish Date">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span class="label label-info" ng-bind="item.createdDate.toDateString()"></span>
+				</span>
+				<span class="label label-info" title="Total Views">
+					<span class="" ng-bind="item.visitCount"></span>
+					<span class="glyphicon glyphicon-eye-open"></span>
+				</span>
+			</div>			
+		</li>
+	</ul>
+</div>

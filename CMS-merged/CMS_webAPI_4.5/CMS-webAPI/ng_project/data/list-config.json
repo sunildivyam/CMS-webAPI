@@ -1,0 +1,733 @@
+{
+    "search": {
+        "items": [],
+        "itemsType": "search",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": false,
+        "enableSearch": false,
+        "enableViewModes": true,
+        "enableScrollbar": false,
+        "enableTags": true,
+        "enableFooterLink": false,
+        "enablePaging": true,
+
+        "headerTitle": "Search results",
+        "headerSummary": "The search results are based on your keywords. if you did not find your result, Please try searching different keywords",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12 col-sm-6 col-md-4",
+
+        "scrollHeight": 0,
+
+        "tags": [],
+
+        "footerLinkText": "",
+        "footerLinkUrl": "",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 1,
+        "pagingPageSize": 10,
+        "pagingPagerSize": 10,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "pubtag": {
+        "items": [],
+        "itemsType": "pubtag",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": false,
+        "enableSearch": false,
+        "enableViewModes": true,
+        "enableScrollbar": false,
+        "enableTags": true,
+        "enableFooterLink": false,
+        "enablePaging": true,
+
+        "headerTitle": "Articles By Tag",
+        "headerSummary": "Articles for the Tag, you searched for",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12 col-sm-6 col-md-4",
+
+        "scrollHeight": 0,
+
+        "tags": [],
+
+        "footerLinkText": "",
+        "footerLinkUrl": "",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 1,
+        "pagingPageSize": 10,
+        "pagingPagerSize": 10,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "category": {
+        "items": [],
+        "itemsType": "category",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": true,
+        "enableTags": false,
+        "enableFooterLink": true,
+        "enablePaging": false,
+
+        "headerTitle": "Available Categories",
+        "headerSummary": "You can create your contents/articles, in these categories only. Request Administrator to create a new one, if the one you are looking is not available here.",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 400,
+
+        "tags": [],
+
+        "footerLinkText": "Add New Category",
+        "footerLinkUrl": "/category",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "tag": {
+        "items": [],
+        "itemsType": "tag",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": true,
+        "enableTags": false,
+        "enableFooterLink": true,
+        "enablePaging": false,
+
+        "headerTitle": "Available Tags",
+        "headerSummary": "Add one or more Tags to your content/article. This enables better search ability in search engines.",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 400,
+
+        "tags": [],
+
+        "footerLinkText": "Add New Tag",
+        "footerLinkUrl": "/tag",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "draftedContent": {
+        "items": [],
+        "itemsType": "draftedContent",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": true,
+        "enableTags": false,
+        "enableFooterLink": true,
+        "enablePaging": false,
+
+        "headerTitle": "Your Drafted Articles",
+        "headerSummary": "These are in draft Articles, You can publish them, once done with it.",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 600,
+
+        "tags": [],
+
+        "footerLinkText": "Add New Article",
+        "footerLinkUrl": "/content",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false,
+        "isAuthorMode": true
+    },
+    "publishedContent": {
+        "items": [],
+        "itemsType": "publishedContent",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": true,
+        "enableTags": false,
+        "enableFooterLink": true,
+        "enablePaging": false,
+
+        "headerTitle": "Your Published Articles",
+        "headerSummary": "Your Published Articles till date. Select one, to view its Authoriing History",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 600,
+
+        "tags": [],
+
+        "footerLinkText": "Add New Article",
+        "footerLinkUrl": "/content",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "contentHistory": {
+        "items": [],
+        "itemsType": "contentHistory",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": false,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": false,
+        "enableTags": false,
+        "enableFooterLink": false,
+        "enablePaging": false,
+
+        "headerTitle": "Selected Content's Authoring History",
+        "headerSummary": "The selected Content was authored as below. You can re-author and re-publish any draft again. this replaces the latest Published content.",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-md-6",
+
+        "scrollHeight": 0,
+
+        "tags": [],
+
+        "footerLinkText": "",
+        "footerLinkUrl": "",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false,
+        "isAuthorMode": true
+    },
+    "pubContent": {
+        "items": [],
+        "itemsType": "pubContent",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": false,
+        "enableViewModes": true,
+        "enableScrollbar": false,
+        "enableTags": true,
+        "enableFooterLink": true,
+        "enablePaging": false,
+
+        "headerTitle": "Articles",
+        "headerSummary": "Click on the Link at the bottom of List to view more articles",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "tile",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 0,
+
+        "tags": [],
+
+        "footerLinkText": "Click here to read more...",
+        "footerLinkUrl": "/articles",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "pubQuiz": {
+        "items": [],
+        "itemsType": "pubQuiz",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": false,
+        "enableViewModes": true,
+        "enableScrollbar": false,
+        "enableTags": true,
+        "enableFooterLink": true,
+        "enablePaging": true,
+
+        "headerTitle": "Quizzes",
+        "headerSummary": "Explore quizzes and Test enhance & Test your Knowledge",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 0,
+
+        "tags": [],
+
+        "footerLinkText": "Click here to read more...",
+        "footerLinkUrl": "/quizzes",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 1,
+        "pagingPageSize": 10,
+        "pagingPagerSize": 10,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "contentResource": {
+        "items": [],
+        "itemsType": "contentResource",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": false,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": false,
+        "enableTags": false,
+        "enableFooterLink": false,
+        "enablePaging": false,
+
+        "headerTitle": "Files:",
+        "headerSummary": "Here you have all file/resources of selected Category from Left pane.",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "grid",
+        "tileViewClass": "col-xs-12 col-sm-6 col-md-4",
+
+        "scrollHeight": 0,
+
+        "tags": [],
+
+        "footerLinkText": "",
+        "footerLinkUrl": "",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "contentResourceCategory": {
+        "items": [],
+        "itemsType": "contentResourceCategory",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": false,
+        "enableSearch": false,
+        "enableViewModes": true,
+        "enableScrollbar": false,
+        "enableTags": false,
+        "enableFooterLink": false,
+        "enablePaging": false,
+
+        "headerTitle": "Select a resource",
+        "headerSummary": "",
+        "headerRightLabel": "",
+
+        "viewMode": "inline",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 0,
+
+        "tags": [],
+
+        "footerLinkText": "",
+        "footerLinkUrl": "",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "draftedQuiz": {
+        "items": [],
+        "itemsType": "draftedQuiz",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": true,
+        "enableTags": false,
+        "enableFooterLink": true,
+        "enablePaging": false,
+
+        "headerTitle": "Your Drafted Quizs",
+        "headerSummary": "These are in draft Quizs, You can publish them, once done with it.",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 600,
+
+        "tags": [],
+
+        "footerLinkText": "Add New Quiz",
+        "footerLinkUrl": "/quiz",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false,
+        "isAuthorMode": true
+    },
+    "publishedQuiz": {
+        "items": [],
+        "itemsType": "publishedQuiz",
+        "onItemSelect": "undefined",
+
+        "enableHeader": true,
+        "enableMaximize": true,
+        "enableSearch": true,
+        "enableViewModes": true,
+        "enableScrollbar": true,
+        "enableTags": false,
+        "enableFooterLink": true,
+        "enablePaging": false,
+
+        "headerTitle": "Your Published Quizs",
+        "headerSummary": "Your Published quizs till date. Select one, to author it again.",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "list",
+        "tileViewClass": "col-xs-12",
+
+        "scrollHeight": 600,
+
+        "tags": [],
+
+        "footerLinkText": "Add New Quiz",
+        "footerLinkUrl": "/quiz",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "question": {
+        "items": [],
+        "itemsType": "question",
+        "onItemSelect": "undefined",
+
+        "enableHeader": false,
+        "enableMaximize": false,
+        "enableSearch": true,
+        "enableViewModes": false,
+        "enableScrollbar": false,
+        "enableTags": false,
+        "enableFooterLink": false,
+        "enablePaging": false,
+
+        "headerTitle": "Questions",
+        "headerSummary": "Your Questions",
+        "headerRightLabel": "0 results.",
+
+        "viewMode": "inline",
+        "tileViewClass": "",
+
+        "scrollHeight": 600,
+
+        "tags": [],
+
+        "footerLinkText": "",
+        "footerLinkUrl": "",
+        "onFooterLinkClick": "undefined",
+
+        "pagingTotalItems": 0,
+        "pagingSelectedPage": 0,
+        "pagingPageSize": 0,
+        "pagingPagerSize": 0,
+        "onPagingPageChange": "undefined",
+
+        "onRefresh": "undefined",
+        "isLoading": false
+    },
+    "viewModes": [
+        {
+          "id": "list",
+          "iconClass": "glyphicon-list"
+        },
+        {
+          "id": "inline",
+          "iconClass": "glyphicon-th-list"
+        },
+        {
+          "id": "grid",
+          "iconClass": "glyphicon-th"
+        },
+        {
+          "id": "tile",
+          "iconClass": "glyphicon-th-large"
+        }
+    ],
+    "itemsTypes": {
+        "category": {
+            "name": "category",
+            "templateUrl": "content/category-list.html"
+        },
+        "content": {
+            "name": "content",
+            "templateUrl": "content/content-list.html"
+        },
+        "tag": {
+            "name": "tag",
+            "templateUrl": "content/tag-list.html"
+        },
+        "contentResource": {
+            "name": "contentresource",
+            "templateUrl": "resourcebrowser/resource-list.html"
+        },
+        "contentResourceCategory": {
+            "name": "contentResourceCategory",
+            "templateUrl": "content/category-list.html"
+        },
+        "draftedContent": {
+            "name": "draftedContent",
+            "templateUrl": "content/content-list.html"
+        },
+        "publishedContent": {
+            "name": "publishedContent",
+            "templateUrl": "content/content-list.html"
+        },
+        "contentHistory": {
+            "name": "contentHistory",
+            "templateUrl": "content/content-list.html"
+        },
+        "pubContent": {
+            "name": "pubContent",
+            "templateUrl": "pubcontent/pubcontent-list.html"
+        },
+        "search": {
+            "name": "search",
+            "templateUrl": "pubcontent/pubcontent-list.html"
+        },
+        "pubtag": {
+            "name": "pubtag",
+            "templateUrl": "pubcontent/pubcontent-list.html"
+        },
+        "draftedQuiz": {
+            "name": "draftedQuiz",
+            "templateUrl": "content/quiz-list.html"
+        },        
+        "publishedQuiz": {
+            "name": "publishedQuiz",
+            "templateUrl": "content/quiz-list.html"
+        },        
+        "question": {
+            "name": "question",
+            "templateUrl": "content/question-list.html"
+        },      
+        "pubQuiz": {
+            "name": "pubQuiz",
+            "templateUrl": "pubcontent/quiz-list.html"
+        }
+    },
+    "pubContentListTypes": {
+        "pubContentPopular": {
+            "title": "Most Popular Articles",
+            "sortField": "VisitCount",
+            "sortDirAsc": false,
+            "viewMode": "tile",
+            "tileViewClass": "col-xs-12 col-sm-6 col-md-4"
+        },
+        "pubContentLatest": {
+            "title": "Latest Articles",
+            "sortField": "PublishedDate",
+            "sortDirAsc": false,
+            "viewMode": "inline",
+            "tileViewClass": "col-xs-12"
+        },
+        "pubContentRelevant": {
+            "title": "Most Relevant Articles",
+            "sortField": "Title",
+            "sortDirAsc": true,
+            "viewMode": "inline",
+            "tileViewClass": "col-xs-12"
+        },
+        "pubContentRelated": {
+            "title": "Related Articles",
+            "sortField": "CategoryId",
+            "sortDirAsc": true,
+            "viewMode": "inline",
+            "tileViewClass": "col-xs-12"
+        }
+    },
+    "pubQuizListTypes": {
+        "pubQuizPopular": {
+            "title": "Most Popular Quizzes",
+            "sortField": "VisitCount",
+            "sortDirAsc": false,
+            "viewMode": "tile",
+            "tileViewClass": "col-xs-12 col-sm-6 col-md-4"
+        },
+        "pubQuizLatest": {
+            "title": "Latest Quizzes",
+            "sortField": "UpdatedDate",
+            "sortDirAsc": false,
+            "viewMode": "inline",
+            "tileViewClass": "col-xs-12"
+        },
+        "pubQuizRelevant": {
+            "title": "Most Relevant Quizzes",
+            "sortField": "Title",
+            "sortDirAsc": true,
+            "viewMode": "inline",
+            "tileViewClass": "col-xs-12"
+        },
+        "pubQuizRelated": {
+            "title": "Related Quizzes",
+            "sortField": "CreatedDate",
+            "sortDirAsc": true,
+            "viewMode": "inline",
+            "tileViewClass": "col-xs-12"
+        }
+    },
+    "profileActions": [
+        {
+            "id": "myProfile",
+            "title": "My Profile",
+            "iconClass": "glyphicon-list",
+            "templateUrl": "account/profile.html"
+        },
+        {
+            "id": "changePassword",
+            "title": "Change Password",
+            "iconClass": "glyphicon-th-list",
+            "templateUrl": "account/change-password.html"
+        },
+        {
+            "id": "myDashboard",
+            "title": "My Dashboard",
+            "iconClass": "glyphicon-th"
+        },
+        {
+            "id": "adminPanel",
+            "title": "Admin Panel",
+            "iconClass": "glyphicon-blackboard",
+            "inRoles": ["Administrators"]
+        }
+     ],
+     "mainCarousel": {
+        "options": {
+            "ride": "carousel",
+            "pause": "hover",
+            "wrap": true,
+            "interval": 3000,
+            "theme": "default"
+        }
+    },
+    "application": {
+        "url": "http://localhost:64605",
+        "apiUrl": "http://localhost:49192",
+        "articleImages": "/images/getarticleimage",
+        "quizImages": "/images/getquizimage",
+        "authorArticleImages": "/images/getauthorarticleimage",
+        "userImages": "/images/getuserimage",
+        "name": "LearnWiseWay.com",
+        "title": "Wise Learnings",
+        "shortTitle": "Learn Wise Way",
+        "description": "Free Learnings - CBSE Board Study Material for all classes 6-12 and all subjects including Physics, Maths, Chemistry, Biology, English, SST. CBSE syllabus, Free CBSE Sample Papers, CBSE notes, Text book solutions, online tests, guess papers, model question papers, CBSE news and updates on Learnwiseway.com. Get Access to CBSE Solutions, Online Tests, Guess Papers etc for free at Learnwiseway.com. A complete guide for CBSE students from pre-school to class-12. CBSE Board Date Sheet and latest News andfree Study Material for all classes.",
+        "keywords": "CBSE board, CBSE board tutorials, CBSE board study materials, CBSE board online study material, CBSE Board Sample Paper, CBSE Question Papers, CBSE Board Guess Papers, Articles, Maths, Science, Chemistry, Biology, English, SSt ICSE",
+        "copyYear": 2017,
+        "appLogo": {
+          "primaryTitle": "Learn Wise Way",
+          "highCharIndex": 7,
+          "secondaryTitle": "Wise Learnings"
+        },
+        "bodyImageUrl": "../images/theme-default/body-background-digital-patch.jpg",
+        "bodyImageSize":  "cover",
+        "twitterSiteHandle": "@learnwiseway"
+    }
+}

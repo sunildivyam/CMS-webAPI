@@ -72,6 +72,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/HelpPage/Views/_ViewStart.cshtml">
       <publishTime>06/21/2017 14:21:42</publishTime>
     </File>
+    <File Include="articleimages/default.jpg">
+      <publishTime>10/11/2017 23:39:45</publishTime>
+    </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>04/12/2017 18:40:00</publishTime>
     </File>

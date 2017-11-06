@@ -1,0 +1,24 @@
+<div class="logout-page" ng-show="!currentUser">
+	<div class="row">
+		<div class="col-sm-12">
+			<brand-logo class="xs" data-logo="appLogo"></brand-logo>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-sm-push-2">
+			<h4  ng-show="!currentUser">You have been logged out.</h4>
+			<h4  ng-show="currentUser">You are currently logged in. Please try logging out again</h4>
+			<hr>
+			<div class="well text-center col-sm-4">
+				To continue, Please <a ui-sref="login"><b>Sign in</b></a>
+			</div>
+			<div class="well text-center col-sm-4">
+				New here ? Please <a ui-sref="register"><b>Join Us</b></a>
+			</div>
+			<div class="well text-center col-sm-4">
+				<a href="/"><b>Go to Home Page</b></a>
+			</div>
+		</div>
+	</div>
+</div>
+<loader data-at-body="true" data-is-loading="currentUser ? true : false" data-message="Logging out"></loader>

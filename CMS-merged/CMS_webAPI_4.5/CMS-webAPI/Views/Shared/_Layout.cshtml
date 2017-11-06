@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html ng-app="raiweb" ng-controller="appController">
+<head>
+    <base href="/">    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="index,follow"> 
+
+    <title>@(ViewData["title"])</title>
+    
+    <meta name="description" content="@(ViewData["description"])">
+    <meta name="keywords" content="@(ViewData["keywords"])">    
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="@(ViewData["title"])">
+    <meta itemprop="description" content="@(ViewData["description"])">
+
+    @if (String.IsNullOrEmpty((string)ViewData["image"]) == false)
+    {
+        <meta itemprop="image" content="@(ViewData["image"])">
+    }
+
+    <!-- Meta Tags Open Graph (Social Media) -->
+    <meta property="og:title" content="@(ViewData["title"])" />
+    <meta property="og:description" content="@(ViewData["description"])" />
+
+    @if (String.IsNullOrEmpty((string)ViewData["canonical"]) == false)
+    {
+        <meta property="og:url" content="@(ViewData["canonical"])" />
+        <link rel="canonical" href="@(ViewData["canonical"])" />
+    }
+
+    @if (String.IsNullOrEmpty((string)ViewData["type"]) == false)
+    {
+        <meta property="og:type" content="@(ViewData["type"])" />
+    }
+
+    @if (String.IsNullOrEmpty((string)ViewData["publishedDate"]) == false)
+    {
+        <meta property="og:article:published_time" content="@(ViewData["publishedDate"])" />
+    }
+
+    @if (String.IsNullOrEmpty((string)ViewData["updatedDate"]) == false)
+    {
+        <meta property="og:article:modified_time" content="@(ViewData["updatedDate"])" />
+    }
+
+    @if (String.IsNullOrEmpty((string)ViewData["author"]) == false)
+    {
+        <meta property="og:article:author" content="@(ViewData["author"])" />
+    }
+
+    @if (ViewData["tags"] != null)
+    {
+        foreach (string tag in (string[])ViewData["tags"])
+        {
+            <meta property="og:article:tag" content="@tag" />
+        }
+    }
+
+    @if (String.IsNullOrEmpty((string)ViewData["image"]) == false)
+    {
+        <meta property="og:image" content="@(ViewData["image"])" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="300" />
+    }
+
+
+    @if (String.IsNullOrEmpty((string)ViewData["imageAlt"]) == false)
+    {
+        <meta property="og:image:alt" content="@(ViewData["imageAlt"])" />
+    }
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="@(ViewData["description"])">
+
+    @if (String.IsNullOrEmpty((string)ViewData["twitterSiteHandle"]) == false)
+    {
+        <meta name="twitter:site" content="@(ViewData["twitterSiteHandle"])">
+    }
+    <meta name="twitter:title" content="@(ViewData["title"])">
+    <meta name="twitter:description" content="@(ViewData["description"])">
+
+    @if (String.IsNullOrEmpty((string)ViewData["twitterAuthorHandle"]) == false)
+    {
+        <meta name="twitter:creator" content="@(ViewData["twitterAuthorHandle"])">
+    }
+    <!-- Twitter Summary card images must be at least 120x120px -->
+    @if (String.IsNullOrEmpty((string)ViewData["image"]) == false)
+    {
+        <meta name="twitter:image" content="@(ViewData["image"])">
+    }
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/styles/main.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/styles/main.min.css" />
+    </environment>    
+</head>
+
+<body class="raiweb app-body theme-default" style=     
+          @(ViewBag.BodyImageUrl != String.Empty ? "background-image:url('" + @ViewBag.BodyImageUrl +"');background-size:" + @ViewBag.BodyImageSize +";" : String.Empty)
+>
+     <div class="container-fluid">
+        <div ui-view=""></div>
+
+        @RenderBody()
+        <!-- Footer -->
+        <div class="row app-footer">
+            <div class="col-sm-12">
+                <app-footer></app-footer>
+            </div>
+        </div>
+    </div>
+
+   <!-- DEV ENV-->
+        <script type="text/javascript" src="~/index.js"></script>
+        <script type="text/javascript" src="~/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript" src="~/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+    <!-- PROD ENV
+        <script type="text/javascript" src="~/index.min.js"></script>
+        <script type="text/javascript" src="~/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript" src="~/ckeditor/libs/mathjax/MathJax.js?config=TeX-AMS_HTML-full"></script>
+   -->  
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

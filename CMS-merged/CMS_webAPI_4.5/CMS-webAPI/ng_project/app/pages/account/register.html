@@ -1,0 +1,138 @@
+<div class="register-page">
+	<div class="row">
+		<div class="col-sm-12">
+			<brand-logo class="xs" data-logo="appLogo"></brand-logo>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-sm-push-2">
+			<div class="panel panel-default container-fluid">
+				<div class="panel-heading row">
+					<h1 class="panel-title">Please sign up <small>It's free!</small></h1>
+				</div>
+				<div class="panel-body row">
+					<form name="registerForm" class="form" method="post" action="#" ng-model-options="{updateOn: 'change'}">
+						<!-- User Name -->
+						<div class="form-group col-sm-6">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+									<input ng-model="newUser.userName" ng-change="onUserNameChange($event)" type="text" class="form-control" name="userName" id="username"  placeholder="Choose your Display Name" required ng-minlength="6" ng-maxlength="100" ng-pattern="/^[A-Za-z0-9]+(?:[ ._-][A-Za-z0-9]+)*$/"/>
+									<span class="input-group-addon">
+										<i class="fa {{isMatchingUser?'fa-spinner fa-spin': (isUserNameAvailable ? 'fa-check text-success': (isUserNameAvailable === false ? 'fa-close text-danger': 'fa-search'))}}" aria-hidden="true"></i>
+									</span>
+								</div>
+								<p ng-show="registerForm.userName.$invalid && !registerForm.userName.$pristine && registerForm.userName.$error.required" class="help-block">User Name is required.</p>
+								<p ng-show="registerForm.userName.$error.availibility" class="help-block">{{newUser.userName}} is not available. Please choose something else.</p>
+								<p ng-show="registerForm.userName.$error.minlength" class="help-block">should be minimum 6 characters long.</p>
+								<p ng-show="registerForm.userName.$error.pattern" class="help-block">Not a valid user Name (can contain A-Z,a-z,0-9 and single _ - . only)</p>
+							</div>
+						</div>
+
+						<!-- Email -->
+						<div class="form-group col-sm-6">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+									<input ng-model="newUser.email" type="email" class="form-control" name="email" id="email"  placeholder="Email" required/>
+								</div>
+								<p ng-show="registerForm.email.$invalid && !registerForm.email.$pristine && registerForm.email.$error.required" class="help-block">Your Email is required.</p>
+								<p ng-show="registerForm.email.$error.email" class="help-block">Your Email is not valid</p>
+							</div>
+						</div>
+
+						<!-- First Name -->
+						<div class="form-group col-sm-6">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+									<input ng-model="newUser.firstName" type="text" class="form-control" name="firstName" id="firstName"  placeholder="First Name" required ng-maxlength="500"/>
+								</div>
+								<p ng-show="registerForm.firstName.$invalid && !registerForm.firstName.$pristine" class="help-block">Your First Name is required.</p>
+								<p ng-show="registerForm.firstName.$error.maxlength && !registerForm.firstName.$pristine" class="help-block">First Name is too long. (maximum 500 characters allowed)</p>
+							</div>
+						</div>
+
+						<!-- Last Name -->
+						<div class="form-group col-sm-6">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+									<input ng-model="newUser.lastName" type="text" class="form-control" name="lastName" id="lastName"  placeholder="Last Name" ng-maxlength="500"/>
+
+								</div>
+								<p ng-show="registerForm.lastName.$error.maxlength" class="help-block">Last Name is too long. (maximum 500 characters allowed)</p>
+							</div>
+						</div>
+
+						<!-- Password -->
+						<div class="form-group col-sm-6">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input ng-model="newUser.password" type="password" class="form-control" name="password" id="password"  placeholder="Password" required ng-minlength="6" ng-maxlength="100" ng-pattern="/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/"/>
+
+								</div>
+								<p ng-show="registerForm.password.$invalid && !registerForm.password.$pristine && registerForm.password.$error.required" class="help-block">Password is required.</p>
+								<p ng-show="registerForm.password.$error.maxlength" class="help-block">Password is too long. (maximum 100 characters allowed)</p>
+								<p ng-show="registerForm.password.$error.pattern" class="help-block">Password should be minimum 6 characters long and consist of atleast 1 lowerxase, 1 uppercase alphabet and 1 number</p>
+							</div>
+						</div>
+
+						<!-- Confirm Password -->
+						<div class="form-group col-sm-6">
+							<div class="col-sm-12">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input ng-model="newUser.confirmPassword" type="password" class="form-control" name="confirmPassword" id="confirmPassword"  placeholder="Confirm Password" required="" password-compare="password"/>
+								</div>
+								<p ng-show="registerForm.confirmPassword.$error.passwordcompare" class="help-block">Passwords don't match</p>
+							</div>
+						</div>
+
+						<!-- Accept Agreement -->
+						<div class="form-group col-sm-12">
+							<div class="col-sm-12">
+								<span class="button-checkbox">
+									<input ng-model="newUser.termsAndConditions" type="checkbox" name="iAgree" id="iAgree" class="" value="1" required>
+								</span>
+								<small>
+								 By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.</small>
+							</div>
+						</div>
+
+						<!-- Register Button -->
+						<div class="form-group col-sm-6">
+							<button type="submit" class="btn btn-primary btn-lg btn-block register-button"
+							ng-disabled="registerForm.$invalid || !registerForm.$dirty" ng-click="registerSubmit($event)">Register</button>
+						</div>
+
+						<!-- Login Button -->
+						<div class="form-group col-sm-6">
+							<a ui-sref="login" class="btn btn-success btn-lg btn-block login-button">Already a User? Login here</a>
+						</div>
+					</form>
+				</div>
+				<loader data-at-body="true" data-is-loading="isRegistering"></loader>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+			</div>
+			<div class="modal-body">
+				<ng-include src="'core/terms-and-conditions.html'"></ng-include>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

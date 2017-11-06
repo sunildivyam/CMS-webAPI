@@ -1,0 +1,29 @@
+.tags-list {
+    list-style: none;
+    margin: 10px 0px;
+    padding: 0px;
+
+    .tag {
+    	display: inline-block;
+	    margin: 3px;
+	    padding: 0px 5px;
+	    cursor: pointer;
+	    border: 1px solid #eaeaea;
+	    font-size: @font-size-xs;
+
+    	a {
+            font-family: @font-roboto-regular;
+    		text-decoration: none;
+    		color: #008aff;
+    	}
+
+    	&:hover, &.hover {
+    		background-color: #e0e0e0;
+    	}
+
+        &:before {
+            margin-right: 5px;
+        }
+    }
+}
+

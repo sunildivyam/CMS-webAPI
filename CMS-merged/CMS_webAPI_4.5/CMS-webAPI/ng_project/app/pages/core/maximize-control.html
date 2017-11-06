@@ -1,0 +1,9 @@
+<div class="maximize-control {{isMaximized ? '': 'maximized'}}">
+	<button
+	type="button"
+	class="btn btn-default btn-xs"
+	ng-click="onControlClick($event)"
+	title="{{isMaximized ? 'Restore': 'Maximize'}}">
+		<span class="glyphicon glyphicon-resize-{{isMaximized ? 'small' :'full'}}"></span>
+	</button>
+</div>

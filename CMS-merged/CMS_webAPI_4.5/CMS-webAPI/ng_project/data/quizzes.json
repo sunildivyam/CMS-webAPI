@@ -1,0 +1,97 @@
+{	
+	"TotalCount": 1,
+	"Quizzes": [
+		{
+			"QuizId": 1,
+			"Name": "My Quiz 1",
+			"Questions": [
+				{
+					"QuestionId": 1,
+					"Description": "Artificial intelligence is augmenting humen, in its workand life style. What is Artificial intelligence?",
+					"OptionA": "is a Software",
+					"OptionB": "is a Machine",
+					"OptionC": "is a Software & machine",
+					"OptionD": "is collection of alogorithms",
+					"Answer": "D",
+					"AnswerDescription":"The theory and development of computer systems able to perform tasks normally requiring human intelligence, such as visual perception, speech recognition, decision-making, and translation between languages.",
+					"UpdatedDate": "2017-09-11T12:31:21.053",
+					"CreatedDate": "2017-09-09T12:31:21.053",
+					"IsLive": true,
+					"UpdateCount": 45,
+					"Author": {
+						"UserName": "sunil",
+						"Email": "sunil.divyam@gmail.com",
+						"HasRegistered": true,
+						"LoginProvider": null,
+						"FirstName": "Administrator",
+						"LastName": "User",
+						"PhoneNumber": null,
+						"Roles": null,
+						"Twitter": null,
+						"Facebook": null,
+						"Google": null,
+						"Github": null,
+						"Webpage": null,
+						"Youtube": null,
+						"Linkedin": null,
+						"Description": null,
+						"Organisation": null,
+						"Designation": null,
+						"CreatedOn": "2017-09-12T17:52:00.5340866+05:30"
+					},
+					"Tags": [
+						{
+							"TagId": 2,
+							"Name": "physics",
+							"Title": "Physics",
+							"Description": "Physics"
+						}
+					]
+				},
+				{
+					"QuestionId": 2,
+					"Description": "Artificial intelligence is augmenting humen, in its workand life style. What is Artificial intelligence?",
+					"OptionA": "is a Software",
+					"OptionB": "is a Machine",
+					"OptionC": "is a Software & machine",
+					"OptionD": "is collection of alogorithms",
+					"Answer": "D",
+					"AnswerDescription":"The theory and development of computer systems able to perform tasks normally requiring human intelligence, such as visual perception, speech recognition, decision-making, and translation between languages.",
+					"UpdatedDate": "",
+					"CreatedDate": "",
+					"IsLive": true,
+					"UpdateCount": 21,
+					"Author": {
+						"UserName": "sunil",
+						"Email": "sunil.divyam@gmail.com",
+						"HasRegistered": true,
+						"LoginProvider": null,
+						"FirstName": "Administrator",
+						"LastName": "User",
+						"PhoneNumber": null,
+						"Roles": null,
+						"Twitter": null,
+						"Facebook": null,
+						"Google": null,
+						"Github": null,
+						"Webpage": null,
+						"Youtube": null,
+						"Linkedin": null,
+						"Description": null,
+						"Organisation": null,
+						"Designation": null,
+						"CreatedOn": "2017-09-12T17:52:00.5340866+05:30"
+					},
+					"Tags": [
+						{
+							"TagId": 2,
+							"Name": "physics",
+							"Title": "Physics",
+							"Description": "Physics"
+						}
+					]
+				}
+			]
+		}
+	]
+}

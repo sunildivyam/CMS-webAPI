@@ -1,0 +1,21 @@
+<span class="expand-icon fa fa-{{node.properties?'plus' : 'cog'}}" data-target="{{node.properties?'.node-container#' + key : ''}}" data-toggle="collapse"></span> 
+<span class="property-name">
+    <input type="text" placeholder="Property Name" ng-model="node.name">
+</span>
+<span class="node-container collapse inline in" id="{{key}}" ng-show="!node.properties">
+    :    
+    <span class="property-value">                            
+        <textarea placeholder="undefined" ng-model="node.value" ng-if="node.type==='string'" row="1"></textarea>        
+        <input type="number" placeholder="numeric value..." ng-model="node.value" ng-if="node.type==='number'">
+        <input type="checkbox" ng-model="node.value" ng-if="node.type==='boolean'">         
+    </span>
+</span>
+    
+<div class="node-container collapse in" id="{{key}}" ng-show="node.properties">    
+    <span class="property-value">                            
+        <div class="node"
+            ng-repeat="(key, node) in node.properties"
+            ng-include="'core/dynamic-form-node.html'">                
+        </div>            
+    </span>
+</div>

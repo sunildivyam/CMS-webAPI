@@ -1,0 +1,25 @@
+<div class="question-list">
+
+<!-- inline Mode-->
+	<ul class="media-list question-inline-view" ng-show="viewMode === 'inline'">
+		<li class="media {{item.multiSelected === true ? 'active': ''}}" ng-repeat="item in items | filter: itemFilter" on-ng-repeat-item="onRepeatItemsLoaded">
+			<div class="media-left">
+				<input type="checkbox" id="question-checkbox-{{item.questionId}}" value="{{item.questinId}}" ng-click="itemClick($event, item)" />
+			</div>
+			<div class="media-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<question-view 
+							data-question="item"
+							data-on-attempt-answer=""
+							data-serial-number="item.questionId"
+							data-is-inline-mode="true"
+							data-is-loading="">
+						</question-view>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
+
