@@ -49,6 +49,7 @@
             config.appUrls.baseApiUrl = config.appUrls.API_SERVER_URL + '/api';
             config.appUrls.ARTICLE_IMAGES_URL = config.appUrls.baseApiUrl + config.application.articleImages;
             config.appUrls.QUIZ_IMAGES_URL = config.appUrls.baseApiUrl + config.application.quizImages;
+            config.appUrls.CATEGORY_IMAGES_URL = config.appUrls.baseApiUrl + config.application.categoryImages;
             config.appUrls.AUTHOR_ARTICLE_IMAGES_URL = config.appUrls.baseApiUrl + config.application.authorArticleImages;;
             config.appUrls.USER_IMAGES_URL = config.appUrls.baseApiUrl + config.application.userImages;;            
         }

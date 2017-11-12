@@ -710,9 +710,10 @@
     },
     "application": {
         "url": "http://localhost:64605",
-        "apiUrl": "http://localhost:49192",
+        "apiUrl": "http://localhost:49192", 
         "articleImages": "/images/getarticleimage",
         "quizImages": "/images/getquizimage",
+        "categoryImages": "/images/getcategoryimage",
         "authorArticleImages": "/images/getauthorarticleimage",
         "userImages": "/images/getuserimage",
         "name": "LearnWiseWay.com",

@@ -14,10 +14,14 @@
 				slides: '=',	// name, title, description, image=/slideimages/name.png
 				options: '=',
 				carouselName: '@',
-				readMoreUrl: '@'
+				readMoreUrl: '@',
+				imagesUrl: '@'
 			},
 			templateUrl: 'core/bootstrap-carousel.html',
-			link: function() {
+			link: function($scope) {
+				$scope.slideImageUrl = function(categoryId, name) {
+					return [$scope.imagesUrl || '', categoryId, name].join('/');
+				}
 			}
 		};
 	};

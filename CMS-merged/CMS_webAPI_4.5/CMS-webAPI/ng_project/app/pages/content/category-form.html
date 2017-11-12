@@ -1,32 +1,46 @@
-<div class="panel">
+<div class="panel category-form">
   <div class="panel-heading">
     <h3 class="panel-title"><i class="fa fa-tasks"></i>Content Category Form</h3>
   </div>
   <div class="panel-body">
 
     <form name="categoryForm" class="" role="form">
-      <!-- Text input-->
-      <div class="form-group">
-        <label class="control-label" for="category-name">Name</label>
-        <span id="category-name" name="categoryName" class="form-control" ng-bind="category.name"> </span>
-        <span class="text-info">This will autogenerate while you type Title</span>
-      </div>
+        <div class="col-sm-8">
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="control-label" for="category-name">Name</label>
+                <span id="category-name" name="categoryName" class="form-control" ng-bind="category.name"> </span>
+                <span class="text-info">This will autogenerate while you type Title</span>
+            </div>
 
-      <!-- Text input-->
-      <div class="form-group">
-        <label class="control-label" for="category-title">Title</label>
-        <input id="category-title" name="categoryTitle" type="text" placeholder="" class="form-control" required="" ng-model="category.title">
-        <span class="help-block" ng-if="categoryForm.categoryTitle.$invalid">should not be empty and should not contain special characters</span>
-      </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="control-label" for="category-title">Title</label>
+                <input id="category-title" name="categoryTitle" type="text" placeholder="" class="form-control" required="" ng-model="category.title">
+                <span class="help-block" ng-if="categoryForm.categoryTitle.$invalid">should not be empty and should not contain special characters</span>
+            </div>
 
-      <!-- Textarea -->
-      <div class="form-group">
-        <label class="control-label" for="category-description">Description</label>
-        <textarea class="form-control" id="category-description" name="categorydescription" ng-model="category.description"></textarea>
-      </div>
-
+            <!-- Textarea -->
+            <div class="form-group">
+                <label class="control-label" for="category-description">Description</label>
+                <textarea class="form-control" id="category-description" name="categorydescription" ng-model="category.description"></textarea>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <div class="thumbnail center-block full-width">
+                    <img id="category-thumbnail"
+                         ng-src="{{thumbnailUrl}}"
+                         onerror="this.style.display = 'none';"
+                         onload="this.style.display = 'block';">
+                </div>
+                <div class="text-center" ng-show="category.categoryId"><span>Recommended Dimensions: 900 X 400 (px)</span></div>
+                <div class="text-center" ng-show="!category.categoryId"><span>To Enable Thumbnail Upload, Save Your Category atleast once.</span></div>
+                <button ng-disabled="!category.categoryId" class="btn btn-primary center-block" ng-click="addThumbnail($event)">Upload Picture</button>
+            </div>
+        </div>
       <!-- Button (Double) -->
-      <div class="form-group">
+      <div class="form-group col-sm-12">
         <label class="control-label" for="category-save"></label>
         <div class="">
           <button id="category-save" name="categorySave" class="btn btn-primary" ng-click="save($event)" ng-hide="category.categoryId">Save</button>

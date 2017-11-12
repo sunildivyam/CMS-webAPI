@@ -37,7 +37,8 @@
 				getCategory: 'GetCategory',
 				addCategory: 'PostCategory',
 				updateCategory: 'PutCategory',
-				deleteCategory: 'DeleteCategory'
+				deleteCategory: 'DeleteCategory',
+				uploadCategoryThumbnail: 'PostCategoryThumbnail'
 			},
 			'quizs': {
 				base: 'quizs',
@@ -105,6 +106,22 @@
 			return appService.del([urls.categories.base, urls.categories.deleteCategory, id].join('/'), requestHeaders);
 		}
 
+		function uploadCategoryThumbnail(categoryId, thumbnailData) {
+			var requestHeaders = {
+				'Content-Type': undefined
+			};
+
+			var requestOptions = {
+				transformRequest: angular.identity
+			};
+
+			var fd = new FormData();
+			fd.append('file', thumbnailData);
+			return appService.post([urls.categories.base, urls.categories.uploadCategoryThumbnail, categoryId].join('/'),
+			fd,
+			requestHeaders,
+			requestOptions);
+		}
 
 		//Content
 		function getDraftedContents() {
@@ -223,6 +240,7 @@
 			addNewCategory: addNewCategory,
 			updateCategory: updateCategory,
 			deleteCategory: deleteCategory,
+			uploadCategoryThumbnail: uploadCategoryThumbnail,
 			getDraftedContents: getDraftedContents,
 			getPublishedContents: getPublishedContents,
 			getContentAuthoringHistory: getContentAuthoringHistory,

@@ -138,7 +138,9 @@ namespace CMS_webAPI.Controllers
                 return InternalServerError(ex);
             }
             
-            
+            // Rename QuizImage, if Quiz Name is changed than previous.
+            ImageHelper.RenameImageForContentType(originalQuiz.QuizId, originalQuiz.Name, "quiz");
+
             // Clears the API cache 
             ClearApiCache(true, originalQuiz.QuizId);
 

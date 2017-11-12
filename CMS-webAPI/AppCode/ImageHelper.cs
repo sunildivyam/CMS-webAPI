@@ -18,10 +18,12 @@ namespace CMS_webAPI.AppCode
         public static string PUBLISHED_ARTICLE_IMAGES_PATH = "~/publishedarticleimages/";
         public static string AUTHOR_ARTICLE_IMAGES_PATH = "~/articleimages/";
         public static string QUIZ_IMAGES_PATH = "~/quizimages/";
+        public static string CATEGORY_IMAGES_PATH = "~/categoryimages/";
 
         public static string PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH = "~/publishedarticleimages/default.jpg";
         public static string AUTHOR_ARTICLE_IMAGES_DEFAULT_FILEPATH = "~/articleimages/default.jpg";
-        public static string QUIZ_IMAGES_DEFAULT_FILEPATH = "~/quizimages/default.jpg";                
+        public static string QUIZ_IMAGES_DEFAULT_FILEPATH = "~/quizimages/default.jpg";
+        public static string CATEGORY_IMAGES_DEFAULT_FILEPATH = "~/categoryimages/default.jpg";
 
         public static int MAX_FILE_SIZE = 1024 * 512; //Size = 512 kb 
 
@@ -450,6 +452,8 @@ namespace CMS_webAPI.AppCode
                     return isDefaultImageFolder == false ? AUTHOR_ARTICLE_IMAGES_PATH : AUTHOR_ARTICLE_IMAGES_DEFAULT_FILEPATH;
                 case "content":   // Content (Article)
                     return isDefaultImageFolder == false ? PUBLISHED_ARTICLE_IMAGES_PATH : PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH;
+                case "category":   // CATEGORY
+                    return isDefaultImageFolder == false ? CATEGORY_IMAGES_PATH : CATEGORY_IMAGES_DEFAULT_FILEPATH;
             }
             return isDefaultImageFolder == false ? PUBLISHED_ARTICLE_IMAGES_PATH : PUBLISHED_ARTICLE_IMAGES_DEFAULT_FILEPATH;
         } 
@@ -592,7 +596,7 @@ namespace CMS_webAPI.AppCode
                 {
                     foreach (string file in foundFiles)
                     {
-                        File.Delete(foundFiles[0]);
+                        File.Delete(file);
                     }
                 }
 
@@ -607,6 +611,41 @@ namespace CMS_webAPI.AppCode
             }
 
             return response;
+        }
+
+        public static bool RenameImageForContentType(int id, string name, string contentType)
+        {
+            string fileName;
+            string extensionName = "";
+            string fileNameSearch;
+            string fullImageFilePath;
+           
+            // create Full target imageFile Path using id, name and contentType
+            fileNameSearch = id + "-*.*";           
+            fileName =  id + "-" + name;
+           
+            fullImageFilePath = Path.Combine(HttpContext.Current.Server.MapPath(GetImageFolderPath(contentType)),fileName);            
+            
+            try
+            {
+                // Rename Image File if already Exists for this ContentType. This ensures, there is only one Image exist for Content/Quiz/Category.
+                string[] foundFiles = Directory.GetFiles(HttpContext.Current.Server.MapPath(GetImageFolderPath(contentType)), fileNameSearch);
+                if (foundFiles != null && foundFiles.Length > 0)
+                {
+                    string oldFilePath = foundFiles[0];
+                    extensionName = Path.GetExtension(oldFilePath);
+                    fullImageFilePath = fullImageFilePath + extensionName;
+                    if (fullImageFilePath != oldFilePath)
+                    {
+                        File.Move(oldFilePath, fullImageFilePath);
+                    }                    
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

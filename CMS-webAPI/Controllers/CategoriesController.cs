@@ -125,6 +125,10 @@ namespace CMS_webAPI.Controllers
                 }
             }
 
+            // Rename CategoryImage, if Category Name is changed than previous.
+            ImageHelper.RenameImageForContentType(category.CategoryId, category.Name, "category");
+            
+            ApiCache.RemoveAll();
             // return StatusCode(HttpStatusCode.NoContent);
             return Ok(category);
         }
@@ -148,8 +152,28 @@ namespace CMS_webAPI.Controllers
                 return InternalServerError(ex); 
             }
 
+            // Rename CategoryImage, if Category Name is changed than previous.
+            ImageHelper.RenameImageForContentType(category.CategoryId, category.Name, "category");
+
+            ApiCache.RemoveAll();
             return Ok(category);
         }
+
+        // POST: 
+        [Authorize(Roles = "Administrators")]
+        public async Task<HttpResponseMessage> PostCategoryThumbnail(int param1)
+        {
+            var categoryId = param1;
+            Category category = await db.Categories.FindAsync(categoryId);
+
+            if (category == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Category not Found: " + categoryId);
+            }
+
+            return ImageHelper.UploadImageRequestToDisk(Request, categoryId, category.Name, "category");
+        }
+
 
         // DELETE: api/Categories/5
         [Authorize(Roles = "Administrators")]

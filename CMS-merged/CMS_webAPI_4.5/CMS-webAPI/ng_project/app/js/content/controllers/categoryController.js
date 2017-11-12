@@ -124,6 +124,22 @@
 			$state.go('.', {id: ''}, {reload: true});
 		};
 
+		$scope.thumbnailUpload = function(event, resourceData, completeCallback) {
+            if (resourceData && $scope.currentCategory.categoryId > 0) {
+                contentService.uploadCategoryThumbnail($scope.currentCategory.categoryId, resourceData).then(function() {
+                    if (typeof completeCallback === 'function') {
+                        completeCallback(true);
+                    }
+                }, function(rejection) {
+                    if (typeof completeCallback === 'function') {
+                        completeCallback(false, rejection && rejection.data && rejection.data.Message);
+                    }
+                });
+            } else {
+                completeCallback(false, 'Image data or Category Id Missing.');
+            }
+        };
+
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams/*, fromState , fromParams*/) {
 			pageMetaTagsService.setPageMetaInfo(toState.title, 'Create and Update categories', 'add category,update category,article category');
 			if (toState && toState.name && toParams && toParams.id) {

@@ -90,5 +90,16 @@ namespace CMS_webAPI.Controllers
             // Gets the QUIZ image or the DEFAULT Quiz Image
             return ImageHelper.GetImageResponseFromDisk(Request, id, name, "quiz");  // ContentType could be "quiz", "question", "content", or "authorcontent"
         }
+
+        // For Published Article Image
+        // Route: api/images/articleimage/5/installing-angular-js
+        public HttpResponseMessage GetCategoryImage(int param1, string param2)
+        {
+            int id = param1;
+            string name = param2;
+
+            // Gets the Category image or the DEFAULT Image
+            return ImageHelper.GetImageResponseFromDisk(Request, id, name, "category");  // ContentType could be "quiz", "question", "content", or "authorcontent", or "category"
+        }
     }
 }

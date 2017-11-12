@@ -29,13 +29,17 @@
 		}
 	}
 
-	.content-form, .content-preview, .content-list, .pub-content-list, .pubcontent-view, .quiz-form, .quiz-list, .pub-quiz-list {
+	.content-form, .content-preview, .content-list, .pub-content-list, .pubcontent-view, .quiz-form, .quiz-list, .pub-quiz-list, .category-form {
 		.thumbnail {
 			padding: 0px;
 			//background-image: @grid-thumbnail-image;
 			width: 100px;
 			height: 100px;
 			overflow: hidden;
+
+			&.full-width {
+				width: 100%;
+			}
 
 			img {
 				max-width: 100%;

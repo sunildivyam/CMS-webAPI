@@ -23,6 +23,7 @@
 		var JSON_DATA_BASE_URL = appConfig.appUrls.JSON_DATA_BASE_URL;
 		var ARTICLE_IMAGES_URL = appConfig.appUrls.ARTICLE_IMAGES_URL;
 		var QUIZ_IMAGES_URL = appConfig.appUrls.QUIZ_IMAGES_URL;
+		var CATEGORY_IMAGES_URL = appConfig.appUrls.CATEGORY_IMAGES_URL;
 		var AUTHOR_ARTICLE_IMAGES_URL = appConfig.appUrls.AUTHOR_ARTICLE_IMAGES_URL;
 		var USER_IMAGES_URL = appConfig.appUrls.USER_IMAGES_URL;
 		var baseApiUrl = appConfig.appUrls.baseApiUrl;
@@ -200,6 +201,10 @@
 			return USER_IMAGES_URL;
 		}
 
+		function getCategoryImagesUrl() {
+			return CATEGORY_IMAGES_URL;
+		}
+
 		return {
 			get: get,
 			post: post,
@@ -211,7 +216,8 @@
 			getArticleImagesUrl: getArticleImagesUrl,
 			getQuizImagesUrl: getQuizImagesUrl,
 			getAuthorArticleImagesUrl: getAuthorArticleImagesUrl,
-			getUserImagesUrl: getUserImagesUrl
+			getUserImagesUrl: getUserImagesUrl,
+			getCategoryImagesUrl: getCategoryImagesUrl
 		};
 	};
 

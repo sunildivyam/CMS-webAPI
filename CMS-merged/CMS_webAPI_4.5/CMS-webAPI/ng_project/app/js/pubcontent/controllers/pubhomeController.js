@@ -6,7 +6,7 @@
 */
 
 (function() {
-    var pubhomeController = function($rootScope, $scope, $state, $timeout, $q, pubcontentService, EntityMapper, Category, Tag, Content, Utils, searchService, Quiz, pageMetaTagsService) {
+    var pubhomeController = function($rootScope, $scope, $state, $timeout, $q, pubcontentService, EntityMapper, Category, Tag, Content, Utils, searchService, Quiz, pageMetaTagsService, appService) {
         $scope.globalSearch = {
             searchString: '',
             category: searchService.getDefaultCategory()
@@ -19,7 +19,8 @@
                 slides: categories || [],
                 options:  opts || {},
                 name: 'mainCarousel',
-                readMoreUrl: '/articles'
+                readMoreUrl: '/articles',
+                imagesUrl: appService.getCategoryImagesUrl()
             };
         }
 
@@ -243,6 +244,6 @@
         });
     };
 
-    pubhomeController.$inject = ['$rootScope', '$scope', '$state', '$timeout', '$q', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils', 'searchService', 'Quiz','pageMetaTagsService'];
+    pubhomeController.$inject = ['$rootScope', '$scope', '$state', '$timeout', '$q', 'pubcontentService', 'EntityMapper', 'Category', 'Tag', 'Content', 'Utils', 'searchService', 'Quiz','pageMetaTagsService', 'appService'];
     module.exports = pubhomeController;
 })();

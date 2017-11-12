@@ -12,7 +12,7 @@
 */
 
 (function() {
-	var categoryForm = function(modalService, Utils) {
+	var categoryForm = function(modalService, Utils, appService) {
 		return {
 			restrict: 'EAC',
 			scope: {
@@ -23,13 +23,31 @@
 				onCancel: '=',
 				onAddnew: '=',
 				isLoading: '=',
-				loaderMsg: '='
+				loaderMsg: '=',
+			    onThumbnailUpload: '='
 			},
 			templateUrl: 'content/category-form.html',
-			link: function($scope) {
+			link: function ($scope) {
+			    function setThumbnailUrl(url) {
+			        if (url === false) {
+			            $scope.thumbnailUrl = '';
+			        } else {
+			            $scope.thumbnailUrl = [appService.getCategoryImagesUrl(), $scope.category.categoryId, $scope.category.name + '?cb=' + (new Date()).getTime()].join('/');
+			        }
+			    }
+
 				$scope.$watch('category.title', function(newValue) {
 					if (newValue) $scope.category.name = Utils.parseStringExt(newValue, '-');
 				});
+
+				$scope.$watch('category', function(newValue) {
+					if (newValue && newValue.categoryId) {
+						setThumbnailUrl();
+					} else {
+						setThumbnailUrl(false);
+					}				
+				});
+
 
 				$scope.save = function(event) {
 					if ($scope.categoryForm.$valid === true) {
@@ -96,10 +114,19 @@
 						//
 					});
 				};
+
+				$scope.addThumbnail = function () {
+				    setThumbnailUrl(false);
+				    modalService.showUploadResourceModal($scope.onThumbnailUpload, 'md').result.then(function () {
+				        setThumbnailUrl();
+				    }, function () {
+				        setThumbnailUrl();
+				    });
+				};
 			}
 		};
 	};
 
-	categoryForm.$inject = ['modalService', 'Utils'];
+	categoryForm.$inject = ['modalService', 'Utils', 'appService'];
 	module.exports = categoryForm;
 })();
