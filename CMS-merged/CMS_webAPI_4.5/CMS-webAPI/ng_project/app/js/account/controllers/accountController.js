@@ -226,7 +226,7 @@
 
                 if (toState.name === 'resetpassword') {
                     $scope.resetPasswordModel.userId = userName;
-                    $scope.resetPasswordModel.resetPasswordToken = code;
+                    $scope.resetPasswordModel.passwordResetToken = code;
                 }
             }
 
