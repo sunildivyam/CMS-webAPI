@@ -222,7 +222,6 @@
     <Content Include=".eslintrc.json" />
     <Content Include="appsettings.Development.json" />
     <Content Include="appsettings.json" />
-    <Content Include="npm-shrinkwrap.json" />
     <Content Include="package.json" />
     <Content Include="wwwroot\ckeditor\adapters\jquery.js" />
     <Content Include="wwwroot\ckeditor\ckeditor.js" />
