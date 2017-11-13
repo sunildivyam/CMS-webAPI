@@ -25,7 +25,7 @@ namespace CMS_webAPI.AppCode
                 metaInfo.Tags = new string[] { category.Title, "articles", "Learn Wise Way"};
                 metaInfo.Type = "Article";
                 metaInfo.CanonicalUrl = ViewData["baseWebUrl"] + "/" + canonicalEndPointUrl;
-                metaInfo.PageImage = ViewData["baseWebUrl"] + "/images/slideimages/" + category.Name + ".jpg";
+                metaInfo.PageImage = ViewData["baseApiUrl"] + "/" + ViewData["categoryImageApiUrl"] + "/" + category.CategoryId + "/" + category.Name;
                 metaInfo.PageImageAlt = category.Title;
                 metaInfo.TwitterAuthorHandle = (string)ViewData["twitterSiteHandle"];
 

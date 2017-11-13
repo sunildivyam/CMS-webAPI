@@ -37,6 +37,7 @@ namespace CMS_webAPI
             ViewData["baseWebUrl"] = configJsonObj.application.url;
             ViewData["baseTitle"] = configJsonObj.application.shortTitle;
             ViewData["articleImageApiUrl"] = "api" + configJsonObj.application.articleImages;
+            ViewData["categoryImageApiUrl"] = "api" + configJsonObj.application.categoryImages;
             ViewData["quizImageApiUrl"] = "api" + configJsonObj.application.quizImages;
             ViewData["twitterSiteHandle"] = configJsonObj.application.twitterSiteHandle;
 
