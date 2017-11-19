@@ -13,11 +13,11 @@ namespace CMS_webAPI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "Cfg",
-                url: "api/cfg",
-                defaults: new { controller = "Cfg", action = "Post" }
-            );
+            //routes.MapRoute(
+            //    name: "Cfg",
+            //    url: "api/cfg",
+            //    defaults: new { controller = "Cfg", action = "index" }
+            //);
 
             routes.MapRoute(
                 name: "Default",

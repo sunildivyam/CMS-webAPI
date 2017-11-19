@@ -17,7 +17,7 @@ namespace CMS_webAPI.Controllers
     public class CfgController : Controller
     { 
         // POST: api/Cfg           
-        public ActionResult Post([FromBody] AppConfigModel appConfig)
+        public ActionResult Index([FromBody] AppConfigModel appConfig)
         {
             String AuthorizationHeader = Request.Headers["Authorization"].ToString();
             if (AuthorizationHeader != null)
@@ -27,8 +27,8 @@ namespace CMS_webAPI.Controllers
                 String AuthorizationHeaderParameter = AuthorizationHeader.Substring(AuthorizationHeaderScheme.Length + 1);
 
                 // Get Authorization
-                try { 
-                    string configJsonStr = System.IO.File.ReadAllText(Path.GetFullPath("wwwroot/data/list-config.json"));
+                try {
+                    string configJsonStr = System.IO.File.ReadAllText(Server.MapPath("wwwroot/data/list-config.json"));
                     dynamic configJsonObj = new ExpandoObject();
                     configJsonObj = JsonConvert.DeserializeObject(configJsonStr);
 
@@ -70,7 +70,7 @@ namespace CMS_webAPI.Controllers
                         return null;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     Response.StatusCode = 501;                    
                     return null;
@@ -84,7 +84,7 @@ namespace CMS_webAPI.Controllers
         {
             try
             {
-                string sourceFileFullPath = Path.GetFullPath("wwwroot/data/list-config.json");
+                string sourceFileFullPath = Server.MapPath("wwwroot/data/list-config.json");
                 string backupFileFullPath = Path.Combine(
                     Path.GetDirectoryName(sourceFileFullPath),
                     Path.GetFileNameWithoutExtension(sourceFileFullPath) + "-" + DateTime.Now.Ticks + ".json");

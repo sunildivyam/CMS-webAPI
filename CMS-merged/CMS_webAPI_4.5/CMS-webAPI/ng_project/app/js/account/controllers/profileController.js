@@ -310,7 +310,7 @@
         		accountService.saveApplicationConfig(appConfigFormatted).then(function(response) {
         			$scope.isAppConfigSaving = false;
         			
-        			if (response && response.data && response.data.appConfigJsonString) {	        			
+        			if (response && response.data && response.data.AppConfigJsonString) {	        			
 	        			modalService.alert('md',
 						'Saved Successfully',
 						'Application Configuration JSON has been saved successfully. You need to Reload the Page to Take new Configs in Effect.',

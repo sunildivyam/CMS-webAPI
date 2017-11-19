@@ -729,6 +729,7 @@
         },
         "bodyImageUrl": "../images/theme-default/body-background-digital-patch.jpg",
         "bodyImageSize":  "cover",
-        "twitterSiteHandle": "@learnwiseway"
+        "twitterSiteHandle": "@learnwiseway",
+        "facebookAppId": "1467461116707020"
     }
 }
