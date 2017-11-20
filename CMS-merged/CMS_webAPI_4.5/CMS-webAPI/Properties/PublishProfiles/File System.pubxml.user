@@ -61,7 +61,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2017 14:51:25</publishTime>
     </File>
     <File Include="bin/CMS_webAPI.dll">
-      <publishTime>11/12/2017 18:44:09</publishTime>
+      <publishTime>11/20/2017 21:44:10</publishTime>
     </File>
     <File Include="bin/de/Microsoft.Data.Edm.resources.dll">
       <publishTime>11/12/2017 14:50:57</publishTime>
@@ -235,7 +235,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2017 18:07:50</publishTime>
     </File>
     <File Include="ng_project/app/js/account/controllers/profileController.js">
-      <publishTime>11/12/2017 14:29:42</publishTime>
+      <publishTime>11/20/2017 12:31:23</publishTime>
     </File>
     <File Include="ng_project/app/js/account/directives/loginStatusBar.js">
       <publishTime>11/12/2017 14:29:42</publishTime>
@@ -244,7 +244,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2017 14:29:42</publishTime>
     </File>
     <File Include="ng_project/app/js/account/services/accountService.js">
-      <publishTime>11/12/2017 14:29:42</publishTime>
+      <publishTime>11/20/2017 21:43:15</publishTime>
     </File>
     <File Include="ng_project/app/js/content/content.js">
       <publishTime>11/12/2017 14:29:42</publishTime>
@@ -364,7 +364,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2017 14:29:42</publishTime>
     </File>
     <File Include="ng_project/app/js/core/domain/MetaInfo.js">
-      <publishTime>11/12/2017 14:29:42</publishTime>
+      <publishTime>11/20/2017 12:31:23</publishTime>
     </File>
     <File Include="ng_project/app/js/core/domain/Question.js">
       <publishTime>11/12/2017 14:29:42</publishTime>
@@ -403,7 +403,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2017 14:29:42</publishTime>
     </File>
     <File Include="ng_project/app/js/core/services/pageMetaTagsService.js">
-      <publishTime>11/12/2017 14:29:42</publishTime>
+      <publishTime>11/20/2017 12:31:23</publishTime>
     </File>
     <File Include="ng_project/app/js/core/services/pageTitleService.js">
       <publishTime>11/12/2017 14:29:42</publishTime>
@@ -733,7 +733,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2017 14:29:42</publishTime>
     </File>
     <File Include="ng_project/data/list-config.json">
-      <publishTime>11/12/2017 14:29:42</publishTime>
+      <publishTime>11/20/2017 12:31:23</publishTime>
     </File>
     <File Include="ng_project/data/quizzes.json">
       <publishTime>11/12/2017 14:29:42</publishTime>
@@ -1042,7 +1042,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2017 14:29:42</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/12/2017 14:29:42</publishTime>
+      <publishTime>11/20/2017 12:31:23</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>11/12/2017 14:29:42</publishTime>
@@ -1051,7 +1051,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2017 14:29:42</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/12/2017 15:07:24</publishTime>
+      <publishTime>11/20/2017 21:44:16</publishTime>
     </File>
     <File Include="wwwroot/ckeditor/adapters/jquery.js">
       <publishTime>11/12/2017 15:24:11</publishTime>
@@ -18736,304 +18736,304 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2017 15:24:11</publishTime>
     </File>
     <File Include="wwwroot/data/list-config.json">
-      <publishTime>11/12/2017 18:08:34</publishTime>
+      <publishTime>11/20/2017 21:43:37</publishTime>
     </File>
     <File Include="wwwroot/data/quizzes.json">
-      <publishTime>11/12/2017 18:08:35</publishTime>
+      <publishTime>11/20/2017 21:43:38</publishTime>
     </File>
     <File Include="wwwroot/docs/css/animations.css">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/css/bootstrap.min.css">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/css/docs.css">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/css/doc_widgets.css">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/css/font-awesome.css">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/css/prettify.css">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/font/fontawesome-webfont.eot">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/font/fontawesome-webfont.svg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/font/fontawesome-webfont.ttf">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/font/fontawesome-webfont.woff">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/font/FontAwesome.otf">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/index.html">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/js/angular-animate.min.js">
-      <publishTime>11/12/2017 18:08:37</publishTime>
+      <publishTime>11/20/2017 21:43:40</publishTime>
     </File>
     <File Include="wwwroot/docs/js/angular-animate.min.js.map">
-      <publishTime>11/12/2017 18:08:37</publishTime>
+      <publishTime>11/20/2017 21:43:40</publishTime>
     </File>
     <File Include="wwwroot/docs/js/angular-bootstrap-prettify.js">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/js/angular-bootstrap.js">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/js/angular.min.js">
-      <publishTime>11/12/2017 18:08:37</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/js/angular.min.js.map">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/js/docs-setup.js">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/js/docs.js">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/js/prettify.js">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/partials/api/raiweb.content.directive.categoryForm.html">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/partials/api/raiweb.core.directive.btnToolbar.html">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/partials/api/raiweb.core.directive.dynamicForm.html">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/partials/api/raiweb.core.directive.loader.html">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/partials/api/raiweb.core.directive.tinyScrollbar.html">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/partials/api/raiweb.core.service.appService.html">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/partials/api/raiweb.core.service.CkEditorService.html">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/docs/partials/api/raiweb.core.service.Utils.html">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/favicon.ico">
-      <publishTime>11/12/2017 18:08:34</publishTime>
+      <publishTime>11/20/2017 21:43:37</publishTime>
     </File>
     <File Include="wwwroot/fonts/BlackOpsOne-Regular.ttf">
-      <publishTime>11/12/2017 18:08:34</publishTime>
+      <publishTime>11/20/2017 21:43:37</publishTime>
     </File>
     <File Include="wwwroot/fonts/CinzelDecorative-Black.ttf">
-      <publishTime>11/12/2017 18:08:35</publishTime>
+      <publishTime>11/20/2017 21:43:38</publishTime>
     </File>
     <File Include="wwwroot/fonts/CinzelDecorative-Bold.ttf">
-      <publishTime>11/12/2017 18:08:35</publishTime>
+      <publishTime>11/20/2017 21:43:40</publishTime>
     </File>
     <File Include="wwwroot/fonts/CinzelDecorative-Regular.ttf">
-      <publishTime>11/12/2017 18:08:37</publishTime>
+      <publishTime>11/20/2017 21:43:40</publishTime>
     </File>
     <File Include="wwwroot/fonts/fontawesome-webfont.eot">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/fontawesome-webfont.svg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/fontawesome-webfont.ttf">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/fontawesome-webfont.woff">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/fontawesome-webfont.woff2">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/FontAwesome.otf">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.eot">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.svg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.woff">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/glyphicons-halflings-regular.woff2">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/Roboto-Regular.eot">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/Roboto-Regular.svg">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/Roboto-Regular.ttf">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/Roboto-Regular.woff">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/fonts/Roboto-Regular.woff2">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/angularjs.jpg">
-      <publishTime>11/12/2017 18:08:34</publishTime>
+      <publishTime>11/20/2017 21:43:37</publishTime>
     </File>
     <File Include="wwwroot/images/banner1.svg">
-      <publishTime>11/12/2017 18:08:35</publishTime>
+      <publishTime>11/20/2017 21:43:38</publishTime>
     </File>
     <File Include="wwwroot/images/banner2.svg">
-      <publishTime>11/12/2017 18:08:35</publishTime>
+      <publishTime>11/20/2017 21:43:40</publishTime>
     </File>
     <File Include="wwwroot/images/banner3.svg">
-      <publishTime>11/12/2017 18:08:37</publishTime>
+      <publishTime>11/20/2017 21:43:40</publishTime>
     </File>
     <File Include="wwwroot/images/banner4.svg">
-      <publishTime>11/12/2017 18:08:37</publishTime>
+      <publishTime>11/20/2017 21:43:41</publishTime>
     </File>
     <File Include="wwwroot/images/chemistry-test.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/header-float.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/service/services/related-services-bg.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/site-bg.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/site-bg.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/site-sprite.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/angular-js.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/angularjs.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/biology.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/chemistry.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/javascript-oop.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/mathematics.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/node-js.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/physics.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/pngs/angularjs.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/pngs/biology.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/pngs/chemistry.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/pngs/javascript.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/pngs/mathematics.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/pngs/physics.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/pngs/react-js.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/slideimages/react-js.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/article-thumb.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-apple.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-balls.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-bubbles.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-burnt.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-clouds.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-darkred.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-green.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-patch.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-photo.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-redwaves.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-stripgreen.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-tinted.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/body-background-digital-tyres.jpg">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/thumbnail.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/images/theme-default/user-thumbnail.png">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/index.js">
-      <publishTime>11/12/2017 18:08:33</publishTime>
+      <publishTime>11/20/2017 21:43:37</publishTime>
     </File>
     <File Include="wwwroot/index.min.js">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/index.min.js.map">
-      <publishTime>11/12/2017 18:08:54</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
     <File Include="wwwroot/styles/main.css">
-      <publishTime>11/12/2017 18:08:37</publishTime>
+      <publishTime>11/20/2017 21:43:40</publishTime>
     </File>
     <File Include="wwwroot/styles/main.min.css">
-      <publishTime>11/12/2017 18:08:38</publishTime>
+      <publishTime>11/20/2017 21:43:56</publishTime>
     </File>
   </ItemGroup>
 </Project>

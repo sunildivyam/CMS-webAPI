@@ -1,25 +1,29 @@
+using CMS_webAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
-using CMS_webAPI.Models;
-using Newtonsoft.Json;
-using System.Dynamic;
-using System.IO;
+using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web.Mvc;
 using System.Web.Http;
+using System.Web.Hosting;
+using System.Dynamic;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Web.Http.Description;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Threading.Tasks;
+using CMS_webAPI.AppCode;
+using System.IO;
 
 namespace CMS_webAPI.Controllers
-{    
-    public class CfgController : Controller
-    { 
-        // POST: api/Cfg           
-        public ActionResult Index([FromBody] AppConfigModel appConfig)
+{
+    public class CfgController : ApiController
+    {
+        public AppConfigModel Post([FromBody]AppConfigModel appConfig)
         {
-            String AuthorizationHeader = Request.Headers["Authorization"].ToString();
+            String AuthorizationHeader = this.Request.Headers.Authorization.ToString();
             if (AuthorizationHeader != null)
             {
                 String AuthorizationHeaderScheme = "Bearer";
@@ -27,8 +31,10 @@ namespace CMS_webAPI.Controllers
                 String AuthorizationHeaderParameter = AuthorizationHeader.Substring(AuthorizationHeaderScheme.Length + 1);
 
                 // Get Authorization
-                try {
-                    string configJsonStr = System.IO.File.ReadAllText(Server.MapPath("wwwroot/data/list-config.json"));
+                try
+                {
+
+                    string configJsonStr = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/wwwroot/data/list-config.json"));
                     dynamic configJsonObj = new ExpandoObject();
                     configJsonObj = JsonConvert.DeserializeObject(configJsonStr);
 
@@ -50,67 +56,69 @@ namespace CMS_webAPI.Controllers
                         if (IsUserAdministrator(configJsonObj.userInfo.Roles, ValidRole) == true)
                         {
                             if (SaveConfigJSON(appConfig) == true)
-                            {
-                                return Json(appConfig);
+                            {                                
+                                //return Json(appConfig);
+                                //return Newtonsoft.Json.JsonConvert.SerializeObject(appConfig);
+                                return appConfig;
                             }
                             else
                             {
-                                Response.StatusCode = 501;
                                 return null;
                             }
                         }
                         else
                         {
-                            Response.StatusCode = 403;
                             return null;
                         }
-                    } else
+                    }
+                    else
                     {
-                        Response.StatusCode = 401;
                         return null;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Response.StatusCode = 501;                    
                     return null;
                 }
             }
 
             return null;
         }
-        
+
         private Boolean SaveConfigJSON(AppConfigModel appConfig)
         {
             try
             {
-                string sourceFileFullPath = Server.MapPath("wwwroot/data/list-config.json");
+                string sourceFileFullPath = HostingEnvironment.MapPath("~/wwwroot/data/list-config.json");
                 string backupFileFullPath = Path.Combine(
-                    Path.GetDirectoryName(sourceFileFullPath),
+                    HostingEnvironment.MapPath("~/wwwroot/data/"),
                     Path.GetFileNameWithoutExtension(sourceFileFullPath) + "-" + DateTime.Now.Ticks + ".json");
 
                 System.IO.File.Copy(sourceFileFullPath, backupFileFullPath);
                 System.IO.File.WriteAllText(sourceFileFullPath, appConfig.AppConfigJsonString);
                 return true;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return false;
             }
         }
 
-        private Boolean IsUserAdministrator(dynamic CurrentUserRoles, string AdminUserRole) {
+        private Boolean IsUserAdministrator(dynamic CurrentUserRoles, string AdminUserRole)
+        {
             if (CurrentUserRoles.Count > 0)
             {
-                foreach(string role in CurrentUserRoles)
+                foreach (string role in CurrentUserRoles)
                 {
                     if (role == AdminUserRole)
-                    {                        
+                    {
                         return true;
-                    }                    
+                    }
                 }
                 return false;
 
-            } else
+            }
+            else
             {
                 return false;
             }

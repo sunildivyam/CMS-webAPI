@@ -31,7 +31,7 @@
 			checkUserAvailabilty: baseApiUrl + '/CheckUserAvailabilty',
 			getUsersByDate: baseApiUrl + '/GetUsersByDate',
 			uploadUserThumbnail: baseApiUrl + '/UploadUserThumbnail',
-			saveApplicationConfig: '/cfg'		// ApI call of UI Web Interface itself.
+			saveApplicationConfig: '/api/cfg'		// ApI call of UI Web Interface itself.
 		};
 
 		var _returnState, _returnStateData;
