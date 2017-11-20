@@ -40,6 +40,7 @@ namespace CMS_webAPI
             ViewData["categoryImageApiUrl"] = "api" + configJsonObj.application.categoryImages;
             ViewData["quizImageApiUrl"] = "api" + configJsonObj.application.quizImages;
             ViewData["twitterSiteHandle"] = configJsonObj.application.twitterSiteHandle;
+            ViewData["facebookAppId"] = configJsonObj.application.facebookAppId; 
 
             MetaInfoModel metaInfo = new MetaInfoModel();
 

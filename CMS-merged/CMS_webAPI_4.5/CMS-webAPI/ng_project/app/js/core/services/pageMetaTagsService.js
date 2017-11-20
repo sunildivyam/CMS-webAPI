@@ -65,7 +65,7 @@
 			addUpdateOrRemoveMetaTag('meta', metaInfo.description, 'name', 'twitter:description');
 			addUpdateOrRemoveMetaTag('meta', metaInfo.twitterAuthorHandle, 'name', 'twitter:creater');
 			addUpdateOrRemoveMetaTag('meta', metaInfo.image, 'name', 'twitter:image');
-			
+			addUpdateOrRemoveMetaTag('meta', metaInfo.facebookAppId, 'property', 'fb:app_id');
 			//og:tags (Tag Array)
 			var $ogArticleTagElements = $('head meta[property="og:article:tag"]');
 			if ($ogArticleTagElements && $ogArticleTagElements.length) {
@@ -118,11 +118,12 @@
 			var metaInfo = new MetaInfo();
 			var app = $rootScope.application;
 
+			setSocialMediaIds(metaInfo, app);
 			metaInfo.title = pageTitleService.setPageTitle(category.title);
 			metaInfo.description = removeHtmlTagsFromString(category.description);
 			metaInfo.keywords = stringifyTags(allTags, true);
 			metaInfo.tags = stringifyTags(allTags);
-			metaInfo.image = app.url + '/images/slideimages/' + category.Name + '.jpg'; 
+			metaInfo.image = [appService.getCategoryImagesUrl(), category.categoryId, category.name].join('/'); 
 			metaInfo.imageAlt = category.title;
 			metaInfo.twitterSiteHandle = app.twitterSiteHandle;
 			metaInfo.type = 'article';
@@ -135,6 +136,7 @@
 			var metaInfo = new MetaInfo();
 			var app = $rootScope.application;
 
+			setSocialMediaIds(metaInfo, app);
 			metaInfo.title = pageTitleService.setPageTitle(content.title + ' | ' + content.category.title);
 			metaInfo.description = removeHtmlTagsFromString(content.shortDescription);
 			metaInfo.keywords = stringifyTags(content.tags, true);
@@ -157,6 +159,7 @@
 			var metaInfo = new MetaInfo();
 			var app = $rootScope.application;
 
+			setSocialMediaIds(metaInfo, app);
 			metaInfo.title = pageTitleService.setPageTitle(quiz.title + ' | Quizzes');
 			metaInfo.description = removeHtmlTagsFromString(quiz.description);
 			metaInfo.keywords = stringifyTags(quiz.tags, true);
@@ -180,6 +183,7 @@
 			var metaInfo = new MetaInfo();
 			var app = $rootScope.application;
 
+			setSocialMediaIds(metaInfo, app);
 			metaInfo.title = pageTitleService.setPageTitle(title);
 			if (description) {
 				metaInfo.description = removeHtmlTagsFromString(description);
@@ -205,6 +209,10 @@
 			refreshPageMetaInfo(metaInfo);
 		}
 
+		function setSocialMediaIds(metaInfo, application) {
+			metaInfo.facebookAppId = application.facebookAppId;
+			return metaInfo;
+		}
 
 		return {
 			setPubCategoryPageMetaInfo: setPubCategoryPageMetaInfo,
